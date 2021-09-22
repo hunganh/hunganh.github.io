@@ -3,12 +3,13 @@
 
 <head>
     <title>Thống Kê Khối Ngoại - Tự Doanh Mua Bán Ròng</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         th,
         td,
         p,
         h3 {
-            font: 13px 'Segoe UI';
+            font: small 'Segoe UI';
         }
 
         table,
@@ -102,7 +103,7 @@
         <input type="radio" id="netSell" name="net" value="netSell" onclick='changeAction(this.value)'><label for="netSell">Bán Ròng</label>
     </fieldset>
     <fieldset class="step3">
-        <legend>Bước 3: Chọn files (.json) </legend>
+        <legend>Bước 3: Chọn files (.json) - Xem Offline </legend>
         <input type="file" id="fileInput" multiple accept=".json">
     </fieldset>
     <fieldset class="step4">
@@ -127,20 +128,42 @@
     var actionDefault = "netBuy";
     var currentPeriod = "yearToDate";
     var dataJson = null;
-    var col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
-    var headTitle = ["Xếp hạng", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng Khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
-    var subHeadTitle = ["Khối lượng", "Giá trị"];
-    var locale = 'en-GB';
-    var FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
-    var FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
-    var TOTAL_NET_BUY_TRADE_VALUE = "totalNetBuyTradeValue";
-    var TOTAL_NET_SELL_TRADE_VALUE = "totalNetSellTradeValue";
-    var MATCH_PRICE = "matchPrice";
-    var REFERENCE_PRICE = "referencePrice";
-    var TOTAL_NET_BUY_TRADE_VOLUME= "totalNetBuyTradeVolume";
-    var TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
+    const col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
+    const headTitle = ["Xếp hạng", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng Khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+    const subHeadTitle = ["Khối lượng", "Giá trị"];
+    const locale = 'en-GB';
+    const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
+    const FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
+    const TOTAL_NET_BUY_TRADE_VALUE = "totalNetBuyTradeValue";
+    const TOTAL_NET_SELL_TRADE_VALUE = "totalNetSellTradeValue";
+    const MATCH_PRICE = "matchPrice";
+    const REFERENCE_PRICE = "referencePrice";
+    const TOTAL_NET_BUY_TRADE_VOLUME= "totalNetBuyTradeVolume";
+    const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
+    const DATA_URL = "https://hunganh.github.io/";
     var divShowData = document.getElementById('showData');
     var divTitle = document.getElementById('showTitle');
+
+    $(document).ready(function(){
+        var dateInput = getDateInput();
+        var todayStr = dateInput.today;
+        var yesterdayStr = dateInput.yesterday;
+        var hasExisTodayUrl = checkUrlExists(todayStr);
+        var hasExisYesterdayUrl = checkUrlExists(yesterdayStr);
+        Promise.all(hasExisTodayUrl && hasExisYesterdayUrl ? [
+            fetchContent(todayStr),
+            fetchContent(yesterdayStr)
+        ] : !hasExisTodayUrl ? [fetchContent(yesterdayStr)] : [fetchContent(todayStr)]).then((values) => {
+            if (values && values.length > 0) { 
+                processDataInput(values);
+            }
+        }).then(() => {
+            console.log('Done fetching content via JavaScript');
+        }).catch((err) => {
+            console.error(err);
+        });
+    });
+
     window.addEventListener('load', function () {
         var upload = document.getElementById('fileInput');
         // Make sure the DOM element exists
@@ -154,32 +177,36 @@
                     }
                     // Trigger Promises
                     Promise.all(readers).then((values) => {
-                        if (values && values.length > 0) {
-                            for (let i = 0; i <= values.length - 1; i++) {
-                                var jsonObject = JSON.parse(values[i]);
-                                if (!dataJson) {
-                                    dataJson = jsonObject;
-                                    dataJson.totalCount = values.length;
-                                } else {
-                                    dataJson.items.push(jsonObject.items[0]);
-                                }
-                            }
-                            // Sort data
-                            dataJson.items.sort(function(a, b) {
-                                var c = new Date(a.today.toDate);
-                                var d = new Date(b.today.toDate);
-                                return c-d;
-                            });
-                            divShowData.innerHTML = "";
-                            for (let index = 0; index < dataJson.items.length; index++) {
-                                createReport(currentPeriod, dataJson.items[index], index);                           
-                            }
-                        }
+                        processDataInput(values);
                     });
                 }
             }, false);
         }
     });
+
+    function processDataInput(values) {
+        if (values && values.length > 0) { 
+            values.forEach((content) => {
+                var jsonObject = JSON.parse(content);
+                if (!dataJson) {
+                    dataJson = jsonObject;
+                    dataJson.totalCount = values.length;
+                } else {
+                    dataJson.items.push(jsonObject.items[0]);
+                }
+            });
+            // Sort data
+            dataJson.items.sort(function(a, b) {
+                var c = new Date(a.today.toDate);
+                var d = new Date(b.today.toDate);
+                return c-d;
+            });
+            divShowData.innerHTML = "";
+            for (let index = 0; index < dataJson.items.length; index++) {
+                createReport(currentPeriod, dataJson.items[index], index);                           
+            }
+        }
+    }
 
     function resetData() {
         dataJson = null;
@@ -255,7 +282,7 @@
         // add json data to the table as rows.
         for (var i = 0; i < data.length; i++) {
             tr = table.insertRow(-1);
-            var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : null;
+            var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : getFirstItemData(dataJsonInput[period].toDate);
             var valueChange = 0;
             var percentChange = 0;
             var volumeValueChange = 0;
@@ -285,11 +312,11 @@
             addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][col[1]] + '</b>' : data[i][col[1]]);
             addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
             if (typeDefault === "selfBusiness") {
-                addCell(tr, '<span class="' + (dataIndex === 0 ? "reference" : volumeValueChange >= 0 ? "up" : "down") + '">' + (dataIndex === 0 ? "&#8722;" : new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
+                addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
             } else {
                 addCell(tr, "&#8722;");
             }
-            addCell(tr, '<span class="' + (dataIndex === 0 ? "reference" : valueChange >= 0 ? "up" : "down") + '">' + (dataIndex === 0 ? "&#8722;" : new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
+            addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
             addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
             addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
             addCell(tr, '<span class="' + (Number(data[i][col[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][col[4]] * 100).toFixed(2) + '</span>');
@@ -352,5 +379,63 @@
 
     function setTitle() {
         divTitle.innerHTML = "Thống Kê Giao Dịch ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng");
+    }
+
+    function fetchContent(dateStr) {
+        return new Promise((resolve, reject) => {
+            window.fetch(getUrlByDate(dateStr),
+                {
+                    method: 'GET'
+                }
+            ).then((response) => {
+                if(response.status === 200) {
+                    resolve(response.text());
+                }
+            }, (err) => {
+                reject(err);
+            }).catch(error => {
+                console.log(error);
+            });
+        });
+    };
+
+    function getDateInput() {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        var todayStr = `${("0" + today.getDate()).slice(-2)}${("0" + (today.getMonth() + 1)).slice(-2)}${today.getFullYear()}`;
+        var yesterdayStr = `${("0" + yesterday.getDate()).slice(-2)}${("0" + (yesterday.getMonth() + 1)).slice(-2)}${yesterday.getFullYear()}`;
+        return {today: todayStr, yesterday: yesterdayStr};
+    }
+
+    function checkUrlExists(dateStr) {
+        var http = new XMLHttpRequest();
+        http.open('HEAD', getUrlByDate(dateStr), false);
+        http.send();
+        if (http.status != 404)
+            return true;
+        else
+            return false;
+    }
+
+    function getFirstItemData(date) {
+        var dateInput = new Date(date);
+        dateInput.setDate(dateInput.getDate() - 1);
+        var dateInputStr = `${("0" + dateInput.getDate()).slice(-2)}${("0" + (dateInput.getMonth() + 1)).slice(-2)}${dateInput.getFullYear()}`;
+        var res = null;
+        $.ajax({
+            url: getUrlByDate(dateInputStr),
+            async: false,
+            dataType: "json"        
+        }).done(function(result) {
+            if (result && result.items.length > 0) {
+                res= result.items[0];
+            }
+        });
+        return res;
+    }
+
+    function getUrlByDate(dateStr) {
+        return `${DATA_URL}/${typeDefault === "selfBusiness" ? "TuDoanh": "KhoiNgoai"}/data_${dateStr}.json`
     }
 </script>
