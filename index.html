@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Thống Kê Khối Ngoại - Tự Doanh Mua Bán Ròng</title>
+    <style>
+        th,
+        td,
+        p,
+        h3 {
+            font: 13px 'Segoe UI';
+        }
+
+        table,
+        th,
+        td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        .top10 {
+            color: rgb(85, 88, 86);
+        }
+
+        .up {
+            color: rgb(45, 202, 58);
+            font-weight: 600;
+        }
+
+        .down {
+            color: rgb(231, 62, 62);
+            font-weight: 600;
+        }
+
+        .reference {
+            color: rgb(231, 200, 62);
+            font-weight: 600;
+        }
+
+        .title {
+            color: rgb(85, 88, 86);
+            font-weight: 600;
+            /* font-size: large; */
+            /* text-align: center; */
+        }
+
+        .reset-button {
+            color: white;
+            background-color: tomato;
+            border-color: tomato;
+        }
+
+        .reset-button:hover {
+            color: white;
+            background-color: rgb(192, 62, 39);
+            border-color: rgb(192, 62, 39);
+        }
+
+        .grid-container {
+            overflow-x: auto;
+            display: block;
+            white-space: nowrap;
+        }
+        .grid-container .left-position {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        fieldset {
+           border-color: rgb(241, 239, 239);
+           border-radius: 5px;
+           float: left;
+           height: 35px;
+        }
+        .step1,.step2 {
+            width: 15%;
+        }
+        .step3,.step4 {
+            width: 30%;
+        }
+        .reset {
+            clear: both;
+        }
+        input[type=button], input[type=radio], input[type=file] {
+            cursor: pointer !important;
+        }
+    </style>
+</head>
+    <fieldset class="step1">
+        <legend>Bước 1: Chọn tổ chức </legend>
+        <input type="radio" id="foreign" name="type" value="foreign" onclick='changeType(this.value)'><label for="foreign">Khối ngoại</label>
+        <input type="radio" id="selfBusiness" name="type" value="selfBusiness" checked onclick='changeType(this.value)'><label for="selfBusiness">Tự doanh</label>
+    </fieldset>
+    <fieldset class="step2">
+        <legend>Bước 2: Chọn loại thống kê </legend>
+        <input type="radio" id="netBuy" name="net" value="netBuy" checked onclick='changeAction(this.value)'><label for="netBuy">Mua Ròng</label>
+        <input type="radio" id="netSell" name="net" value="netSell" onclick='changeAction(this.value)'><label for="netSell">Bán Ròng</label>
+    </fieldset>
+    <fieldset class="step3">
+        <legend>Bước 3: Chọn files (.json) </legend>
+        <input type="file" id="fileInput" multiple accept=".json">
+    </fieldset>
+    <fieldset class="step4">
+        <legend>Bước 4: Chọn thời điểm thống kê </legend>
+        <input type='button' onclick='processData("today")' value='1 Ngày' />
+        <input type='button' onclick='processData("oneWeek")' value='5 Ngày' />
+        <input type='button' onclick='processData("oneMonth")' value='20 Ngày' />
+        <input type='button' onclick='processData("yearToDate")' value='Tính Đến Hiện Tại' />
+        <input type='button' class='reset-button' onclick='resetData()' value='Reset' />
+    </fieldset>
+    <div class="reset"></div>
+    <hr>
+    <div class="title">
+        <span id='showTitle'>Thống Kê Giao Dịch Tự Doanh Mua Ròng</span>
+    </div>
+    <div class="grid-container">
+        <p id='showData'></p>
+    </div>
+</body>
+<script>
+    var typeDefault = "selfBusiness";
+    var actionDefault = "netBuy";
+    var currentPeriod = "yearToDate";
+    var dataJson = null;
+    var col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
+    var headTitle = ["Xếp hạng", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng Khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+    var subHeadTitle = ["Khối lượng", "Giá trị"];
+    var locale = 'en-GB';
+    var FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
+    var FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
+    var TOTAL_NET_BUY_TRADE_VALUE = "totalNetBuyTradeValue";
+    var TOTAL_NET_SELL_TRADE_VALUE = "totalNetSellTradeValue";
+    var MATCH_PRICE = "matchPrice";
+    var REFERENCE_PRICE = "referencePrice";
+    var TOTAL_NET_BUY_TRADE_VOLUME= "totalNetBuyTradeVolume";
+    var TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
+    var divShowData = document.getElementById('showData');
+    var divTitle = document.getElementById('showTitle');
+    window.addEventListener('load', function () {
+        var upload = document.getElementById('fileInput');
+        // Make sure the DOM element exists
+        if (upload) {
+            upload.addEventListener('change', function () {
+                // Make sure a file was selected
+                if (upload.files.length > 0) {
+                    let readers = [];
+                    for (let index = 0; index <= upload.files.length - 1; index++) {
+                        readers.push(readFileAsText(upload.files[index]));
+                    }
+                    // Trigger Promises
+                    Promise.all(readers).then((values) => {
+                        if (values && values.length > 0) {
+                            for (let i = 0; i <= values.length - 1; i++) {
+                                var jsonObject = JSON.parse(values[i]);
+                                if (!dataJson) {
+                                    dataJson = jsonObject;
+                                    dataJson.totalCount = values.length;
+                                } else {
+                                    dataJson.items.push(jsonObject.items[0]);
+                                }
+                            }
+                            // Sort data
+                            dataJson.items.sort(function(a, b) {
+                                var c = new Date(a.today.toDate);
+                                var d = new Date(b.today.toDate);
+                                return c-d;
+                            });
+                            divShowData.innerHTML = "";
+                            for (let index = 0; index < dataJson.items.length; index++) {
+                                createReport(currentPeriod, dataJson.items[index], index);                           
+                            }
+                        }
+                    });
+                }
+            }, false);
+        }
+    });
+
+    function resetData() {
+        dataJson = null;
+        divShowData.innerHTML = "";
+        document.getElementById("fileInput").value = null;
+    }
+
+    function readFileAsText(file) {
+        return new Promise(function (resolve, reject) {
+            let fr = new FileReader();
+            fr.onload = function () {
+                resolve(fr.result);
+            };
+            fr.onerror = function () {
+                reject(fr);
+            };
+            fr.readAsText(file);
+        });
+    }
+
+    function changeType(type) {
+        typeDefault = type;
+        processData(currentPeriod);
+    }
+
+    function changeAction(action) {
+        actionDefault = action;
+        processData(currentPeriod);
+    }
+
+    function processData(period) {
+        currentPeriod = period;
+        if (dataJson && dataJson.items && dataJson.items.length > 0) {
+            divShowData.innerHTML = "";
+            for (let index = 0; index < dataJson.items.length; index++) {
+                createReport(period, dataJson.items[index], index);                           
+            }
+        }
+        setTitle();
+    }
+
+    function createReport(period, dataJsonInput, dataIndex) {
+        var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
+        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ")";
+        var table = document.createElement("table");
+        table.classList.add("left-position");
+        var tr = table.insertRow(-1);                   // table row.
+        var thTime = document.createElement("th"); 
+        thTime.setAttribute("colspan", 8);
+        thTime.innerHTML = title;
+        tr.appendChild(thTime);
+
+        tr = table.insertRow(-1);
+        for (var i = 0; i < headTitle.length; i++) {
+            var th = document.createElement("th");      // table header.
+            if (i===3) {
+                th.setAttribute("colspan", 2);
+            } else {
+                th.setAttribute("rowspan", 2);
+            }
+            th.innerHTML = headTitle[i];
+            tr.appendChild(th);
+        }
+
+        // create span column
+        tr = table.insertRow(-1);
+        for (var k = 0; k < subHeadTitle.length; k++) {
+            var th = document.createElement("th"); 
+            th.innerHTML = subHeadTitle[k];
+            tr.appendChild(th);
+        }
+
+        // add json data to the table as rows.
+        for (var i = 0; i < data.length; i++) {
+            tr = table.insertRow(-1);
+            var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : null;
+            var valueChange = 0;
+            var percentChange = 0;
+            var volumeValueChange = 0;
+            var volumePercentChange = 0;
+            var columnName = getColumnName();
+            var volumeColumnName = getVolumeColumnName();
+            if (!prvItem) {
+                addCell(tr, Number(i + 1));
+            } else {
+                var prvPosition = actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][col[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][col[1]]));
+                if (prvPosition > -1) {
+                    addCell(tr, Number(i + 1) + getPositionIcon(prvPosition, i));
+                } else {
+                    addCell(tr, Number(i + 1));
+                }
+                try {
+                    valueChange = actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
+                    percentChange = actionDefault === "netBuy" ? (valueChange/Number(prvItem[period].netBuy[prvPosition][columnName])*100).toFixed(2) : (valueChange/Number(prvItem[period].netSell[prvPosition][columnName])*100).toFixed(2);
+                    volumeValueChange = actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
+                    volumePercentChange = actionDefault === "netBuy" ? (volumeValueChange/Number(prvItem[period].netBuy[prvPosition][volumeColumnName])*100).toFixed(2) : (volumeValueChange/Number(prvItem[period].netSell[prvPosition][volumeColumnName])*100).toFixed(2);
+                } catch (error) {
+                    valueChange = 0;
+                    percentChange = 0;
+                }
+
+            }
+            addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][col[1]] + '</b>' : data[i][col[1]]);
+            addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
+            if (typeDefault === "selfBusiness") {
+                addCell(tr, '<span class="' + (dataIndex === 0 ? "reference" : volumeValueChange >= 0 ? "up" : "down") + '">' + (dataIndex === 0 ? "&#8722;" : new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
+            } else {
+                addCell(tr, "&#8722;");
+            }
+            addCell(tr, '<span class="' + (dataIndex === 0 ? "reference" : valueChange >= 0 ? "up" : "down") + '">' + (dataIndex === 0 ? "&#8722;" : new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
+            addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
+            addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
+            addCell(tr, '<span class="' + (Number(data[i][col[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][col[4]] * 100).toFixed(2) + '</span>');
+        }
+
+        // Now, add the newly created table with json data, to a container.
+        divShowData.appendChild(table);
+    }
+
+    function addCell(tr, cellData) {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = cellData;
+    }
+
+    function getPositionIcon(prvPosition, currentPosition) {
+        var iconString = "<span class='reference'> &#8722;</span>";
+        if (currentPosition < prvPosition) {
+            iconString = "<span class='up'> &#8593;(" + Number(prvPosition + 1) + ")</span>";
+        } else if (currentPosition > prvPosition) {
+            iconString = "<span class='down'> &#8595;(" + Number(prvPosition + 1) + ")</span>";
+        }
+        return iconString;
+    }
+
+    function getColumnName() {
+        if (typeDefault === "selfBusiness") {
+            if (actionDefault === "netBuy") {
+                return TOTAL_NET_BUY_TRADE_VALUE ;
+            } else {
+                return TOTAL_NET_SELL_TRADE_VALUE ;
+            }
+        } else {
+            if (actionDefault === "netBuy") {
+                return FOREIGN_NET_BUY_VALUE ;
+            } else {
+                return FOREIGN_NET_SELL_VALUE ;
+            }
+        }
+    }
+
+    function getVolumeColumnName() {
+        if (typeDefault === "selfBusiness") {
+            if (actionDefault === "netBuy") {
+                return TOTAL_NET_BUY_TRADE_VOLUME ;
+            } else {
+                return TOTAL_NET_SELL_TRADE_VOLUME ;
+            }
+        } else {
+            return "";
+        }
+    }
+
+    function getVolatilityValue(data) {
+        if (typeDefault === "selfBusiness") {
+            return  Intl.NumberFormat().format(data["totalBuyTradeValue"] - data["totalSellTradeValue"]);
+        } else {
+            return  Intl.NumberFormat().format(data["foreignBuyValue"] - data["foreignSellValue"]);
+        }
+    }
+
+    function setTitle() {
+        divTitle.innerHTML = "Thống Kê Giao Dịch ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng");
+    }
+</script>
