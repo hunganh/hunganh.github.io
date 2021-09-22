@@ -145,23 +145,7 @@
     var divTitle = document.getElementById('showTitle');
 
     $(document).ready(function(){
-        var dateInput = getDateInput();
-        var todayStr = dateInput.today;
-        var yesterdayStr = dateInput.yesterday;
-        var hasExisTodayUrl = checkUrlExists(todayStr);
-        var hasExisYesterdayUrl = checkUrlExists(yesterdayStr);
-        Promise.all(hasExisTodayUrl && hasExisYesterdayUrl ? [
-            fetchContent(todayStr),
-            fetchContent(yesterdayStr)
-        ] : !hasExisTodayUrl ? [fetchContent(yesterdayStr)] : [fetchContent(todayStr)]).then((values) => {
-            if (values && values.length > 0) { 
-                processDataInput(values);
-            }
-        }).then(() => {
-            console.log('Done fetching content via JavaScript');
-        }).catch((err) => {
-            console.error(err);
-        });
+        initData();
     });
 
     window.addEventListener('load', function () {
@@ -183,6 +167,26 @@
             }, false);
         }
     });
+
+    function initData() {
+        var dateInput = getDateInput();
+        var todayStr = dateInput.today;
+        var yesterdayStr = dateInput.yesterday;
+        var hasExisTodayUrl = checkUrlExists(todayStr);
+        var hasExisYesterdayUrl = checkUrlExists(yesterdayStr);
+        Promise.all(hasExisTodayUrl && hasExisYesterdayUrl ? [
+            fetchContent(todayStr),
+            fetchContent(yesterdayStr)
+        ] : !hasExisTodayUrl ? [fetchContent(yesterdayStr)] : [fetchContent(todayStr)]).then((values) => {
+            if (values && values.length > 0) { 
+                processDataInput(values);
+            }
+        }).then(() => {
+            console.log('Done fetching content via JavaScript');
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
     function processDataInput(values) {
         if (values && values.length > 0) { 
@@ -228,7 +232,9 @@
     }
 
     function changeType(type) {
+        resetData();
         typeDefault = type;
+        initData();
         processData(currentPeriod);
     }
 
