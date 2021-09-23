@@ -99,7 +99,7 @@ function getFirstItemData(date) {
     var fileName = getMappingDataFileNameByDate(date);
     if (fileName === "") return res;
     $.ajax({
-        url: getRequestUrl(fileName),
+        url: getRequestUrl(fileName, ""),
         async: false,
         dataType: "json"
     }).done(function (result) {
