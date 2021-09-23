@@ -315,6 +315,28 @@
         initData();
     });
 
+    $(document).on("contextmenu", function (e) {        
+        e.preventDefault();
+    });
+ 
+    $(document).keydown(function (event) {
+        // Prevent F12
+        if (event.keyCode == 123) 
+        { 
+            return false;
+        } 
+        else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+        // Prevent Ctrl+Shift+I
+        {         
+            return false;
+        }
+        else if(event.ctrlKey && event.keyCode == 83)
+        // Prevent Ctrl+S
+        {         
+            return false;
+        }
+    });
+
     window.addEventListener('load', function () {
         var upload = document.getElementById('fileInput');
         // Make sure the DOM element exists
