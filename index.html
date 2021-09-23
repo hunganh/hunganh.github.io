@@ -344,6 +344,8 @@
             upload.addEventListener('change', function () {
                 // Make sure a file was selected
                 if (upload.files.length > 0) {
+                    dataJson = null;
+                    divShowData.innerHTML = "";
                     showLoading();
                     let readers = [];
                     for (let index = 0; index <= upload.files.length - 1; index++) {
@@ -523,12 +525,17 @@
             }
             addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][col[1]] + '</b>' : data[i][col[1]]);
             // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
-            if (typeDefault === "selfBusiness") {
-                addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
+            if (typeDefault !== "selfBusiness" || prvItem === null) {
+                addCell(tr, '<span class="reference"> &#8722; </span>');
             } else {
-                addCell(tr, "&#8722;");
+                addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
             }
-            addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
+            if (prvItem === null) {
+                addCell(tr, '<span class="reference"> &#8722; </span>');
+            } else {
+                addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
+            }
+
             addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
             addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
             addCell(tr, '<span class="' + (Number(data[i][col[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][col[4]] * 100).toFixed(2) + '</span>');
@@ -640,6 +647,7 @@
     function getFirstItemData(date) {
         var res = null;
         var fileName = getMappingDataFileNameByDate(date);
+        if (fileName === "") return res;
         $.ajax({
             url: getRequestUrl(fileName),
             async: false,
@@ -676,7 +684,7 @@
         var fileName = `data_${getDateInput(date)}`;
         var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
         var index =  mappingDataJson[nodeName].findIndex(x => x.fileName === fileName);
-        if(index < 0) return "";
+        if(index <= 0) return "";
         return mappingDataJson[nodeName][index - 1].fileName;
     }
 
