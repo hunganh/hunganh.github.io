@@ -227,8 +227,9 @@
     var actionDefault = "netBuy";
     var currentPeriod = "yearToDate";
     var dataJson = null;
+    var mappingDataJson = null;
     const col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
-    const headTitle = ["#", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+    const headTitle = ["#", "Mã CP", "Biến động" , "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
     const subHeadTitle = ["Khối lượng", "Giá trị"];
     const locale = 'en-GB';
     const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
@@ -240,6 +241,9 @@
     const TOTAL_NET_BUY_TRADE_VOLUME= "totalNetBuyTradeVolume";
     const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
     const DATA_URL = "https://hunganh.github.io/";
+    const MAPPING_DATA_URL = `${DATA_URL}Mapping/data_mapping.json`;
+    const TU_DOANH = "tudoanh";
+    const KHOI_NGOAI = "khoingoai";
     var divShowData = document.getElementById('showData');
     var divTitle = document.getElementById('showTitle');
 
@@ -270,23 +274,29 @@
 
     function initData() {
         showLoading();
-        var dateInput = getDateInput();
-        var todayStr = dateInput.today;
-        var yesterdayStr = dateInput.yesterday;
-        var hasExisTodayUrl = checkUrlExists(todayStr);
-        var hasExisYesterdayUrl = checkUrlExists(yesterdayStr);
-        Promise.all(hasExisTodayUrl && hasExisYesterdayUrl ? [
-            fetchContent(todayStr),
-            fetchContent(yesterdayStr)
-        ] : !hasExisTodayUrl ? [fetchContent(yesterdayStr)] : [fetchContent(todayStr)]).then((values) => {
-            if (values && values.length > 0) { 
-                processDataInput(values);
+        $.ajax({
+            url: MAPPING_DATA_URL,
+            dataType: "json"        
+        }).done(function(result) {
+            if (result) {
+                mappingDataJson = result;
+                var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
+                var dataInput1 = result[nodeName][result[nodeName].length - 1];
+                var dataInput2 = result[nodeName][result[nodeName].length - 2];
+                Promise.all([
+                    fetchContent(dataInput1.fileName),
+                    fetchContent(dataInput2.fileName)
+                ]).then((values) => {
+                    if (values && values.length > 0) { 
+                        processDataInput(values);
+                    }
+                    hideLoading();
+                }).then(() => {
+                    console.log('Done fetching content via JavaScript');
+                }).catch((err) => {
+                    console.error(err);
+                });
             }
-            hideLoading();
-        }).then(() => {
-            console.log('Done fetching content via JavaScript');
-        }).catch((err) => {
-            console.error(err);
         });
     }
 
@@ -371,14 +381,14 @@
         table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
         var tr = table.insertRow(-1);                   // table row.
         var thTime = document.createElement("th"); 
-        thTime.setAttribute("colspan", 8);
+        thTime.setAttribute("colspan", 7);
         thTime.innerHTML = title;
         tr.appendChild(thTime);
 
         tr = table.insertRow(-1);
         for (var i = 0; i < headTitle.length; i++) {
             var th = document.createElement("th");      // table header.
-            if (i===3) {
+            if (i===2) {
                 th.setAttribute("colspan", 2);
             } else {
                 th.setAttribute("rowspan", 2);
@@ -426,7 +436,7 @@
 
             }
             addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][col[1]] + '</b>' : data[i][col[1]]);
-            addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
+            // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
             if (typeDefault === "selfBusiness") {
                 addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
             } else {
@@ -507,9 +517,9 @@
         divTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
     }
 
-    function fetchContent(dateStr) {
+    function fetchContent(fileName) {
         return new Promise((resolve, reject) => {
-            window.fetch(getUrlByDate(dateStr),
+            window.fetch(getRequestUrl(fileName),
                 {
                     method: 'GET'
                 }
@@ -525,18 +535,15 @@
         });
     };
 
-    function getDateInput() {
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
-        var todayStr = `${("0" + today.getDate()).slice(-2)}${("0" + (today.getMonth() + 1)).slice(-2)}${today.getFullYear()}`;
-        var yesterdayStr = `${("0" + yesterday.getDate()).slice(-2)}${("0" + (yesterday.getMonth() + 1)).slice(-2)}${yesterday.getFullYear()}`;
-        return {today: todayStr, yesterday: yesterdayStr};
+    function getDateInput(date) {
+        const dateInput = new Date(date);
+        var dateInputStr = `${("0" + dateInput.getDate()).slice(-2)}${("0" + (dateInput.getMonth() + 1)).slice(-2)}${dateInput.getFullYear()}`;
+        return dateInputStr;
     }
 
-    function checkUrlExists(dateStr) {
+    function checkUrlExists(fileName) {
         var http = new XMLHttpRequest();
-        http.open('HEAD', getUrlByDate(dateStr), false);
+        http.open('HEAD', getRequestUrl(fileName), false);
         http.send();
         if (http.status != 404)
             return true;
@@ -545,12 +552,10 @@
     }
 
     function getFirstItemData(date) {
-        var dateInput = new Date(date);
-        dateInput.setDate(dateInput.getDate() - 1);
-        var dateInputStr = `${("0" + dateInput.getDate()).slice(-2)}${("0" + (dateInput.getMonth() + 1)).slice(-2)}${dateInput.getFullYear()}`;
         var res = null;
+        var fileName = getMappingDataFileNameByDate(date);
         $.ajax({
-            url: getUrlByDate(dateInputStr),
+            url: getRequestUrl(fileName),
             async: false,
             dataType: "json"        
         }).done(function(result) {
@@ -561,8 +566,8 @@
         return res;
     }
 
-    function getUrlByDate(dateStr) {
-        return `${DATA_URL}/${typeDefault === "selfBusiness" ? "TuDoanh": "KhoiNgoai"}/data_${dateStr}.json`
+    function getRequestUrl(fileName) {
+        return `${DATA_URL}/${typeDefault === "selfBusiness" ? "TuDoanh": "KhoiNgoai"}/${fileName}.json`
     }
 
     function getNetTradeValueColumn() {
@@ -579,6 +584,14 @@
                 return FOREIGN_NET_SELL_VALUE ;
             }
         }
+    }
+
+    function getMappingDataFileNameByDate(date) {
+        var fileName = `data_${getDateInput(date)}`;
+        var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
+        var index =  mappingDataJson[nodeName].findIndex(x => x.fileName === fileName);
+        if(index < 0) return "";
+        return mappingDataJson[nodeName][index - 1].fileName;
     }
 
     function showLoading() {
