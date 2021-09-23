@@ -4,12 +4,23 @@
 <head>
     <title>Thống Kê Khối Ngoại - Tự Doanh Mua Bán Ròng</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <style>
+        body,
         th,
         td,
         p,
-        h3 {
-            font: small 'Segoe UI';
+        h3, 
+        button {
+            font: small 'Segoe UI' !important;
+        }
+
+        th {
+            font-weight: bold !important;
+        }
+
+        button {
+            color: #FFFFFF !important;
         }
 
         table,
@@ -19,10 +30,41 @@
             border-collapse: collapse;
             padding: 2px 3px;
             text-align: center;
+            width: auto !important;
         }
 
         th {
             font-weight: bold;
+            background: #F2F2F2 !important;
+        }
+
+        th:hover {
+            background: #F2F2F2 !important;
+        }
+
+        .headerFixed {
+            /* position: fixed; */
+            top: 0;
+            width: 100%;
+            background-color: #e1e1e1;
+            border: 1px solid #a49d9d;
+            box-shadow: 5px 10px 18px #888888;
+        }
+
+        .headerFixed + .grid-container {
+            padding-top: 10px;
+        }
+
+        .margin-top-3 {
+            margin-top: 3px !important;
+        }
+
+        .margin-5 {
+            margin: 5px !important;
+        }
+
+        .pading-5 {
+            padding: 5px;
         }
 
         .top10 {
@@ -44,9 +86,22 @@
             font-weight: 600;
         }
 
+        .card-header {
+            padding: .5rem 1rem;
+            margin-bottom: 0;
+            background-color: transparent !important;
+            font: small 'Segoe UI' !important;
+            font-weight: bold !important;
+            /* border-bottom: none !important */
+        }
+
         .title {
-            color: rgb(85, 88, 86);
-            font-weight: 600;
+            /* color: rgb(85, 88, 86); */
+            /* font-weight: 600; */
+            /* padding: 10px; */
+            width: 100%;
+            border: 0.5px solid rgb(197, 197, 197);
+            background-color: rgba(0,0,0,.03);
             /* font-size: large; */
             /* text-align: center; */
         }
@@ -90,37 +145,81 @@
         input[type=button], input[type=radio], input[type=file] {
             cursor: pointer !important;
         }
+        .loadingTitle {
+            padding: 5px !important;
+        }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
-    <fieldset class="step1">
-        <legend>Bước 1: Chọn tổ chức </legend>
-        <input type="radio" id="foreign" name="type" value="foreign" onclick='changeType(this.value)'><label for="foreign">Khối ngoại</label>
-        <input type="radio" id="selfBusiness" name="type" value="selfBusiness" checked onclick='changeType(this.value)'><label for="selfBusiness">Tự doanh</label>
-    </fieldset>
-    <fieldset class="step2">
-        <legend>Bước 2: Chọn loại thống kê </legend>
-        <input type="radio" id="netBuy" name="net" value="netBuy" checked onclick='changeAction(this.value)'><label for="netBuy">Mua Ròng</label>
-        <input type="radio" id="netSell" name="net" value="netSell" onclick='changeAction(this.value)'><label for="netSell">Bán Ròng</label>
-    </fieldset>
-    <fieldset class="step3">
-        <legend>Bước 3: Chọn files (.json) - Xem Offline </legend>
-        <input type="file" id="fileInput" multiple accept=".json">
-    </fieldset>
-    <fieldset class="step4">
-        <legend>Bước 4: Chọn thời điểm thống kê </legend>
-        <input type='button' onclick='processData("today")' value='1 Ngày' />
-        <input type='button' onclick='processData("oneWeek")' value='5 Ngày' />
-        <input type='button' onclick='processData("oneMonth")' value='20 Ngày' />
-        <input type='button' onclick='processData("yearToDate")' value='Tính Đến Hiện Tại' />
-        <input type='button' class='reset-button' onclick='resetData()' value='Reset' />
-    </fieldset>
-    <div class="reset"></div>
-    <hr>
-    <div class="title">
-        <span id='showTitle'>Thống Kê Giao Dịch Tự Doanh Mua Ròng</span>
+    <div class="headerFixed">
+        <div class="row row-cols-1 row-cols-md-4 g-4 pading-5">
+            <div class="col">
+                <div class="card">
+                    <h6 class="card-header">Bước 1: Chọn tổ chức</h6>
+                    <div class="card-body">
+                        <input type="radio" class="form-check-input" id="foreign" name="type" value="foreign" onclick='changeType(this.value)'>
+                        <label class="form-check-label" for="foreign">Khối ngoại</label>
+                        &nbsp;
+                        <input type="radio" class="form-check-input" id="selfBusiness" name="type" value="selfBusiness" checked onclick='changeType(this.value)'>
+                        <label class="form-check-label" for="selfBusiness">Tự doanh</label>
+                    </div>
+                  </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h6 class="card-header">Bước 2: Chọn loại thống kê</h6>
+                    <div class="card-body">
+                        <input type="radio" class="form-check-input" id="netBuy" name="net" value="netBuy" checked onclick='changeAction(this.value)'>
+                        <label class="form-check-label" for="netBuy">Mua Ròng</label>
+                        &nbsp;
+                        <input type="radio" class="form-check-input" id="netSell" name="net" value="netSell" onclick='changeAction(this.value)'>
+                        <label class="form-check-label" for="netSell">Bán Ròng</label>
+                    </div>
+                  </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h6 class="card-header">Bước 3: Chọn files (.json) - Xem dưới Local</h6>
+                    <div class="card-body">
+                        <input type="file" id="fileInput" multiple accept=".json">
+                    </div>
+                  </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h6 class="card-header">Bước 4: Chọn thời điểm thống kê</h6>
+                    <div class="card-body">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary btn-sm" onclick='processData("today")'>1 Ngày</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick='processData("oneWeek")'>5 Ngày</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick='processData("oneMonth")'>20 Ngày</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick='processData("yearToDate")'>Đến Hiện Tại</button>
+                          </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        <div class="title">
+            <div class="row">
+                <div class="col">
+                    <span class="badge bg-success card-header margin-5" id='showTitle'>Thống Kê Tự Doanh Mua Ròng</span>
+                </div>
+                <div class="col margin-5">
+                    <button type="button" class="btn btn-danger btn-sm" onclick='resetData()'>Reset</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-info btn-sm" onclick='refreshData()'>Refresh</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="grid-container">
-        <p id='showData'></p>
+        <div id='showLoading' class="d-flex justify-content-center">
+            <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span class="loadingTitle">Đang tải dữ liệu...</span>
+        </div>
+        <div id='showData' class="table-responsive"></div>
     </div>
 </body>
 <script>
@@ -129,7 +228,7 @@
     var currentPeriod = "yearToDate";
     var dataJson = null;
     const col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
-    const headTitle = ["Xếp hạng", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng Khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+    const headTitle = ["#", "Mã CP", "Giá đóng cửa", "Biến động" , "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
     const subHeadTitle = ["Khối lượng", "Giá trị"];
     const locale = 'en-GB';
     const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
@@ -155,6 +254,7 @@
             upload.addEventListener('change', function () {
                 // Make sure a file was selected
                 if (upload.files.length > 0) {
+                    showLoading();
                     let readers = [];
                     for (let index = 0; index <= upload.files.length - 1; index++) {
                         readers.push(readFileAsText(upload.files[index]));
@@ -169,6 +269,7 @@
     });
 
     function initData() {
+        showLoading();
         var dateInput = getDateInput();
         var todayStr = dateInput.today;
         var yesterdayStr = dateInput.yesterday;
@@ -181,6 +282,7 @@
             if (values && values.length > 0) { 
                 processDataInput(values);
             }
+            hideLoading();
         }).then(() => {
             console.log('Done fetching content via JavaScript');
         }).catch((err) => {
@@ -209,13 +311,20 @@
             for (let index = 0; index < dataJson.items.length; index++) {
                 createReport(currentPeriod, dataJson.items[index], index);                           
             }
+            setTitle();
         }
+        hideLoading();
     }
 
     function resetData() {
         dataJson = null;
         divShowData.innerHTML = "";
         document.getElementById("fileInput").value = null;
+    }
+
+    function refreshData() {
+        resetData();
+        initData();
     }
 
     function readFileAsText(file) {
@@ -256,9 +365,10 @@
 
     function createReport(period, dataJsonInput, dataIndex) {
         var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
-        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ")";
+        var netTradeValueColumn = getNetTradeValueColumn();
+        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat().format(dataJsonInput[period][netTradeValueColumn]) + " đ";
         var table = document.createElement("table");
-        table.classList.add("left-position");
+        table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
         var tr = table.insertRow(-1);                   // table row.
         var thTime = document.createElement("th"); 
         thTime.setAttribute("colspan", 8);
@@ -384,7 +494,17 @@
     }
 
     function setTitle() {
-        divTitle.innerHTML = "Thống Kê Giao Dịch ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng");
+        var today =  new Date().toLocaleDateString(locale);
+        var updateDate = new Date(dataJson.items[dataJson.items.length -1]["today"].toDate).toLocaleDateString(locale);
+        var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
+        if (updateDate === today) {
+            divTitle.classList.remove("bg-warning");
+            divTitle.classList.add("bg-success");
+        } else {
+            divTitle.classList.remove("bg-success");
+            divTitle.classList.add("bg-warning");
+        }
+        divTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
     }
 
     function fetchContent(dateStr) {
@@ -443,5 +563,31 @@
 
     function getUrlByDate(dateStr) {
         return `${DATA_URL}/${typeDefault === "selfBusiness" ? "TuDoanh": "KhoiNgoai"}/data_${dateStr}.json`
+    }
+
+    function getNetTradeValueColumn() {
+        if (typeDefault === "selfBusiness") {
+            if (actionDefault === "netBuy") {
+                return TOTAL_NET_BUY_TRADE_VALUE ;
+            } else {
+                return TOTAL_NET_SELL_TRADE_VALUE ;
+            }
+        } else {
+            if (actionDefault === "netBuy") {
+                return FOREIGN_NET_BUY_VALUE ;
+            } else {
+                return FOREIGN_NET_SELL_VALUE ;
+            }
+        }
+    }
+
+    function showLoading() {
+        var loadingElement = document.getElementById("showLoading");
+        loadingElement.style.display = "block";
+    }
+
+    function hideLoading() {
+        var loadingElement = document.getElementById("showLoading");
+        loadingElement.style.setProperty("display", "none", "important");
     }
 </script>
