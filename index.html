@@ -30,7 +30,7 @@
         <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false">Tổng Hợp</button>
         </li>
         <li class="nav-item" role="presentation">
-        <button class="nav-link" id="tracking-tab" data-bs-toggle="tab" data-bs-target="#tracking" type="button" role="tab" aria-controls="tracking" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
+        <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -164,18 +164,30 @@
                     </div>
                 </div>
                 <div class="grid-container">
-                    <div id='showLoadingSummary' class="d-flex justify-content-center" style="display: none;">
+                    <div id='showLoadingSummary' class="d-flex justify-content-center" style="display: none !important;">
                         <div class="spinner-border text-success" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <span class="loadingTitle">Đang tải dữ liệu...</span>
                     </div>
-                    <div id='showDataSummary' class="table-responsive"></div>
+                    <div id='showDataSummary' class="table-responsive">
+                        Chức năng vẫn đang phát triển!
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
-            Chức năng vẫn đang phát triển!
+        <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
+            <div class="grid-container">
+                <div id='showLoadingFilters' class="d-flex justify-content-center" style="display: none !important;">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="loadingTitle">Đang tải dữ liệu...</span>
+                </div>
+                <div id='showDataFilters' class="table-responsive">
+                    Chức năng vẫn đang phát triển!
+                </div>
+            </div>
         </div>
     </div>
 </body>
