@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.</title>
-    <base href="/">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt." />
     <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
@@ -17,171 +16,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.">
     <meta property="twitter:description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.">
-    <style>
-        body,
-        th,
-        td,
-        p,
-        h3, 
-        button {
-            font: small 'Segoe UI' !important;
-        }
-
-        th {
-            font-weight: bold !important;
-        }
-
-        table,
-        th,
-        td {
-            border: solid 1px #ddd;
-            border-collapse: collapse;
-            padding: 2px 3px;
-            text-align: center;
-            width: auto !important;
-        }
-
-        th {
-            font-weight: bold;
-            background: #F2F2F2 !important;
-        }
-
-        th:hover {
-            background: #F2F2F2 !important;
-        }
-
-        .headerFixed {
-            /* position: fixed; */
-            top: 0;
-            width: 100%;
-            background-color: #e1e1e1;
-            border: 1px solid #a49d9d;
-            box-shadow: 5px 10px 18px #888888;
-        }
-
-        .headerFixed + .grid-container {
-            padding-top: 10px;
-        }
-
-        .margin-top-3 {
-            margin-top: 3px !important;
-        }
-
-        .margin-5 {
-            margin: 5px !important;
-        }
-
-        .pading-5 {
-            padding: 5px;
-        }
-
-        .top10 {
-            color: rgb(85, 88, 86);
-        }
-
-        .up {
-            color: rgb(45, 202, 58);
-            font-weight: 600;
-        }
-
-        .down {
-            color: rgb(231, 62, 62);
-            font-weight: 600;
-        }
-
-        .reference {
-            color: rgb(231, 200, 62);
-            font-weight: 600;
-        }
-
-        .card-header {
-            padding: .5rem 1rem;
-            margin-bottom: 0;
-            background-color: transparent !important;
-            font: small 'Segoe UI' !important;
-            font-weight: bold !important;
-            /* border-bottom: none !important */
-        }
-
-        .title {
-            /* color: rgb(85, 88, 86); */
-            /* font-weight: 600; */
-            /* padding: 10px; */
-            width: 100%;
-            border: 0.5px solid rgb(197, 197, 197);
-            background-color: rgba(0,0,0,.03);
-            /* font-size: large; */
-            /* text-align: center; */
-        }
-
-        .reset-button {
-            color: white;
-            background-color: tomato;
-            border-color: tomato;
-        }
-
-        .reset-button:hover {
-            color: white;
-            background-color: rgb(192, 62, 39);
-            border-color: rgb(192, 62, 39);
-        }
-
-        .grid-container {
-            overflow-x: auto;
-            display: block;
-            white-space: nowrap;
-        }
-        .grid-container .left-position {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        fieldset {
-           border-color: rgb(241, 239, 239);
-           border-radius: 5px;
-           float: left;
-           height: 35px;
-        }
-        .step1,.step2 {
-            width: 15%;
-        }
-        .step3,.step4 {
-            width: 30%;
-        }
-        .reset {
-            clear: both;
-        }
-        input[type=button], input[type=radio], input[type=file] {
-            cursor: pointer !important;
-        }
-        .loadingTitle {
-            padding: 5px !important;
-        }
-        .btn-success {
-            background-color: #20b872 !important;
-            border-color: #20b872 !important;
-        }
-
-        .btn-success:hover {
-            background-color: #19925a !important;
-            border-color: #19925a !important;
-        }
-        .tabs{
-            padding: 2px 2px 0px 8px !important;
-            background-color: #41413f;
-        }
-        .nav-link {
-            color: #bababa !important;
-        }
-        .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-            background-color: #e1e1e1 !important;
-            color: #495057 !important;
-        }
-        ul > li> button {
-            font-weight: bold !important;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -190,7 +27,7 @@
         <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true">Thống Kê Tổ Chức</button>
         </li>
         <li class="nav-item" role="presentation">
-        <button class="nav-link" id="trend-tab" data-bs-toggle="tab" data-bs-target="#trend" type="button" role="tab" aria-controls="trend" aria-selected="false">Xu Hướng Dòng Tiền</button>
+        <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false">Tổng Hợp</button>
         </li>
         <li class="nav-item" role="presentation">
         <button class="nav-link" id="tracking-tab" data-bs-toggle="tab" data-bs-target="#tracking" type="button" role="tab" aria-controls="tracking" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
@@ -204,13 +41,13 @@
                         <div class="card">
                             <h6 class="card-header">Bước 1: Chọn tổ chức</h6>
                             <div class="card-body">
-                                <input type="radio" class="form-check-input" id="foreign" name="type" value="foreign"
-                                    onclick='changeType(this.value)'>
-                                <label class="form-check-label" for="foreign">Khối ngoại</label>
+                                <input type="radio" class="form-check-input" id="foreignStatistics" name="statisticsType" value="foreign"
+                                    onclick='changeStatisticsType(this.value)'>
+                                <label class="form-check-label" for="foreignStatistics">Khối ngoại</label>
                                 &nbsp;
-                                <input type="radio" class="form-check-input" id="selfBusiness" name="type" value="selfBusiness"
-                                    checked onclick='changeType(this.value)'>
-                                <label class="form-check-label" for="selfBusiness">Tự doanh</label>
+                                <input type="radio" class="form-check-input" id="selfBusinessStatistics" name="statisticsType" value="selfBusiness"
+                                    checked onclick='changeStatisticsType(this.value)'>
+                                <label class="form-check-label" for="selfBusinessStatistics">Tự doanh</label>
                             </div>
                         </div>
                     </div>
@@ -218,13 +55,13 @@
                         <div class="card">
                             <h6 class="card-header">Bước 2: Chọn loại thống kê</h6>
                             <div class="card-body">
-                                <input type="radio" class="form-check-input" id="netBuy" name="net" value="netBuy" checked
-                                    onclick='changeAction(this.value)'>
-                                <label class="form-check-label" for="netBuy">Mua Ròng</label>
+                                <input type="radio" class="form-check-input" id="netBuyStatistics" name="netStatistics" value="netBuy" checked
+                                    onclick='changeStatisticsAction(this.value)'>
+                                <label class="form-check-label" for="netBuyStatistics">Mua Ròng</label>
                                 &nbsp;
-                                <input type="radio" class="form-check-input" id="netSell" name="net" value="netSell"
-                                    onclick='changeAction(this.value)'>
-                                <label class="form-check-label" for="netSell">Bán Ròng</label>
+                                <input type="radio" class="form-check-input" id="netSellStatistics" name="netStatistics" value="netSell"
+                                    onclick='changeStatisticsAction(this.value)'>
+                                <label class="form-check-label" for="netSellStatistics">Bán Ròng</label>
                             </div>
                         </div>
                     </div>
@@ -241,13 +78,13 @@
                             <h6 class="card-header">Bước 4: Chọn thời điểm thống kê</h6>
                             <div class="card-body">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processData("today")'>1
+                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("today")'>1
                                         Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processData("oneWeek")'>5
+                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("oneWeek")'>5
                                         Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processData("oneMonth")'>20
+                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("oneMonth")'>20
                                         Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processData("yearToDate")'>Đến
+                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("yearToDate")'>Đến
                                         Hiện Tại</button>
                                 </div>
                             </div>
@@ -257,447 +94,96 @@
                 <div class="title">
                     <div class="row">
                         <div class="col">
-                            <span class="badge bg-success card-header margin-5" id='showTitle'>Thống Kê Tự Doanh Mua Ròng</span>
+                            <span class="badge bg-success card-header margin-5" id='showStatisticsTitle'>Thống Kê Tự Doanh Mua Ròng</span>
                         </div>
                         <div class="col margin-5">
-                            <button type="button" class="btn btn-danger btn-sm" onclick='resetData()'>Reset</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick='resetStatisticsData()'>Reset</button>
                             &nbsp;
-                            <button type="button" class="btn btn-success btn-sm" onclick='refreshData()'>Refresh</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick='refreshStatisticsData()'>Refresh</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="grid-container">
-                <div id='showLoading' class="d-flex justify-content-center">
+                <div id='showStatisticsLoading' class="d-flex justify-content-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     <span class="loadingTitle">Đang tải dữ liệu...</span>
                 </div>
-                <div id='showData' class="table-responsive"></div>
+                <div id='showStatisticsData' class="table-responsive"></div>
             </div>
         </div>
-        <div class="tab-pane fade" id="trend" role="tabpanel" aria-labelledby="trend-tab">
-            Chức năng vẫn đang phát triển!
+        <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+            <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                <div class="headerFixed">
+                    <div class="row row-cols-1 row-cols-md-4 g-4 pading-5">
+                        <div class="col">
+                            <div class="card">
+                                <h6 class="card-header">Bước 1: Chọn loại thống kê</h6>
+                                <div class="card-body">
+                                    <input type="radio" class="form-check-input" id="netBuySummary" name="netSummary" value="netBuy" checked
+                                        onclick='changeActionSummary(this.value)'>
+                                    <label class="form-check-label" for="netBuySummary">Mua Ròng</label>
+                                    &nbsp;
+                                    <input type="radio" class="form-check-input" id="netSellSummary" name="netSummary" value="netSell"
+                                        onclick='changeActionSummary(this.value)'>
+                                    <label class="form-check-label" for="netSellSummary">Bán Ròng</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <h6 class="card-header">Bước 2: Chọn thời điểm thống kê</h6>
+                                <div class="card-body">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("today")'>1
+                                            Ngày</button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("oneWeek")'>5
+                                            Ngày</button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("oneMonth")'>20
+                                            Ngày</button>
+                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("yearToDate")'>Đến
+                                            Hiện Tại</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <span class="badge bg-success card-header margin-5" id='showTitleSummary'>Tổng Hợp Tự Doanh - Khối Ngoại Mua Ròng</span>
+                            </div>
+                            <div class="col margin-5">
+                                <button type="button" class="btn btn-danger btn-sm" onclick='resetDataSummary()'>Reset</button>
+                                &nbsp;
+                                <button type="button" class="btn btn-success btn-sm" onclick='refreshDataSummary()'>Tải dữ liệu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div id='showLoadingSummary' class="d-flex justify-content-center" style="display: none;">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span class="loadingTitle">Đang tải dữ liệu...</span>
+                    </div>
+                    <div id='showDataSummary' class="table-responsive"></div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
             Chức năng vẫn đang phát triển!
         </div>
     </div>
 </body>
+</html>
+<script src="js/common.js"></script>
+<script src="js/statistics.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
 <script>
-    var typeDefault = "selfBusiness";
-    var actionDefault = "netBuy";
-    var currentPeriod = "yearToDate";
-    var dataJson = null;
-    var mappingDataJson = null;
-    const col = ["order", "ticker","valueChange","totalNetBuyTradeValue", "percentPriceChange"];
-    const headTitle = ["#", "Mã CP", "Biến động" , "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
-    const subHeadTitle = ["Khối lượng", "Giá trị"];
-    const locale = 'en-GB';
-    const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
-    const FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
-    const TOTAL_NET_BUY_TRADE_VALUE = "totalNetBuyTradeValue";
-    const TOTAL_NET_SELL_TRADE_VALUE = "totalNetSellTradeValue";
-    const MATCH_PRICE = "matchPrice";
-    const REFERENCE_PRICE = "referencePrice";
-    const TOTAL_NET_BUY_TRADE_VOLUME= "totalNetBuyTradeVolume";
-    const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
-    const DATA_URL = "https://hunganh.github.io/";
-    const MAPPING_DATA_URL = `${DATA_URL}Mapping/data_mapping.json`;
-    const TU_DOANH = "tudoanh";
-    const KHOI_NGOAI = "khoingoai";
-    var divShowData = document.getElementById('showData');
-    var divTitle = document.getElementById('showTitle');
-
-    $(document).ready(function(){
-        initData();
-    });
-
-    $(document).on("contextmenu", function (e) {        
-        e.preventDefault();
-    });
- 
-    $(document).keydown(function (event) {
-        // Prevent F12
-        if (event.keyCode == 123) 
-        { 
-            return false;
-        } 
-        else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-        // Prevent Ctrl+Shift+I
-        {         
-            return false;
-        }
-        else if(event.ctrlKey && event.keyCode == 83)
-        // Prevent Ctrl+S
-        {         
-            return false;
-        }
-    });
-
-    window.addEventListener('load', function () {
-        var upload = document.getElementById('fileInput');
-        // Make sure the DOM element exists
-        if (upload) {
-            upload.addEventListener('change', function () {
-                // Make sure a file was selected
-                if (upload.files.length > 0) {
-                    dataJson = null;
-                    divShowData.innerHTML = "";
-                    showLoading();
-                    let readers = [];
-                    for (let index = 0; index <= upload.files.length - 1; index++) {
-                        readers.push(readFileAsText(upload.files[index]));
-                    }
-                    // Trigger Promises
-                    Promise.all(readers).then((values) => {
-                        processDataInput(values);
-                    });
-                }
-            }, false);
-        }
-    });
-
-    function initData() {
-        showLoading();
-        $.ajax({
-            url: MAPPING_DATA_URL,
-            dataType: "json"        
-        }).done(function(result) {
-            if (result) {
-                mappingDataJson = result;
-                var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-                var dataInput1 = result[nodeName][result[nodeName].length - 1];
-                var dataInput2 = result[nodeName][result[nodeName].length - 2];
-                Promise.all([
-                    fetchContent(dataInput1.fileName),
-                    fetchContent(dataInput2.fileName)
-                ]).then((values) => {
-                    if (values && values.length > 0) { 
-                        processDataInput(values);
-                    }
-                    hideLoading();
-                }).then(() => {
-                    console.log('Done fetching content via JavaScript');
-                }).catch((err) => {
-                    console.error(err);
-                });
-            }
-        });
-    }
-
-    function processDataInput(values) {
-        if (values && values.length > 0) { 
-            values.forEach((content) => {
-                var jsonObject = JSON.parse(content);
-                if (!dataJson) {
-                    dataJson = jsonObject;
-                    dataJson.totalCount = values.length;
-                } else {
-                    dataJson.items.push(jsonObject.items[0]);
-                }
-            });
-            // Sort data
-            dataJson.items.sort(function(a, b) {
-                var c = new Date(a.today.toDate);
-                var d = new Date(b.today.toDate);
-                return c-d;
-            });
-            divShowData.innerHTML = "";
-            for (let index = 0; index < dataJson.items.length; index++) {
-                createReport(currentPeriod, dataJson.items[index], index);                           
-            }
-            setTitle();
-        }
-        hideLoading();
-    }
-
-    function resetData() {
-        dataJson = null;
-        divShowData.innerHTML = "";
-        document.getElementById("fileInput").value = null;
-    }
-
-    function refreshData() {
-        resetData();
-        initData();
-    }
-
-    function readFileAsText(file) {
-        return new Promise(function (resolve, reject) {
-            let fr = new FileReader();
-            fr.onload = function () {
-                resolve(fr.result);
-            };
-            fr.onerror = function () {
-                reject(fr);
-            };
-            fr.readAsText(file);
-        });
-    }
-
-    function changeType(type) {
-        resetData();
-        typeDefault = type;
-        initData();
-        processData(currentPeriod);
-    }
-
-    function changeAction(action) {
-        actionDefault = action;
-        processData(currentPeriod);
-    }
-
-    function processData(period) {
-        currentPeriod = period;
-        if (dataJson && dataJson.items && dataJson.items.length > 0) {
-            divShowData.innerHTML = "";
-            for (let index = 0; index < dataJson.items.length; index++) {
-                createReport(period, dataJson.items[index], index);                           
-            }
-        }
-        setTitle();
-    }
-
-    function createReport(period, dataJsonInput, dataIndex) {
-        var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
-        var netTradeValueColumn = getNetTradeValueColumn();
-        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat().format(dataJsonInput[period][netTradeValueColumn]) + " đ";
-        var table = document.createElement("table");
-        table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
-        var tr = table.insertRow(-1);                   // table row.
-        var thTime = document.createElement("th"); 
-        thTime.setAttribute("colspan", 7);
-        thTime.innerHTML = title;
-        tr.appendChild(thTime);
-
-        tr = table.insertRow(-1);
-        for (var i = 0; i < headTitle.length; i++) {
-            var th = document.createElement("th");      // table header.
-            if (i===2) {
-                th.setAttribute("colspan", 2);
-            } else {
-                th.setAttribute("rowspan", 2);
-            }
-            th.innerHTML = headTitle[i];
-            tr.appendChild(th);
-        }
-
-        // create span column
-        tr = table.insertRow(-1);
-        for (var k = 0; k < subHeadTitle.length; k++) {
-            var th = document.createElement("th"); 
-            th.innerHTML = subHeadTitle[k];
-            tr.appendChild(th);
-        }
-
-        // add json data to the table as rows.
-        for (var i = 0; i < data.length; i++) {
-            tr = table.insertRow(-1);
-            var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : getFirstItemData(dataJsonInput[period].toDate);
-            var valueChange = 0;
-            var percentChange = 0;
-            var volumeValueChange = 0;
-            var volumePercentChange = 0;
-            var columnName = getColumnName();
-            var volumeColumnName = getVolumeColumnName();
-            if (!prvItem) {
-                addCell(tr, Number(i + 1));
-            } else {
-                var prvPosition = actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][col[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][col[1]]));
-                if (prvPosition > -1) {
-                    addCell(tr, Number(i + 1) + getPositionIcon(prvPosition, i));
-                } else {
-                    addCell(tr, Number(i + 1));
-                }
-                try {
-                    valueChange = actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
-                    percentChange = actionDefault === "netBuy" ? (valueChange/Number(prvItem[period].netBuy[prvPosition][columnName])*100).toFixed(2) : (valueChange/Number(prvItem[period].netSell[prvPosition][columnName])*100).toFixed(2);
-                    volumeValueChange = actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
-                    volumePercentChange = actionDefault === "netBuy" ? (volumeValueChange/Number(prvItem[period].netBuy[prvPosition][volumeColumnName])*100).toFixed(2) : (volumeValueChange/Number(prvItem[period].netSell[prvPosition][volumeColumnName])*100).toFixed(2);
-                } catch (error) {
-                    valueChange = 0;
-                    percentChange = 0;
-                }
-
-            }
-            addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][col[1]] + '</b>' : data[i][col[1]]);
-            // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
-            if (typeDefault !== "selfBusiness" || prvItem === null) {
-                addCell(tr, '<span class="reference"> &#8722; </span>');
-            } else {
-                addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (",volumePercentChange,"%)")) + '</span>');
-            }
-            if (prvItem === null) {
-                addCell(tr, '<span class="reference"> &#8722; </span>');
-            } else {
-                addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (",percentChange,"%)")) + '</span>');
-            }
-
-            addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
-            addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
-            addCell(tr, '<span class="' + (Number(data[i][col[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][col[4]] * 100).toFixed(2) + '</span>');
-        }
-
-        // Now, add the newly created table with json data, to a container.
-        divShowData.appendChild(table);
-    }
-
-    function addCell(tr, cellData) {
-        var tabCell = tr.insertCell(-1);
-        tabCell.innerHTML = cellData;
-    }
-
-    function getPositionIcon(prvPosition, currentPosition) {
-        var iconString = "<span class='reference'> &#8722;</span>";
-        if (currentPosition < prvPosition) {
-            iconString = "<span class='up'> &#8593;(" + Number(prvPosition + 1) + ")</span>";
-        } else if (currentPosition > prvPosition) {
-            iconString = "<span class='down'> &#8595;(" + Number(prvPosition + 1) + ")</span>";
-        }
-        return iconString;
-    }
-
-    function getColumnName() {
-        if (typeDefault === "selfBusiness") {
-            if (actionDefault === "netBuy") {
-                return TOTAL_NET_BUY_TRADE_VALUE ;
-            } else {
-                return TOTAL_NET_SELL_TRADE_VALUE ;
-            }
-        } else {
-            if (actionDefault === "netBuy") {
-                return FOREIGN_NET_BUY_VALUE ;
-            } else {
-                return FOREIGN_NET_SELL_VALUE ;
-            }
-        }
-    }
-
-    function getVolumeColumnName() {
-        if (typeDefault === "selfBusiness") {
-            if (actionDefault === "netBuy") {
-                return TOTAL_NET_BUY_TRADE_VOLUME ;
-            } else {
-                return TOTAL_NET_SELL_TRADE_VOLUME ;
-            }
-        } else {
-            return "";
-        }
-    }
-
-    function getVolatilityValue(data) {
-        if (typeDefault === "selfBusiness") {
-            return  Intl.NumberFormat().format(data["totalBuyTradeValue"] - data["totalSellTradeValue"]);
-        } else {
-            return  Intl.NumberFormat().format(data["foreignBuyValue"] - data["foreignSellValue"]);
-        }
-    }
-
-    function setTitle() {
-        var today =  new Date().toLocaleDateString(locale);
-        var updateDate = new Date(dataJson.items[dataJson.items.length -1]["today"].toDate).toLocaleDateString(locale);
-        var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
-        if (updateDate === today) {
-            divTitle.classList.remove("bg-warning");
-            divTitle.classList.add("bg-success");
-        } else {
-            divTitle.classList.remove("bg-success");
-            divTitle.classList.add("bg-warning");
-        }
-        divTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
-    }
-
-    function fetchContent(fileName) {
-        return new Promise((resolve, reject) => {
-            window.fetch(getRequestUrl(fileName),
-                {
-                    method: 'GET'
-                }
-            ).then((response) => {
-                if(response.status === 200) {
-                    resolve(response.text());
-                }
-            }, (err) => {
-                reject(err);
-            }).catch(error => {
-                console.log(error);
-            });
-        });
-    };
-
-    function getDateInput(date) {
-        const dateInput = new Date(date);
-        var dateInputStr = `${("0" + dateInput.getDate()).slice(-2)}${("0" + (dateInput.getMonth() + 1)).slice(-2)}${dateInput.getFullYear()}`;
-        return dateInputStr;
-    }
-
-    function checkUrlExists(fileName) {
-        var http = new XMLHttpRequest();
-        http.open('HEAD', getRequestUrl(fileName), false);
-        http.send();
-        if (http.status != 404)
-            return true;
-        else
-            return false;
-    }
-
-    function getFirstItemData(date) {
-        var res = null;
-        var fileName = getMappingDataFileNameByDate(date);
-        if (fileName === "") return res;
-        $.ajax({
-            url: getRequestUrl(fileName),
-            async: false,
-            dataType: "json"        
-        }).done(function(result) {
-            if (result && result.items.length > 0) {
-                res= result.items[0];
-            }
-        });
-        return res;
-    }
-
-    function getRequestUrl(fileName) {
-        return `${DATA_URL}/${typeDefault === "selfBusiness" ? "TuDoanh": "KhoiNgoai"}/${fileName}.json`
-    }
-
-    function getNetTradeValueColumn() {
-        if (typeDefault === "selfBusiness") {
-            if (actionDefault === "netBuy") {
-                return TOTAL_NET_BUY_TRADE_VALUE ;
-            } else {
-                return TOTAL_NET_SELL_TRADE_VALUE ;
-            }
-        } else {
-            if (actionDefault === "netBuy") {
-                return FOREIGN_NET_BUY_VALUE ;
-            } else {
-                return FOREIGN_NET_SELL_VALUE ;
-            }
-        }
-    }
-
-    function getMappingDataFileNameByDate(date) {
-        var fileName = `data_${getDateInput(date)}`;
-        var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-        var index =  mappingDataJson[nodeName].findIndex(x => x.fileName === fileName);
-        if(index <= 0) return "";
-        return mappingDataJson[nodeName][index - 1].fileName;
-    }
-
-    function showLoading() {
-        var loadingElement = document.getElementById("showLoading");
-        loadingElement.style.display = "block";
-    }
-
-    function hideLoading() {
-        var loadingElement = document.getElementById("showLoading");
-        loadingElement.style.setProperty("display", "none", "important");
-    }
-    
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());

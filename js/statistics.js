@@ -1,0 +1,227 @@
+var divStatisticsShowData = document.getElementById('showStatisticsData');
+var divStatisticsTitle = document.getElementById('showStatisticsTitle');
+$(document).ready(function () {
+    initStatisticsData();
+});
+
+window.addEventListener('load', function () {
+    var upload = document.getElementById('fileInput');
+    // Make sure the DOM element exists
+    if (upload) {
+        upload.addEventListener('change', function () {
+            // Make sure a file was selected
+            if (upload.files.length > 0) {
+                dataJson = null;
+                divStatisticsShowData.innerHTML = "";
+                showLoading("showStatisticsLoading");
+                let readers = [];
+                for (let index = 0; index <= upload.files.length - 1; index++) {
+                    readers.push(readFileAsText(upload.files[index]));
+                }
+                // Trigger Promises
+                Promise.all(readers).then((values) => {
+                    processDataInput(values);
+                });
+            }
+        }, false);
+    }
+});
+
+function initStatisticsData() {
+    showLoading("showStatisticsLoading");
+    $.ajax({
+        url: MAPPING_DATA_URL,
+        async: false,
+        dataType: "json"
+    }).done(function (result) {
+        if (result) {
+            mappingDataJson = result;
+            var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
+            var dataInput1 = result[nodeName][result[nodeName].length - 1];
+            var dataInput2 = result[nodeName][result[nodeName].length - 2];
+            Promise.all([
+                fetchContent(dataInput1.fileName),
+                fetchContent(dataInput2.fileName)
+            ]).then((values) => {
+                if (values && values.length > 0) {
+                    processDataInput(values);
+                }
+                hideLoading("showStatisticsLoading");
+            }).then(() => {
+                console.log('Done fetching content via JavaScript');
+            }).catch((err) => {
+                console.error(err);
+            });
+        }
+    });
+}
+
+function processDataInput(values) {
+    if (values && values.length > 0) {
+        values.forEach((content) => {
+            var jsonObject = JSON.parse(content);
+            if (!dataJson) {
+                dataJson = jsonObject;
+                dataJson.totalCount = values.length;
+            } else {
+                dataJson.items.push(jsonObject.items[0]);
+            }
+        });
+        // Sort data
+        dataJson.items.sort(function (a, b) {
+            var c = new Date(a.today.toDate);
+            var d = new Date(b.today.toDate);
+            return c - d;
+        });
+        divStatisticsShowData.innerHTML = "";
+        for (let index = 0; index < dataJson.items.length; index++) {
+            createStatisticsReport(currentPeriod, dataJson.items[index], index);
+        }
+        setStatisticsTitle();
+    }
+    hideLoading("showStatisticsLoading");
+}
+
+function resetStatisticsData() {
+    dataJson = null;
+    divStatisticsShowData.innerHTML = "";
+    document.getElementById("fileInput").value = null;
+}
+
+function refreshStatisticsData() {
+    resetStatisticsData();
+    initStatisticsData();
+}
+
+function readFileAsText(file) {
+    return new Promise(function (resolve, reject) {
+        let fr = new FileReader();
+        fr.onload = function () {
+            resolve(fr.result);
+        };
+        fr.onerror = function () {
+            reject(fr);
+        };
+        fr.readAsText(file);
+    });
+}
+
+function changeStatisticsType(type) {
+    resetStatisticsData();
+    typeDefault = type;
+    initStatisticsData();
+}
+
+function changeStatisticsAction(action) {
+    actionDefault = action;
+    processStatisticsData(currentPeriod);
+}
+
+function processStatisticsData(period) {
+    currentPeriod = period;
+    if (dataJson && dataJson.items && dataJson.items.length > 0) {
+        divStatisticsShowData.innerHTML = "";
+        for (let index = 0; index < dataJson.items.length; index++) {
+            createStatisticsReport(period, dataJson.items[index], index);
+        }
+    }
+    setStatisticsTitle();
+}
+
+function createStatisticsReport(period, dataJsonInput, dataIndex) {
+    var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
+    var netTradeValueColumn = getNetTradeValueColumn();
+    var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng Giá Trị ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat().format(dataJsonInput[period][netTradeValueColumn]) + " đ";
+    var table = document.createElement("table");
+    table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
+    var tr = table.insertRow(-1);                   // table row.
+    var thTime = document.createElement("th");
+    thTime.setAttribute("colspan", 7);
+    thTime.innerHTML = title;
+    tr.appendChild(thTime);
+
+    tr = table.insertRow(-1);
+    for (var i = 0; i < statisticsHeadTitle.length; i++) {
+        var th = document.createElement("th");      // table header.
+        if (i === 2) {
+            th.setAttribute("colspan", 2);
+        } else {
+            th.setAttribute("rowspan", 2);
+        }
+        th.innerHTML = statisticsHeadTitle[i];
+        tr.appendChild(th);
+    }
+
+    // create span column
+    tr = table.insertRow(-1);
+    for (var k = 0; k < subStatisticsHeadTitle.length; k++) {
+        var th = document.createElement("th");
+        th.innerHTML = subStatisticsHeadTitle[k];
+        tr.appendChild(th);
+    }
+
+    // add json data to the table as rows.
+    for (var i = 0; i < data.length; i++) {
+        tr = table.insertRow(-1);
+        var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : getFirstItemData(dataJsonInput[period].toDate);
+        var valueChange = 0;
+        var percentChange = 0;
+        var volumeValueChange = 0;
+        var volumePercentChange = 0;
+        var columnName = getColumnName();
+        var volumeColumnName = getVolumeColumnName();
+        if (!prvItem) {
+            addCell(tr, Number(i + 1));
+        } else {
+            var prvPosition = actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][statisticsCols[1]]));
+            if (prvPosition > -1) {
+                addCell(tr, Number(i + 1) + getPositionIcon(prvPosition, i));
+            } else {
+                addCell(tr, Number(i + 1));
+            }
+            try {
+                valueChange = actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
+                percentChange = actionDefault === "netBuy" ? (valueChange / Number(prvItem[period].netBuy[prvPosition][columnName]) * 100).toFixed(2) : (valueChange / Number(prvItem[period].netSell[prvPosition][columnName]) * 100).toFixed(2);
+                volumeValueChange = actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
+                volumePercentChange = actionDefault === "netBuy" ? (volumeValueChange / Number(prvItem[period].netBuy[prvPosition][volumeColumnName]) * 100).toFixed(2) : (volumeValueChange / Number(prvItem[period].netSell[prvPosition][volumeColumnName]) * 100).toFixed(2);
+            } catch (error) {
+                valueChange = 0;
+                percentChange = 0;
+            }
+
+        }
+        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][statisticsCols[1]] + '</b>' : data[i][statisticsCols[1]]);
+        // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
+        if (typeDefault !== "selfBusiness" || prvItem === null) {
+            addCell(tr, '<span class="reference"> &#8722; </span>');
+        } else {
+            addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (", volumePercentChange, "%)")) + '</span>');
+        }
+        if (prvItem === null) {
+            addCell(tr, '<span class="reference"> &#8722; </span>');
+        } else {
+            addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (", percentChange, "%)")) + '</span>');
+        }
+
+        addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
+        addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
+        addCell(tr, '<span class="' + (Number(data[i][statisticsCols[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][statisticsCols[4]] * 100).toFixed(2) + '</span>');
+    }
+
+    // Now, add the newly created table with json data, to a container.
+    divStatisticsShowData.appendChild(table);
+}
+
+function setStatisticsTitle() {
+    var today = new Date().toLocaleDateString(locale);
+    var updateDate = new Date(dataJson.items[dataJson.items.length - 1]["today"].toDate).toLocaleDateString(locale);
+    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
+    if (updateDate === today) {
+        divStatisticsTitle.classList.remove("bg-warning");
+        divStatisticsTitle.classList.add("bg-success");
+    } else {
+        divStatisticsTitle.classList.remove("bg-success");
+        divStatisticsTitle.classList.add("bg-warning");
+    }
+    divStatisticsTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
+}
