@@ -67,26 +67,29 @@
                     </div>
                     <div class="col">
                         <div class="card">
-                            <h6 class="card-header">Bước 3: Chọn files (.json) - Xem dưới Local</h6>
+                            <h6 class="card-header">Bước 3: Chọn thời điểm thống kê</h6>
                             <div class="card-body">
-                                <input type="file" id="fileInput" multiple accept=".json">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio" id="btnStatisticsPeriodToday" autocomplete="off" onclick='processStatisticsData("today")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodToday">1 Ngày</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio" id="btnStatisticsPeriodOneWeek" autocomplete="off" onclick='processStatisticsData("oneWeek")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneWeek">5 Ngày</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio" id="btnStatisticsPeriodOneMonth" autocomplete="off" onclick='processStatisticsData("oneMonth")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneMonth">20 Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio" id="btnStatisticsPeriodOneYearToDate" autocomplete="off" checked onclick='processStatisticsData("yearToDate")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneYearToDate">Đến Hiện Tại</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card">
-                            <h6 class="card-header">Bước 4: Chọn thời điểm thống kê</h6>
+                            <h6 class="card-header">Chọn files (.json) - Xem dữ liệu trong quá khứ</h6>
                             <div class="card-body">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("today")'>1
-                                        Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("oneWeek")'>5
-                                        Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("oneMonth")'>20
-                                        Ngày</button>
-                                    <button type="button" class="btn btn-primary btn-sm" onclick='processStatisticsData("yearToDate")'>Đến
-                                        Hiện Tại</button>
-                                </div>
+                                <input type="file" id="fileInput" multiple accept=".json">
                             </div>
                         </div>
                     </div>
@@ -99,7 +102,7 @@
                         <div class="col margin-5">
                             <button type="button" class="btn btn-danger btn-sm" onclick='resetStatisticsData()'>Reset</button>
                             &nbsp;
-                            <button type="button" class="btn btn-success btn-sm" onclick='refreshStatisticsData()'>Refresh</button>
+                            <button type="button" class="btn btn-success btn-sm" onclick='refreshStatisticsData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
@@ -123,11 +126,11 @@
                                 <h6 class="card-header">Bước 1: Chọn loại thống kê</h6>
                                 <div class="card-body">
                                     <input type="radio" class="form-check-input" id="netBuySummary" name="netSummary" value="netBuy" checked
-                                        onclick='changeActionSummary(this.value)'>
+                                        onclick='changeSummaryAction(this.value)'>
                                     <label class="form-check-label" for="netBuySummary">Mua Ròng</label>
                                     &nbsp;
                                     <input type="radio" class="form-check-input" id="netSellSummary" name="netSummary" value="netSell"
-                                        onclick='changeActionSummary(this.value)'>
+                                        onclick='changeSummaryAction(this.value)'>
                                     <label class="form-check-label" for="netSellSummary">Bán Ròng</label>
                                 </div>
                             </div>
@@ -136,15 +139,18 @@
                             <div class="card">
                                 <h6 class="card-header">Bước 2: Chọn thời điểm thống kê</h6>
                                 <div class="card-body">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("today")'>1
-                                            Ngày</button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("oneWeek")'>5
-                                            Ngày</button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("oneMonth")'>20
-                                            Ngày</button>
-                                        <button type="button" class="btn btn-primary btn-sm" onclick='processDataSummary("yearToDate")'>Đến
-                                            Hiện Tại</button>
+                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodToday" autocomplete="off" onclick='changePeriodAction("today")'>
+                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodToday">1 Ngày</label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneWeek" autocomplete="off" onclick='changePeriodAction("oneWeek")'>
+                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneWeek">5 Ngày</label>
+                                      
+                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneMonth" autocomplete="off" onclick='changePeriodAction("oneMonth")'>
+                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneMonth">20 Ngày</label>
+
+                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneYearToDate" autocomplete="off" checked onclick='changePeriodAction("yearToDate")'>
+                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneYearToDate">Đến Hiện Tại</label>
                                     </div>
                                 </div>
                             </div>
@@ -153,10 +159,10 @@
                     <div class="title">
                         <div class="row">
                             <div class="col">
-                                <span class="badge bg-success card-header margin-5" id='showSummaryTitle'>Tổng Hợp Tự Doanh - Khối Ngoại Mua Ròng</span>
+                                <span class="badge bg-success card-header margin-5" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</span>
                             </div>
                             <div class="col margin-5">
-                                <button type="button" class="btn btn-success btn-sm" onclick='refreshDataSummary()'>Tải dữ liệu</button>
+                                <button type="button" class="btn btn-success btn-sm" onclick='refreshDataSummary()'>Tải dữ liệu mới</button>
                             </div>
                         </div>
                     </div>
@@ -168,9 +174,7 @@
                         </div>
                         <span class="loadingTitle">Đang tải dữ liệu...</span>
                     </div>
-                    <div id='showSummaryData' class="table-responsive">
-                        Chức năng vẫn đang phát triển!
-                    </div>
+                    <div id='showSummaryData' class="table-responsive"></div>
                 </div>
             </div>
         </div>

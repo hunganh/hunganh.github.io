@@ -2,7 +2,9 @@ body,
 th,
 td,
 p,
-h3, 
+h3,
+input,
+.btn-sm, 
 button {
     font: small 'Segoe UI' !important;
 }

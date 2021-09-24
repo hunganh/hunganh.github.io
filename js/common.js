@@ -1,11 +1,16 @@
 var typeDefault = "selfBusiness";
 var actionDefault = "netBuy";
+var actionSummaryDefault= "netBuy";
 var currentPeriod = "yearToDate";
+var currentSummaryPeriod = "yearToDate";
 var dataJson = null;
+var summaryDataJson = null;
 var mappingDataJson = null;
 const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "percentPriceChange"];
 const statisticsHeadTitle = ["#", "Mã CP", "Biến động trong phiên", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
 const subStatisticsHeadTitle = ["Khối lượng", "Giá trị"];
+const summaryHeadTitle = ["#", "Mã CP", "Tự doanh", "Khối ngoại", "Tổng"];
+const subSummaryHeadTitle = ["Giá trị", "Lãi/Lỗ (%)", "Giá trị", "Lãi/Lỗ (%)", "Giá trị", "Lãi/Lỗ (%)"];
 const locale = 'en-GB';
 const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
 const FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
@@ -202,3 +207,6 @@ function hideLoading(elementId) {
     loadingElement.style.setProperty("display", "none", "important");
 }
 
+function getClassByValue(value) {
+    return value > 0 ? "up" : value < 0 ? "down" : "reference";
+}
