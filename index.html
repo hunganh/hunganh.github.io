@@ -153,24 +153,22 @@
                     <div class="title">
                         <div class="row">
                             <div class="col">
-                                <span class="badge bg-success card-header margin-5" id='showTitleSummary'>Tổng Hợp Tự Doanh - Khối Ngoại Mua Ròng</span>
+                                <span class="badge bg-success card-header margin-5" id='showSummaryTitle'>Tổng Hợp Tự Doanh - Khối Ngoại Mua Ròng</span>
                             </div>
                             <div class="col margin-5">
-                                <button type="button" class="btn btn-danger btn-sm" onclick='resetDataSummary()'>Reset</button>
-                                &nbsp;
                                 <button type="button" class="btn btn-success btn-sm" onclick='refreshDataSummary()'>Tải dữ liệu</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="grid-container">
-                    <div id='showLoadingSummary' class="d-flex justify-content-center" style="display: none !important;">
+                    <div id='showSummaryLoading' class="d-flex justify-content-center" style="display: none !important;">
                         <div class="spinner-border text-success" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                         <span class="loadingTitle">Đang tải dữ liệu...</span>
                     </div>
-                    <div id='showDataSummary' class="table-responsive">
+                    <div id='showSummaryData' class="table-responsive">
                         Chức năng vẫn đang phát triển!
                     </div>
                 </div>
@@ -178,13 +176,13 @@
         </div>
         <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
             <div class="grid-container">
-                <div id='showLoadingFilters' class="d-flex justify-content-center" style="display: none !important;">
+                <div id='showFiltersLoading' class="d-flex justify-content-center" style="display: none !important;">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     <span class="loadingTitle">Đang tải dữ liệu...</span>
                 </div>
-                <div id='showDataFilters' class="table-responsive">
+                <div id='showFiltersData' class="table-responsive">
                     Chức năng vẫn đang phát triển!
                 </div>
             </div>
@@ -194,6 +192,8 @@
 </html>
 <script src="js/common.js"></script>
 <script src="js/statistics.js"></script>
+<script src="js/summary.js"></script>
+<script src="js/filters.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
 <script>
     window.dataLayer = window.dataLayer || [];

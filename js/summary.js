@@ -1,5 +1,8 @@
-function resetDataSummary() {
+var divSummaryShowData = document.getElementById('showSummaryData');
+var divSummaryTitle = document.getElementById('showSummaryTitle');
 
+function resetDataSummary() {
+    divSummaryShowData.innerHTML = "";
 }
 
 function refreshDataSummary() {
@@ -16,7 +19,7 @@ function initSummaryData() {
         if (result) {
             mappingDataJson = result;
             var dataInput1 = result[TU_DOANH][result[TU_DOANH].length - 1];
-            var dataInput2 = result[KHOI_NGOAI][result[KHOI_NGOAI].length - 2];
+            var dataInput2 = result[KHOI_NGOAI][result[KHOI_NGOAI].length - 1];
             var URL_TU_DOANH = getRequestUrl(dataInput1.fileName, TU_DOANH);
             var URL_KHOI_NGOAI = getRequestUrl(dataInput2.fileName, KHOI_NGOAI);
             Promise.all([
@@ -37,24 +40,19 @@ function initSummaryData() {
 }
 
 function processSummaryDataInput(values) {
+    resetDataSummary();
     if (values && values.length > 0) {
-        var jsonObject = null;
-        values.forEach((content) => {
-            jsonObject = JSON.parse(content);
-        });
-        divSummaryShowData.innerHTML = "";
-        for (let index = 0; index < jsonObject.items.length; index++) {
-            createSummaryReport(currentPeriod, jsonObject.items[index], index);
-        }
+        var jsonObject = { tudoanh: values[0] ? JSON.parse(values[0]).items[0] : null, khoingoai: values[1] ? JSON.parse(values[1]).items[0] : null };
+        createSummaryReport(jsonObject);
         setSummaryTitle();
     }
     hideLoading("showSummaryLoading");
 }
 
-function createSummaryReport(period, dataJsonInput, dataIndex); {
+function createSummaryReport(data) {
 
 }
 
 function setSummaryTitle() {
-    
+
 }

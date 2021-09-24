@@ -57,6 +57,7 @@ function initStatisticsData() {
 }
 
 function processDataInput(values) {
+    divStatisticsShowData.innerHTML = "";
     if (values && values.length > 0) {
         values.forEach((content) => {
             var jsonObject = JSON.parse(content);
@@ -73,7 +74,6 @@ function processDataInput(values) {
             var d = new Date(b.today.toDate);
             return c - d;
         });
-        divStatisticsShowData.innerHTML = "";
         for (let index = 0; index < dataJson.items.length; index++) {
             createStatisticsReport(currentPeriod, dataJson.items[index], index);
         }
@@ -113,8 +113,10 @@ function changeStatisticsType(type) {
 }
 
 function changeStatisticsAction(action) {
+    showLoading("showStatisticsLoading");
     actionDefault = action;
     processStatisticsData(currentPeriod);
+    hideLoading("showStatisticsLoading");
 }
 
 function processStatisticsData(period) {
@@ -180,10 +182,10 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
                 addCell(tr, Number(i + 1));
             }
             try {
-                valueChange = actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
-                percentChange = actionDefault === "netBuy" ? (valueChange / Number(prvItem[period].netBuy[prvPosition][columnName]) * 100).toFixed(2) : (valueChange / Number(prvItem[period].netSell[prvPosition][columnName]) * 100).toFixed(2);
-                volumeValueChange = actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
-                volumePercentChange = actionDefault === "netBuy" ? (volumeValueChange / Number(prvItem[period].netBuy[prvPosition][volumeColumnName]) * 100).toFixed(2) : (volumeValueChange / Number(prvItem[period].netSell[prvPosition][volumeColumnName]) * 100).toFixed(2);
+                valueChange = currentPeriod === "today" ?  Number(data[i][columnName]) : actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
+                percentChange = currentPeriod === "today" ? "" : actionDefault === "netBuy" ? (valueChange / Number(prvItem[period].netBuy[prvPosition][columnName]) * 100).toFixed(2) : (valueChange / Number(prvItem[period].netSell[prvPosition][typeDefault === "selfBusiness" ? TOTAL_NET_SELL_TRADE_VALUE : FOREIGN_NET_SELL_VALUE]) * 100).toFixed(2);
+                volumeValueChange = currentPeriod === "today" ?  Number(data[i][volumeColumnName]) : actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
+                volumePercentChange = currentPeriod === "today" ? "" : actionDefault === "netBuy" ? (volumeValueChange / Number(prvItem[period].netBuy[prvPosition][volumeColumnName]) * 100).toFixed(2) : (volumeValueChange / Number(prvItem[period].netSell[prvPosition][TOTAL_NET_SELL_TRADE_VOLUME]) * 100).toFixed(2);
             } catch (error) {
                 valueChange = 0;
                 percentChange = 0;
@@ -195,12 +197,12 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         if (typeDefault !== "selfBusiness" || prvItem === null) {
             addCell(tr, '<span class="reference"> &#8722; </span>');
         } else {
-            addCell(tr, '<span class="' + (volumeValueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(volumeValueChange).concat(" (", volumePercentChange, "%)")) + '</span>');
+            addCell(tr, `<span class=${(volumeValueChange >= 0 ? "up" : "down")}> ${new Intl.NumberFormat().format(volumeValueChange)} ${volumePercentChange === "" ? "" : "(" + volumePercentChange + "%)"}</span>`);
         }
         if (prvItem === null) {
             addCell(tr, '<span class="reference"> &#8722; </span>');
         } else {
-            addCell(tr, '<span class="' + (valueChange >= 0 ? "up" : "down") + '">' + (new Intl.NumberFormat().format(valueChange).concat(" (", percentChange, "%)")) + '</span>');
+            addCell(tr, `<span class=${(valueChange >= 0 ? "up" : "down")}> ${new Intl.NumberFormat().format(valueChange)} ${percentChange === "" ? "" : "(" + percentChange + "%)"}</span>`);
         }
 
         addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");

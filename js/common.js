@@ -4,7 +4,7 @@ var currentPeriod = "yearToDate";
 var dataJson = null;
 var mappingDataJson = null;
 const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "percentPriceChange"];
-const statisticsHeadTitle = ["#", "Mã CP", "Biến động", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+const statisticsHeadTitle = ["#", "Mã CP", "Biến động trong phiên", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
 const subStatisticsHeadTitle = ["Khối lượng", "Giá trị"];
 const locale = 'en-GB';
 const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
@@ -20,27 +20,27 @@ const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
-$(document).keydown(function (event) {
-    // Prevent F12
-    if (event.keyCode == 123) 
-    { 
-        return false;
-    } 
-    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-    // Prevent Ctrl+Shift+I
-    {         
-        return false;
-    }
-    else if(event.ctrlKey && event.keyCode == 83)
-    // Prevent Ctrl+S
-    {         
-        return false;
-    }
-});
+// $(document).keydown(function (event) {
+//     // Prevent F12
+//     if (event.keyCode == 123) 
+//     { 
+//         return false;
+//     } 
+//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+//     // Prevent Ctrl+Shift+I
+//     {         
+//         return false;
+//     }
+//     else if(event.ctrlKey && event.keyCode == 83)
+//     // Prevent Ctrl+S
+//     {         
+//         return false;
+//     }
+// });
 
 function fetchContent(fileName) {
     return new Promise((resolve, reject) => {
@@ -131,27 +131,30 @@ function getPositionIcon(prvPosition, currentPosition) {
 
 function getColumnName() {
     if (typeDefault === "selfBusiness") {
-        if (actionDefault === "netBuy") {
-            return TOTAL_NET_BUY_TRADE_VALUE;
-        } else {
-            return TOTAL_NET_SELL_TRADE_VALUE;
-        }
+        return TOTAL_NET_BUY_TRADE_VALUE;
+        // if (actionDefault === "netBuy") {
+        //     return TOTAL_NET_BUY_TRADE_VALUE;
+        // } else {
+        //     return TOTAL_NET_SELL_TRADE_VALUE;
+        // }
     } else {
-        if (actionDefault === "netBuy") {
-            return FOREIGN_NET_BUY_VALUE;
-        } else {
-            return FOREIGN_NET_SELL_VALUE;
-        }
+        return FOREIGN_NET_BUY_VALUE;
+        // if (actionDefault === "netBuy") {
+        //     return FOREIGN_NET_BUY_VALUE;
+        // } else {
+        //     return FOREIGN_NET_SELL_VALUE;
+        // }
     }
 }
 
 function getVolumeColumnName() {
     if (typeDefault === "selfBusiness") {
-        if (actionDefault === "netBuy") {
-            return TOTAL_NET_BUY_TRADE_VOLUME;
-        } else {
-            return TOTAL_NET_SELL_TRADE_VOLUME;
-        }
+        return TOTAL_NET_BUY_TRADE_VOLUME;
+        // if (actionDefault === "netBuy") {
+        //     return TOTAL_NET_BUY_TRADE_VOLUME;
+        // } else {
+        //     return TOTAL_NET_SELL_TRADE_VOLUME;
+        // }
     } else {
         return "";
     }
