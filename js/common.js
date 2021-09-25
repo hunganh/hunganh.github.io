@@ -25,27 +25,27 @@ const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
-$(document).keydown(function (event) {
-    // Prevent F12
-    if (event.keyCode == 123) 
-    { 
-        return false;
-    } 
-    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-    // Prevent Ctrl+Shift+I
-    {         
-        return false;
-    }
-    else if(event.ctrlKey && event.keyCode == 83)
-    // Prevent Ctrl+S
-    {         
-        return false;
-    }
-});
+// $(document).keydown(function (event) {
+//     // Prevent F12
+//     if (event.keyCode == 123) 
+//     { 
+//         return false;
+//     } 
+//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+//     // Prevent Ctrl+Shift+I
+//     {         
+//         return false;
+//     }
+//     else if(event.ctrlKey && event.keyCode == 83)
+//     // Prevent Ctrl+S
+//     {         
+//         return false;
+//     }
+// });
 
 function fetchContent(fileName) {
     return new Promise((resolve, reject) => {
@@ -209,4 +209,29 @@ function hideLoading(elementId) {
 
 function getClassByValue(value) {
     return value > 0 ? "up" : value < 0 ? "down" : "reference";
+}
+
+function showTickerInfor(code) {
+    var currentDate = new Date();
+    var prvDate = new Date();
+    prvDate.setMonth(prvDate.getMonth()-3);
+    var toDate = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`;
+    var fromDate = `${prvDate.getFullYear()}-${("0" + (prvDate.getMonth() + 1)).slice(-2)}-${("0" + prvDate.getDate()).slice(-2)}`;
+    
+    var URL_RECOMMENDATIONS = `https://fwtapi2.fialda.com/api/services/app/AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`;
+    Promise.all([
+        fetchContentByUrl(URL_RECOMMENDATIONS),
+        //fetchContentByUrl(URL_KHOI_NGOAI)
+    ]).then((values) => {
+        if (values && values.length > 0) {
+            var a = JSON.parse(values[0]);
+            //setSummaryDataGlobal(values);
+        }
+    }).then(() => {
+        console.log('Done fetching content via JavaScript');
+    }).catch((err) => {
+        console.error(err);
+    });
+    $("#tickerDetail").html(code);
+    $("#tickerDetailModal").modal('show');
 }

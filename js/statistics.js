@@ -165,6 +165,8 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     // add json data to the table as rows.
     for (var i = 0; i < data.length; i++) {
         tr = table.insertRow(-1);
+        tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
+        tr.classList.add("tr-cursor");
         var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : getFirstItemData(dataJsonInput[period].toDate);
         var valueChange = 0;
         var percentChange = 0;

@@ -123,6 +123,8 @@ function createSummaryReport(data) {
     // add json data to the table as rows.
     for (var i = 0; i < data.length; i++) {
         tr = table.insertRow(-1);
+        tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
+        tr.classList.add("tr-cursor");
         var selfBusinessPercentChange = Number(data[i]["selfBusinessPercentPriceChange"] * 100).toFixed(2);
         var foreignPercentChange = Number(data[i]["foreignPercentPriceChange"] * 100).toFixed(2);
         addCell(tr, Number(i + 1));
@@ -172,5 +174,5 @@ function setSummaryTitle() {
         divSummaryTitle.classList.remove("bg-success");
         divSummaryTitle.classList.add("bg-warning");
     }
-    divSummaryTitle.innerHTML = `Tổng Hợp Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
+    divSummaryTitle.innerHTML = `Cổ Phiếu Được Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
 }
