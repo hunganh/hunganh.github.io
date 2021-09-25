@@ -20,8 +20,12 @@ td {
   border-collapse: collapse;
   padding: 2px 3px;
   text-align: center;
-  width: auto !important;
 }
+
+#showStatisticsData > table, #showSummaryData > table {
+    width: auto !important;
+}
+
 
 th {
   font-weight: bold;
@@ -184,4 +188,8 @@ ul > li > button {
 
 .tr-cursor {
     cursor: pointer !important;
+}
+
+.text-left {
+    text-align: left !important;
 }

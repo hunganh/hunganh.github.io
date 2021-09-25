@@ -1,12 +1,16 @@
 var divSummaryShowData = document.getElementById('showSummaryData');
 var divSummaryTitle = document.getElementById('showSummaryTitle');
+$(document).ready(function () {
+    initSummaryData();
+});
 
 function resetDataSummary() {
     summaryDataJson = null;
     divSummaryShowData.innerHTML = "";
 }
 
-function refreshDataSummary() {
+function refreshSummaryData() {
+    resetDataSummary();
     initSummaryData();
 }
 
@@ -174,5 +178,5 @@ function setSummaryTitle() {
         divSummaryTitle.classList.remove("bg-success");
         divSummaryTitle.classList.add("bg-warning");
     }
-    divSummaryTitle.innerHTML = `Cổ Phiếu Được Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
+    divSummaryTitle.innerHTML = `Mã CP Được Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
 }

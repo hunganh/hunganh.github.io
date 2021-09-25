@@ -6,6 +6,7 @@ var currentSummaryPeriod = "yearToDate";
 var dataJson = null;
 var summaryDataJson = null;
 var mappingDataJson = null;
+var currentTicker = "";
 const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "percentPriceChange"];
 const statisticsHeadTitle = ["#", "Mã CP", "Biến động trong phiên", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
 const subStatisticsHeadTitle = ["Khối lượng", "Giá trị"];
@@ -20,32 +21,35 @@ const MATCH_PRICE = "matchPrice";
 const REFERENCE_PRICE = "referencePrice";
 const TOTAL_NET_BUY_TRADE_VOLUME = "totalNetBuyTradeVolume";
 const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
-const DATA_URL = "https://hunganh.github.io/";
-const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
+const DATA_URL = "https://hunganh.github.io/";
+const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
+const CORS_PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+const FIALDA_API_URL = `${CORS_PROXY_URL}https://fwtapi2.fialda.com/api/services/app/`;
+const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
-// $(document).keydown(function (event) {
-//     // Prevent F12
-//     if (event.keyCode == 123) 
-//     { 
-//         return false;
-//     } 
-//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-//     // Prevent Ctrl+Shift+I
-//     {         
-//         return false;
-//     }
-//     else if(event.ctrlKey && event.keyCode == 83)
-//     // Prevent Ctrl+S
-//     {         
-//         return false;
-//     }
-// });
+$(document).keydown(function (event) {
+    // Prevent F12
+    if (event.keyCode == 123) 
+    { 
+        return false;
+    } 
+    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+    // Prevent Ctrl+Shift+I
+    {         
+        return false;
+    }
+    else if(event.ctrlKey && event.keyCode == 83)
+    // Prevent Ctrl+S
+    {         
+        return false;
+    }
+});
 
 function fetchContent(fileName) {
     return new Promise((resolve, reject) => {
@@ -212,26 +216,74 @@ function getClassByValue(value) {
 }
 
 function showTickerInfor(code) {
+    currentTicker = code;
+    var loadingHTML = getLoadingHTML();
+    $("#tickerDetailLabel").html(code);
+    $("#tickerDetail").html(loadingHTML);
+    processTickerData(code);
+    $("#tickerDetailModal").modal('show');
+}
+
+function processTickerData(code) {
     var currentDate = new Date();
     var prvDate = new Date();
     prvDate.setMonth(prvDate.getMonth()-3);
     var toDate = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`;
     var fromDate = `${prvDate.getFullYear()}-${("0" + (prvDate.getMonth() + 1)).slice(-2)}-${("0" + prvDate.getDate()).slice(-2)}`;
     
-    var URL_RECOMMENDATIONS = `https://fwtapi2.fialda.com/api/services/app/AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`;
+    var URL_RECOMMENDATIONS = `${FIALDA_API_URL}AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`;
     Promise.all([
         fetchContentByUrl(URL_RECOMMENDATIONS),
         //fetchContentByUrl(URL_KHOI_NGOAI)
     ]).then((values) => {
         if (values && values.length > 0) {
-            var a = JSON.parse(values[0]);
-            //setSummaryDataGlobal(values);
+            var data = JSON.parse(values);
+            setTimeout(() => {
+                var content = drawRecommendationsDataToHTML(data, code);
+                $("#tickerDetail").html(content);
+                $("#tickerDetailLabel").html(code);
+            }, 50);
         }
     }).then(() => {
         console.log('Done fetching content via JavaScript');
     }).catch((err) => {
         console.error(err);
     });
-    $("#tickerDetail").html(code);
-    $("#tickerDetailModal").modal('show');
+}
+
+function drawRecommendationsDataToHTML(data, code) {
+    var res = `<table class="table table-bordered table-responsive">
+                <thead class="table-light">
+                    <th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th>
+                </thead>
+                <tbody>`;
+    if (data && data["result"]) {
+        var firstKey = Object.keys(data["result"])[0];
+        if (firstKey !== undefined) {
+            data["result"][firstKey].forEach(item => {
+                res += `<tr><td>${new Date(item.reportDate).toLocaleDateString(locale)}</td><td><b class="top10">${item.reporter}</b></td><td class="text-left">${item.title}</td><td><a href="${FIALDA_ANALYSIS_REPORT_URL}${code}_-_${item.attachment}" target="_blank">Xem báo cáo</a></td></tr>`;
+            });
+        } else {
+            res += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+        }
+    } else {
+        res += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+    }
+    res += `</tbody></table>`;
+    return res;
+}
+
+function getLoadingHTML() {
+    return `<div class="d-flex justify-content-center">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <span class="loadingTitle">Đang tải dữ liệu...</span>
+            </div>`;
+}
+
+function refreshTickerDetailData() {
+    var loadingHTML = getLoadingHTML();
+    $("#tickerDetail").html(loadingHTML);
+    processTickerData(currentTicker);
 }

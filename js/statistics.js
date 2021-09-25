@@ -72,7 +72,7 @@ function processDataInput(values) {
         dataJson.items.sort(function (a, b) {
             var c = new Date(a.today.toDate);
             var d = new Date(b.today.toDate);
-            return c - d;
+            return d - c;
         });
         for (let index = 0; index < dataJson.items.length; index++) {
             createStatisticsReport(currentPeriod, dataJson.items[index], index);
