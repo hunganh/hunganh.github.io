@@ -25,31 +25,32 @@ const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
 const DATA_URL = "https://hunganh.github.io/";
 const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
-const CORS_PROXY_URL = "https://cors-anywhere.herokuapp.com/";
-const FIALDA_API_URL = `${CORS_PROXY_URL}https://fwtapi2.fialda.com/api/services/app/`;
+const CORS_PROXY_URL = "http://api.allorigins.win/get?url=";
+const FIALDA_API_URL_WITH_CORS_PROX_YURL = `${CORS_PROXY_URL}https://fwtapi2.fialda.com/api/services/app/`;
+const FIALDA_API_URL= `https://fwtapi2.fialda.com/api/services/app/`;
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
-$(document).keydown(function (event) {
-    // Prevent F12
-    if (event.keyCode == 123) 
-    { 
-        return false;
-    } 
-    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-    // Prevent Ctrl+Shift+I
-    {         
-        return false;
-    }
-    else if(event.ctrlKey && event.keyCode == 83)
-    // Prevent Ctrl+S
-    {         
-        return false;
-    }
-});
+// $(document).keydown(function (event) {
+//     // Prevent F12
+//     if (event.keyCode == 123) 
+//     { 
+//         return false;
+//     } 
+//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+//     // Prevent Ctrl+Shift+I
+//     {         
+//         return false;
+//     }
+//     else if(event.ctrlKey && event.keyCode == 83)
+//     // Prevent Ctrl+S
+//     {         
+//         return false;
+//     }
+// });
 
 function fetchContent(fileName) {
     return new Promise((resolve, reject) => {
@@ -86,6 +87,35 @@ function fetchContentByUrl(url) {
         });
     });
 };
+
+function fetchContentByUrlWithCORSProxy(url) {
+    return new Promise((resolve, reject) => {
+        // window.fetch(url,
+        //     {
+        //         method: 'GET'
+        //     }
+        // ).then((response) => {
+        //     if (response.status === 200) {
+        //         resolve(response.text());
+        //     }
+        // }, (err) => {
+        //     reject(err);
+        // }).catch(error => {
+        //     console.log(error);
+        // });
+        fetch(`${CORS_PROXY_URL}${url}`)
+        .then(response => {
+            if (response.ok) return resolve(response.json())
+            throw new Error('Network response was not ok.')
+        }, err => {
+            reject(err);
+        })
+        .then(data => console.log(data.contents))
+        .catch(error => {
+            console.log(error);
+        });
+    });
+}
 
 function getDateInput(date) {
     const dateInput = new Date(date);
@@ -231,13 +261,13 @@ function processTickerData(code) {
     var toDate = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`;
     var fromDate = `${prvDate.getFullYear()}-${("0" + (prvDate.getMonth() + 1)).slice(-2)}-${("0" + prvDate.getDate()).slice(-2)}`;
     
-    var URL_RECOMMENDATIONS = `${FIALDA_API_URL}AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`;
+    var URL_RECOMMENDATIONS = encodeURIComponent(`${FIALDA_API_URL}AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`);
     Promise.all([
-        fetchContentByUrl(URL_RECOMMENDATIONS),
+        fetchContentByUrlWithCORSProxy(URL_RECOMMENDATIONS),
         //fetchContentByUrl(URL_KHOI_NGOAI)
     ]).then((values) => {
         if (values && values.length > 0) {
-            var data = JSON.parse(values);
+            var data = JSON.parse(values[0].contents);
             setTimeout(() => {
                 var content = drawRecommendationsDataToHTML(data, code);
                 $("#tickerDetail").html(content);
