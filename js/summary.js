@@ -16,39 +16,24 @@ function refreshSummaryData() {
 
 function initSummaryData() {
     showLoading("showSummaryLoading");
-    $.ajax({
-        url: MAPPING_DATA_URL,
-        async: false,
-        dataType: "json"
-    }).done(function (result) {
-        if (result) {
-            mappingDataJson = result;
-            var dataInput1 = result[TU_DOANH][result[TU_DOANH].length - 1];
-            var dataInput2 = result[KHOI_NGOAI][result[KHOI_NGOAI].length - 1];
-            var URL_TU_DOANH = getRequestUrl(dataInput1.fileName, TU_DOANH);
-            var URL_KHOI_NGOAI = getRequestUrl(dataInput2.fileName, KHOI_NGOAI);
-            Promise.all([
-                fetchContentByUrl(URL_TU_DOANH),
-                fetchContentByUrl(URL_KHOI_NGOAI)
-            ]).then((values) => {
-                if (values && values.length > 0) {
-                    setSummaryDataGlobal(values);
-                }
-                hideLoading("showSummaryLoading");
-            }).then(() => {
-                console.log('Done fetching content via JavaScript');
-            }).catch((err) => {
-                console.error(err);
-            });
+     Promise.all([
+        fetchContentByUrl(SYNTHESIS_DATA_URL)
+    ]).then((values) => {
+        if (values && values.length > 0) {
+            setSummaryDataGlobal(values);
         }
+        hideLoading("showSummaryLoading");
+    }).then(() => {
+        console.log('Done fetching content via JavaScript');
+    }).catch((err) => {
+        console.error(err);
     });
 }
 
 function setSummaryDataGlobal(values) {
     resetDataSummary();
     if (values && values.length > 0) {
-        var dataJsonInput = { selfBusiness: values[0] ? JSON.parse(values[0]).items[0] : null, foreign: values[1] ? JSON.parse(values[1]).items[0] : null };
-        summaryDataJson = dataJsonInput;
+        summaryDataJson = JSON.parse(values);
         processSummaryDataInput();
     }
 }

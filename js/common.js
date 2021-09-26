@@ -1,6 +1,6 @@
 var typeDefault = "selfBusiness";
 var actionDefault = "netBuy";
-var actionSummaryDefault= "netBuy";
+var actionSummaryDefault = "netBuy";
 var currentPeriod = "yearToDate";
 var currentSummaryPeriod = "yearToDate";
 var dataJson = null;
@@ -23,11 +23,14 @@ const TOTAL_NET_BUY_TRADE_VOLUME = "totalNetBuyTradeVolume";
 const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
-const DATA_URL = "https://hunganh.github.io/";
-const MAPPING_DATA_URL = `${DATA_URL}mapping/data_mapping.json`;
-const CORS_PROXY_URL = "http://api.allorigins.win/get?url=";
-const FIALDA_API_URL_WITH_CORS_PROX_YURL = `${CORS_PROXY_URL}https://fwtapi2.fialda.com/api/services/app/`;
-const FIALDA_API_URL= `https://fwtapi2.fialda.com/api/services/app/`;
+const DATA_URL = "http://data-statistics-api.herokuapp.com"; //http://localhost:3000";
+const FILES_DATA_URL = `${DATA_URL}/files`;
+const CORS_PROXY_URL = `${DATA_URL}/fetch`;
+const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
+const FIALDA_API_V1_URL = `https://fwtapi1.fialda.com/api/services/app`;
+const FIALDA_API_V2_URL = `https://fwtapi2.fialda.com/api/services/app`;
+const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
+const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
 // $(document).on("contextmenu", function (e) {        
@@ -52,24 +55,6 @@ const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisRe
 //     }
 // });
 
-function fetchContent(fileName) {
-    return new Promise((resolve, reject) => {
-        window.fetch(getRequestUrl(fileName,""),
-            {
-                method: 'GET'
-            }
-        ).then((response) => {
-            if (response.status === 200) {
-                resolve(response.text());
-            }
-        }, (err) => {
-            reject(err);
-        }).catch(error => {
-            console.log(error);
-        });
-    });
-};
-
 function fetchContentByUrl(url) {
     return new Promise((resolve, reject) => {
         window.fetch(url,
@@ -88,38 +73,44 @@ function fetchContentByUrl(url) {
     });
 };
 
-function fetchContentByUrlWithCORSProxy(url) {
+function fetchContentByUrlWithCORSProxy(url, method, body) {
     return new Promise((resolve, reject) => {
-        // window.fetch(url,
-        //     {
-        //         method: 'GET'
-        //     }
-        // ).then((response) => {
-        //     if (response.status === 200) {
-        //         resolve(response.text());
-        //     }
-        // }, (err) => {
-        //     reject(err);
-        // }).catch(error => {
-        //     console.log(error);
-        // });
-        fetch(`${CORS_PROXY_URL}${url}`)
-        .then(response => {
-            if (response.ok) return resolve(response.json())
-            throw new Error('Network response was not ok.')
-        }, err => {
-            reject(err);
-        })
-        .then(data => console.log(data.contents))
-        .catch(error => {
-            console.log(error);
-        });
+        if (method === "GET") {
+            fetch(`${CORS_PROXY_URL}/${url}`)
+                .then(response => {
+                    if (response.ok) return resolve(response.json())
+                    throw new Error('Network response was not ok.')
+                }, err => {
+                    reject(err);
+                })
+                .then(data => console.log(data.contents))
+                .catch(error => {
+                    console.log(error);
+                });
+        } else {
+            fetch(`${CORS_PROXY_URL}/${url}`, {
+                method: 'POST', headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(response => {
+                    if (response.ok) return resolve(response.json())
+                    throw new Error('Network response was not ok.')
+                }, err => {
+                    reject(err);
+                })
+                .then(data => console.log(data.contents))
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     });
 }
 
 function getDateInput(date) {
     const dateInput = new Date(date);
-    var dateInputStr = `${("0" + dateInput.getDate()).slice(-2)}${("0" + (dateInput.getMonth() + 1)).slice(-2)}${dateInput.getFullYear()}`;
+    var dateInputStr = `${dateInput.getFullYear()}_${("0" + (dateInput.getMonth() + 1)).slice(-2)}_${("0" + dateInput.getDate()).slice(-2)}`;
     return dateInputStr;
 }
 
@@ -135,10 +126,10 @@ function checkUrlExists(fileName) {
 
 function getFirstItemData(date) {
     var res = null;
-    var fileName = getMappingDataFileNameByDate(date);
-    if (fileName === "") return res;
+    var url = getUrlPreviousElementByDate(date);
+    if (url === "") return res;
     $.ajax({
-        url: getRequestUrl(fileName, ""),
+        url: url,
         async: false,
         dataType: "json"
     }).done(function (result) {
@@ -147,10 +138,6 @@ function getFirstItemData(date) {
         }
     });
     return res;
-}
-
-function getRequestUrl(fileName, type) {
-    return `${DATA_URL}/${type !== "" ? type : (typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI)}/${fileName}.json`
 }
 
 function addCell(tr, cellData) {
@@ -223,12 +210,11 @@ function getNetTradeValueColumn() {
     }
 }
 
-function getMappingDataFileNameByDate(date) {
-    var fileName = `data_${getDateInput(date)}`;
-    var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-    var index = mappingDataJson[nodeName].findIndex(x => x.fileName === fileName);
+function getUrlPreviousElementByDate(date) {
+    var fileName = `${getDateInput(date)}.json`;
+    var index = mappingDataJson.findIndex(x => x.name === fileName);
     if (index <= 0) return "";
-    return mappingDataJson[nodeName][index - 1].fileName;
+    return mappingDataJson[index + 1].url;
 }
 
 function showLoading(elementId) {
@@ -257,21 +243,20 @@ function showTickerInfor(code) {
 function processTickerData(code) {
     var currentDate = new Date();
     var prvDate = new Date();
-    prvDate.setMonth(prvDate.getMonth()-3);
+    prvDate.setMonth(prvDate.getMonth() - 3);
     var toDate = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`;
     var fromDate = `${prvDate.getFullYear()}-${("0" + (prvDate.getMonth() + 1)).slice(-2)}-${("0" + prvDate.getDate()).slice(-2)}`;
-    
-    var URL_RECOMMENDATIONS = encodeURIComponent(`${FIALDA_API_URL}AnalysisReport/GetByFilter?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`);
+
+    var RECOMMENDATIONS_URL = encodeURIComponent(`${FIALDA_API_V2_URL}${FIALDA_GET_REPORT_PATH}?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`);
+    var STOCK_INFO_URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_GET_STOCK_INFO_PATH}`);
     Promise.all([
-        fetchContentByUrlWithCORSProxy(URL_RECOMMENDATIONS),
-        //fetchContentByUrl(URL_KHOI_NGOAI)
+        fetchContentByUrlWithCORSProxy(RECOMMENDATIONS_URL, "GET", ""),
+        fetchContentByUrlWithCORSProxy(STOCK_INFO_URL, "POST", [{ symbol: code }])
     ]).then((values) => {
         if (values && values.length > 0) {
-            var data = JSON.parse(values[0].contents);
             setTimeout(() => {
-                var content = drawRecommendationsDataToHTML(data, code);
+                var content = drawRecommendationsDataToHTML(values, code);
                 $("#tickerDetail").html(content);
-                $("#tickerDetailLabel").html(code);
             }, 50);
         }
     }).then(() => {
@@ -282,15 +267,58 @@ function processTickerData(code) {
 }
 
 function drawRecommendationsDataToHTML(data, code) {
-    var res = `<table class="table table-bordered table-responsive">
+    var res = "";
+    var recommendationsData = data[0];
+    var tickerData = data[1];
+    if (tickerData && tickerData["result"]) {
+        var firstKey = Object.keys(tickerData["result"])[0];
+        if (firstKey !== undefined) {
+            var tickerObject = tickerData["result"][firstKey];
+            var lastPrice = tickerObject.RealtimeStatistic.lastPrice * 1000;
+            var pe = tickerObject.BasicInfo.eps_TTM ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
+            var pb = tickerObject.BasicInfo.bookValuePerShare ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
+            var ps = tickerObject.BasicInfo.salePerShare ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
+            $("#tickerDetailLabel").html(`${code} - ${tickerObject.BasicInfo.name}`);
+            res += `<div class="card mb-3">
+                        <div class="row g-0">
+                        <div class="col-md-3 text-center">
+                            <div class="card-body ${tickerObject.RealtimeStatistic.lastPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.RealtimeStatistic.lastPrice < tickerObject.PriceInfo.openPrice ? "bg-down" : "bg-reference" }">
+                                <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)}</h5>
+                                <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
+                            </div>               
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body price-info">
+                                <table class="table table-responsive" style="border: none">
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap)}</td>    
+                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0))}</td>
+                                            <td><span class="font-weight-bold">P/E:</span> ${pe}</td>
+                                            <td><span class="font-weight-bold">P/S:</span> ${ps}</td>
+                                            <td><span class="font-weight-bold">P/B:</span> ${pb} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
+                    </div>`;
+        } else {
+            res += "";
+        }
+    } else {
+        res += "";
+    }
+    res += `<table class="table table-bordered table-responsive">
                 <thead class="table-light">
-                    <th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th>
+                    <tr><th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th></tr>              
                 </thead>
                 <tbody>`;
-    if (data && data["result"]) {
-        var firstKey = Object.keys(data["result"])[0];
+    if (recommendationsData && recommendationsData["result"]) {
+        var firstKey = Object.keys(recommendationsData["result"])[0];
         if (firstKey !== undefined) {
-            data["result"][firstKey].forEach(item => {
+            recommendationsData["result"][firstKey].forEach(item => {
                 res += `<tr><td>${new Date(item.reportDate).toLocaleDateString(locale)}</td><td><b class="top10">${item.reporter}</b></td><td class="text-left">${item.title}</td><td><a href="${FIALDA_ANALYSIS_REPORT_URL}${code}_-_${item.attachment}" target="_blank">Xem báo cáo</a></td></tr>`;
             });
         } else {

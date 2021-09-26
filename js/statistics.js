@@ -29,20 +29,21 @@ window.addEventListener('load', function () {
 
 function initStatisticsData() {
     showLoading("showStatisticsLoading");
+    var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
     $.ajax({
-        url: MAPPING_DATA_URL,
+        url: `${FILES_DATA_URL}/${nodeName}`,
         async: false,
         dataType: "json"
     }).done(function (result) {
         if (result) {
             mappingDataJson = result;
-            var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-            var dataInput1 = result[nodeName][result[nodeName].length - 1];
-            var dataInput2 = result[nodeName][result[nodeName].length - 2];
-            Promise.all([
-                fetchContent(dataInput1.fileName),
-                fetchContent(dataInput2.fileName)
-            ]).then((values) => {
+            var dataInput1 = result[0];
+            var dataInput2 = result[1];
+            Promise.all(dataInput1 && dataInput1 ? [
+                fetchContentByUrl(dataInput1.url),
+                fetchContentByUrl(dataInput2.url)
+            ] : dataInput1 ? [fetchContentByUrl(dataInput1.url)] : [fetchContentByUrl(dataInput2.url)])
+            .then((values) => {
                 if (values && values.length > 0) {
                     processDataInput(values);
                 }
@@ -84,6 +85,7 @@ function processDataInput(values) {
 
 function resetStatisticsData() {
     dataJson = null;
+    mappingDataJson = null;
     divStatisticsShowData.innerHTML = "";
     document.getElementById("fileInput").value = null;
 }
@@ -167,7 +169,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         tr = table.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
-        var prvItem = dataIndex > 0 ? dataJson.items[dataIndex - 1] : getFirstItemData(dataJsonInput[period].toDate);
+        var prvItem = dataIndex === 0 ? dataJson.items[dataIndex + 1] : getFirstItemData(dataJsonInput[period].toDate);
         var valueChange = 0;
         var percentChange = 0;
         var volumeValueChange = 0;
@@ -192,7 +194,6 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
                 valueChange = 0;
                 percentChange = 0;
             }
-
         }
         addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][statisticsCols[1]] + '</b>' : data[i][statisticsCols[1]]);
         // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
@@ -218,7 +219,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
 
 function setStatisticsTitle() {
     var today = new Date().toLocaleDateString(locale);
-    var updateDate = new Date(dataJson.items[dataJson.items.length - 1]["today"].toDate).toLocaleDateString(locale);
+    var updateDate = new Date(dataJson.items[0]["today"].toDate).toLocaleDateString(locale);
     var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
     if (updateDate === today) {
         divStatisticsTitle.classList.remove("bg-warning");

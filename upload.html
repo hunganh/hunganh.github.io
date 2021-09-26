@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload data.</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt." />
+    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="card">
+        <h5 class="card-header bg-primary" style="color: #FFFFFF;">Upload Data</h5>
+        <div class="card-body">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="fileData" accept=".json">
+            </div>
+            </br>
+            <input type="radio" class="form-check-input" id="foreign" name="uploadFile" value="khoingoai">
+            <label class="form-check-label" for="foreign">Khối ngoại</label>
+            &nbsp;
+            <input type="radio" class="form-check-input" id="selfBusiness" name="uploadFile" value="tudoanh" checked>
+            <label class="form-check-label" for="selfBusiness">Tự doanh</label>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary btn-sm" id="uploadJsonFile">Upload</button>
+            &nbsp; <button type="button" class="btn btn-primary btn-success" onclick="refreshFileData()">Tải dữ liệu mới</button>
+        </div>
+    </div>
+    <div id='showFilesData' class="table-responsive"></div>
+    <script type="text/javascript">
+        var DATA_FILES_URL = "http://localhost:3000";
+        $(document).ready(function () {
+            var type = $("input[name='uploadFile']:checked").val();
+            loadAllFile(type);
+            $("#uploadJsonFile").click(function () {
+                type = $("input[name='uploadFile']:checked").val();
+                if (type) {
+                    var password = prompt("Please enter the password");
+                    if (password != null) {
+                        var fd = new FormData();
+                        var files = $('#fileData')[0].files[0];
+                        if (files === undefined) {
+                            alert("Vui lòng chọn file.");
+                            return;
+                        }
+                        fd.append('file', files);
+                        $.ajax({
+                            url: `${DATA_FILES_URL}/upload/${password}/${type}/`,
+                            type: 'post',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                loadAllFile(type);
+                                alert(response.message);
+                            },
+                        });
+                    } else {
+                        alert("You do not have permission to access!");
+                    }
+                }
+            });
+        });
+
+        function refreshFileData() {
+            var type = $("input[name='uploadFile']:checked").val();
+            loadAllFile(type);
+        }
+
+        function loadAllFile(type) {
+            $.ajax({
+                url: `${DATA_FILES_URL}/files/${type}/`,
+                async: false,
+                dataType: "json"
+            }).done(function (result) {
+                var res = `<div class="card-body">
+                                <table class="table table-bordered table-responsive">
+                                    <thead class="table-light">
+                                        <th>File Name</th><th>URL</th>
+                                    </thead><tbody>`;
+                if (result && result.length > 0) {
+                    result.forEach(element => {
+                        res += ` <tr>
+                                    <td>${element.name}</td>
+                                    <td><a href="${element.url}" target="_blank">${element.url}</a></td>
+                                </tr>`;
+                    });
+                }
+                res += `</tbody></table></div>`;
+                $("#showFilesData").html(res);
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -9,6 +9,10 @@ button {
   font: small "Segoe UI" !important;
 }
 
+h5,h6 {
+    text-transform: capitalize !important
+}
+
 th {
   font-weight: bold !important;
 }
@@ -193,3 +197,53 @@ ul > li > button {
 .text-left {
     text-align: left !important;
 }
+
+.modal-header {
+    background-color: #0a4bacd9 !important;
+    color: #e1e1e1 !important;
+    padding: .5rem 1rem !important;
+}
+
+.modal-header > .btn-close {
+    background:  transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffc107'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+}
+
+.font-weight-bold {
+    font-weight: bold !important;
+}
+
+.price-info {
+    color: #e3e3e3;
+}
+
+.bg-up {
+    background-color: rgb(53 182 64 / 83%);
+    color: #fcf8f8;
+  }
+  
+.bg-down {
+    background-color: rgb(231, 62, 62);
+    color: #fcf8f8;
+  }
+  
+.bg-reference {
+    background-color: rgb(231, 200, 62);
+    color: #fcf8f8;
+}
+
+/* .custom-file {
+    position: relative !important;
+    display: inline-block !important;
+    width: 100% !important;
+    height: calc(2.25rem + 2px) !important;
+    margin-bottom: 0 !important;
+}
+
+.custom-file-input {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: calc(2.25rem + 2px) !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+} */
