@@ -37,8 +37,8 @@
         </div>
     </div>
     <div id='showFilesData' class="table-responsive"></div>
+    <script src="js/common.js"></script>
     <script type="text/javascript">
-        var DATA_FILES_URL = "http://localhost:3000";
         $(document).ready(function () {
             var type = $("input[name='uploadFile']:checked").val();
             loadAllFile(type);
@@ -55,7 +55,7 @@
                         }
                         fd.append('file', files);
                         $.ajax({
-                            url: `${DATA_FILES_URL}/upload/${password}/${type}/`,
+                            url: `${DATA_URL}/upload/${password}/${type}/`,
                             type: 'post',
                             data: fd,
                             contentType: false,

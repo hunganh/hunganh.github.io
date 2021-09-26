@@ -33,27 +33,27 @@ const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
-// $(document).keydown(function (event) {
-//     // Prevent F12
-//     if (event.keyCode == 123) 
-//     { 
-//         return false;
-//     } 
-//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-//     // Prevent Ctrl+Shift+I
-//     {         
-//         return false;
-//     }
-//     else if(event.ctrlKey && event.keyCode == 83)
-//     // Prevent Ctrl+S
-//     {         
-//         return false;
-//     }
-// });
+$(document).keydown(function (event) {
+    // Prevent F12
+    if (event.keyCode == 123) 
+    { 
+        return false;
+    } 
+    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+    // Prevent Ctrl+Shift+I
+    {         
+        return false;
+    }
+    else if(event.ctrlKey && event.keyCode == 83)
+    // Prevent Ctrl+S
+    {         
+        return false;
+    }
+});
 
 function fetchContentByUrl(url) {
     return new Promise((resolve, reject) => {
