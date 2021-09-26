@@ -43,6 +43,7 @@ function initStatisticsData() {
                 fetchContentByUrl(dataInput1.url),
                 fetchContentByUrl(dataInput2.url)
             ] : dataInput1 ? [fetchContentByUrl(dataInput1.url)] : [fetchContentByUrl(dataInput2.url)])
+            // Promise.all([fetchContentByUrl(dataInput1.url)])
             .then((values) => {
                 if (values && values.length > 0) {
                     processDataInput(values);
@@ -169,7 +170,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         tr = table.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
-        var prvItem = dataIndex === 0 ? dataJson.items[dataIndex + 1] : getFirstItemData(dataJsonInput[period].toDate);
+        var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : getFirstItemData(dataJsonInput[period].toDate);
         var valueChange = 0;
         var percentChange = 0;
         var volumeValueChange = 0;

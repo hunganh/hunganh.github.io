@@ -345,3 +345,7 @@ function refreshTickerDetailData() {
     $("#tickerDetail").html(loadingHTML);
     processTickerData(currentTicker);
 }
+
+function loadSynthesisData() {
+    initSummaryData();
+}
