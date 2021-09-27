@@ -25,13 +25,16 @@
 <body>
     <ul class="nav nav-tabs tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true">Thống Kê Tổ Chức</button>
+            <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true">Thống Kê Tổ Chức</button>
         </li>
         <li class="nav-item" role="presentation">
-        <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="loadSynthesisData()">Tổng Hợp</button>
+            <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="loadSynthesisData()">Tổng Hợp</button>
         </li>
         <li class="nav-item" role="presentation">
-        <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
+            <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="loadFieldsData()">Giao Dịch Ngành</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -98,7 +101,7 @@
                 <div class="title">
                     <div class="row">
                         <div class="col">
-                            <span class="badge bg-success card-header margin-5" id='showStatisticsTitle'>Thống Kê Tự Doanh Mua Ròng</span>
+                            <span class="badge bg-out-of-date card-header margin-5" id='showStatisticsTitle'>Thống Kê Tự Doanh Mua Ròng</span>
                         </div>
                         <div class="col margin-5">
                             <button type="button" class="btn btn-danger btn-sm" onclick='resetStatisticsData()'>Reset</button>
@@ -160,7 +163,7 @@
                     <div class="title">
                         <div class="row">
                             <div class="col">
-                                <span class="badge bg-success card-header margin-5" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</span>
+                                <span class="badge bg-out-of-date card-header margin-5" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</span>
                             </div>
                             <div class="col margin-5">
                                 <button type="button" class="btn btn-success btn-sm" onclick='refreshSummaryData()'>Tải dữ liệu mới</button>
@@ -176,6 +179,13 @@
                         <span class="loadingTitle">Đang tải dữ liệu...</span>
                     </div>
                     <div id='showSummaryData' class="table-responsive"></div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="field" role="tabpanel" aria-labelledby="field-tab">
+            <div class="grid-container">
+                <div id='showFieldsData' class="table-responsive">
+                    
                 </div>
             </div>
         </div>
@@ -219,6 +229,7 @@
     <script src="js/common.js"></script>
     <script src="js/statistics.js"></script>
     <script src="js/summary.js"></script>
+    <script src="js/fields.js"></script>
     <script src="js/filters.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
     <script>

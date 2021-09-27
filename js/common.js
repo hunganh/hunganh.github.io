@@ -35,11 +35,12 @@ const FIALDA_API_V1_URL = `https://fwtapi1.fialda.com/api/services/app`;
 const FIALDA_API_V2_URL = `https://fwtapi2.fialda.com/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
+const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
 $(document).keydown(function (event) {
     // Prevent F12

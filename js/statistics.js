@@ -137,13 +137,15 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng Giá Trị ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat().format(dataJsonInput[period][netTradeValueColumn]) + " đ";
     var table = document.createElement("table");
     table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
-    var tr = table.insertRow(-1);                   // table row.
+    var thead = document.createElement("thead");
+    var tr = thead.insertRow(-1);                   // table row.
     var thTime = document.createElement("th");
     thTime.setAttribute("colspan", 7);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
-
-    tr = table.insertRow(-1);
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    tr = thead.insertRow(-1);
     for (var i = 0; i < statisticsHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
         if (i === 2) {
@@ -156,16 +158,17 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     }
 
     // create span column
-    tr = table.insertRow(-1);
+    tr = thead.insertRow(-1);
     for (var k = 0; k < subStatisticsHeadTitle.length; k++) {
         var th = document.createElement("th");
         th.innerHTML = subStatisticsHeadTitle[k];
         tr.appendChild(th);
     }
-
+    
+    var tbody = document.createElement("tbody");
     // add json data to the table as rows.
     for (var i = 0; i < data.length; i++) {
-        tr = table.insertRow(-1);
+        tr = tbody.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
         var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : olderItem; //getFirstItemData(dataJsonInput[period].toDate);
@@ -211,7 +214,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
         addCell(tr, '<span class="' + (Number(data[i][statisticsCols[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][statisticsCols[4]] * 100).toFixed(2) + '</span>');
     }
-
+    table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.
     divStatisticsShowData.appendChild(table);
 }
@@ -221,11 +224,11 @@ function setStatisticsTitle() {
     var updateDate = new Date(dataJson.items[0]["today"].toDate).toLocaleDateString(locale);
     var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
     if (updateDate === today) {
-        divStatisticsTitle.classList.remove("bg-warning");
-        divStatisticsTitle.classList.add("bg-success");
+        divStatisticsTitle.classList.remove("bg-out-of-date");
+        divStatisticsTitle.classList.add("bg-latest");
     } else {
-        divStatisticsTitle.classList.remove("bg-success");
-        divStatisticsTitle.classList.add("bg-warning");
+        divStatisticsTitle.classList.remove("bg-latest");
+        divStatisticsTitle.classList.add("bg-out-of-date");
     }
     divStatisticsTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
 }

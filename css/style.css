@@ -33,12 +33,12 @@ td {
 
 th {
   font-weight: bold;
-  background: #f2f2f2 !important;
+  background: #9175209e !important;
 }
 
-th:hover {
+/* th:hover {
   background: #f2f2f2 !important;
-}
+} */
 
 .headerFixed {
   /* position: fixed; */
@@ -231,19 +231,14 @@ ul > li > button {
     color: #fcf8f8;
 }
 
-/* .custom-file {
-    position: relative !important;
-    display: inline-block !important;
-    width: 100% !important;
-    height: calc(2.25rem + 2px) !important;
-    margin-bottom: 0 !important;
+.bold {
+  font-weight: bold !important;
 }
 
-.custom-file-input {
-    position: relative !important;
-    z-index: 2 !important;
-    width: 100% !important;
-    height: calc(2.25rem + 2px) !important;
-    margin: 0 !important;
-    opacity: 0 !important;
-} */
+.bg-out-of-date {
+  background: #dc3545 !important;
+}
+
+.bg-latest {
+  background: #20b872 !important;
+}

@@ -83,13 +83,15 @@ function createSummaryReport(data) {
     var title = "Thống Kê Từ " + new Date(summaryDataJson["foreign"][currentSummaryPeriod].fromDate).toLocaleDateString(locale) + " - " + new Date(summaryDataJson["foreign"][currentSummaryPeriod].toDate).toLocaleDateString(locale);
     var table = document.createElement("table");
     table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
-    var tr = table.insertRow(-1);                   // table row.
+    var thead = document.createElement("thead");
+    var tr = thead.insertRow(-1);                    // table row.
     var thTime = document.createElement("th");
     thTime.setAttribute("colspan", 8);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
-
-    tr = table.insertRow(-1);
+    thead.appendChild(tr);
+    table.appendChild(thead);
+    tr = thead.insertRow(-1);
     for (var i = 0; i < summaryHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
         if (i > 1) {
@@ -102,16 +104,17 @@ function createSummaryReport(data) {
     }
 
     // create span column
-    tr = table.insertRow(-1);
+    tr = thead.insertRow(-1);
     for (var k = 0; k < subSummaryHeadTitle.length; k++) {
         var th = document.createElement("th");
         th.innerHTML = subSummaryHeadTitle[k];
         tr.appendChild(th);
     }
 
+    var tbody = document.createElement("tbody");
     // add json data to the table as rows.
     for (var i = 0; i < data.length; i++) {
-        tr = table.insertRow(-1);
+        tr = tbody.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
         var selfBusinessPercentChange = Number(data[i]["selfBusinessPercentPriceChange"] * 100).toFixed(2);
@@ -125,7 +128,7 @@ function createSummaryReport(data) {
         addCell(tr, new Intl.NumberFormat().format(data[i]["sumValue"]));
         addCell(tr, `<span class='${getClassByValue(data[i]["avgPercent"])}'>${data[i]["avgPercent"].toFixed(2)}</span>`);
     }
-
+    table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.
     divSummaryShowData.appendChild(table);
 }
@@ -157,11 +160,11 @@ function setSummaryTitle() {
     var updateDate = new Date(summaryDataJson["foreign"][currentSummaryPeriod].toDate).toLocaleDateString(locale);
     var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
     if (updateDate === today) {
-        divSummaryTitle.classList.remove("bg-warning");
-        divSummaryTitle.classList.add("bg-success");
+        divSummaryTitle.classList.remove("bg-out-of-date");
+        divSummaryTitle.classList.add("bg-latest");
     } else {
-        divSummaryTitle.classList.remove("bg-success");
-        divSummaryTitle.classList.add("bg-warning");
+        divSummaryTitle.classList.remove("bg-latest");
+        divSummaryTitle.classList.add("bg-out-of-date");
     }
     divSummaryTitle.innerHTML = `Mã CP Được Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
 }
