@@ -31,28 +31,30 @@ window.addEventListener('load', function () {
 
 function initStatisticsData() {
     showLoading("showStatisticsLoading");
-    var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-    $.ajax({
-        url: `${STATISTICS_DATA_URL}/${nodeName}`,
-        async: false,
-        dataType: "json"
-    }).done(function (result) {
-        if (result) {
-            var dataInput = [];
-            var keys = Object.keys(result);
-            if (keys && keys.length > 0) {
-                keys.forEach(key => {
-                    if (key === "olderItem") {
-                        olderItem = result[key];
-                    } else {
-                        dataInput.push(result[key]);
-                    }
-                });
-                processDataInput(dataInput);
+    setTimeout(() => {
+        var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
+        $.ajax({
+            url: `${STATISTICS_DATA_URL}/${nodeName}`,
+            async: false,
+            dataType: "json"
+        }).done(function (result) {
+            if (result) {
+                var dataInput = [];
+                var keys = Object.keys(result);
+                if (keys && keys.length > 0) {
+                    keys.forEach(key => {
+                        if (key === "olderItem") {
+                            olderItem = result[key];
+                        } else {
+                            dataInput.push(result[key]);
+                        }
+                    });
+                    processDataInput(dataInput);
+                }
+                hideLoading("showStatisticsLoading");
             }
-            hideLoading("showStatisticsLoading");
-        }
-    });
+        });
+    }, 100);
 }
 
 function processDataInput(values) {
