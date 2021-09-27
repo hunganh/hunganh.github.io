@@ -37,9 +37,9 @@ const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -87,7 +87,6 @@ function fetchContentByUrlWithCORSProxy(url, method, body) {
                 }, err => {
                     reject(err);
                 })
-                .then(data => console.log(data.contents))
                 .catch(error => {
                     console.log(error);
                 });
@@ -104,7 +103,6 @@ function fetchContentByUrlWithCORSProxy(url, method, body) {
                 }, err => {
                     reject(err);
                 })
-                .then(data => console.log(data.contents))
                 .catch(error => {
                     console.log(error);
                 });
@@ -296,8 +294,8 @@ function drawRecommendationsDataToHTML(data, code) {
                                 <table class="table table-responsive" style="border: none">
                                     <tbody>
                                         <tr>
-                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap)}</td>    
-                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0))}</td>
+                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${tickerObject.PriceInfo.marketCap ? new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap) : "N/A"}</td>    
+                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${tickerObject.BasicInfo.eps_TTM ? new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0)) : "N/A"}</td>
                                             <td><span class="font-weight-bold">P/E:</span> ${pe}</td>
                                             <td><span class="font-weight-bold">P/S:</span> ${ps}</td>
                                             <td><span class="font-weight-bold">P/B:</span> ${pb} </td>
