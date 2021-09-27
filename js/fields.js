@@ -33,7 +33,7 @@ function loadFieldsData() {
         }).done(function (response) {
             if (response && response.result) {
                 response.result.forEach(item => {
-                    var eps = item.eps_TTM ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(2)) : "N/A";
+                    var eps = item.eps_TTM ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(0)) : "N/A";
                     var pe = item.pe ? (item.pe).toFixed(2) : "N/A";
                     var ps = item.ps ? (item.ps).toFixed(2) : "N/A";
                     var pb = item.pb ? (item.pb).toFixed(2) : "N/A";

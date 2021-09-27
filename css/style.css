@@ -232,7 +232,7 @@ ul > li > button {
 }
 
 .bold {
-  font-weight: bold !important;
+  font-weight: 600 !important;
 }
 
 .bg-out-of-date {
