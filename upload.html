@@ -55,7 +55,7 @@
                         }
                         fd.append('file', files);
                         $.ajax({
-                            url: `${DATA_URL}/upload/${password}/${type}/`,
+                            url: `${UPLOAD_DATA_URL}/${password}/${type}/`,
                             type: 'post',
                             data: fd,
                             contentType: false,
@@ -79,7 +79,7 @@
 
         function loadAllFile(type) {
             $.ajax({
-                url: `${DATA_FILES_URL}/files/${type}/`,
+                url: `${FILES_DATA_URL}/${type}/`,
                 async: false,
                 dataType: "json"
             }).done(function (result) {

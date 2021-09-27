@@ -25,6 +25,7 @@ const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
 const DATA_URL = "http://data-statistics-api.herokuapp.com"; //http://localhost:3000";
 const FILES_DATA_URL = `${DATA_URL}/files`;
+const UPLOAD_DATA_URL = `${DATA_URL}/upload`;
 const CORS_PROXY_URL = `${DATA_URL}/fetch`;
 const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
 const FIALDA_API_V1_URL = `https://fwtapi1.fialda.com/api/services/app`;
@@ -33,27 +34,27 @@ const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
-$(document).keydown(function (event) {
-    // Prevent F12
-    if (event.keyCode == 123) 
-    { 
-        return false;
-    } 
-    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-    // Prevent Ctrl+Shift+I
-    {         
-        return false;
-    }
-    else if(event.ctrlKey && event.keyCode == 83)
-    // Prevent Ctrl+S
-    {         
-        return false;
-    }
-});
+// $(document).keydown(function (event) {
+//     // Prevent F12
+//     if (event.keyCode == 123) 
+//     { 
+//         return false;
+//     } 
+//     else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+//     // Prevent Ctrl+Shift+I
+//     {         
+//         return false;
+//     }
+//     else if(event.ctrlKey && event.keyCode == 83)
+//     // Prevent Ctrl+S
+//     {         
+//         return false;
+//     }
+// });
 
 function fetchContentByUrl(url) {
     return new Promise((resolve, reject) => {
@@ -274,7 +275,7 @@ function drawRecommendationsDataToHTML(data, code) {
         var firstKey = Object.keys(tickerData["result"])[0];
         if (firstKey !== undefined) {
             var tickerObject = tickerData["result"][firstKey];
-            var lastPrice = tickerObject.RealtimeStatistic.lastPrice * 1000;
+            var lastPrice = tickerObject.PriceInfo.matchedPrice * 1000;
             var pe = tickerObject.BasicInfo.eps_TTM ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
             var pb = tickerObject.BasicInfo.bookValuePerShare ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
             var ps = tickerObject.BasicInfo.salePerShare ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
@@ -282,7 +283,7 @@ function drawRecommendationsDataToHTML(data, code) {
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
-                            <div class="card-body ${tickerObject.RealtimeStatistic.lastPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.RealtimeStatistic.lastPrice < tickerObject.PriceInfo.openPrice ? "bg-down" : "bg-reference" }">
+                            <div class="card-body ${tickerObject.PriceInfo.matchedPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.PriceInfo.matchedPrice < tickerObject.PriceInfo.openPrice ? "bg-down" : "bg-reference" }">
                                 <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
