@@ -78,6 +78,8 @@
         }
 
         function loadAllFile(type) {
+            var loadingHTML = getLoadingHTML();
+            $("#showFilesData").html(loadingHTML);
             $.ajax({
                 url: `${FILES_DATA_URL}/${type}/`,
                 async: false,
@@ -98,6 +100,9 @@
                 }
                 res += `</tbody></table></div>`;
                 $("#showFilesData").html(res);
+            }).fail(function(jqXHR, textStatus, error){
+                $("#showFilesData").html("");
+                alert("Upload data fail!");
             });
         }
     </script>
