@@ -26,7 +26,7 @@ td {
   text-align: center;
 }
 
-#showStatisticsData > table, #showSummaryData > table {
+#showStatisticsData > table, #showSummaryData > table, #showFieldsData > table {
     width: auto !important;
 }
 

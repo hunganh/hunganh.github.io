@@ -3,7 +3,7 @@ function loadFieldsData() {
     $("#showFieldsData").html(`</br>${loadingHTML}`);
     setTimeout(() => {
         var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_GET_FIELDS_REPORT_PATH}`);
-        var res = `<table class="table table-bordered table-striped table-hover">
+        var res = `<table class="left-position table table-bordered table-striped table-hover">
                         <thead class="table-light">
                             <tr>
                                 <th rowspan="2">Ngành</th>
@@ -73,4 +73,8 @@ function loadFieldsData() {
             $("#showFieldsData").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
         });
     }, 100);
+}
+
+function refreshFieldsData() {
+    loadFieldsData();
 }
