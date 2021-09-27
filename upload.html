@@ -54,6 +54,8 @@
                             return;
                         }
                         fd.append('file', files);
+                        var loadingHTML = getLoadingHTML();
+                        $("#showFilesData").prepend(loadingHTML);
                         $.ajax({
                             url: `${UPLOAD_DATA_URL}/${password}/${type}/`,
                             type: 'post',
