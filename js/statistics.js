@@ -20,7 +20,9 @@ window.addEventListener('load', function () {
                 }
                 // Trigger Promises
                 Promise.all(readers).then((values) => {
-                    processDataInput(values);
+                    var data = values.map(x => JSON.parse(x));
+                    olderItem = null;
+                    processDataInput(data);
                 });
             }
         }, false);
@@ -31,29 +33,24 @@ function initStatisticsData() {
     showLoading("showStatisticsLoading");
     var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
     $.ajax({
-        url: `${FILES_DATA_URL}/${nodeName}`,
+        url: `${STATISTICS_DATA_URL}/${nodeName}`,
         async: false,
         dataType: "json"
     }).done(function (result) {
         if (result) {
-            mappingDataJson = result;
-            var dataInput1 = result[0];
-            var dataInput2 = result[1];
-            Promise.all(dataInput1 && dataInput1 ? [
-                fetchContentByUrl(dataInput1.url),
-                fetchContentByUrl(dataInput2.url)
-            ] : dataInput1 ? [fetchContentByUrl(dataInput1.url)] : [fetchContentByUrl(dataInput2.url)])
-            // Promise.all([fetchContentByUrl(dataInput1.url)])
-            .then((values) => {
-                if (values && values.length > 0) {
-                    processDataInput(values);
-                }
-                hideLoading("showStatisticsLoading");
-            }).then(() => {
-                console.log('Done fetching content via JavaScript');
-            }).catch((err) => {
-                console.error(err);
-            });
+            var dataInput = [];
+            var keys = Object.keys(result);
+            if (keys && keys.length > 0) {
+                keys.forEach(key => {
+                    if (key === "olderItem") {
+                        olderItem = result[key];
+                    } else {
+                        dataInput.push(result[key]);
+                    }
+                });
+                processDataInput(dataInput);
+            }
+            hideLoading("showStatisticsLoading");
         }
     });
 }
@@ -62,12 +59,11 @@ function processDataInput(values) {
     divStatisticsShowData.innerHTML = "";
     if (values && values.length > 0) {
         values.forEach((content) => {
-            var jsonObject = JSON.parse(content);
             if (!dataJson) {
-                dataJson = jsonObject;
+                dataJson = content;
                 dataJson.totalCount = values.length;
             } else {
-                dataJson.items.push(jsonObject.items[0]);
+                dataJson.items.push(content.items[0]);
             }
         });
         // Sort data
@@ -170,7 +166,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         tr = table.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
-        var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : getFirstItemData(dataJsonInput[period].toDate);
+        var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : olderItem; //getFirstItemData(dataJsonInput[period].toDate);
         var valueChange = 0;
         var percentChange = 0;
         var volumeValueChange = 0;
