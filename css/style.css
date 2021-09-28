@@ -157,6 +157,7 @@ fieldset {
 
 input[type="button"],
 input[type="radio"],
+input[type="checkbox"],
 input[type="file"] {
   cursor: pointer !important;
 }

@@ -31,10 +31,10 @@
             <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="loadSynthesisData()">Tổng Hợp</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="loadFieldsData()">Giao Dịch Ngành</button>
+            <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="loadFieldsData()">Thống Kê Theo Ngành</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Lọc Cổ Phiếu Tốt</button>
+            <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false">Lọc Cổ Phiếu</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -202,15 +202,63 @@
             </div>
         </div>
         <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
-            <div class="grid-container">
-                <div id='showFiltersLoading' class="d-flex justify-content-center" style="display: none !important;">
-                    <div class="spinner-border text-success" role="status">
-                        <span class="visually-hidden">Loading...</span>
+            <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                <div class="headerFixed">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2 pading-5">
+                        <div class="col">
+                            <div class="card">
+                                <h6 class="card-header">Tiêu chí lọc</h6>
+                                <div class="card-body">
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptC" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptC">C</label>                              
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptA" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptA">A</label>                              
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptN" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptN">N</label>
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptS" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptS">S</label>
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptL" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptL">L</label>
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptI" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptI">I</label>
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptM" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptM">M</label>
+                                    </div>
+                                    &nbsp;
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input type="checkbox" class="btn-check" id="btnCheckOptTA" autocomplete="off">
+                                        <label class="btn btn-outline-primary btn-sm" for="btnCheckOptTA">TA</label>                              
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <h6 class="card-header">Giá trị</h6>
+                                <div class="card-body">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span class="loadingTitle">Đang tải dữ liệu...</span>
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFilterTitle'>Lọc cổ phiếu theo các tiêu chí</div>
+                            </div>
+                            <div class="col margin-5">
+                                <button type="button" class="btn btn-success btn-sm" onclick='filterData()'>Lọc cổ phiếu</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="grid-container">
                 <div id='showFiltersData' class="table-responsive">
-                    Chức năng vẫn đang phát triển!
+                    <p>
+                        <h6 class="d-flex justify-content-center">Chức năng vẫn đang phát triển!</h6>
+                    </p>
                 </div>
             </div>
         </div>
