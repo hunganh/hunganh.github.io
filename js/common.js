@@ -38,9 +38,9 @@ const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -277,7 +277,7 @@ function drawRecommendationsDataToHTML(data, code) {
         var firstKey = Object.keys(tickerData["result"])[0];
         if (firstKey !== undefined) {
             var tickerObject = tickerData["result"][firstKey];
-            var lastPrice = tickerObject.BasicPriceInfo.basicPrice * 1000;
+            var lastPrice = tickerObject.PriceInfo.lastPrice !== null ? tickerObject.PriceInfo.lastPrice * 1000 : tickerObject.BasicPriceInfo.prevClose * 1000;
             var pe = $.isNumeric(tickerObject.BasicInfo.eps_TTM) ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
             var pb = $.isNumeric(tickerObject.BasicInfo.bookValuePerShare) ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
             var ps = $.isNumeric(tickerObject.BasicInfo.salePerShare) ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
@@ -285,7 +285,7 @@ function drawRecommendationsDataToHTML(data, code) {
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
-                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.BasicPriceInfo.basicPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.BasicPriceInfo.basicPrice < tickerObject.PriceInfo.openPrice? "bg-down" : "bg-reference" }">
+                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.lastPrice > tickerObject.PriceInfo.lastPrice ? "bg-up" : tickerObject.PriceInfo.lastPrice < tickerObject.PriceInfo.lastPrice ? "bg-down" : "bg-reference" }">
                                 <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
@@ -351,4 +351,20 @@ function refreshTickerDetailData() {
 
 function loadSynthesisData() {
     initSummaryData();
+}
+
+function initTooltips() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    })
+    const $tooltip = $('[data-bs-toggle="tooltip"]');
+    $tooltip.tooltip({
+        html: true,
+        trigger: 'click',
+        placement: 'bottom',
+    });
+    $tooltip.on('show.bs.tooltip', () => {
+        $('.tooltip').not(this).remove();
+    });
 }

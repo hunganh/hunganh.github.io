@@ -104,7 +104,7 @@ th {
 .title {
   width: 100%;
   border: 0.5px solid rgb(197, 197, 197);
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #e1e1e1;
 }
 
 .reset-button {
@@ -241,4 +241,27 @@ ul > li > button {
 
 .bg-latest {
   background: #20b872 !important;
+}
+
+.breadcrumb-title {
+  box-shadow: 0 2px 5px rgb(0 0 0 / 25%) !important;
+  border-radius: 3px !important;
+}
+
+.breadcrumb-title::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  width: 30px;
+  height: 30px;
+  transform: scale(0.707) rotate(45deg);
+  border-radius: 0 5px 0 50px;
+  z-index: 1;
+  background: #e1e1e1 !important;
+  /* box-shadow: 2px -2px 0 2px rgb(0 0 0 / 25%); */
+  margin-top: -6px;
+}
+
+.pading-left-22 {
+  padding-left: 22px !important;
 }

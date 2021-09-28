@@ -158,7 +158,7 @@ function changeSummaryAction(action) {
 function setSummaryTitle() {
     var today = new Date().toLocaleDateString(locale);
     var updateDate = new Date(summaryDataJson["foreign"][currentSummaryPeriod].toDate).toLocaleDateString(locale);
-    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
+    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
     if (updateDate === today) {
         divSummaryTitle.classList.remove("bg-out-of-date");
         divSummaryTitle.classList.add("bg-latest");

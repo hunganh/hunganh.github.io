@@ -11,13 +11,13 @@ var headFields = `<table class="left-position table table-bordered table-striped
                             <th colspan="7">% Tăng/Giảm</th>
                         </tr>  
                         <tr>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1D')">1 ngày</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1W')">1 tuần</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1M')">1 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent3M')">3 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent6M')">6 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1Y')">1 năm</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercentYTD')">YTD</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1D')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 ngày">1 ngày</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1W')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tuần">1 tuần</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tháng">1 tháng</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent3M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 3 tháng">3 tháng</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent6M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 6 tháng">6 tháng</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1Y')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 năm">1 năm</th>
+                            <th class="tr-cursor" onclick="sortTable('changePercentYTD')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu từ đầu năm đến nay">YTD</th>
                         </tr>             
                     </thead>
                     <tbody>`;
@@ -41,6 +41,7 @@ function loadFieldsData() {
             }
             res += `</tbody></table>`;
             $("#showFieldsData").html(res);
+            initTooltips();
         }).fail(function (jqXHR, textStatus, error) {
             $("#showFieldsData").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
         });
@@ -97,4 +98,5 @@ function sortTable(time) {
     res += processFieldsDataInput(time);
     res += `</tbody></table>`;
     $("#showFieldsData").html(res);
+    initTooltips();
 }

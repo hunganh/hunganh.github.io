@@ -222,7 +222,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
 function setStatisticsTitle() {
     var today = new Date().toLocaleDateString(locale);
     var updateDate = new Date(dataJson.items[0]["today"].toDate).toLocaleDateString(locale);
-    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu cập nhật ngày " + updateDate : ""} `;
+    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
     if (updateDate === today) {
         divStatisticsTitle.classList.remove("bg-out-of-date");
         divStatisticsTitle.classList.add("bg-latest");
