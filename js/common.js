@@ -277,15 +277,15 @@ function drawRecommendationsDataToHTML(data, code) {
         var firstKey = Object.keys(tickerData["result"])[0];
         if (firstKey !== undefined) {
             var tickerObject = tickerData["result"][firstKey];
-            var lastPrice = tickerObject.PriceInfo.matchedPrice * 1000;
-            var pe = tickerObject.BasicInfo.eps_TTM ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
-            var pb = tickerObject.BasicInfo.bookValuePerShare ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
-            var ps = tickerObject.BasicInfo.salePerShare ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
+            var lastPrice = tickerObject.BasicPriceInfo.basicPrice * 1000;
+            var pe = $.isNumeric(tickerObject.BasicInfo.eps_TTM) ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
+            var pb = $.isNumeric(tickerObject.BasicInfo.bookValuePerShare) ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
+            var ps = $.isNumeric(tickerObject.BasicInfo.salePerShare) ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
             $("#tickerDetailLabel").html(`${code} - ${tickerObject.BasicInfo.name}`);
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
-                            <div class="card-body ${tickerObject.PriceInfo.matchedPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.PriceInfo.matchedPrice < tickerObject.PriceInfo.openPrice ? "bg-down" : "bg-reference" }">
+                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.BasicPriceInfo.basicPrice > tickerObject.PriceInfo.openPrice ? "bg-up" : tickerObject.BasicPriceInfo.basicPrice < tickerObject.PriceInfo.openPrice? "bg-down" : "bg-reference" }">
                                 <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
@@ -295,8 +295,8 @@ function drawRecommendationsDataToHTML(data, code) {
                                 <table class="table table-responsive" style="border: none">
                                     <tbody>
                                         <tr>
-                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${tickerObject.PriceInfo.marketCap ? new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap) : "N/A"}</td>    
-                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${tickerObject.BasicInfo.eps_TTM ? new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0)) : "N/A"}</td>
+                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${$.isNumeric(tickerObject.PriceInfo.marketCap) ? new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap) : "N/A"}</td>    
+                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${$.isNumeric(tickerObject.BasicInfo.eps_TTM) ? new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0)) : "N/A"}</td>
                                             <td><span class="font-weight-bold">P/E:</span> ${pe}</td>
                                             <td><span class="font-weight-bold">P/S:</span> ${ps}</td>
                                             <td><span class="font-weight-bold">P/B:</span> ${pb} </td>
