@@ -38,9 +38,9 @@ const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -281,12 +281,13 @@ function drawRecommendationsDataToHTML(data, code) {
             var pe = $.isNumeric(tickerObject.BasicInfo.eps_TTM) ? (lastPrice / tickerObject.BasicInfo.eps_TTM).toFixed(2) : "N/A";
             var pb = $.isNumeric(tickerObject.BasicInfo.bookValuePerShare) ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
             var ps = $.isNumeric(tickerObject.BasicInfo.salePerShare) ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
+            var valuePercentChange = $.isNumeric(tickerObject.PriceInfo.priceChangePercent) ? `(${(tickerObject.PriceInfo.priceChangePercent * 100).toFixed(2)}%)` : "";
             $("#tickerDetailLabel").html(`${code} - ${tickerObject.BasicInfo.name}`);
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
-                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.lastPrice > tickerObject.PriceInfo.lastPrice ? "bg-up" : tickerObject.PriceInfo.lastPrice < tickerObject.PriceInfo.lastPrice ? "bg-down" : "bg-reference" }">
-                                <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)}</h5>
+                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.priceChange > 0 ? "bg-up" : tickerObject.PriceInfo.priceChange < 0 ? "bg-down" : "bg-reference" }">
+                                <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)} ${valuePercentChange}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
                         </div>
