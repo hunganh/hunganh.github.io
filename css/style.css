@@ -92,6 +92,10 @@ th {
   font-weight: bold !important;
 }
 
+.headerFixed > .row {
+  margin-right: -2px !important;
+}
+
 .headerFixed > .row > .col > .card > .card-body {
   height: 50px !important;
 }
@@ -127,7 +131,7 @@ th {
 
 .grid-container .left-position {
   display: inline-block;
-  margin-right: 10px;
+  padding-right: 10px;
 }
 
 fieldset {
@@ -264,4 +268,8 @@ ul > li > button {
 
 .pading-left-22 {
   padding-left: 22px !important;
+}
+
+.g-4, .gx-4 {
+  --bs-gutter-x: 0.5rem !important;
 }

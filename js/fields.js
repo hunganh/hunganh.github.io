@@ -71,12 +71,12 @@ function processFieldsDataInput (sortField) {
         var ytd = $.isNumeric(item.changePercentYTD) ? (item.changePercentYTD * 100).toFixed(2) : "N/A";
         res += `<tr>
                     <td class="text-left"><b class="top10">${item.icbName}</b></td>
-                    <td class="bold top10">${eps}</td>
-                    <td class="bold top10">${pe}</td>
-                    <td class="bold top10">${ps}</td>
-                    <td class="bold top10">${pb}</td>
-                    <td class="bold top10">${roa}</td>
-                    <td class="bold top10">${roe}</td>
+                    <td class="top10">${eps}</td>
+                    <td class="top10">${pe}</td>
+                    <td class="top10">${ps}</td>
+                    <td class="top10">${pb}</td>
+                    <td class="top10">${roa}</td>
+                    <td class="top10">${roe}</td>
                     <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
                     <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
                     <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
