@@ -100,6 +100,10 @@ th {
   height: 50px !important;
 }
 
+.headerFixed > .row > .col > .card > .filter-group {
+  height: auto !important;
+}
+
 .card-body > .btn-group,
 #fileInput {
   margin-top: -5px !important;
@@ -273,4 +277,79 @@ ul > li > button {
 
 .g-4, .gx-4 {
   --bs-gutter-x: 0.5rem !important;
+}
+
+.btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+  color: #f8f8f8 !important;
+  background-color: #0d6efd !important;
+  border-color: #e4e4e4 !important;
+}
+
+.btn-check:active+.btn-outline-success, .btn-check:checked+.btn-outline-success, .btn-outline-success.active, .btn-outline-success.dropdown-toggle.show, .btn-outline-success:active {
+  color: #f8f8f8 !important;
+  background-color: #1db870 !important;
+  border-color: #e4e4e4 !important;
+}
+
+.accordion-button {
+  padding: 0.5rem 1.25rem !important;
+  font: small "Segoe UI" !important;
+  color: #f8f8f8 !important;
+  text-align: left !important;
+  background-color: #454545 !important;
+}
+
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f8f8f8'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+.bold-text {
+  color: rgb(85, 88, 86) !important;
+  font-weight: 600 !important;
+}
+
+.slider.slider-horizontal {
+  width: 70% !important;
+  height: 20px;
+  float: right;
+}
+
+.filter-title {
+  font-size: 1em !important;
+}
+
+#filter-option-c .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-c1 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-c2 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-c3 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-a .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-a1 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-a2 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-a3 .slider-selection {
+	background: #ffc107 !important;
+}
+
+#filter-option-l .slider-selection {
+	background: #ffc107 !important;
 }

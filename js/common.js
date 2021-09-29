@@ -1,8 +1,8 @@
 var typeDefault = "selfBusiness";
 var actionDefault = "netBuy";
 var actionSummaryDefault = "netBuy";
-var currentPeriod = "yearToDate";
-var currentSummaryPeriod = "yearToDate";
+var currentPeriod = "today";
+var currentSummaryPeriod = "today";
 var dataJson = null;
 var summaryDataJson = null;
 var mappingDataJson = null;
@@ -36,6 +36,7 @@ const FIALDA_API_V2_URL = `https://fwtapi2.fialda.com/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
+const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
 $(document).on("contextmenu", function (e) {        
