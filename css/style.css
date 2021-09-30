@@ -92,9 +92,9 @@ th {
   font-weight: bold !important;
 }
 
-.headerFixed > .row {
+/* .headerFixed > .row {
   margin-right: -2px !important;
-}
+} */
 
 .headerFixed > .row > .col > .card > .card-body {
   height: 50px !important;
@@ -253,14 +253,14 @@ ul > li > button {
 }
 
 .breadcrumb-title {
-  box-shadow: 0 2px 5px rgb(0 0 0 / 25%) !important;
+  box-shadow: 0 0px 2px rgb(0 0 0 / 25%) !important;
   border-radius: 3px !important;
 }
 
 .breadcrumb-title::before {
   content: '';
   position: absolute;
-  left: -9px;
+  left: -2px;
   width: 30px;
   height: 30px;
   transform: scale(0.707) rotate(45deg);
@@ -350,6 +350,40 @@ ul > li > button {
 	background: #ffc107 !important;
 }
 
+#filter-option-s .slider-selection {
+	background: #ffc107 !important;
+}
+
 #filter-option-l .slider-selection {
 	background: #ffc107 !important;
+}
+
+.tab-content {
+  padding: 5px !important;
+}
+
+.slider-track {
+  background: rgb(223 224 224) !important;
+  background: linear-gradient(90deg, rgb(220 222 224) 0%, rgb(212 208 208 / 96%) 100%, rgb(196 196 196) 100%) !important;
+}
+
+.bs-tooltip-auto[x-placement^=top] .arrow::before, .bs-tooltip-top .arrow::before {
+  bottom: 0 !important;
+  border-width: .4rem .4rem 0 !important;
+  border-top-color: #000 !important;
+}
+
+.tooltip .arrow::before {
+  position: absolute !important;
+  content: "" !important;
+  /* border-color: transparent !important; */
+  border-style: solid !important;
+}
+
+*, ::after, ::before {
+  box-sizing: border-box !important;
+}
+
+.sub-tab-color {
+  background-color: #224170 !important;
 }

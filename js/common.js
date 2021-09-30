@@ -39,6 +39,88 @@ const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 
+const fieldsDataGlobal =
+    [
+        {
+            "icbCode": "5300",
+            "icbName": "Bán lẻ"
+        },
+        {
+            "icbCode": "8500",
+            "icbName": "Bảo hiểm"
+        }, 
+        {
+            "icbCode": "8600",
+            "icbName": "Bất động sản"
+        },        
+        {
+            "icbCode": "9500",
+            "icbName": "Công nghệ Thông tin"
+        },
+        {
+            "icbCode": "0500",
+            "icbName": "Dầu khí"
+        },
+        {
+            "icbCode": "8700",
+            "icbName": "Dịch vụ tài chính"
+        },
+        {
+            "icbCode": "5700",
+            "icbName": "Du lịch và Giải trí"
+        },
+        {
+            "icbCode": "7500",
+            "icbName": "Điện, nước & xăng dầu khí đốt"
+        },
+        {
+            "icbCode": "2700",
+            "icbName": "Hàng & Dịch vụ Công nghiệp"
+        },
+        {
+            "icbCode": "3700",
+            "icbName": "Hàng cá nhân & Gia dụng"
+        },
+        {
+            "icbCode": "1300",
+            "icbName": "Hóa chất"
+        },
+        {
+            "icbCode": "8300",
+            "icbName": "Ngân hàng"
+        },
+        {
+            "icbCode": "3300",
+            "icbName": "Ô tô và phụ tùng"
+        },
+        {
+            "icbCode": "3500",
+            "icbName": "Thực phẩm và đồ uống"
+        },
+        {
+            "icbCode": "5500",
+            "icbName": "Truyền thông"
+        },
+        {
+            "icbCode": "1700",
+            "icbName": "Tài nguyên Cơ bản"
+        },
+        {
+            "icbCode": "6500",
+            "icbName": "Viễn thông"
+        },
+        {
+            "icbCode": "2300",
+            "icbName": "Xây dựng và Vật liệu"
+        },
+        {
+            "icbCode": "4500",
+            "icbName": "Y tế"
+        },
+    ];
+
+    
+
 $(document).on("contextmenu", function (e) {        
     e.preventDefault();
 });
@@ -343,6 +425,16 @@ function getLoadingHTML() {
                 </div>
                 <span class="loadingTitle">Đang tải dữ liệu...</span>
             </div>`;
+}
+
+function getSelectionFieldsHTML(id) {
+    var res = `<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="${id}">
+                    <option value="null" selected>Tất cả ngành</option>`;
+    fieldsDataGlobal.forEach(field => {
+        res += "<option value='" + field.icbCode + "'>" + field.icbName + "</option>";
+    })
+    res += "</select>";           
+    return res;
 }
 
 function refreshTickerDetailData() {

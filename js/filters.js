@@ -1,39 +1,56 @@
+var filterOptionC, filterOptionC1, filterOptionC2, filterOptionC3, filterOptionA, filterOptionA1, filterOptionA2, filterOptionA3, filterOptionS, filterOptionS;
 $(document).ready(function () {
-    $("#filterOptionC").slider({
+    var fielsSelections = getSelectionFieldsHTML("fields-selection-options");
+    $("#fields-selection").html(fielsSelections);
+    filterOptionC = $("#filterOptionC").slider({
         tooltip: 'always',
-        id: "filter-option-c"
+        id: "filter-option-c",
+        scale: 'logarithmic',
     });
-    $("#filterOptionC1").slider({
+    filterOptionC1 = $("#filterOptionC1").slider({
         tooltip: 'always',
-        id: "filter-option-c1"
+        id: "filter-option-c1",
+        scale: 'logarithmic'
     });
-    $("#filterOptionC2").slider({
+    filterOptionC2 = $("#filterOptionC2").slider({
         tooltip: 'always',
-        id: "filter-option-c2"
+        id: "filter-option-c2",
+        scale: 'logarithmic'
     });
-    $("#filterOptionC3").slider({
+    filterOptionC3 = $("#filterOptionC3").slider({
         tooltip: 'always',
-        id: "filter-option-c3"
-    });
-    //==========================//
-    $("#filterOptionA").slider({
-        tooltip: 'always',
-        id: "filter-option-a"
-    });
-    $("#filterOptionA1").slider({
-        tooltip: 'always',
-        id: "filter-option-a1"
-    });
-    $("#filterOptionA2").slider({
-        tooltip: 'always',
-        id: "filter-option-a2"
-    });
-    $("#filterOptionA3").slider({
-        tooltip: 'always',
-        id: "filter-option-a3"
+        id: "filter-option-c3",
+        scale: 'logarithmic'
     });
     //==========================//
-    $("#filterOptionL").slider({
+    filterOptionA = $("#filterOptionA").slider({
+        tooltip: 'always',
+        id: "filter-option-a",
+        scale: 'logarithmic'
+    });
+    filterOptionA1 = $("#filterOptionA1").slider({
+        tooltip: 'always',
+        id: "filter-option-a1",
+        scale: 'logarithmic'
+    });
+    filterOptionA2 = $("#filterOptionA2").slider({
+        tooltip: 'always',
+        id: "filter-option-a2",
+        scale: 'logarithmic'
+    });
+    filterOptionA3 = $("#filterOptionA3").slider({
+        tooltip: 'always',
+        id: "filter-option-a3",
+        scale: 'logarithmic'
+    });
+    //==========================//    
+    filterOptionS = $("#filterOptionS").slider({
+        tooltip: 'always',
+        id: "filter-option-s",
+        scale: 'logarithmic'
+    });
+    //==========================//
+    filterOptionL = $("#filterOptionL").slider({
         tooltip: 'always',
         id: "filter-option-l"
     });
@@ -47,12 +64,104 @@ var headFiltersData = `<table class="left-position table table-bordered table-st
                                 </tr>          
                             </thead>
                             <tbody>`;
-
 var filtersDataJson = null;
+function getMinMaxValue(values, isDivide) {
+    if (!values) return {};
+    var items = values.split(",").map(x => Number(x));
+    if (isDivide) {
+        return { min: items[0] !== null ? items[0]/100: 0, max: items[1] !== null ? items[1]/100: 0 };
+    } else {
+        return { min: items[0] !== null ? items[0]: 0, max: items[1] !== null ? items[1]: 0 };
+    }
+}
 function filterData() {
-    return;
     var loadingHTML = getLoadingHTML();
-    var data = { "faFilter": { "Eps_TTM": { "min": 3000, "max": 35658 }, "RS52W": { "min": 70, "max": 99 }, "NetSale_Growth_MRQ": { "min": 0.1, "max": 801 }, "NetSale_Growth_Avg_3Y": { "min": 0.08, "max": 883 }, "Profit_Growth_MRQ": { "min": 0.25, "max": 154044 }, "Profit_Growth_MRQ_2": { "min": 0.15, "max": 2106 }, "Profit_Growth_TTM": { "min": 0.25, "max": 307 }, "Profit_Growth_Avg_3Y": { "min": 0.18, "max": 102 }, "ME_ROE": { "min": 0.15, "max": 22 } }, "taFilter": null, "booleanFilter": { "AvailableForFASearching": true }, "pageNumber": 1, "pageSize": 10000, "exchanges": ["HSX", "HNX", "UPCOM"], "icbCodes": null, "sortColumn": "Symbol", "isDesc": false };
+    // Basic
+    var exchanges = [];
+    var hsx = $('#btnFilterHSXOption:checked').val();
+    var hnx = $('#btnFilterHNXOption:checked').val();
+    var upcom = $('#btnFilterUPCOption:checked').val();
+    if (hsx) {
+        exchanges.push(hsx);
+    }
+    if (hnx) {
+        exchanges.push(hnx);
+    }
+    if (upcom) {
+        exchanges.push(upcom);
+    }
+
+    var fielSelection = $('#fields-selection-options').val();
+    // FA
+    var netSaleGrowthMRQ = getMinMaxValue($(filterOptionC).val(), true);
+    var profitGrowthMRQ = getMinMaxValue($(filterOptionC1).val(), true);
+    var profitGrowthMRQ2 = getMinMaxValue($(filterOptionC2).val(), true);
+    var profitGrowthTTM = getMinMaxValue($(filterOptionC3).val(), true);
+    var epsTTM = getMinMaxValue($(filterOptionA).val(), false);
+    var roe = getMinMaxValue($(filterOptionA1).val(), true);
+    var netSaleGrowthAvg3Y = getMinMaxValue($(filterOptionA2).val(), true);
+    var profitGrowthAvg3Y = getMinMaxValue($(filterOptionA3).val(), true);
+    var avgVol3M = getMinMaxValue($(filterOptionS).val(), false);
+    var rs52W = getMinMaxValue($(filterOptionL).val(), false);
+
+    // TA
+    var breakUpperBoundMACDvsSignalDaily = $('#btnFilterMACDUpOption:checked').val();
+    var breakLowerBoundMACDvsSignalDaily = $('#btnFilterMACDDownOption:checked').val();
+    var rsi14DailyT0ValuesGreater = $('#btnFilterRSIOverBuyOption:checked').val();
+    var rsi14DailyT0ValuesLess = $('#btnFilterRSIOverSellOption:checked').val();
+
+    var taFilter = { filterByKeys:[], filterByKeyAndValues: {}, compareResultOfTwoSMAs: null }
+    var filterByKeys = [];
+    if (breakUpperBoundMACDvsSignalDaily) {
+        filterByKeys.push(breakUpperBoundMACDvsSignalDaily);
+    }
+    if (breakLowerBoundMACDvsSignalDaily) {
+        filterByKeys.push(breakLowerBoundMACDvsSignalDaily);
+    }
+    taFilter.filterByKeys = filterByKeys;
+
+    if (!rsi14DailyT0ValuesGreater && !rsi14DailyT0ValuesLess) {
+        taFilter.filterByKeyAndValues = null;
+    } else {       
+        if (rsi14DailyT0ValuesGreater) {
+            taFilter.filterByKeyAndValues[rsi14DailyT0ValuesGreater] = 70;
+        }
+        if (rsi14DailyT0ValuesLess) {
+            taFilter.filterByKeyAndValues[rsi14DailyT0ValuesLess] = 30;
+        }
+    }
+
+    var booleanFilter = { 
+        AvailableForFASearching: true,
+        Has5ConsecutiveTradingDays: true,
+        Has10ConsecutiveTradingDays: true 
+    }
+    var btnFilterOverTop = $('#btnFilterOverTop:checked').val();
+    if (btnFilterOverTop) {
+        booleanFilter[btnFilterOverTop] = true;
+    }
+    var data = {
+                faFilter: {
+                    AvgVol3M: avgVol3M,
+                    Eps_TTM: epsTTM,
+                    ME_ROE: roe,
+                    RS52W: rs52W,
+                    NetSale_Growth_MRQ: netSaleGrowthMRQ,
+                    NetSale_Growth_Avg_3Y: netSaleGrowthAvg3Y,
+                    Profit_Growth_MRQ: profitGrowthMRQ,
+                    Profit_Growth_MRQ_2: profitGrowthMRQ2,
+                    Profit_Growth_TTM: profitGrowthTTM,
+                    Profit_Growth_Avg_3Y: profitGrowthAvg3Y                
+                },
+                taFilter: taFilter,
+                booleanFilter: booleanFilter,
+                pageNumber: 1,
+                pageSize: 10000,
+                exchanges: exchanges,
+                icbCodes: (fielSelection !== "null" ? [fielSelection] : null),
+                sortColumn: "Symbol",
+                isDesc: false,
+                };
     $("#showFiltersData").html(`</br>${loadingHTML}`);
     setTimeout(() => {
         var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_STOCK_FILTERS_PATH}`);
@@ -66,11 +175,16 @@ function filterData() {
             }
         }).done(function (response) {
             if (response && response.result) {
-                var index = 0;
-                response.result.items.forEach(item => {
-                    res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")><td>${index + 1}</td><td class="bold-text">${item}</td></tr>`;
-                    index++;
-                });
+                if (response.result.items.length > 0) {
+                    var tickerCodes = getTickerCode(response.result.items);
+                    var index = 0;
+                    tickerCodes.forEach(item => {
+                        res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")><td>${index + 1}</td><td class="bold-text">${item}</td></tr>`;
+                        index++;
+                    });
+                } else {
+                    res += `<tr><td colspan="2" class="bold-text">Không có mã nào thõa tiêu chí.</td></tr>`;
+                }
             } else {
                 res += `<tr><td>Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
             }
@@ -80,4 +194,21 @@ function filterData() {
             $("#showFiltersData").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
         });
     }, 100);
+}
+
+function getTickerCode(codes) {
+    var selfBusinessChecked = $('#btnFilterSelfBusinessOption:checked').val();
+    var foreignChecked = $('#btnFilterForeignOption:checked').val();
+    if (!selfBusinessChecked && !foreignChecked) return codes;
+    if (selfBusinessChecked) {
+        var selfBusinessData = summaryDataJson.selfBusiness["yearToDate"][actionSummaryDefault];
+        var selfBusinessCodes = selfBusinessData.map(x => x.ticker);
+        codes = codes.filter(x => selfBusinessCodes.indexOf(x) !== -1);
+    }
+    if (foreignChecked) {
+        var foreignData = summaryDataJson.foreign["yearToDate"][actionSummaryDefault];
+        var foreignCodes = foreignData.map(x => x.ticker);
+        codes = codes.filter(x => foreignCodes.indexOf(x) !== -1);
+    }
+    return codes;
 }

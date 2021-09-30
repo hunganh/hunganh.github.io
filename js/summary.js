@@ -1,8 +1,8 @@
 var divSummaryShowData = document.getElementById('showSummaryData');
 var divSummaryTitle = document.getElementById('showSummaryTitle');
-// $(document).ready(function () {
-//     initSummaryData();
-// });
+$(document).ready(function () {
+    initSummaryData();
+});
 
 function resetDataSummary() {
     summaryDataJson = null;
