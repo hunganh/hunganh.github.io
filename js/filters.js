@@ -177,13 +177,17 @@ function filterData() {
             if (response && response.result) {
                 if (response.result.items.length > 0) {
                     var tickerCodes = getTickerCode(response.result.items);
-                    var index = 0;
-                    tickerCodes.forEach(item => {
-                        res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")><td>${index + 1}</td><td class="bold-text">${item}</td></tr>`;
-                        index++;
-                    });
+                    if (tickerCodes.length > 0) {
+                        var index = 0;
+                        tickerCodes.forEach(item => {
+                            res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")><td>${index + 1}</td><td class="bold-text">${item}</td></tr>`;
+                            index++;
+                        });
+                    } else {
+                        res += `<tr><td colspan="2" class="bold-text">Không có mã nào thỏa tiêu chí.</td></tr>`;
+                    }
                 } else {
-                    res += `<tr><td colspan="2" class="bold-text">Không có mã nào thõa tiêu chí.</td></tr>`;
+                    res += `<tr><td colspan="2" class="bold-text">Không có mã nào thỏa tiêu chí.</td></tr>`;
                 }
             } else {
                 res += `<tr><td>Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
