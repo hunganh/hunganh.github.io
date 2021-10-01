@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var a = fetchLocalResource('./data/stocks.json');
+    alert(a);
     var type = $("input[name='uploadFile']:checked").val();
     loadAllFile(type);
     $("#uploadJsonFile").click(function () {
