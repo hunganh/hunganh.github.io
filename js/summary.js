@@ -54,14 +54,16 @@ function processSummaryDataInput() {
                     ticker: code,
                     totalNetBuyTradeValue: selfBusinessDataObject.totalNetBuyTradeValue,
                     selfBusinessPercentPriceChange: selfBusinessDataObject.percentPriceChange,
+                    selfBusinessPriceChange: selfBusinessDataObject.priceChange,
+                    selfBusinessMatchPrice: selfBusinessDataObject.matchPrice,
                     foreignNetBuyValue: foreignDataObject.foreignNetBuyValue,
                     foreignPercentPriceChange: foreignDataObject.percentPriceChange,
+                    foreignPriceChange: foreignDataObject.priceChange,
+                    foreignMatchPrice: foreignDataObject.matchPrice,
                     sumValue: 0,
                     avgPercent: 0
                 }
-                var selfBusinessPercentChange = Number(dataObject.selfBusinessPercentPriceChange * 100).toFixed(2);
-                var foreignPercentChange = Number(dataObject.foreignPercentPriceChange * 100).toFixed(2);
-                var avgPercent = (Number(selfBusinessPercentChange) + Number(foreignPercentChange)) / 2;
+                var avgPercent = (dataObject.selfBusinessPercentPriceChange + dataObject.foreignPercentPriceChange) / 2;
                 dataObject.sumValue = dataObject.totalNetBuyTradeValue + dataObject.foreignNetBuyValue;
                 dataObject.avgPercent = avgPercent;
                 data.push(dataObject);
@@ -86,7 +88,7 @@ function createSummaryReport(data) {
     var thead = document.createElement("thead");
     var tr = thead.insertRow(-1);                    // table row.
     var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 8);
+    thTime.setAttribute("colspan", 10);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
     thead.appendChild(tr);
@@ -95,9 +97,9 @@ function createSummaryReport(data) {
     for (var i = 0; i < summaryHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
         if (i > 1) {
-            th.setAttribute("colspan", 2);
+            th.setAttribute("colspan", 3);
         } else {
-            th.setAttribute("rowspan", 2);
+            th.setAttribute("rowspan", 3);
         }
         th.innerHTML = summaryHeadTitle[i];
         tr.appendChild(th);
@@ -117,16 +119,24 @@ function createSummaryReport(data) {
         tr = tbody.insertRow(-1);
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
-        var selfBusinessPercentChange = Number(data[i]["selfBusinessPercentPriceChange"] * 100).toFixed(2);
-        var foreignPercentChange = Number(data[i]["foreignPercentPriceChange"] * 100).toFixed(2);
+        var selfBusinessPercentChange = data[i]["selfBusinessPercentPriceChange"] * 100;
+        var foreignPercentChange = data[i]["foreignPercentPriceChange"] * 100;
+        var selfBusinessPriceChange = data[i]["selfBusinessPriceChange"];
+        var foreignPriceChange = data[i]["foreignPriceChange"];
+        var selfBusinessPrice = selfBusinessPercentChange > 0 || selfBusinessPercentChange < 0 ? (selfBusinessPriceChange/data[i]["selfBusinessPercentPriceChange"]) : data[i]["selfBusinessMatchPrice"];
+        var foreignPrice = foreignPercentChange > 0 || foreignPercentChange < 0 ? (foreignPriceChange/data[i]["foreignPercentPriceChange"]) : data[i]["foreignMatchPrice"];
+        var avgPercent = data[i]["avgPercent"] * 100;
+        var avgPrice = (selfBusinessPrice + foreignPriceChange)/2;
         addCell(tr, Number(i + 1));
         addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
         addCell(tr, new Intl.NumberFormat().format(data[i]["totalNetBuyTradeValue"]));
-        addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange}</span>`);
+        addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}</span>`);
+        addCell(tr, new Intl.NumberFormat().format(selfBusinessPrice.toFixed(0)));
         addCell(tr, new Intl.NumberFormat().format(data[i]["foreignNetBuyValue"]));
-        addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange}</span>`);
+        addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange.toFixed(2)}</span>`);
+        addCell(tr, new Intl.NumberFormat().format(foreignPrice.toFixed(0)));
         addCell(tr, new Intl.NumberFormat().format(data[i]["sumValue"]));
-        addCell(tr, `<span class='${getClassByValue(data[i]["avgPercent"])}'>${data[i]["avgPercent"].toFixed(2)}</span>`);
+        addCell(tr, `<span class='${getClassByValue(avgPercent)}'>${avgPercent.toFixed(2)}</span>`);
     }
     table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.

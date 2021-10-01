@@ -140,7 +140,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     var thead = document.createElement("thead");
     var tr = thead.insertRow(-1);                   // table row.
     var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 7);
+    thTime.setAttribute("colspan", 8);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
     thead.appendChild(tr);
@@ -197,7 +197,10 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
                 percentChange = 0;
             }
         }
-        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i][statisticsCols[1]] + '</b>' : data[i][statisticsCols[1]]);
+        var priceChange = data[i]["priceChange"];
+        var percentPriceChange = data[i]["percentPriceChange"] * 100;
+        var price = percentPriceChange > 0 || percentPriceChange < 0 ? (priceChange/data[i]["percentPriceChange"]).toFixed(0) : data[i]["matchPrice"];
+        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
         // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
         if (typeDefault !== "selfBusiness" || prvItem === null) {
             addCell(tr, '<span class="reference"> &#8722; </span>');
@@ -212,7 +215,8 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
 
         addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
         addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
-        addCell(tr, '<span class="' + (Number(data[i][statisticsCols[4]] * 100) >= 0 ? "up" : "down") + '">' + Number(data[i][statisticsCols[4]] * 100).toFixed(2) + '</span>');
+        addCell(tr, '<span class="' + (Number(percentPriceChange) >= 0 ? "up" : "down") + '">' + Number(percentPriceChange).toFixed(2) + '</span>');
+        addCell(tr, new Intl.NumberFormat().format(price));
     }
     table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.

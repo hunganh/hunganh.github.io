@@ -109,6 +109,8 @@ function filterData() {
     var breakLowerBoundMACDvsSignalDaily = $('#btnFilterMACDDownOption:checked').val();
     var rsi14DailyT0ValuesGreater = $('#btnFilterRSIOverBuyOption:checked').val();
     var rsi14DailyT0ValuesLess = $('#btnFilterRSIOverSellOption:checked').val();
+    var breakUpperBoundUpperBandsDaily = $('#btnFilterBollingerUpperBandOption:checked').val();
+    var breakLowerBoundLowerBandsDaily = $('#btnFilterBollingerLowerBandOption:checked').val();
 
     var taFilter = { filterByKeys:[], filterByKeyAndValues: {}, compareResultOfTwoSMAs: null }
     var filterByKeys = [];
@@ -118,18 +120,19 @@ function filterData() {
     if (breakLowerBoundMACDvsSignalDaily) {
         filterByKeys.push(breakLowerBoundMACDvsSignalDaily);
     }
-    taFilter.filterByKeys = filterByKeys;
-
-    if (!rsi14DailyT0ValuesGreater && !rsi14DailyT0ValuesLess) {
-        taFilter.filterByKeyAndValues = null;
-    } else {       
-        if (rsi14DailyT0ValuesGreater) {
-            taFilter.filterByKeyAndValues[rsi14DailyT0ValuesGreater] = 70;
-        }
-        if (rsi14DailyT0ValuesLess) {
-            taFilter.filterByKeyAndValues[rsi14DailyT0ValuesLess] = 30;
-        }
+    if (rsi14DailyT0ValuesGreater) {
+        filterByKeys.push(rsi14DailyT0ValuesGreater);
     }
+    if (rsi14DailyT0ValuesLess) {
+        filterByKeys.push(rsi14DailyT0ValuesLess);
+    }
+    if (breakUpperBoundUpperBandsDaily) {
+        filterByKeys.push(breakUpperBoundUpperBandsDaily);
+    }
+    if (breakLowerBoundLowerBandsDaily) {
+        filterByKeys.push(breakLowerBoundLowerBandsDaily);
+    }
+    taFilter.filterByKeys = filterByKeys;
 
     var booleanFilter = { 
         AvailableForFASearching: true,
