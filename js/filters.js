@@ -61,6 +61,8 @@ var headFiltersData = `<table class="left-position table table-bordered table-st
                                 <tr>
                                     <th>#</th>    
                                     <th>Mã CP</th>
+                                    <th>Tên Doanh Nghiệp</th>
+                                    <th>Sàn CK</th>
                                 </tr>          
                             </thead>
                             <tbody>`;
@@ -183,7 +185,13 @@ function filterData() {
                     if (tickerCodes.length > 0) {
                         var index = 0;
                         tickerCodes.forEach(item => {
-                            res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")><td>${index + 1}</td><td class="bold-text">${item}</td></tr>`;
+                            var stockInfo = stockData.find(x => x.symbol === item);
+                            res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")>
+                                        <td>${index + 1}</td>
+                                        <td class="bold-text">${item}</td>
+                                        <td class="text-left">${stockInfo !== null ? stockInfo.name : ""}</td>
+                                        <td>${stockInfo !== null ? stockInfo.exchange : ""}</td>
+                                    </tr>`;
                             index++;
                         });
                     } else {

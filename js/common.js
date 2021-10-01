@@ -38,92 +38,11 @@ const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
+   
 
-const fieldsDataGlobal =
-    [
-        {
-            "icbCode": "5300",
-            "icbName": "Bán lẻ"
-        },
-        {
-            "icbCode": "8500",
-            "icbName": "Bảo hiểm"
-        }, 
-        {
-            "icbCode": "8600",
-            "icbName": "Bất động sản"
-        },        
-        {
-            "icbCode": "9500",
-            "icbName": "Công nghệ Thông tin"
-        },
-        {
-            "icbCode": "0500",
-            "icbName": "Dầu khí"
-        },
-        {
-            "icbCode": "8700",
-            "icbName": "Dịch vụ tài chính"
-        },
-        {
-            "icbCode": "5700",
-            "icbName": "Du lịch và Giải trí"
-        },
-        {
-            "icbCode": "7500",
-            "icbName": "Điện, nước & xăng dầu khí đốt"
-        },
-        {
-            "icbCode": "2700",
-            "icbName": "Hàng & Dịch vụ Công nghiệp"
-        },
-        {
-            "icbCode": "3700",
-            "icbName": "Hàng cá nhân & Gia dụng"
-        },
-        {
-            "icbCode": "1300",
-            "icbName": "Hóa chất"
-        },
-        {
-            "icbCode": "8300",
-            "icbName": "Ngân hàng"
-        },
-        {
-            "icbCode": "3300",
-            "icbName": "Ô tô và phụ tùng"
-        },
-        {
-            "icbCode": "3500",
-            "icbName": "Thực phẩm và đồ uống"
-        },
-        {
-            "icbCode": "5500",
-            "icbName": "Truyền thông"
-        },
-        {
-            "icbCode": "1700",
-            "icbName": "Tài nguyên Cơ bản"
-        },
-        {
-            "icbCode": "6500",
-            "icbName": "Viễn thông"
-        },
-        {
-            "icbCode": "2300",
-            "icbName": "Xây dựng và Vật liệu"
-        },
-        {
-            "icbCode": "4500",
-            "icbName": "Y tế"
-        },
-    ];
-
-    
-
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -461,19 +380,4 @@ function initTooltips() {
     $tooltip.on('show.bs.tooltip', () => {
         $('.tooltip').not(this).remove();
     });
-}
-
-function fetchLocalResource(url) {        
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest
-        xhr.onload = function () {
-            resolve(new Response(xhr.response, { status: xhr.status }))
-        }
-        xhr.onerror = function () {
-            reject(new TypeError('Local request failed'))
-        }
-        xhr.open('GET', url)
-        xhr.responseType = "arraybuffer";
-        xhr.send(null)
-    })
 }
