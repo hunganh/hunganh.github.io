@@ -8,11 +8,11 @@ var summaryDataJson = null;
 var mappingDataJson = null;
 var currentTicker = "";
 var olderItem = null;
-const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "percentPriceChange"];
-const statisticsHeadTitle = ["#", "Mã CP", "Biến động", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)"];
+const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "priceChange", "percentPriceChange"];
+const statisticsHeadTitle = ["#", "Mã CP", "Biến động", "Tổng khối lượng", "Tổng giá trị", "Lãi/Lỗ (%)", "Giá vốn"];
 const subStatisticsHeadTitle = ["Khối lượng", "Giá trị"];
 const summaryHeadTitle = ["#", "Mã CP", "Tự doanh", "Khối ngoại", "Tổng"];
-const subSummaryHeadTitle = ["Giá trị", "Lãi/Lỗ (%)", "Giá trị", "Lãi/Lỗ (%)", "Giá trị", "Lãi/Lỗ (%)"];
+const subSummaryHeadTitle = ["Giá trị", "Lãi/Lỗ (%)", "Giá vốn", "Giá trị", "Lãi/Lỗ (%)", "Giá vốn", "Giá trị", "Lãi/Lỗ (%)"];
 const locale = 'en-GB';
 const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
 const FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
@@ -461,4 +461,19 @@ function initTooltips() {
     $tooltip.on('show.bs.tooltip', () => {
         $('.tooltip').not(this).remove();
     });
+}
+
+function fetchLocalResource(url) {        
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest
+        xhr.onload = function () {
+            resolve(new Response(xhr.response, { status: xhr.status }))
+        }
+        xhr.onerror = function () {
+            reject(new TypeError('Local request failed'))
+        }
+        xhr.open('GET', url)
+        xhr.responseType = "arraybuffer";
+        xhr.send(null)
+    })
 }
