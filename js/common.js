@@ -40,9 +40,9 @@ const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
    
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
 $(document).keydown(function (event) {
     // Prevent F12
