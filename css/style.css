@@ -130,7 +130,7 @@ th {
 .grid-container {
   overflow-x: auto;
   display: block;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .grid-container .left-position {
@@ -419,4 +419,262 @@ ul > li > button {
 
 .color7 {
   color: CYAN;
+}
+
+#tickerTabContent {
+  border: 1px solid lightgrey;
+}
+
+.news-image {
+  height: 90px;
+  max-width: 150px;
+  border-radius: 5px;
+}
+
+.news-item.style-no1 {
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.news-item {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.mb-px {
+  margin-bottom: 10px;
+}
+
+.news-item.style-no1 .news-item-image {
+  min-width: 150px;
+  height: 90px;
+  max-width: 150px;
+}
+
+.news-item .news-item-image.blur {
+  background-size: contain;
+}
+
+.news-item .news-item-image.logo {
+  background-size: contain;
+  background-color: #fff;
+}
+
+.news-item .news-item-image {
+  position: relative;
+  border-radius: 5px;
+  height: 100px;
+  width: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.news-item .news-item-image.blur>div:first-child {
+  z-index: 0;
+  background-size: cover;
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.news-item .news-item-image.blur>div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.news-item .news-item-image.blur>div:nth-child(2) {
+  z-index: 1;
+  background-size: contain;
+}
+
+.news-item .news-item-image.blur>div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.news-item.style-no1 .news-item-content {
+  height: auto;
+}
+
+.news-item.style-no1 .news-item-content {
+  margin-top: 0;
+  margin-left: 10px;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.news-item .news-item-content {
+  margin-top: 10px;
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  height: 70px;
+}
+
+.news-item.style-no1 .news-item-content .news-item-title.ellipse {
+  -webkit-line-clamp: 1;
+}
+
+.news-item .news-item-content .news-item-title {
+  line-height: 17px;
+  overflow: hidden;
+  position: relative;
+  max-height: 35px;
+  -webkit-line-clamp: 2;
+  font-weight: 500;
+}
+.news-item-title, .title {
+  font-weight: 500;
+}
+
+.ellipse, .truncate, .truncate>* {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+.ellipse {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.news-item.style-no1 .news-item-content .des {
+  margin-top: 5px;
+}
+.color2 {
+  color: #9197b1;
+}
+
+.news-item.style-no1 .news-item-content .b {
+  margin-top: 5px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.news-item.style-no1 .news-item-content .news-item-more {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.news-item.style-no1 .news-item-content .news-item-more {
+  position: relative;
+  margin-top: 0;
+}
+
+.news-item .news-item-content .news-item-more {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 11px;
+}
+
+.news-item.style-no1 .news-item-content .news-item-more .news-item-soure {
+  margin-right: 10px;
+}
+
+.news-item .news-item-content .news-item-more .news-item-date {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.news-item .news-item-content .news-item-more .news-item-date .ico {
+  height: 11px;
+  width: 11px;
+  position: relative;
+  top: 1px;
+}
+
+.ico.ico-time {
+  -webkit-mask-image: url(https://images.fialda.com/images/icons/other/ico-time.svg);
+  mask-image: url(https://images.fialda.com/images/icons/other/ico-time.svg);
+}
+
+.ico.ico-date {
+  -webkit-mask-image: url(https://images.fialda.com/images/icons/other/ico-date.svg);
+  mask-image: url(https://images.fialda.com/images/icons/other/ico-date.svg);
+}
+
+.color2.ico {
+  background-color: #9197b1;
+}
+
+body .ico {
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.news-item.style-no1:hover .news-item-image:after {
+  content: " ";
+  background-color: rgba(133,109,252,.5)!important;
+}
+
+.news-item:hover {
+  cursor: pointer !important;
+}
+
+.news-item:hover .news-item-title {
+  color: #856dfc !important;
+}
+
+.news-item:hover .news-item-image:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(133,109,252,.5);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  z-index: 2;
+}
+
+.news-item:hover .news-item-image:before {
+  content: " ";
+  position: absolute;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 18px;
+  mask-size: 18px;
+  -webkit-mask-image: url(https://images.fialda.com/images/icons/other/ico-readmore.svg);
+  mask-image: url(https://images.fialda.com/images/icons/other/ico-readmore.svg);
+  z-index: 3;
 }

@@ -25,19 +25,24 @@ const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
 const DATA_URL = "http://data-statistics-api.herokuapp.com";
-// const DATA_URL = "http://localhost:3001";
+const API_DATA_SERVER_1 = "https://fwtapi1.fialda.com";
+const API_DATA_SERVER_2 = "https://fwtapi2.fialda.com";
 const FILES_DATA_URL = `${DATA_URL}/files`;
 const UPLOAD_DATA_URL = `${DATA_URL}/upload`;
 const CORS_PROXY_URL = `${DATA_URL}/fetch`;
 const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
 const STATISTICS_DATA_URL = `${DATA_URL}/statistics`;
-const FIALDA_API_V1_URL = `https://fwtapi1.fialda.com/api/services/app`;
-const FIALDA_API_V2_URL = `https://fwtapi2.fialda.com/api/services/app`;
+const FIALDA_API_V1_URL = `${API_DATA_SERVER_1}/api/services/app`;
+const FIALDA_API_V2_URL = `${API_DATA_SERVER_2}/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
 const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
+const FIALDA_STOCK_DEVIDENT_PATH = "/Stock/GetBonusEvents";
+const FIALDA_STOCK_EVENT_PATH = "/Event/GetAll";
+const FIALDA_STOCK_COMPANY_NEWS = "/StockInfo/GetCompanyNews";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
+const IMAGE_NEWS_URL = "https://cdn.fialda.com/Images/News/";
    
 
 $(document).on("contextmenu", function (e) {        
@@ -265,7 +270,7 @@ function processTickerData(code) {
             }, 50);
         }
     }).then(() => {
-        console.log('Done fetching content via JavaScript');
+        //console.log('Done fetching content via JavaScript');
     }).catch((err) => {
         console.error(err);
     });
@@ -316,24 +321,60 @@ function drawRecommendationsDataToHTML(data, code) {
     } else {
         res += "";
     }
-    res += `<table class="table table-bordered table-responsive">
-                <thead class="table-light">
-                    <tr><th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th></tr>              
-                </thead>
-                <tbody>`;
-    if (recommendationsData && recommendationsData["result"]) {
-        var firstKey = Object.keys(recommendationsData["result"])[0];
+    var recommendationBody = `<table class="table table-bordered table-responsive">
+                                <thead class="table-light">
+                                    <tr><th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th></tr>              
+                                </thead>
+                                <tbody>`;
+        if (recommendationsData && recommendationsData["result"]) {
+            var firstKey = Object.keys(recommendationsData["result"])[0];
         if (firstKey !== undefined) {
             recommendationsData["result"][firstKey].forEach(item => {
-                res += `<tr><td>${new Date(item.reportDate).toLocaleDateString(locale)}</td><td><b class="top10">${item.reporter}</b></td><td class="text-left">${item.title}</td><td><a href="${FIALDA_ANALYSIS_REPORT_URL}${code}_-_${item.attachment}" target="_blank">Xem báo cáo</a></td></tr>`;
+                recommendationBody += `<tr><td>${new Date(item.reportDate).toLocaleDateString(locale)}</td><td><b class="top10">${item.reporter}</b></td><td class="text-left">${item.title}</td><td><a href="${FIALDA_ANALYSIS_REPORT_URL}${code}_-_${item.attachment}" target="_blank">Xem báo cáo</a></td></tr>`;
             });
         } else {
-            res += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+            recommendationBody += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
         }
-    } else {
-        res += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
-    }
-    res += `</tbody></table>`;
+        } else {
+            recommendationBody += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+        }
+        recommendationBody += `</tbody></table>`;
+    res += `<ul class="nav nav-tabs tabs" id="tickerTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="recommendation-tab" data-bs-toggle="tab" data-bs-target="#recommendation" type="button" role="tab" aria-controls="recommendation" aria-selected="true">Báo Cáo Phân Tích</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="dividend-tab" data-bs-toggle="tab" data-bs-target="#dividend" type="button" role="tab" aria-controls="dividend" aria-selected="false" onclick="loadDividendNews('${code}')">Tin Cổ Tức</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="chart-tab" data-bs-toggle="tab" data-bs-target="#chart" type="button" role="tab" aria-controls="chart" aria-selected="false" onclick="loadChartData('${code}')">Chart Kỹ Thuật</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="false" onclick="loadNews('${code}')">Tin Doanh Nghiệp</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="tickerTabContent">
+                <div class="tab-pane fade show active" id="recommendation" role="tabpanel" aria-labelledby="recommendation-tab">
+                    <div class="grid-container">
+                        ${recommendationBody}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="dividend" role="tabpanel" aria-labelledby="dividend-tab">
+                    <div class="grid-container" id="dividendContent">
+                        
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                    <div class="grid-container" id="chartContent">
+                        
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+                    <div class="grid-container" id="newsContent">
+                        
+                    </div>
+                </div>
+            </div>`;
     return res;
 }
 
@@ -381,3 +422,138 @@ function initTooltips() {
         $('.tooltip').not(this).remove();
     });
 }
+
+function loadDividendNews(code) {
+    $("#dividendContent").html(`</br>${getLoadingHTML()}`);
+    var contents = "";
+    var FIALDA_STOCK_CASH_DIVIDEND_EVENT_URL = encodeURIComponent(`${FIALDA_API_V2_URL}${FIALDA_STOCK_EVENT_PATH}?typeId=13&symbol=${code}&pageNumber=1&pageSize=1000&sortColumn=exrightDate&isDesc=true`);
+    var FIALDA_STOCK_DIVIDEND_EVENT_URL = encodeURIComponent(`${FIALDA_API_V2_URL}${FIALDA_STOCK_EVENT_PATH}?typeId=15&symbol=${code}&pageNumber=1&pageSize=1000&sortColumn=exrightDate&isDesc=true`);
+    Promise.all([
+        fetchContentByUrlWithCORSProxy(FIALDA_STOCK_CASH_DIVIDEND_EVENT_URL, "GET", ""),
+        fetchContentByUrlWithCORSProxy(FIALDA_STOCK_DIVIDEND_EVENT_URL, "GET", "")
+    ]).then((values) => {
+        if (values && values.length > 0) {
+            var dividendEventData1 = values[0];
+            var dividendEventData2 = values[1];
+            contents += `<table class="table table-bordered table-responsive">
+                            <thead class="table-light">
+                                <tr><th colspan="6">Cổ Tức Bằng Tiền Mặt</th></tr>
+                                <tr><th>#</th><th>Ngày GDKHQ</th><th>Ngày ĐKCC</th><th>Ngày Thực Hiện</th><th>Tỷ lệ</th><th>Nội Dung Sự Kiện</th></tr>              
+                            </thead>
+                            <tbody>`;
+            if (dividendEventData1 && dividendEventData1.result && dividendEventData1.result.items.length > 0) {
+                var i = 0;
+                dividendEventData1.result.items.forEach(item => {
+                    contents += `<tr><td>${i+1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${new Date(item.issuedDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td class="text-left">${item.eventName}</td></tr>`;
+                    i++;
+                });
+            } else {
+                contents += `<tr><td colspan='6'>Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+            }
+            contents += "</tbody></table>";
+            contents += `<table class="table table-bordered table-responsive">
+                            <thead class="table-light">
+                                <tr><th colspan="6">Cổ Tức Bằng Cổ Phiếu</th></tr>
+                                <tr><th>#</th><th>Ngày GDKHQ</th><th>Ngày ĐKCC</th><th>Tỷ lệ</th><th>Khối Lượng</th><th>Nội Dung Sự Kiện</th></tr>              
+                            </thead>
+                        <tbody>`;
+            if (dividendEventData2 && dividendEventData2.result && dividendEventData2.result.items.length > 0) {
+                var j = 0;
+                dividendEventData2.result.items.forEach(item => {
+                    contents += `<tr><td>${j+1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td>${new Intl.NumberFormat().format(item.eventValue)}</td><td class="text-left">${item.eventName}</td></tr>`;
+                    j++;
+                });
+            } else {
+                contents += `<tr><td colspan='6'>Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+            }
+            contents += "</tbody></table>";
+            $("#dividendContent").html(contents);
+        } else {
+            $("#dividendContent").html("Không tìm thấy dữ liệu. Vui lòng thử lại sau!");
+        }
+    }).then(() => {
+        //console.log('Done fetching content via JavaScript');
+    }).catch((err) => {
+        $("#dividendContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
+    });
+}
+
+function loadChartData(code) {
+    // var res =`<!-- TradingView Widget BEGIN -->
+    //         <div class="tradingview-widget-container">
+    //             <div id="tradingview_7949e"></div>
+    //             <div class="tradingview-widget-copyright">
+    //                 <a href="https://vn.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Biểu đồ</span> </a> bởi TradingView
+    //             </div>
+    //             <script type="text/javascript">
+    //                 new TradingView.widget(
+    //                 {
+    //                     "width": 980,
+    //                     "height": 610,
+    //                     "symbol": "NASDAQ:AAPL",
+    //                     "interval": "D",
+    //                     "timezone": "Etc/UTC",
+    //                     "theme": "light",
+    //                     "style": "1",
+    //                     "locale": "vi_VN",
+    //                     "toolbar_bg": "#f1f3f6",
+    //                     "enable_publishing": false,
+    //                     "allow_symbol_change": true,
+    //                     "container_id": "tradingview_7949e"
+    //                 });
+    //             </script>
+    //         </div>`;
+    var res = "Chức năng đang được phát triển";
+    $("#chartContent").html(res);
+}
+
+function loadNews(code) {
+    var loadingHTML = getLoadingHTML();
+    $("#newsContent").html(`</br>${loadingHTML}`);
+    setTimeout(() => {
+        var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_STOCK_COMPANY_NEWS}?symbol=${code}&pageNumber=1&pageSize=30`);
+        var res = "";
+        $.ajax({
+            url: `${CORS_PROXY_URL}/${URL}`,
+            async: false,
+            dataType: "json"
+        }).done(function (response) {
+            if (response && response.result && response.result.items.length > 0) {
+                res += `<div class="row">`;
+                response.result.items.forEach(item => {
+                    res += `<div class="col">
+                                    <div class="news-item style-no1 mb-px" onclick="viewArticleDetail(${item.id})" title="${item.title}">
+                                        <div class="news-item-image logo blur border-2">
+                                            <div style="background-image:url('${IMAGE_NEWS_URL}${item.imageUrl}');"></div>
+                                            <div style="background-image:url('${IMAGE_NEWS_URL}${item.imageUrl}');"></div>
+                                        </div>
+                                        <div class="news-item-content">
+                                            <div class="news-item-title ellipse">${item.title}</div>
+                                            <div class="des ellipse color2">${item.shortContent}</div>
+                                            <div class="flex-row b">
+                                                <div class="news-item-more">
+                                                    <div class="news-item-soure color2">${item.source}</div>
+                                                    <div class="news-item-date color2">
+                                                        <i class="ico ico-date color2" style="margin-right: 5px;"></i> ${new Date(item.publishedTime).toLocaleDateString(locale)} 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                });
+            } else {
+                res += `<p><b class="top10">Không có dữ liệu. Vui lòng thử lại sau!</b></p>`;
+            }
+            res += `</div>`;
+            $("#newsContent").html(res);
+            initTooltips();
+        }).fail(function (jqXHR, textStatus, error) {
+            $("#newsContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
+        });
+    }, 100);
+}
+
+function viewArticleDetail(id) {
+    window.open(`news.html?id=${id}`, '_blank');
+}
+

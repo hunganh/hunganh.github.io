@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+    <!-- <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script> -->
 </head>
 <body>
     <ul class="nav nav-tabs tabs" id="myTab" role="tablist">
@@ -125,318 +126,312 @@
             </div>
         </div>
         <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
-            <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                <div class="headerFixed">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 pading-5">
-                        <div class="col">
-                            <div class="card">
-                                <h6 class="card-header">Bước 1: Chọn loại thống kê</h6>
-                                <div class="card-body">
-                                    <input type="radio" class="form-check-input" id="netBuySummary" name="netSummary" value="netBuy" checked
-                                        onclick='changeSummaryAction(this.value)'>
-                                    <label class="form-check-label" for="netBuySummary">Mua Ròng</label>
-                                    &nbsp;
-                                    <input type="radio" class="form-check-input" id="netSellSummary" name="netSummary" value="netSell"
-                                        onclick='changeSummaryAction(this.value)'>
-                                    <label class="form-check-label" for="netSellSummary">Bán Ròng</label>
-                                </div>
+            <div class="headerFixed">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 pading-5">
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Bước 1: Chọn loại thống kê</h6>
+                            <div class="card-body">
+                                <input type="radio" class="form-check-input" id="netBuySummary" name="netSummary" value="netBuy" checked
+                                    onclick='changeSummaryAction(this.value)'>
+                                <label class="form-check-label" for="netBuySummary">Mua Ròng</label>
+                                &nbsp;
+                                <input type="radio" class="form-check-input" id="netSellSummary" name="netSummary" value="netSell"
+                                    onclick='changeSummaryAction(this.value)'>
+                                <label class="form-check-label" for="netSellSummary">Bán Ròng</label>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card">
-                                <h6 class="card-header">Bước 2: Chọn thời điểm thống kê</h6>
-                                <div class="card-body">
-                                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
-                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodToday" autocomplete="off" checked onclick='changePeriodAction("today")'>
-                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodToday">1 Ngày</label>
-                                      
-                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneWeek" autocomplete="off" onclick='changePeriodAction("oneWeek")'>
-                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneWeek">5 Ngày</label>
-                                      
-                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneMonth" autocomplete="off" onclick='changePeriodAction("oneMonth")'>
-                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneMonth">20 Ngày</label>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Bước 2: Chọn thời điểm thống kê</h6>
+                            <div class="card-body">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodToday" autocomplete="off" checked onclick='changePeriodAction("today")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodToday">1 Ngày</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneWeek" autocomplete="off" onclick='changePeriodAction("oneWeek")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneWeek">5 Ngày</label>
+                                  
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneMonth" autocomplete="off" onclick='changePeriodAction("oneMonth")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneMonth">20 Ngày</label>
 
-                                        <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneYearToDate" autocomplete="off" onclick='changePeriodAction("yearToDate")'>
-                                        <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneYearToDate">Đến Hiện Tại</label>
-                                    </div>
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio" id="btnSummaryPeriodOneYearToDate" autocomplete="off" onclick='changePeriodAction("yearToDate")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneYearToDate">Đến Hiện Tại</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="title">
-                        <div class="row">
-                            <div class="col">
-                                <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</div>
-                            </div>
-                            <div class="col margin-5">
-                                <button type="button" class="btn btn-success btn-sm" onclick='refreshSummaryData()'>Tải dữ liệu mới</button>
-                            </div>
+                </div>
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</div>
+                        </div>
+                        <div class="col margin-5">
+                            <button type="button" class="btn btn-success btn-sm" onclick='refreshSummaryData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
-                <div class="grid-container">
-                    <div id='showSummaryLoading' class="d-flex justify-content-center" style="display: none !important;">
-                        <div class="spinner-border text-success" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <span class="loadingTitle">Đang tải dữ liệu...</span>
+            </div>
+            <div class="grid-container">
+                <div id='showSummaryLoading' class="d-flex justify-content-center" style="display: none !important;">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                    <div id='showSummaryData' class="table-responsive"></div>
+                    <span class="loadingTitle">Đang tải dữ liệu...</span>
                 </div>
+                <div id='showSummaryData' class="table-responsive"></div>
             </div>
         </div>
         <div class="tab-pane fade" id="field" role="tabpanel" aria-labelledby="field-tab">
-            <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                <div class="headerFixed">
-                    <div class="title">
-                        <div class="row">
-                            <div class="col">
-                                <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFieldsTitle'>Thống Kê Biến Động Giao Dịch Ngành</div>
-                            </div>
-                            <div class="col margin-5">
-                                <button type="button" class="btn btn-success btn-sm" onclick='refreshFieldsData()'>Tải dữ liệu mới</button>
-                            </div>
+            <div class="headerFixed">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFieldsTitle'>Thống Kê Biến Động Giao Dịch Ngành</div>
+                        </div>
+                        <div class="col margin-5">
+                            <button type="button" class="btn btn-success btn-sm" onclick='refreshFieldsData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
-                <div class="grid-container">
-                    <div id='showFieldsData' class="table-responsive"></div>
-                </div>
+            </div>
+            <div class="grid-container">
+                <div id='showFieldsData' class="table-responsive"></div>
             </div>
         </div>
         <div class="tab-pane fade" id="filters" role="tabpanel" aria-labelledby="filters-tab">
-            <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                <div class="headerFixed">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <h6 class="card-header">Tiêu chí lọc (Phương pháp CANSLIM  + TA)</h6>
-                                <ul class="nav nav-tabs tabs sub-tab-color" id="filtersTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="exchanges-tab" data-bs-toggle="tab" data-bs-target="#exchanges" type="button" role="tab" aria-controls="exchanges" aria-selected="true">Sàn CK</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="fundamental-tab" data-bs-toggle="tab" data-bs-target="#fundamental" type="button" role="tab" aria-controls="fundamental" aria-selected="false">PT Cơ Bản</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="technical-tab" data-bs-toggle="tab" data-bs-target="#technical" type="button" role="tab" aria-controls="technical" aria-selected="false">PT Kỹ Thuật</button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="filtersTabContent">
-                                    <div class="tab-pane fade show active" id="exchanges" role="tabpanel" aria-labelledby="exchanges-tab">
-                                        <div class="card-body filter-group">
-                                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                <input type="checkbox" class="btn-check" id="btnFilterHSXOption" autocomplete="off" checked value="HSX">
-                                                <label class="btn btn-outline-primary btn-sm" for="btnFilterHSXOption">HSX</label>             
-                                                <input type="checkbox" class="btn-check" id="btnFilterHNXOption" autocomplete="off" checked value="HNX">
-                                                <label class="btn btn-outline-primary btn-sm" for="btnFilterHNXOption">HNX</label>
-                                                <input type="checkbox" class="btn-check" id="btnFilterUPCOption" autocomplete="off" value="UPCOM">
-                                                <label class="btn btn-outline-primary btn-sm" for="btnFilterUPCOption">UPCOM</label>                                                               
-                                            </div>
-                                            <p></p>
-                                            <div id="fields-selection">
-                                                
-                                            </div>
+            <div class="headerFixed">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Tiêu chí lọc (Phương pháp CANSLIM  + TA)</h6>
+                            <ul class="nav nav-tabs tabs sub-tab-color" id="filtersTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="exchanges-tab" data-bs-toggle="tab" data-bs-target="#exchanges" type="button" role="tab" aria-controls="exchanges" aria-selected="true">Sàn CK</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="fundamental-tab" data-bs-toggle="tab" data-bs-target="#fundamental" type="button" role="tab" aria-controls="fundamental" aria-selected="false">PT Cơ Bản</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="technical-tab" data-bs-toggle="tab" data-bs-target="#technical" type="button" role="tab" aria-controls="technical" aria-selected="false">PT Kỹ Thuật</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="filtersTabContent">
+                                <div class="tab-pane fade show active" id="exchanges" role="tabpanel" aria-labelledby="exchanges-tab">
+                                    <div class="card-body filter-group">
+                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                            <input type="checkbox" class="btn-check" id="btnFilterHSXOption" autocomplete="off" checked value="HSX">
+                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterHSXOption">HSX</label>             
+                                            <input type="checkbox" class="btn-check" id="btnFilterHNXOption" autocomplete="off" checked value="HNX">
+                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterHNXOption">HNX</label>
+                                            <input type="checkbox" class="btn-check" id="btnFilterUPCOption" autocomplete="off" value="UPCOM">
+                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterUPCOption">UPCOM</label>                                                               
+                                        </div>
+                                        <p></p>
+                                        <div id="fields-selection">
+                                            
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="fundamental" role="tabpanel" aria-labelledby="fundamental-tab">
-                                        <div class="card-body filter-group">
-                                            <div class="accordion" id="accordionFilter">
-                                                <div class="accordion-item">
-                                                  <h2 class="accordion-header" id="headingC">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC" aria-expanded="false" aria-controls="collapseC">
-                                                        C - Thu nhập hàng quý hiện tại
-                                                    </button>
-                                                  </h2>
-                                                  <div id="collapseC" class="accordion-collapse collapse" aria-labelledby="headingC" data-bs-parent="#accordionFilter">
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC" type="text" class="span2 filter-slider" value="" data-slider-min="-200" data-slider-max="418600" data-slider-step="5" data-slider-value="[10,80000]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC1" type="text" class="span2 filter-slider" value="" data-slider-min="-5400" data-slider-max="668000" data-slider-step="5" data-slider-value="[25,66800]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC2" type="text" class="span2 filter-slider" value="" data-slider-min="-9500" data-slider-max="54800" data-slider-step="5" data-slider-value="[15,54800]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span> &nbsp; &nbsp; <input id="filterOptionC3" type="text" class="span2 filter-slider" value="" data-slider-min="-25000" data-slider-max="33600" data-slider-step="5" data-slider-value="[25,30700]"/>
-                                                    </div>
-                                                  </div>
+                                </div>
+                                <div class="tab-pane fade" id="fundamental" role="tabpanel" aria-labelledby="fundamental-tab">
+                                    <div class="card-body filter-group">
+                                        <div class="accordion" id="accordionFilter">
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingC">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC" aria-expanded="false" aria-controls="collapseC">
+                                                    C - Thu nhập hàng quý hiện tại
+                                                </button>
+                                              </h2>
+                                              <div id="collapseC" class="accordion-collapse collapse" aria-labelledby="headingC" data-bs-parent="#accordionFilter">
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC" type="text" class="span2 filter-slider" value="" data-slider-min="-200" data-slider-max="418600" data-slider-step="5" data-slider-value="[10,80000]"/>
                                                 </div>
-                                                <div class="accordion-item">
-                                                  <h2 class="accordion-header" id="headingA">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA" aria-expanded="false" aria-controls="collapseA">
-                                                        A - Thu nhập hàng năm
-                                                    </button>
-                                                  </h2>
-                                                  <div id="collapseA" class="accordion-collapse collapse" aria-labelledby="headingA" data-bs-parent="#accordionFilter">
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">EPS TTM:</span> &nbsp; &nbsp; <input id="filterOptionA" type="text" class="span2 filter-slider" value="" data-slider-min="-43315" data-slider-max="82062" data-slider-step="5" data-slider-value="[3000,35660]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">ROE (%):</span> &nbsp; &nbsp; <input id="filterOptionA1" type="text" class="span2 filter-slider" value="" data-slider-min="-600" data-slider-max="1600" data-slider-step="5" data-slider-value="[15,1600]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA2" type="text" class="span2 filter-slider" value="" data-slider-min="-100" data-slider-max="6800" data-slider-step="5" data-slider-value="[8,6800]"/>
-                                                    </div>
-                                                    <div class="accordion-body">
-                                                        <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA3" type="text" class="span2 filter-slider" value="" data-slider-min="-27800" data-slider-max="37000" data-slider-step="5" data-slider-value="[18,10200]"/>
-                                                    </div>
-                                                  </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC1" type="text" class="span2 filter-slider" value="" data-slider-min="-5400" data-slider-max="668000" data-slider-step="5" data-slider-value="[25,66800]"/>
                                                 </div>
-                                                <div class="accordion-item">
-                                                  <h2 class="accordion-header" id="headingN">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseN" aria-expanded="false" aria-controls="collapseN">
-                                                        N - Mới
-                                                    </button>
-                                                  </h2>
-                                                  <div id="collapseN" class="accordion-collapse collapse" aria-labelledby="headingN" data-bs-parent="#accordionFilter">
-                                                    <div class="accordion-body">
-                                                      <strong>N/A</strong>
-                                                    </div>
-                                                  </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC2" type="text" class="span2 filter-slider" value="" data-slider-min="-9500" data-slider-max="54800" data-slider-step="5" data-slider-value="[15,54800]"/>
                                                 </div>
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingS">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS" aria-expanded="false" aria-controls="collapseS">
-                                                        S - Cung và cầu
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseS" class="accordion-collapse collapse" aria-labelledby="headingS" data-bs-parent="#accordionFilter">
-                                                        <div class="accordion-body">
-                                                            <span class="badge bg-primary filter-title">Khối lượng trung bình 3 tháng</span> &nbsp; &nbsp; <input id="filterOptionS" type="text" class="span2 filter-slider" value="" data-slider-min="0" data-slider-max="36637567" data-slider-step="5" data-slider-value="[15000,36637567]"/>
-                                                        </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingL">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseL" aria-expanded="false" aria-controls="collapseL">
-                                                        L - Dẫn đầu hay tụt hậu
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseL" class="accordion-collapse collapse" aria-labelledby="headingL" data-bs-parent="#accordionFilter">
-                                                        <div class="accordion-body">
-                                                            <span class="badge bg-primary filter-title">RS (52 tuần)</span> &nbsp; &nbsp; <input id="filterOptionL" type="text" class="span2 filter-slider" value="" data-slider-min="1" data-slider-max="99" data-slider-step="1" data-slider-value="[70,99]"/>
-                                                        </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingI">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseI" aria-expanded="false" aria-controls="collapseI">
-                                                        I - Tổ chức tài trợ
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseI" class="accordion-collapse collapse" aria-labelledby="headingI" data-bs-parent="#accordionFilter">
-                                                      <div class="accordion-body">
-                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="btnFilterSelfBusinessOption" autocomplete="off" value="selfBusiness">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterSelfBusinessOption">Tự Doanh mua ròng</label>
-                                                          
-                                                            <input type="checkbox" class="btn-check" id="btnFilterForeignOption" autocomplete="off" value="foreign">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterForeignOption">Khối Ngoại mua ròng</label>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingM">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseM" aria-expanded="false" aria-controls="collapseM">
-                                                        M - Xu hướng thị trường
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseM" class="accordion-collapse collapse" aria-labelledby="headingM" data-bs-parent="#accordionFilter">
-                                                      <div class="accordion-body">
-                                                        <strong>N/A</strong>
-                                                      </div>
-                                                    </div>
-                                                  </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span> &nbsp; &nbsp; <input id="filterOptionC3" type="text" class="span2 filter-slider" value="" data-slider-min="-25000" data-slider-max="33600" data-slider-step="5" data-slider-value="[25,30700]"/>
+                                                </div>
+                                              </div>
                                             </div>
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingA">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA" aria-expanded="false" aria-controls="collapseA">
+                                                    A - Thu nhập hàng năm
+                                                </button>
+                                              </h2>
+                                              <div id="collapseA" class="accordion-collapse collapse" aria-labelledby="headingA" data-bs-parent="#accordionFilter">
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">EPS TTM:</span> &nbsp; &nbsp; <input id="filterOptionA" type="text" class="span2 filter-slider" value="" data-slider-min="-43315" data-slider-max="82062" data-slider-step="5" data-slider-value="[3000,35660]"/>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">ROE (%):</span> &nbsp; &nbsp; <input id="filterOptionA1" type="text" class="span2 filter-slider" value="" data-slider-min="-600" data-slider-max="1600" data-slider-step="5" data-slider-value="[15,1600]"/>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA2" type="text" class="span2 filter-slider" value="" data-slider-min="-100" data-slider-max="6800" data-slider-step="5" data-slider-value="[8,6800]"/>
+                                                </div>
+                                                <div class="accordion-body">
+                                                    <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA3" type="text" class="span2 filter-slider" value="" data-slider-min="-27800" data-slider-max="37000" data-slider-step="5" data-slider-value="[18,10200]"/>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                              <h2 class="accordion-header" id="headingN">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseN" aria-expanded="false" aria-controls="collapseN">
+                                                    N - Mới
+                                                </button>
+                                              </h2>
+                                              <div id="collapseN" class="accordion-collapse collapse" aria-labelledby="headingN" data-bs-parent="#accordionFilter">
+                                                <div class="accordion-body">
+                                                  <strong>N/A</strong>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingS">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseS" aria-expanded="false" aria-controls="collapseS">
+                                                    S - Cung và cầu
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseS" class="accordion-collapse collapse" aria-labelledby="headingS" data-bs-parent="#accordionFilter">
+                                                    <div class="accordion-body">
+                                                        <span class="badge bg-primary filter-title">Khối lượng trung bình 3 tháng</span> &nbsp; &nbsp; <input id="filterOptionS" type="text" class="span2 filter-slider" value="" data-slider-min="0" data-slider-max="36637567" data-slider-step="5" data-slider-value="[15000,36637567]"/>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingL">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseL" aria-expanded="false" aria-controls="collapseL">
+                                                    L - Dẫn đầu hay tụt hậu
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseL" class="accordion-collapse collapse" aria-labelledby="headingL" data-bs-parent="#accordionFilter">
+                                                    <div class="accordion-body">
+                                                        <span class="badge bg-primary filter-title">RS (52 tuần)</span> &nbsp; &nbsp; <input id="filterOptionL" type="text" class="span2 filter-slider" value="" data-slider-min="1" data-slider-max="99" data-slider-step="1" data-slider-value="[70,99]"/>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingI">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseI" aria-expanded="false" aria-controls="collapseI">
+                                                    I - Tổ chức tài trợ
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseI" class="accordion-collapse collapse" aria-labelledby="headingI" data-bs-parent="#accordionFilter">
+                                                  <div class="accordion-body">
+                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterSelfBusinessOption" autocomplete="off" value="selfBusiness">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterSelfBusinessOption">Tự Doanh mua ròng</label>
+                                                      
+                                                        <input type="checkbox" class="btn-check" id="btnFilterForeignOption" autocomplete="off" value="foreign">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterForeignOption">Khối Ngoại mua ròng</label>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingM">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseM" aria-expanded="false" aria-controls="collapseM">
+                                                    M - Xu hướng thị trường
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseM" class="accordion-collapse collapse" aria-labelledby="headingM" data-bs-parent="#accordionFilter">
+                                                  <div class="accordion-body">
+                                                    <strong>N/A</strong>
+                                                  </div>
+                                                </div>
+                                              </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="technical" role="tabpanel" aria-labelledby="technical-tab">
-                                        <div class="card-body filter-group">
-                                            <div class="accordion" id="accordionTAFilter">
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingMACD">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMACD" aria-expanded="false" aria-controls="collapseMACD">
-                                                        MACD
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseMACD" class="accordion-collapse collapse" aria-labelledby="headingMACD" data-bs-parent="#accordionTAFilter">
-                                                      <div class="accordion-body">
-                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="btnFilterMACDUpOption" autocomplete="off" value="BreakUpperBound_MACDvsSignal_Daily">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDUpOption">MACD cắt lên đường tín hiệu</label>             
-                                                            <input type="checkbox" class="btn-check" id="btnFilterMACDDownOption" autocomplete="off" value="BreakLowerBound_MACDvsSignal_Daily">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDDownOption">MACD cắt xuống đường tín hiệu</label>                                                              
-                                                        </div>
-                                                      </div>
+                                </div>
+                                <div class="tab-pane fade" id="technical" role="tabpanel" aria-labelledby="technical-tab">
+                                    <div class="card-body filter-group">
+                                        <div class="accordion" id="accordionTAFilter">
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingMACD">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMACD" aria-expanded="false" aria-controls="collapseMACD">
+                                                    MACD
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseMACD" class="accordion-collapse collapse" aria-labelledby="headingMACD" data-bs-parent="#accordionTAFilter">
+                                                  <div class="accordion-body">
+                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDUpOption" autocomplete="off" value="BreakUpperBound_MACDvsSignal_Daily">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDUpOption">MACD cắt lên đường tín hiệu</label>             
+                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDDownOption" autocomplete="off" value="BreakLowerBound_MACDvsSignal_Daily">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDDownOption">MACD cắt xuống đường tín hiệu</label>                                                              
                                                     </div>
                                                   </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingRSI">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRSI" aria-expanded="false" aria-controls="collapseRSI">
-                                                        RSI14
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseRSI" class="accordion-collapse collapse" aria-labelledby="headingRSI" data-bs-parent="#accordionTAFilter">
-                                                      <div class="accordion-body">
-                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="btnFilterRSIOverBuyOption" autocomplete="off" value="RSI14_Daily_T0_Values_Greater">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverBuyOption">RSI14 quá mua</label>             
-                                                            <input type="checkbox" class="btn-check" id="btnFilterRSIOverSellOption" autocomplete="off" value="RSI14_Daily_T0_Values_Less">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverSellOption">RSI14 quá bán</label>       
-                                                        </div>
-                                                      </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingRSI">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRSI" aria-expanded="false" aria-controls="collapseRSI">
+                                                    RSI14
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseRSI" class="accordion-collapse collapse" aria-labelledby="headingRSI" data-bs-parent="#accordionTAFilter">
+                                                  <div class="accordion-body">
+                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverBuyOption" autocomplete="off" value="RSI14_Daily_T0_Values_Greater">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverBuyOption">RSI14 quá mua</label>             
+                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverSellOption" autocomplete="off" value="RSI14_Daily_T0_Values_Less">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverSellOption">RSI14 quá bán</label>       
                                                     </div>
                                                   </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingBollingerBand">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBollingerBand" aria-expanded="false" aria-controls="collapseBollingerBand">
-                                                        Bollinger Band (20,2)
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseBollingerBand" class="accordion-collapse collapse" aria-labelledby="headingBollingerBand" data-bs-parent="#accordionTAFilter">
-                                                      <div class="accordion-body">
-                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="btnFilterBollingerUpperBandOption" autocomplete="off" value="BreakUpperBound_UpperBands_Daily">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerUpperBandOption">Giá vượt biên trên</label>             
-                                                            <input type="checkbox" class="btn-check" id="btnFilterBollingerLowerBandOption" autocomplete="off" value="BreakLowerBound_LowerBands_Daily">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerLowerBandOption">Giá thủng biên dưới</label>       
-                                                        </div>
-                                                      </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingBollingerBand">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBollingerBand" aria-expanded="false" aria-controls="collapseBollingerBand">
+                                                    Bollinger Band (20,2)
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseBollingerBand" class="accordion-collapse collapse" aria-labelledby="headingBollingerBand" data-bs-parent="#accordionTAFilter">
+                                                  <div class="accordion-body">
+                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerUpperBandOption" autocomplete="off" value="BreakUpperBound_UpperBands_Daily">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerUpperBandOption">Giá vượt biên trên</label>             
+                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerLowerBandOption" autocomplete="off" value="BreakLowerBound_LowerBands_Daily">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerLowerBandOption">Giá thủng biên dưới</label>       
                                                     </div>
                                                   </div>
-                                                  <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="headingNewOption">
-                                                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewOption" aria-expanded="false" aria-controls="collapseNewOption">
-                                                        Thông số khác
-                                                      </button>
-                                                    </h2>
-                                                    <div id="collapseNewOption" class="accordion-collapse collapse" aria-labelledby="headingNewOption" data-bs-parent="#accordionTAFilter">
-                                                      <div class="accordion-body">
-                                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="btnFilterOverTop" autocomplete="off" value="IsPeakOfTimes">
-                                                            <label class="btn btn-outline-primary btn-sm" for="btnFilterOverTop">Vượt đỉnh mọi thời đại</label>                 
-                                                        </div>
-                                                      </div>
+                                                </div>
+                                              </div>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingNewOption">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewOption" aria-expanded="false" aria-controls="collapseNewOption">
+                                                    Thông số khác
+                                                  </button>
+                                                </h2>
+                                                <div id="collapseNewOption" class="accordion-collapse collapse" aria-labelledby="headingNewOption" data-bs-parent="#accordionTAFilter">
+                                                  <div class="accordion-body">
+                                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterOverTop" autocomplete="off" value="IsPeakOfTimes">
+                                                        <label class="btn btn-outline-primary btn-sm" for="btnFilterOverTop">Vượt đỉnh mọi thời đại</label>                 
                                                     </div>
                                                   </div>
-                                            </div>
+                                                </div>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="title">
-                        <div class="row">
-                            <div class="col">
-                                <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFilterTitle'>Lọc cổ phiếu theo các tiêu chí</div>
-                            </div>
-                            <div class="col margin-5">
-                                <button type="button" class="btn btn-success btn-sm" onclick='filterData()'>Lọc cổ phiếu</button>
-                            </div>
+                </div>
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFilterTitle'>Lọc cổ phiếu theo các tiêu chí</div>
+                        </div>
+                        <div class="col margin-5">
+                            <button type="button" class="btn btn-success btn-sm" onclick='filterData()'>Lọc cổ phiếu</button>
                         </div>
                     </div>
                 </div>

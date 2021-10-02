@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Tin chi tiết</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Tin chi tiết" />
+<meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<style>
+    html,
+    body {
+        font-family: "Verdana", sans-serif
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Segoe UI", sans-serif
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+<body>
+    <div id="showContent"></div>
+    <script>
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (event) {
+            // Prevent F12
+            if (event.keyCode == 123) {
+                return false;
+            }
+            else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
+            // Prevent Ctrl+Shift+I
+            {
+                return false;
+            }
+            else if (event.ctrlKey && event.keyCode == 83)
+            // Prevent Ctrl+S
+            {
+                return false;
+            }
+        });
+        function getLoadingHTML() {
+            return `<div class="d-flex justify-content-center">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <span class="loadingTitle">Đang tải dữ liệu...</span>
+                    </div>`;
+        }
+        var loadingHTML = getLoadingHTML();
+        $("#showContent").html(`</br>${loadingHTML}`);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+        setTimeout(() => {
+            var newURL = `https://fwtapi2.fialda.com/api/services/app/News/GetNewsDetail?id=${id}`
+            var URL = encodeURIComponent(`${newURL}`);
+            var res = "";
+            $.ajax({
+                url: `http://data-statistics-api.herokuapp.com/fetch/${URL}`,
+                async: false,
+                dataType: "json"
+            }).done(function (response) {
+                if (response && response.result) {
+                    res += `<div class="card">
+                                <div class="card-header">
+                                   <h6>${response.result.title}</h6> 
+                                   <span>Nguồn: ${response.result.source}</span> 
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">${response.result.shortContent}</p>
+                                    <p class="card-text">${response.result.fullContent}</p>
+                                </div>
+                            </div>`;
+
+                } else {
+                    res += `<p><b class="top10">Không tải được dữ liệu. Vui lòng thử lại sau!</b></p>`;
+                }
+                res += `</div>`;
+                res = res.replace(/{cdn-url}/g, "https://cdn.fialda.com/Images/News");
+                $("#showContent").html(res);
+            }).fail(function (jqXHR, textStatus, error) {
+                $("#showContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
+            });
+        }, 100);
+    </script>
+</body>
+
+</html>

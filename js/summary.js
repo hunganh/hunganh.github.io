@@ -16,7 +16,7 @@ function refreshSummaryData() {
 
 function initSummaryData() {
     showLoading("showSummaryLoading");
-     Promise.all([
+    Promise.all([
         fetchContentByUrl(SYNTHESIS_DATA_URL)
     ]).then((values) => {
         if (values && values.length > 0) {
@@ -24,7 +24,7 @@ function initSummaryData() {
         }
         hideLoading("showSummaryLoading");
     }).then(() => {
-        console.log('Done fetching content via JavaScript');
+        //console.log('Done fetching content via JavaScript');
     }).catch((err) => {
         console.error(err);
     });
@@ -75,9 +75,9 @@ function processSummaryDataInput() {
         data.sort(function (a, b) {
             return b.sumValue - a.sumValue;
         });
-        createSummaryReport(data);
-        setSummaryTitle();
     }
+    createSummaryReport(data);
+    setSummaryTitle();
     hideLoading("showSummaryLoading");
 }
 
@@ -114,30 +114,38 @@ function createSummaryReport(data) {
     }
 
     var tbody = document.createElement("tbody");
-    // add json data to the table as rows.
-    for (var i = 0; i < data.length; i++) {
+    if (data.length > 0) {
+        // add json data to the table as rows.
+        for (var i = 0; i < data.length; i++) {
+            tr = tbody.insertRow(-1);
+            tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
+            tr.classList.add("tr-cursor");
+            var selfBusinessPercentChange = data[i]["selfBusinessPercentPriceChange"] * 100;
+            var foreignPercentChange = data[i]["foreignPercentPriceChange"] * 100;
+            var selfBusinessPriceChange = data[i]["selfBusinessPriceChange"];
+            var foreignPriceChange = data[i]["foreignPriceChange"];
+            var selfBusinessPrice = selfBusinessPercentChange > 0 || selfBusinessPercentChange < 0 ? (selfBusinessPriceChange/data[i]["selfBusinessPercentPriceChange"]) : data[i]["selfBusinessMatchPrice"];
+            var foreignPrice = foreignPercentChange > 0 || foreignPercentChange < 0 ? (foreignPriceChange/data[i]["foreignPercentPriceChange"]) : data[i]["foreignMatchPrice"];
+            var avgPercent = data[i]["avgPercent"] * 100;
+            //var avgPrice = (selfBusinessPrice + foreignPriceChange)/2;
+            addCell(tr, Number(i + 1));
+            addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
+            addCell(tr, new Intl.NumberFormat().format(data[i]["totalNetBuyTradeValue"]));
+            addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}</span>`);
+            addCell(tr, new Intl.NumberFormat().format(selfBusinessPrice.toFixed(0)));
+            addCell(tr, new Intl.NumberFormat().format(data[i]["foreignNetBuyValue"]));
+            addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange.toFixed(2)}</span>`);
+            addCell(tr, new Intl.NumberFormat().format(foreignPrice.toFixed(0)));
+            addCell(tr, new Intl.NumberFormat().format(data[i]["sumValue"]));
+            addCell(tr, `<span class='${getClassByValue(avgPercent)}'>${avgPercent.toFixed(2)}</span>`);
+        }
+    } else {
         tr = tbody.insertRow(-1);
-        tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
-        tr.classList.add("tr-cursor");
-        var selfBusinessPercentChange = data[i]["selfBusinessPercentPriceChange"] * 100;
-        var foreignPercentChange = data[i]["foreignPercentPriceChange"] * 100;
-        var selfBusinessPriceChange = data[i]["selfBusinessPriceChange"];
-        var foreignPriceChange = data[i]["foreignPriceChange"];
-        var selfBusinessPrice = selfBusinessPercentChange > 0 || selfBusinessPercentChange < 0 ? (selfBusinessPriceChange/data[i]["selfBusinessPercentPriceChange"]) : data[i]["selfBusinessMatchPrice"];
-        var foreignPrice = foreignPercentChange > 0 || foreignPercentChange < 0 ? (foreignPriceChange/data[i]["foreignPercentPriceChange"]) : data[i]["foreignMatchPrice"];
-        var avgPercent = data[i]["avgPercent"] * 100;
-        var avgPrice = (selfBusinessPrice + foreignPriceChange)/2;
-        addCell(tr, Number(i + 1));
-        addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
-        addCell(tr, new Intl.NumberFormat().format(data[i]["totalNetBuyTradeValue"]));
-        addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}</span>`);
-        addCell(tr, new Intl.NumberFormat().format(selfBusinessPrice.toFixed(0)));
-        addCell(tr, new Intl.NumberFormat().format(data[i]["foreignNetBuyValue"]));
-        addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange.toFixed(2)}</span>`);
-        addCell(tr, new Intl.NumberFormat().format(foreignPrice.toFixed(0)));
-        addCell(tr, new Intl.NumberFormat().format(data[i]["sumValue"]));
-        addCell(tr, `<span class='${getClassByValue(avgPercent)}'>${avgPercent.toFixed(2)}</span>`);
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = "Không có dữ liệu.";
+        cell.colSpan = 10;
     }
+
     table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.
     divSummaryShowData.appendChild(table);
