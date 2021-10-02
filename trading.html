@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Tiện ích bộ lọc thị trường Tiền điện tử</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Tiện ích bộ lọc thị trường Tiền điện tử." />
+        <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <meta name="robots" content="index, follow">
+        <meta property="og: type" content="article" />
+        <meta property="og:title" content="Tiện ích bộ lọc thị trường Tiền điện tử.">
+        <meta property="og:description" content="Tiện ích bộ lọc thị trường Tiền điện tử.">
+        <meta property="og:image" content="https://hunganh.github.io/images/coin_filters.PNG">
+        <meta property="og:url" content="https://hunganh.github.io/">
+        <meta property="og: site_name" content="https://hunganh.github.io" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="Tiện ích bộ lọc thị trường Tiền điện tử.">
+        <meta property="twitter:description" content="Tiện ích bộ lọc thị trường Tiền điện tử.">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body style="height: 100vh;">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <!-- <div class="tradingview-widget-copyright"><a href="https://vn.tradingview.com/crypto-screener/" rel="noopener" target="_blank"><span class="blue-text"> Bộ lọc Tiền điện tử </span></a> của TradingView</div> -->
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+            {
+                "width": "100%",
+                "height": "100%",
+                "defaultColumn": "overview",
+                "defaultScreen": "general",
+                "market": "crypto",
+                "showToolbar": true,
+                "colorTheme": "light",
+                "locale": "vi_VN",
+                "isTransparent": false
+            }   
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+        <script>
+        $(document).on("contextmenu", function (e) {        
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (event) {
+            // Prevent F12
+            if (event.keyCode == 123) 
+            { 
+                return false;
+            } 
+            else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
+            // Prevent Ctrl+Shift+I
+            {         
+                return false;
+            }
+            else if(event.ctrlKey && event.keyCode == 83)
+            // Prevent Ctrl+S
+            {         
+                return false;
+            }
+        });
+        </script>
+    </body>
+</html>

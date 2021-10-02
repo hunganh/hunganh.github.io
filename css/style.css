@@ -128,7 +128,7 @@ th {
 }
 
 .grid-container {
-  overflow-x: auto;
+  overflow-x: hidden;
   display: block;
   /* white-space: nowrap; */
 }
@@ -677,4 +677,14 @@ body .ico {
   -webkit-mask-image: url(https://images.fialda.com/images/icons/other/ico-readmore.svg);
   mask-image: url(https://images.fialda.com/images/icons/other/ico-readmore.svg);
   z-index: 3;
+}
+
+.footer-info {
+  background-color: #335ca899;
+  color: #f4f4f4;
+  padding: 0 10px;
+}
+
+.mail-to {
+  color: #f4f4f4;
 }

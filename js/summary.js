@@ -15,6 +15,7 @@ function refreshSummaryData() {
 }
 
 function initSummaryData() {
+    resetDataSummary();
     showLoading("showSummaryLoading");
     Promise.all([
         fetchContentByUrl(SYNTHESIS_DATA_URL)
