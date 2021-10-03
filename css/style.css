@@ -130,7 +130,7 @@ th {
 .grid-container {
   overflow-x: auto;
   display: block;
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 
 .grid-container .left-position {
@@ -728,4 +728,14 @@ body .ico {
 
 .text-right {
   text-align: right;
+}
+
+#newsContent {
+  white-space: normal !important;
+}
+
+.fixed-bottom { 
+  right: auto !important;
+  border-radius: 0 2px 2px 0 !important;
+  padding-bottom: 1px !important;
 }
