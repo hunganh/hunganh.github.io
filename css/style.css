@@ -725,3 +725,7 @@ body .ico {
   border-color: lightgray;
   border-radius: 3px;
 }
+
+.text-right {
+  text-align: right;
+}
