@@ -1,4 +1,15 @@
 var filterOptionC, filterOptionC1, filterOptionC2, filterOptionC3, filterOptionA, filterOptionA1, filterOptionA2, filterOptionA3, filterOptionS, filterOptionS;
+var headFiltersData = `<table class="left-position table table-bordered table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>    
+                                    <th>Mã CP</th>
+                                    <th>Tên Doanh Nghiệp</th>
+                                    <th>Sàn CK</th>
+                                </tr>          
+                            </thead>
+                            <tbody>`;
+var filtersDataJson = null;
 $(document).ready(function () {
     var fielsSelections = getSelectionFieldsHTML("fields-selection-options");
     $("#fields-selection").html(fielsSelections);
@@ -56,17 +67,6 @@ $(document).ready(function () {
     });
 });
 
-var headFiltersData = `<table class="left-position table table-bordered table-striped table-hover">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>#</th>    
-                                    <th>Mã CP</th>
-                                    <th>Tên Doanh Nghiệp</th>
-                                    <th>Sàn CK</th>
-                                </tr>          
-                            </thead>
-                            <tbody>`;
-var filtersDataJson = null;
 function getMinMaxValue(values, isDivide) {
     if (!values) return {};
     var items = values.split(",").map(x => Number(x));
@@ -76,6 +76,7 @@ function getMinMaxValue(values, isDivide) {
         return { min: items[0] !== null ? items[0]: 0, max: items[1] !== null ? items[1]: 0 };
     }
 }
+
 function filterData() {
     var loadingHTML = getLoadingHTML();
     // Basic

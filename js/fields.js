@@ -10,14 +10,14 @@ var headFields = `<table class="left-position table table-bordered table-striped
                             <th rowspan="2">ROE</th>
                             <th colspan="7">% Tăng/Giảm</th>
                         </tr>  
-                        <tr>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1D')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 ngày">1 ngày</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1W')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tuần">1 tuần</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tháng">1 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent3M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 3 tháng">3 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent6M')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 6 tháng">6 tháng</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercent1Y')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 năm">1 năm</th>
-                            <th class="tr-cursor" onclick="sortTable('changePercentYTD')" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu từ đầu năm đến nay">YTD</th>
+                        <tr id="sort-column">
+                            <th class="tr-cursor" onclick="sortTable('changePercent1D', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 ngày">1 ngày <span id="changePercent1D" class="sort desc"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1W', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tuần">1 tuần <span id="changePercent1W" class="sort"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tháng">1 tháng <span id="changePercent1M" class="sort"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent3M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 3 tháng">3 tháng <span id="changePercent3M" class="sort"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent6M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 6 tháng">6 tháng <span id="changePercent6M" class="sort"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercent1Y', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 năm">1 năm <span id="changePercent1Y" class="sort"></span></th>
+                            <th class="tr-cursor" onclick="sortTable('changePercentYTD', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu từ đầu năm đến nay">YTD <span id="changePercentYTD" class="sort"></span></th>
                         </tr>             
                     </thead>
                     <tbody>`;
@@ -35,7 +35,7 @@ function loadFieldsData() {
         }).done(function (response) {
             if (response && response.result) {
                 fieldsDataJson = response;
-                res += processFieldsDataInput("changePercent1D");
+                res += processFieldsDataInput("changePercent1D", "desc");
             } else {
                 res += `<tr><td colspan="12">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
             }
@@ -48,12 +48,15 @@ function loadFieldsData() {
     }, 100);
 }
 
-function processFieldsDataInput (sortField) {
+function processFieldsDataInput (sortField, sortType) {
     var res = "";
     fieldsDataJson.result.sort(function (a, b) {
         var c = a[sortField] !== null ? a[sortField] : 0;
         var d = b[sortField] !== null ? b[sortField] : 0;
-        return d - c;
+        if (sortType === "desc") {
+            return d - c;
+        }
+        return c-d;
     });
     fieldsDataJson.result.forEach(item => {
         var eps = $.isNumeric(item.eps_TTM) ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(0)) : "N/A";
@@ -93,10 +96,23 @@ function refreshFieldsData() {
     loadFieldsData();
 }
 
-function sortTable(time) {
+function sortTable(time, self) {
+    var sortType = "desc";
+    var childSpan = $(self).find("span");
+    if (childSpan.hasClass("desc")) {
+        sortType = "asc";
+    }
+
     var res = headFields;
-    res += processFieldsDataInput(time);
+    res += processFieldsDataInput(time, sortType);
     res += `</tbody></table>`;
     $("#showFieldsData").html(res);
     initTooltips();
+    removeAllSortClass();
+    $("#" + time).addClass(sortType);
+}
+
+function removeAllSortClass() {
+     $("span.sort").removeClass("desc");
+     $("span.sort").removeClass("asc");
 }

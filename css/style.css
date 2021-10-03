@@ -26,7 +26,7 @@ td {
   text-align: center;
 }
 
-#showStatisticsData > table, #showSummaryData > table, #showFieldsData > table {
+#showStatisticsData > table, #showSummaryData > table, #showFieldsData > table, #showFiltersData > table {
     width: auto !important;
 }
 
@@ -687,4 +687,27 @@ body .ico {
 
 .mail-to {
   color: #f4f4f4;
+}
+
+
+.sort {
+  float: right;
+  margin-top: 8px;
+  margin-left: 3px;
+}
+
+.asc {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid #275fb0;
+}
+
+.desc {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #275fb0;
 }
