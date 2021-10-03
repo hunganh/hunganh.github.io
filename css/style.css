@@ -128,7 +128,7 @@ th {
 }
 
 .grid-container {
-  overflow-x: hidden;
+  overflow-x: auto;
   display: block;
   /* white-space: nowrap; */
 }
@@ -311,11 +311,12 @@ ul > li > button {
 .slider.slider-horizontal {
   width: 70% !important;
   height: 20px;
-  float: right;
+  /* float: right; */
 }
 
 .filter-title {
   font-size: 1em !important;
+  font-weight: 600;
 }
 
 #filter-option-c .slider-selection {
@@ -710,4 +711,17 @@ body .ico {
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid #275fb0;
+}
+
+.filter-table {
+  width: 100%;
+  border: none;
+}
+
+.filter-values {
+  color: #0058da;
+  font-weight: 600 !important;
+  width: 75px;
+  border-color: lightgray;
+  border-radius: 3px;
 }

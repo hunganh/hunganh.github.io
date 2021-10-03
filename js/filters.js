@@ -14,56 +14,104 @@ $(document).ready(function () {
     var fielsSelections = getSelectionFieldsHTML("fields-selection-options");
     $("#fields-selection").html(fielsSelections);
     filterOptionC = $("#filterOptionC").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-c",
         scale: 'logarithmic',
     });
+    filterOptionC.on("slide", function(slideEvt) {
+        $("#filterOptionCMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionCMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionC1 = $("#filterOptionC1").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-c1",
         scale: 'logarithmic'
     });
+    filterOptionC1.on("slide", function(slideEvt) {
+        $("#filterOptionC1MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionC1MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionC2 = $("#filterOptionC2").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-c2",
         scale: 'logarithmic'
     });
+    filterOptionC2.on("slide", function(slideEvt) {
+        $("#filterOptionC2MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionC2MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionC3 = $("#filterOptionC3").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-c3",
         scale: 'logarithmic'
     });
+    filterOptionC3.on("slide", function(slideEvt) {
+        $("#filterOptionC3MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionC3MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
     //==========================//
     filterOptionA = $("#filterOptionA").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-a",
         scale: 'logarithmic'
     });
+    filterOptionA.on("slide", function(slideEvt) {
+        $("#filterOptionAMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionAMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionA1 = $("#filterOptionA1").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-a1",
         scale: 'logarithmic'
     });
+    filterOptionA1.on("slide", function(slideEvt) {
+        $("#filterOptionA1MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionA1MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionA2 = $("#filterOptionA2").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-a2",
         scale: 'logarithmic'
     });
+    filterOptionA2.on("slide", function(slideEvt) {
+        $("#filterOptionA2MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionA2MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     filterOptionA3 = $("#filterOptionA3").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-a3",
         scale: 'logarithmic'
     });
+    filterOptionA3.on("slide", function(slideEvt) {
+        $("#filterOptionA3MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionA3MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     //==========================//    
     filterOptionS = $("#filterOptionS").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-s",
         scale: 'logarithmic'
     });
+    filterOptionS.on("slide", function(slideEvt) {
+        $("#filterOptionSMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionSMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
+    });
+
     //==========================//
     filterOptionL = $("#filterOptionL").slider({
-        tooltip: 'always',
+        tooltip: 'hide',
         id: "filter-option-l"
+    });
+    filterOptionL.on("slide", function(slideEvt) {
+        $("#filterOptionLMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
+        $("#filterOptionLMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
 });
 
@@ -196,10 +244,10 @@ function filterData() {
                             index++;
                         });
                     } else {
-                        res += `<tr><td colspan="2" class="bold-text">Không có mã nào thỏa tiêu chí.</td></tr>`;
+                        res += `<tr><td colspan="4" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
                     }
                 } else {
-                    res += `<tr><td colspan="2" class="bold-text">Không có mã nào thỏa tiêu chí.</td></tr>`;
+                    res += `<tr><td colspan="4" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
                 }
             } else {
                 res += `<tr><td>Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
