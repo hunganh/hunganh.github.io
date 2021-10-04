@@ -756,3 +756,10 @@ body .ico {
 #accordionFilter .accordion-body {
   padding: .75em 1.25rem !important;
 }
+
+
+.btn-check:active+.btn-success, .btn-check:checked+.btn-success, .btn-success.active, .btn-success:active, .show>.btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: #19925a !important;
+  border-color: #19925a !important;
+}

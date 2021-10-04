@@ -378,14 +378,15 @@ function filterData() {
 function getTickerCode(codes) {
     var selfBusinessChecked = $('#btnFilterSelfBusinessOption:checked').val();
     var foreignChecked = $('#btnFilterForeignOption:checked').val();
+    var periodType = $("input[name='btnFiltersPeriodRadio']:checked").val();
     if (!selfBusinessChecked && !foreignChecked) return codes;
     if (selfBusinessChecked) {
-        var selfBusinessData = summaryDataJson.selfBusiness["yearToDate"][actionSummaryDefault];
+        var selfBusinessData = summaryDataJson.selfBusiness[periodType][actionSummaryDefault];
         var selfBusinessCodes = selfBusinessData.map(x => x.ticker);
         codes = codes.filter(x => selfBusinessCodes.indexOf(x) !== -1);
     }
     if (foreignChecked) {
-        var foreignData = summaryDataJson.foreign["yearToDate"][actionSummaryDefault];
+        var foreignData = summaryDataJson.foreign[periodType][actionSummaryDefault];
         var foreignCodes = foreignData.map(x => x.ticker);
         codes = codes.filter(x => foreignCodes.indexOf(x) !== -1);
     }
