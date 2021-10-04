@@ -65,7 +65,7 @@ function processFieldsDataInput (sortField, sortType) {
         var pb = $.isNumeric(item.pb) ? (item.pb).toFixed(2) : "N/A";
         var roa = $.isNumeric(item.mE_ROA) ? `${(item.mE_ROA * 100).toFixed(2)}%` : "N/A";
         var roe = $.isNumeric(item.mE_ROE) ? `${(item.mE_ROE * 100).toFixed(2)}%` : "N/A";
-        var day = $.isNumeric(item.changePercent1D) ? (item.changePercent1D * 100).toFixed(2) : "N/A";
+        var day = $.isNumeric(item.changePercent1D) ? (item.changePercent1D * 100).toFixed(2) : "0";
         var week = $.isNumeric(item.changePercent1W) ? (item.changePercent1W * 100).toFixed(2) : "N/A";
         var month_1 = $.isNumeric(item.changePercent1M) ? (item.changePercent1M * 100).toFixed(2) : "N/A";
         var month_3 = $.isNumeric(item.changePercent3M) ? (item.changePercent3M * 100).toFixed(2) : "N/A";

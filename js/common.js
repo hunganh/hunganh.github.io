@@ -43,7 +43,7 @@ const FIALDA_STOCK_EVENT_PATH = "/Event/GetAll";
 const FIALDA_STOCK_COMPANY_NEWS = "/StockInfo/GetCompanyNews";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 const IMAGE_NEWS_URL = "https://cdn.fialda.com/Images/News/";
-   
+
 
 $(document).on("contextmenu", function (e) {        
     e.preventDefault();
@@ -51,18 +51,17 @@ $(document).on("contextmenu", function (e) {
 
 $(document).keydown(function (event) {
     // Prevent F12
-    if (event.keyCode == 123) 
-    { 
-        return false;
-    } 
-    else if(event.ctrlKey && event.shiftKey && event.keyCode == 73)
-    // Prevent Ctrl+Shift+I
-    {         
+    if (event.keyCode == 123) {
         return false;
     }
-    else if(event.ctrlKey && event.keyCode == 83)
+    else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
+    // Prevent Ctrl+Shift+I
+    {
+        return false;
+    }
+    else if (event.ctrlKey && event.keyCode == 83)
     // Prevent Ctrl+S
-    {         
+    {
         return false;
     }
 });
@@ -100,7 +99,8 @@ function fetchContentByUrlWithCORSProxy(url, method, body) {
                 });
         } else {
             fetch(`${CORS_PROXY_URL}/${url}`, {
-                method: 'POST', headers: {
+                method: 'POST', 
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
@@ -293,7 +293,7 @@ function drawRecommendationsDataToHTML(data, code) {
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
-                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.priceChange > 0 ? "bg-up" : tickerObject.PriceInfo.priceChange < 0 ? "bg-down" : "bg-reference" }">
+                            <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.priceChange > 0 ? "bg-up" : tickerObject.PriceInfo.priceChange < 0 ? "bg-down" : "bg-reference"}">
                                 <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)} ${valuePercentChange}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
@@ -326,8 +326,8 @@ function drawRecommendationsDataToHTML(data, code) {
                                     <tr><th>Ngày báo cáo</th><th>Đơn vị phát hành</th><th>Tiêu đề</th><th>#</th></tr>              
                                 </thead>
                                 <tbody>`;
-        if (recommendationsData && recommendationsData["result"]) {
-            var firstKey = Object.keys(recommendationsData["result"])[0];
+    if (recommendationsData && recommendationsData["result"]) {
+        var firstKey = Object.keys(recommendationsData["result"])[0];
         if (firstKey !== undefined) {
             recommendationsData["result"][firstKey].forEach(item => {
                 recommendationBody += `<tr><td>${new Date(item.reportDate).toLocaleDateString(locale)}</td><td><b class="top10">${item.reporter}</b></td><td class="text-left">${item.title}</td><td><a href="${FIALDA_ANALYSIS_REPORT_URL}${code}_-_${item.attachment}" target="_blank">Xem báo cáo</a></td></tr>`;
@@ -335,10 +335,10 @@ function drawRecommendationsDataToHTML(data, code) {
         } else {
             recommendationBody += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
         }
-        } else {
-            recommendationBody += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
-        }
-        recommendationBody += `</tbody></table>`;
+    } else {
+        recommendationBody += `<tr><td colspan="4">Chưa có dữ liệu cho mã <b class="top10">${code}</b>. Vui lòng thử lại sau!</td></tr>`;
+    }
+    recommendationBody += `</tbody></table>`;
     res += `<ul class="nav nav-tabs tabs" id="tickerTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="recommendation-tab" data-bs-toggle="tab" data-bs-target="#recommendation" type="button" role="tab" aria-controls="recommendation" aria-selected="true">Báo Cáo Phân Tích</button>
@@ -347,7 +347,7 @@ function drawRecommendationsDataToHTML(data, code) {
                     <button class="nav-link" id="dividend-tab" data-bs-toggle="tab" data-bs-target="#dividend" type="button" role="tab" aria-controls="dividend" aria-selected="false" onclick="loadDividendNews('${code}')">Tin Cổ Tức</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="chart-tab" data-bs-toggle="tab" data-bs-target="#chart" type="button" role="tab" aria-controls="chart" aria-selected="false" onclick="loadChartData('${code}')">Chart Kỹ Thuật</button>
+                    <button class="nav-link" id="volatility-tab" data-bs-toggle="tab" data-bs-target="#volatility" type="button" role="tab" aria-controls="volatility" aria-selected="false" onclick="loadVolatilityData('${code}')">Biến động %</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="news-tab" data-bs-toggle="tab" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="false" onclick="loadNews('${code}')">Tin Doanh Nghiệp</button>
@@ -364,8 +364,8 @@ function drawRecommendationsDataToHTML(data, code) {
                         
                     </div>
                 </div>
-                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
-                    <div class="grid-container" id="chartContent">
+                <div class="tab-pane fade" id="volatility" role="tabpanel" aria-labelledby="volatility-tab">
+                    <div class="grid-container" id="volatilityContent">
                         
                     </div>
                 </div>
@@ -393,7 +393,7 @@ function getSelectionFieldsHTML(id) {
     fieldsDataGlobal.forEach(field => {
         res += "<option value='" + field.icbCode + "'>" + field.icbName + "</option>";
     })
-    res += "</select>";           
+    res += "</select>";
     return res;
 }
 
@@ -444,7 +444,7 @@ function loadDividendNews(code) {
             if (dividendEventData1 && dividendEventData1.result && dividendEventData1.result.items.length > 0) {
                 var i = 0;
                 dividendEventData1.result.items.forEach(item => {
-                    contents += `<tr><td>${i+1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${new Date(item.issuedDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td class="text-left">${item.eventName}</td></tr>`;
+                    contents += `<tr><td>${i + 1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${new Date(item.issuedDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td class="text-left">${item.eventName}</td></tr>`;
                     i++;
                 });
             } else {
@@ -460,7 +460,7 @@ function loadDividendNews(code) {
             if (dividendEventData2 && dividendEventData2.result && dividendEventData2.result.items.length > 0) {
                 var j = 0;
                 dividendEventData2.result.items.forEach(item => {
-                    contents += `<tr><td>${j+1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td>${new Intl.NumberFormat().format(item.eventValue)}</td><td class="text-left">${item.eventName}</td></tr>`;
+                    contents += `<tr><td>${j + 1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td>${new Intl.NumberFormat().format(item.eventValue)}</td><td class="text-left">${item.eventName}</td></tr>`;
                     j++;
                 });
             } else {
@@ -478,33 +478,60 @@ function loadDividendNews(code) {
     });
 }
 
-function loadChartData(code) {
-    // var res =`<!-- TradingView Widget BEGIN -->
-    //         <div class="tradingview-widget-container">
-    //             <div id="tradingview_7949e"></div>
-    //             <div class="tradingview-widget-copyright">
-    //                 <a href="https://vn.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Biểu đồ</span> </a> bởi TradingView
-    //             </div>
-    //             <script type="text/javascript">
-    //                 new TradingView.widget(
-    //                 {
-    //                     "width": 980,
-    //                     "height": 610,
-    //                     "symbol": "NASDAQ:AAPL",
-    //                     "interval": "D",
-    //                     "timezone": "Etc/UTC",
-    //                     "theme": "light",
-    //                     "style": "1",
-    //                     "locale": "vi_VN",
-    //                     "toolbar_bg": "#f1f3f6",
-    //                     "enable_publishing": false,
-    //                     "allow_symbol_change": true,
-    //                     "container_id": "tradingview_7949e"
-    //                 });
-    //             </script>
-    //         </div>`;
-    var res = "Chức năng đang được phát triển";
-    $("#chartContent").html(res);
+function loadVolatilityData(code) {
+    $("#volatilityContent").html(`</br>${getLoadingHTML()}`);
+    var contents = `<table class="table table-bordered table-responsive">
+                            <thead class="table-light">
+                                <tr><th colspan="9">% Thay đổi</th></tr>
+                                <tr><th>Ngày</th><th>1 Tuần</th><th>2 Tuần</th><th>1 Tháng</th><th>3 Tháng</th><th>6 Tháng</th><th>YTD</th><th>1 Năm</th><th>3 Năm</th></tr>              
+                            </thead>
+                            <tbody>`;
+    setTimeout(() => {
+        var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_GET_STOCK_INFO_PATH}`);
+        $.ajax({
+            url: `${CORS_PROXY_URL}/${URL}`,
+            method: "POST",
+            data: JSON.stringify([{ symbol: code }]),
+            headers: {
+                "content-type": "application/json;charset=UTF-8"
+            }
+        }).done(function (response) {
+            if (response && response.result) {
+                var item = response.result[code] !== null ? response.result[code].RealtimeStatistic : null;
+                if (item) {
+                    var day = $.isNumeric(response.result[code].PriceInfo.priceChangePercent) ? `${(response.result[code].PriceInfo.priceChangePercent * 100).toFixed(2)}` : "0";
+                    var week = $.isNumeric(item.changePercent1W) ? (item.changePercent1W * 100).toFixed(2) : "N/A";
+                    var week_2 = $.isNumeric(item.changePercent2W) ? (item.changePercent2W * 100).toFixed(2) : "N/A";
+                    var month_1 = $.isNumeric(item.changePercent1M) ? (item.changePercent1M * 100).toFixed(2) : "N/A";
+                    var month_3 = $.isNumeric(item.changePercent3M) ? (item.changePercent3M * 100).toFixed(2) : "N/A";
+                    var month_6 = $.isNumeric(item.changePercent6M) ? (item.changePercent6M * 100).toFixed(2) : "N/A";
+                    var ytd = $.isNumeric(item.changePercentYTD) ? (item.changePercentYTD * 100).toFixed(2) : "N/A";
+                    var year = $.isNumeric(item.changePercent52W) ? (item.changePercent52W * 100).toFixed(2) : "N/A";
+                    var year_3 = $.isNumeric(item.changePercent3Yr) ? (item.changePercent3Yr * 100).toFixed(2) : "N/A";
+                    contents += `<tr>
+                                    <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
+                                    <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
+                                    <td class="${week_2 > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week_2}%</td>
+                                    <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
+                                    <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
+                                    <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
+                                    <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
+                                    <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
+                                    <td class="${year_3 > 0 ? 'up' : year_3 < 0 ? 'down' : 'reference'} bold">${year_3}%</td>
+                                </tr>`;
+                } else {
+                    contents += `<tr><td colspan="9">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
+                }
+            } else {
+                contents += `<tr><td colspan="9">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
+            }
+            contents += `<tbody></table>`;
+            $("#volatilityContent").html(contents);
+            initTooltips();
+        }).fail(function (jqXHR, textStatus, error) {
+            $("#volatilityContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
+        });
+    }, 100);
 }
 
 function loadNews(code) {
