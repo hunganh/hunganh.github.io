@@ -11276,6 +11276,55 @@ var stockData = [
         "icbCode": "8600",
         "name": "Công ty Cổ phần Vincom Retail",
         "exchange": "HSX"
+    },
+    {
+        "symbol": "WSS",
+        "symbolID": 1614,
+        "icbCode": "8777",
+        "name": "Công Ty Cổ Phần Chứng Khoán Phố Wall",
+        "exchange": "HSX"
+    },
+    {
+        "symbol": "VSC",
+        "symbolID": 1577,
+        "icbCode": "2777",
+        "name": "Công ty Cổ phần Container Việt Nam",
+        "exchange": "HSX"
+    },
+    {
+        "symbol": "VSH",
+        "symbolID": 1580,
+        "icbCode": "7535",
+        "name": "Công ty Cổ phần Thủy điện Vĩnh Sơn – Sông Hinh",
+        "exchange": "HSX"
+    },
+    {
+        "symbol": "VTJ",
+        "symbolID": 1595,
+        "icbCode": "5373",
+        "name": "Công ty Cổ phần Thương mại và Đầu tư VI NA TA BA",
+        "exchange": "HNX"
+    },
+    {
+        "symbol": "VTO",
+        "symbolID": 1599,
+        "icbCode": "2773",
+        "name": "Công ty Cổ phần Vận tải xăng dầu VITACO",
+        "exchange": "HSX"
+    },
+    {
+        "symbol": "VTV",
+        "symbolID": 1604,
+        "icbCode": "2353",
+        "name": "CÔNG TY CỔ PHẦN NĂNG LƯỢNG VÀ MÔI TRƯỜNG VICEM",
+        "exchange": "HNX"
+    },
+    {
+        "symbol": "YBM",
+        "symbolID": 1627,
+        "icbCode": "1775",
+        "name": "Công ty cổ phần Khoáng sản công nghiệp Yên Bái",
+        "exchange": "HSX"
     }
 ];
 

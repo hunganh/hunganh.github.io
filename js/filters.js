@@ -1,4 +1,5 @@
 var filterOptionC, filterOptionC1, filterOptionC2, filterOptionC3, filterOptionA, filterOptionA1, filterOptionA2, filterOptionA3, filterOptionS, filterOptionS;
+var arrFilterIds = ["filterOptionC", "filterOptionC1", "filterOptionC2", "filterOptionC3", "filterOptionA", "filterOptionA1", "filterOptionA2", "filterOptionA3", "filterOptionS", "filterOptionL"]
 var headFiltersData = `<table class="left-position table table-bordered table-striped table-hover">
                             <thead class="table-light">
                                 <tr>
@@ -16,9 +17,9 @@ $(document).ready(function () {
     filterOptionC = $("#filterOptionC").slider({
         tooltip: 'hide',
         id: "filter-option-c",
-        scale: 'logarithmic',
+        scale: 'logarithmic'
     });
-    filterOptionC.on("slide", function(slideEvt) {
+    filterOptionC.on("slide slideStop", function(slideEvt) {
         $("#filterOptionCMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionCMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -28,7 +29,7 @@ $(document).ready(function () {
         id: "filter-option-c1",
         scale: 'logarithmic'
     });
-    filterOptionC1.on("slide", function(slideEvt) {
+    filterOptionC1.on("slide slideStop", function(slideEvt) {
         $("#filterOptionC1MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionC1MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -38,7 +39,7 @@ $(document).ready(function () {
         id: "filter-option-c2",
         scale: 'logarithmic'
     });
-    filterOptionC2.on("slide", function(slideEvt) {
+    filterOptionC2.on("slide slideStop", function(slideEvt) {
         $("#filterOptionC2MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionC2MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -48,7 +49,7 @@ $(document).ready(function () {
         id: "filter-option-c3",
         scale: 'logarithmic'
     });
-    filterOptionC3.on("slide", function(slideEvt) {
+    filterOptionC3.on("slide slideStop", function(slideEvt) {
         $("#filterOptionC3MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionC3MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -58,7 +59,7 @@ $(document).ready(function () {
         id: "filter-option-a",
         scale: 'logarithmic'
     });
-    filterOptionA.on("slide", function(slideEvt) {
+    filterOptionA.on("slide slideStop", function(slideEvt) {
         $("#filterOptionAMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionAMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -68,7 +69,7 @@ $(document).ready(function () {
         id: "filter-option-a1",
         scale: 'logarithmic'
     });
-    filterOptionA1.on("slide", function(slideEvt) {
+    filterOptionA1.on("slide slideStop", function(slideEvt) {
         $("#filterOptionA1MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionA1MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -78,7 +79,7 @@ $(document).ready(function () {
         id: "filter-option-a2",
         scale: 'logarithmic'
     });
-    filterOptionA2.on("slide", function(slideEvt) {
+    filterOptionA2.on("slide slideStop", function(slideEvt) {
         $("#filterOptionA2MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionA2MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -88,7 +89,7 @@ $(document).ready(function () {
         id: "filter-option-a3",
         scale: 'logarithmic'
     });
-    filterOptionA3.on("slide", function(slideEvt) {
+    filterOptionA3.on("slide slideStop", function(slideEvt) {
         $("#filterOptionA3MinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionA3MaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
@@ -113,6 +114,104 @@ $(document).ready(function () {
         $("#filterOptionLMinValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[0]));
         $("#filterOptionLMaxValue").val(new Intl.NumberFormat('de-DE').format(slideEvt.value[1]));
     });
+
+    $(".ckFilter").change(function() {
+        var $input = $(this);
+        var id = $input.val();
+        var index = arrFilterIds.indexOf(id);
+        if (index > -1) {
+            arrFilterIds.splice(index, 1);
+        } else {
+            arrFilterIds.push(id);
+        }
+        if ($input.prop( "checked")) {     
+            $input.closest("div").next("span").removeClass("filter-title-default");
+            $input.closest("div").next("span").addClass("filter-title");
+        } else {
+            $input.closest("div").next("span").removeClass("filter-title");
+            $input.closest("div").next("span").addClass("filter-title-default");
+        }
+    });
+
+    var timeout, interval;
+    $(".btn-addition").mousedown(function() {
+        var $input = $(this);
+        var value = $input.next(".filter-values").val().replaceAll(".","");
+        var dataId = $input.attr("data-id");
+        var max = $("#"+dataId).data('sliderMax');
+        if ((Number(value) + 1) >  max) {
+            clearTimers();
+            return;
+        }
+        incrementValue($input.next(".filter-values"), value);
+        timeout = setTimeout(function() {
+            interval = setInterval(function() {
+              value = $input.next(".filter-values").val().replaceAll(".","");
+              max = $("#"+dataId).data('sliderMax');
+              if ((Number(value) + 1) >  max) {
+                clearTimers();
+                return;
+              }
+              incrementValue($input.next(".filter-values"), value);
+            }, 50);    
+        }, 300);   
+    });
+
+    $(".btn-subtraction").mousedown(function() {
+        var $input = $(this);
+        var value = $input.prev(".filter-values").val().replaceAll(".","");
+        var dataId = $input.attr("data-id");
+        var min = $("#"+dataId).data('sliderMin');
+        if ((Number(value) - 1) <  min) {
+            clearTimers();
+            return;
+        }
+        decrementValue($input.prev(".filter-values"), value);
+        timeout = setTimeout(function() {
+            interval = setInterval(function() {
+                value = $input.prev(".filter-values").val().replaceAll(".","");
+                min = $("#"+dataId).data('sliderMin');
+                if ((Number(value) - 1) <  min) {
+                    clearTimers();
+                    return;
+                }
+                decrementValue($input.prev(".filter-values"), value);
+            }, 50);    
+        }, 300);   
+    });
+
+    $(".btn-addition").on("mouseup", function() {
+        setValueSlider($(this));
+        clearTimers();
+    });
+    $(".btn-subtraction").on("mouseup", function() {
+        setValueSlider($(this));
+        clearTimers();
+    });
+
+    function setValueSlider($input) {
+        var dataId = $input.attr("data-id");
+        var minValue = Number($("#"+dataId+"MinValue").val().replaceAll(".",""));
+        var maxValue =  Number($("#"+dataId+"MaxValue").val().replaceAll(".",""));
+        $('#'+dataId).slider('setValue',[minValue,maxValue]);
+    }
+
+    function clearTimers() {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        if (interval) {
+            clearInterval(interval);
+        }
+      }
+
+    function incrementValue($input, value) {
+        $input.val(new Intl.NumberFormat('de-DE').format(Number(value) + 1));
+    }
+
+    function decrementValue($input, value) {
+        $input.val(new Intl.NumberFormat('de-DE').format(Number(value) - 1));
+    }
 });
 
 function getMinMaxValue(values, isDivide) {
@@ -143,19 +242,46 @@ function filterData() {
     }
 
     var fielSelection = $('#fields-selection-options').val();
-    // FA
-    var netSaleGrowthMRQ = getMinMaxValue($(filterOptionC).val(), true);
-    var profitGrowthMRQ = getMinMaxValue($(filterOptionC1).val(), true);
-    var profitGrowthMRQ2 = getMinMaxValue($(filterOptionC2).val(), true);
-    var profitGrowthTTM = getMinMaxValue($(filterOptionC3).val(), true);
-    var epsTTM = getMinMaxValue($(filterOptionA).val(), false);
-    var roe = getMinMaxValue($(filterOptionA1).val(), true);
-    var netSaleGrowthAvg3Y = getMinMaxValue($(filterOptionA2).val(), true);
-    var profitGrowthAvg3Y = getMinMaxValue($(filterOptionA3).val(), true);
-    var avgVol3M = getMinMaxValue($(filterOptionS).val(), false);
-    var rs52W = getMinMaxValue($(filterOptionL).val(), false);
+    // FA - Fundamental Analysis
+    var faFilter = {};
+    // C
+    if (arrFilterIds.indexOf(filterOptionC[0].id) > -1) {
+        faFilter.NetSale_Growth_MRQ = getMinMaxValue($(filterOptionC).val(), true);
+    }
+    if (arrFilterIds.indexOf(filterOptionC1[0].id) > -1) {
+        faFilter.Profit_Growth_MRQ = getMinMaxValue($(filterOptionC1).val(), true);
+    }
+    if (arrFilterIds.indexOf(filterOptionC2[0].id) > -1) {
+        faFilter.Profit_Growth_MRQ_2 = getMinMaxValue($(filterOptionC2).val(), true);
+    }
+    if (arrFilterIds.indexOf(filterOptionC3[0].id) > -1) {
+        faFilter.Profit_Growth_TTM = getMinMaxValue($(filterOptionC3).val(), true);
+    }
+    // A
+    if (arrFilterIds.indexOf(filterOptionA[0].id) > -1) {
+        faFilter.Eps_TTM = getMinMaxValue($(filterOptionA).val(), false);
+    }
+    if (arrFilterIds.indexOf(filterOptionA1[0].id) > -1) {
+        faFilter.ME_ROE = getMinMaxValue($(filterOptionA1).val(), true);
+    }
+    if (arrFilterIds.indexOf(filterOptionA2[0].id) > -1) {
+        faFilter.NetSale_Growth_Avg_3Y = getMinMaxValue($(filterOptionA2).val(), true);
+    }
+    if (arrFilterIds.indexOf(filterOptionA3[0].id) > -1) {
+        faFilter.Profit_Growth_Avg_3Y = getMinMaxValue($(filterOptionA3).val(), true);
+    }
 
-    // TA
+    // S
+    if (arrFilterIds.indexOf(filterOptionS[0].id) > -1) {
+        faFilter.AvgVol3M = getMinMaxValue($(filterOptionS).val(), false);
+    }
+
+    // L
+    if (arrFilterIds.indexOf(filterOptionL[0].id) > -1) {
+        faFilter.RS52W = getMinMaxValue($(filterOptionL).val(), false);
+    }
+
+    // TA - Technical Analysis
     var breakUpperBoundMACDvsSignalDaily = $('#btnFilterMACDUpOption:checked').val();
     var breakLowerBoundMACDvsSignalDaily = $('#btnFilterMACDDownOption:checked').val();
     var rsi14DailyT0ValuesGreater = $('#btnFilterRSIOverBuyOption:checked').val();
@@ -195,18 +321,7 @@ function filterData() {
         booleanFilter[btnFilterOverTop] = true;
     }
     var data = {
-                faFilter: {
-                    AvgVol3M: avgVol3M,
-                    Eps_TTM: epsTTM,
-                    ME_ROE: roe,
-                    RS52W: rs52W,
-                    NetSale_Growth_MRQ: netSaleGrowthMRQ,
-                    NetSale_Growth_Avg_3Y: netSaleGrowthAvg3Y,
-                    Profit_Growth_MRQ: profitGrowthMRQ,
-                    Profit_Growth_MRQ_2: profitGrowthMRQ2,
-                    Profit_Growth_TTM: profitGrowthTTM,
-                    Profit_Growth_Avg_3Y: profitGrowthAvg3Y                
-                },
+                faFilter: faFilter,
                 taFilter: taFilter,
                 booleanFilter: booleanFilter,
                 pageNumber: 1,
@@ -238,8 +353,8 @@ function filterData() {
                             res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")>
                                         <td>${index + 1}</td>
                                         <td class="bold-text">${item}</td>
-                                        <td class="text-left">${stockInfo !== null ? stockInfo.name : ""}</td>
-                                        <td>${stockInfo !== null ? stockInfo.exchange : ""}</td>
+                                        <td class="text-left">${stockInfo && stockInfo.name !== undefined ? stockInfo.name : ""}</td>
+                                        <td>${stockInfo && stockInfo.exchange !== undefined ? stockInfo.exchange : ""}</td>
                                     </tr>`;
                             index++;
                         });
@@ -276,3 +391,5 @@ function getTickerCode(codes) {
     }
     return codes;
 }
+
+

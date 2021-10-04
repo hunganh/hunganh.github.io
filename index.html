@@ -250,11 +250,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">      
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionCMinValue" class="filter-values" value="10" disabled></input>
-                                                                    <input id="filterOptionC" type="text" class="span2 filter-slider" value="" data-slider-min="-200" data-slider-max="418600" data-slider-step="5" data-slider-value="[10,80000]"/>
-                                                                    <input type="text" id="filterOptionCMaxValue" class="filter-values text-right" value="80.000" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC">+</button>
+                                                                              <input type="text" id="filterOptionCMinValue" class="form-control filter-values" value="10" disabled>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                          <input id="filterOptionC" type="text" class="span2 filter-slider" value="" data-slider-min="-200" data-slider-max="418600" data-slider-step="5" data-slider-value="[10,80000]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC">+</button>
+                                                                              <input type="text" id="filterOptionCMaxValue" class="form-control filter-values text-right" value="80.000" disabled>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -264,26 +287,71 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC1" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span>
+                                                                    </div> 
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionC1MinValue" class="filter-values" value="25" disabled></input>
-                                                                    <input id="filterOptionC1" type="text" class="span2 filter-slider" value="" data-slider-min="-5400" data-slider-max="668000" data-slider-step="5" data-slider-value="[25,66800]"/>
-                                                                    <input type="text" id="filterOptionC1MaxValue" class="filter-values text-right" value="66.800" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC1">+</button>
+                                                                              <input type="text" id="filterOptionC1MinValue" class="form-control filter-values" value="25" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC1">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                          <input id="filterOptionC1" type="text" class="span2 filter-slider" value="" data-slider-min="-5400" data-slider-max="668000" data-slider-step="5" data-slider-value="[25,66800]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC1">+</button>
+                                                                              <input type="text" id="filterOptionC1MaxValue" class="form-control filter-values text-right" value="66.800" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC1">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>    
                                                 </div>
                                                 <div class="accordion-body">
-                                                    <!-- <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span> &nbsp; &nbsp; <input id="filterOptionC2" type="text" class="span2 filter-slider" value="" data-slider-min="-9500" data-slider-max="54800" data-slider-step="5" data-slider-value="[15,54800]"/> -->
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC2" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span>
+                                                                    </div> 
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionC2MinValue" class="filter-values" value="15" disabled></input>
-                                                                    <input id="filterOptionC2" type="text" class="span2 filter-slider" value="" data-slider-min="-9500" data-slider-max="54800" data-slider-step="5" data-slider-value="[15,54800]"/>
-                                                                    <input type="text" id="filterOptionC2MaxValue" class="filter-values text-right" value="54.800" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC2">+</button>
+                                                                              <input type="text" id="filterOptionC2MinValue" class="form-control filter-values" value="15" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC2">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionC2" type="text" class="span2 filter-slider" value="" data-slider-min="-9500" data-slider-max="54800" data-slider-step="5" data-slider-value="[15,54800]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC2">+</button>
+                                                                              <input type="text" id="filterOptionC2MaxValue" class="form-control filter-values text-right" value="54.800" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC2">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -294,11 +362,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC3" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span>
+                                                                    </div> 
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionC3MinValue" class="filter-values" value="25" disabled></input>
-                                                                    <input id="filterOptionC3" type="text" class="span2 filter-slider" value="" data-slider-min="-25000" data-slider-max="33600" data-slider-step="5" data-slider-value="[25,30700]"/>
-                                                                    <input type="text" id="filterOptionC3MaxValue" class="filter-values text-right" value="30.700" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC3">+</button>
+                                                                              <input type="text" id="filterOptionC3MinValue" class="form-control  filter-values" value="25" disabled></input>  
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC3">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionC3" type="text" class="span2 filter-slider" value="" data-slider-min="-25000" data-slider-max="33600" data-slider-step="5" data-slider-value="[25,30700]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionC3">+</button>
+                                                                              <input type="text" id="filterOptionC3MaxValue" class="form-control filter-values text-right" value="30.700" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionC3">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -317,11 +408,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">EPS TTM</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">EPS TTM</span>
+                                                                    </div> 
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionAMinValue" class="filter-values" value="3.000" disabled></input>
-                                                                    <input id="filterOptionA" type="text" class="span2 filter-slider" value="" data-slider-min="-43315" data-slider-max="82062" data-slider-step="5" data-slider-value="[3000,35660]"/>
-                                                                    <input type="text" id="filterOptionAMaxValue" class="filter-values text-right" value="35.660" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA">+</button>
+                                                                              <input type="text" id="filterOptionAMinValue" class="form-control filter-values" value="3.000" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionA" type="text" class="span2 filter-slider" value="" data-slider-min="-43315" data-slider-max="82062" data-slider-step="5" data-slider-value="[3000,35660]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA">+</button>
+                                                                              <input type="text" id="filterOptionAMaxValue" class="form-control filter-values text-right" value="35.660" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -332,11 +446,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">ROE (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">  
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA1" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">ROE (%)</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionA1MinValue" class="filter-values" value="15" disabled></input>
-                                                                    <input id="filterOptionA1" type="text" class="span2 filter-slider" value="" data-slider-min="-600" data-slider-max="1600" data-slider-step="5" data-slider-value="[15,1600]"/>
-                                                                    <input type="text" id="filterOptionA1MaxValue" class="filter-values text-right" value="1.600" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA1">+</button>
+                                                                              <input type="text" id="filterOptionA1MinValue" class="form-control filter-values" value="15" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA1">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionA1" type="text" class="span2 filter-slider" value="" data-slider-min="-600" data-slider-max="1600" data-slider-step="5" data-slider-value="[15,1600]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA1">+</button>
+                                                                              <input type="text" id="filterOptionA1MaxValue" class="form-control filter-values text-right" value="1.600" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA1">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>   
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -347,11 +484,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA2" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionA2MinValue" class="filter-values" value="8" disabled></input>
-                                                                    <input id="filterOptionA2" type="text" class="span2 filter-slider" value="" data-slider-min="-100" data-slider-max="6800" data-slider-step="5" data-slider-value="[8,6800]"/>
-                                                                    <input type="text" id="filterOptionA2MaxValue" class="filter-values text-right" value="6.800" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA2">+</button>
+                                                                              <input type="text" id="filterOptionA2MinValue" class="form-control filter-values" value="8" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA2">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionA2" type="text" class="span2 filter-slider" value="" data-slider-min="-100" data-slider-max="6800" data-slider-step="5" data-slider-value="[8,6800]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA2">+</button>
+                                                                              <input type="text" id="filterOptionA2MaxValue" class="form-control filter-values text-right" value="6.800" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA2">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div> 
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -362,11 +522,34 @@
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="text-left" style="width: 25%"><span class="filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span></td>
+                                                                <td class="text-left" style="width: 25%">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-text">
+                                                                          <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA3" checked>
+                                                                        </div>
+                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span>
+                                                                    </div>
+                                                                </td>
                                                                 <td class="text-left" style="width: 75%">
-                                                                    <input type="text" id="filterOptionA3MinValue" class="filter-values" value="18" disabled></input>
-                                                                    <input id="filterOptionA3" type="text" class="span2 filter-slider" value="" data-slider-min="-27800" data-slider-max="37000" data-slider-step="5" data-slider-value="[18,10200]"/>
-                                                                    <input type="text" id="filterOptionA3MaxValue" class="filter-values text-right" value="10.200" disabled></input>
+                                                                    <div class="row">
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA3">+</button>
+                                                                              <input type="text" id="filterOptionA3MinValue" class="form-control filter-values" value="18" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA3">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="col-8">
+                                                                            <input id="filterOptionA3" type="text" class="span2 filter-slider" value="" data-slider-min="-27800" data-slider-max="37000" data-slider-step="5" data-slider-value="[18,10200]"/>
+                                                                        </div>
+                                                                        <div class="col-2">
+                                                                          <div class="input-group input-group-sm">
+                                                                              <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionA3">+</button>
+                                                                              <input type="text" id="filterOptionA3MaxValue" class="form-control filter-values text-right" value="10.200" disabled></input>
+                                                                              <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionA3">-</button>
+                                                                          </div>
+                                                                        </div>
+                                                                    </div> 
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -398,11 +581,34 @@
                                                         <table class="table-responsive filter-table">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td class="text-left" style="width: 25%"><span class="filter-title">Khối lượng trung bình 3 tháng</span></td>
+                                                                    <td class="text-left" style="width: 25%">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-text">
+                                                                              <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionS" checked>
+                                                                            </div>
+                                                                            <span class="input-group-text filter-title">Khối lượng trung bình 3 tháng</span>
+                                                                        </div>
+                                                                    </td>
                                                                     <td class="text-left" style="width: 75%">
-                                                                        <input type="text" id="filterOptionSMinValue" class="filter-values" value="15.000" disabled></input>
-                                                                        <input id="filterOptionS" type="text" class="span2 filter-slider" value="" data-slider-min="0" data-slider-max="36637567" data-slider-step="5" data-slider-value="[15000,36637567]"/>
-                                                                        <input type="text" id="filterOptionSMaxValue" class="filter-values text-right" value="36.637.567" disabled></input>
+                                                                        <div class="row">
+                                                                            <div class="col-2">
+                                                                              <div class="input-group input-group-sm">
+                                                                                  <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionS">+</button>
+                                                                                  <input type="text" id="filterOptionSMinValue" class="form-control filter-values" value="15.000" disabled></input>
+                                                                                  <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionS">-</button>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="col-8">
+                                                                                <input id="filterOptionS" type="text" class="span2 filter-slider" value="" data-slider-min="0" data-slider-max="36637567" data-slider-step="5" data-slider-value="[15000,36637567]"/>
+                                                                            </div>
+                                                                            <div class="col-2">
+                                                                              <div class="input-group input-group-sm">
+                                                                                  <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionS">+</button>
+                                                                                  <input type="text" id="filterOptionSMaxValue" class="form-control filter-values text-right" value="36.637.567" disabled></input>
+                                                                                  <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionS">-</button>
+                                                                              </div>
+                                                                            </div>
+                                                                        </div>   
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -422,11 +628,34 @@
                                                         <table class="table-responsive filter-table">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td class="text-left" style="width: 25%"><span class="filter-title">RS (52 tuần)</span></td>
+                                                                    <td class="text-left" style="width: 25%">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-text">
+                                                                              <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionL" checked>
+                                                                            </div>
+                                                                            <span class="input-group-text filter-title">RS (52 tuần)</span>
+                                                                        </div>
+                                                                    </td>
                                                                     <td class="text-left" style="width: 75%">
-                                                                        <input type="text" id="filterOptionLMinValue" class="filter-values" value="70" disabled></input>
-                                                                        <input id="filterOptionL" type="text" class="span2 filter-slider" value="" data-slider-min="1" data-slider-max="99" data-slider-step="1" data-slider-value="[70,99]"/>
-                                                                        <input type="text" id="filterOptionLMaxValue" class="filter-values text-right" value="99" disabled></input>
+                                                                        <div class="row">
+                                                                            <div class="col-2">
+                                                                              <div class="input-group input-group-sm">
+                                                                                  <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionL">+</button>
+                                                                                  <input type="text" id="filterOptionLMinValue" class="form-control filter-values" value="70" disabled></input>
+                                                                                  <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionL">-</button>
+                                                                              </div>
+                                                                            </div>
+                                                                            <div class="col-8">
+                                                                                <input id="filterOptionL" type="text" class="span2 filter-slider" value="" data-slider-min="1" data-slider-max="99" data-slider-step="1" data-slider-value="[70,99]"/>
+                                                                            </div>
+                                                                            <div class="col-2">
+                                                                              <div class="input-group input-group-sm">
+                                                                                  <button class="btn btn-primary font-14 btn-addition" type="button" data-id="filterOptionL">+</button>
+                                                                                  <input type="text" id="filterOptionLMaxValue" class="form-control filter-values text-right" value="99" disabled></input>
+                                                                                  <button class="btn btn-primary font-14 btn-subtraction" type="button" data-id="filterOptionL">-</button>
+                                                                              </div>
+                                                                            </div>
+                                                                        </div>  
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -444,10 +673,9 @@
                                                 <div id="collapseI" class="accordion-collapse collapse" aria-labelledby="headingI" data-bs-parent="#accordionFilter">
                                                   <div class="accordion-body">
                                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                        <input type="checkbox" class="btn-check" id="btnFilterSelfBusinessOption" autocomplete="off" value="selfBusiness">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterSelfBusinessOption" autocomplete="off" value="selfBusiness" checked>
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterSelfBusinessOption">Tự Doanh mua ròng</label>
-                                                      
-                                                        <input type="checkbox" class="btn-check" id="btnFilterForeignOption" autocomplete="off" value="foreign">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterForeignOption" autocomplete="off" value="foreign" checked>
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterForeignOption">Khối Ngoại mua ròng</label>
                                                     </div>
                                                   </div>
