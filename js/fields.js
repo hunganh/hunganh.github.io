@@ -191,7 +191,7 @@ function showDetailField(icbName, icbCode, self) {
         tdFirstChild.addClass("arrow-right");
         $(self).attr("action", "collapsed");
     }
-    self.scrollIntoView(false);
+    self.scrollIntoView(true);
 }
 
 function refreshFielDetailData(icbCode) {
