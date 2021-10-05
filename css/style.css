@@ -722,6 +722,23 @@ body .ico {
   border-top: 6px solid #275fb0;
 }
 
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid #275fb0;
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 5x solid transparent;
+  border-bottom: 5px solid transparent; 
+  border-right: 6px solid #275fb0; 
+}
+
 .filter-table {
   width: 100%;
   border: none;

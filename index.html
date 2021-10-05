@@ -808,14 +808,14 @@
     </div>
     <div class="fixed-bottom footer-info">Mọi đóng góp ý kiến xin gửi về hộp thư <a class="mail-to" href="mailto:nhadautu198x@outlook.com.vn">nhadautu198x@outlook.com.vn</a></div>
     <!-- Modal -->
-    <div class="modal fade" id="tickerDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" role="dialog">
+    <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-            <h6 class="modal-title" id="tickerDetailLabel"></h6>
+            <h6 class="modal-title" id="detailModalLabel"></h6>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="tickerDetail">
+            <div class="modal-body" id="detailModalContent">
                 <div class="d-flex justify-content-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -824,7 +824,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-success btn-sm" onclick='refreshTickerDetailData()'>Tải dữ liệu mới</button>
+            <button type="button" class="btn btn-success btn-sm" id="btn-modal-action" onclick='refreshTickerDetailData()'>Tải dữ liệu mới</button>
             <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>

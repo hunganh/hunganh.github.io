@@ -32,6 +32,7 @@ const UPLOAD_DATA_URL = `${DATA_URL}/upload`;
 const CORS_PROXY_URL = `${DATA_URL}/fetch`;
 const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
 const STATISTICS_DATA_URL = `${DATA_URL}/statistics`;
+const STOCK_INFOR_DATA_OF_FIELD_URL = `${DATA_URL}/fields/symbols`;
 const FIALDA_API_V1_URL = `${API_DATA_SERVER_1}/api/services/app`;
 const FIALDA_API_V2_URL = `${API_DATA_SERVER_2}/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
@@ -244,10 +245,11 @@ function getClassByValue(value) {
 function showTickerInfor(code) {
     currentTicker = code;
     var loadingHTML = getLoadingHTML();
-    $("#tickerDetailLabel").html(code);
-    $("#tickerDetail").html(loadingHTML);
+    $("#btn-modal-action").attr("onclick","refreshTickerDetailData()");
+    $("#detailModalLabel").html(code);
+    $("#detailModalContent").html(loadingHTML);
     processTickerData(code);
-    $("#tickerDetailModal").modal('show');
+    $("#detailModal").modal('show');
 }
 
 function processTickerData(code) {
@@ -266,7 +268,7 @@ function processTickerData(code) {
         if (values && values.length > 0) {
             setTimeout(() => {
                 var content = drawRecommendationsDataToHTML(values, code);
-                $("#tickerDetail").html(content);
+                $("#detailModalContent").html(content);
             }, 50);
         }
     }).then(() => {
@@ -289,7 +291,7 @@ function drawRecommendationsDataToHTML(data, code) {
             var pb = $.isNumeric(tickerObject.BasicInfo.bookValuePerShare) ? (lastPrice / tickerObject.BasicInfo.bookValuePerShare).toFixed(2) : "N/A";
             var ps = $.isNumeric(tickerObject.BasicInfo.salePerShare) ? (lastPrice / tickerObject.BasicInfo.salePerShare).toFixed(2) : "N/A";
             var valuePercentChange = $.isNumeric(tickerObject.PriceInfo.priceChangePercent) ? `(${(tickerObject.PriceInfo.priceChangePercent * 100).toFixed(2)}%)` : "";
-            $("#tickerDetailLabel").html(`${code} - ${tickerObject.BasicInfo.name}`);
+            $("#detailModalLabel").html(`${code} - ${tickerObject.BasicInfo.name}`);
             res += `<div class="card mb-3">
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
@@ -399,7 +401,7 @@ function getSelectionFieldsHTML(id) {
 
 function refreshTickerDetailData() {
     var loadingHTML = getLoadingHTML();
-    $("#tickerDetail").html(loadingHTML);
+    $("#detailModalContent").html(loadingHTML);
     processTickerData(currentTicker);
 }
 
