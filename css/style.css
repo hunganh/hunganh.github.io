@@ -200,11 +200,15 @@ ul > li > button {
 }
 
 .tr-cursor {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 .text-left {
-    text-align: left !important;
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
 }
 
 .modal-header {

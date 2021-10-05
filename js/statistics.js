@@ -140,7 +140,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     var thead = document.createElement("thead");
     var tr = thead.insertRow(-1);                   // table row.
     var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 8);
+    thTime.setAttribute("colspan", 9);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
     thead.appendChild(tr);
@@ -148,22 +148,22 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     tr = thead.insertRow(-1);
     for (var i = 0; i < statisticsHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
-        if (i === 2) {
-            th.setAttribute("colspan", 2);
-        } else {
-            th.setAttribute("rowspan", 2);
-        }
+        // if (i === 2) {
+        //     th.setAttribute("colspan", 2);
+        // } else {
+        //     th.setAttribute("rowspan", 2);
+        // }
         th.innerHTML = statisticsHeadTitle[i];
         tr.appendChild(th);
     }
 
     // create span column
-    tr = thead.insertRow(-1);
-    for (var k = 0; k < subStatisticsHeadTitle.length; k++) {
-        var th = document.createElement("th");
-        th.innerHTML = subStatisticsHeadTitle[k];
-        tr.appendChild(th);
-    }
+    // tr = thead.insertRow(-1);
+    // for (var k = 0; k < subStatisticsHeadTitle.length; k++) {
+    //     var th = document.createElement("th");
+    //     th.innerHTML = subStatisticsHeadTitle[k];
+    //     tr.appendChild(th);
+    // }
     
     var tbody = document.createElement("tbody");
     // add json data to the table as rows.
@@ -172,10 +172,6 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
         tr.classList.add("tr-cursor");
         var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : olderItem; //getFirstItemData(dataJsonInput[period].toDate);
-        var valueChange = 0;
-        var percentChange = 0;
-        var volumeValueChange = 0;
-        var volumePercentChange = 0;
         var columnName = getColumnName();
         var volumeColumnName = getVolumeColumnName();
         if (!prvItem) {
@@ -187,35 +183,18 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
             } else {
                 addCell(tr, Number(i + 1));
             }
-            try {
-                valueChange = currentPeriod === "today" ?  Number(data[i][columnName]) : actionDefault === "netBuy" ? (Number(data[i][columnName]) - Number(prvItem[period].netBuy[prvPosition][columnName])) : (Number(data[i][columnName]) - Number(prvItem[period].netSell[prvPosition][columnName]));
-                percentChange = currentPeriod === "today" ? "" : actionDefault === "netBuy" ? (valueChange / Number(prvItem[period].netBuy[prvPosition][columnName]) * 100).toFixed(2) : (valueChange / Number(prvItem[period].netSell[prvPosition][typeDefault === "selfBusiness" ? TOTAL_NET_SELL_TRADE_VALUE : FOREIGN_NET_SELL_VALUE]) * 100).toFixed(2);
-                volumeValueChange = currentPeriod === "today" ?  Number(data[i][volumeColumnName]) : actionDefault === "netBuy" ? (Number(data[i][volumeColumnName]) - Number(prvItem[period].netBuy[prvPosition][volumeColumnName])) : (Number(data[i][volumeColumnName]) - Number(prvItem[period].netSell[prvPosition][volumeColumnName]));
-                volumePercentChange = currentPeriod === "today" ? "" : actionDefault === "netBuy" ? (volumeValueChange / Number(prvItem[period].netBuy[prvPosition][volumeColumnName]) * 100).toFixed(2) : (volumeValueChange / Number(prvItem[period].netSell[prvPosition][TOTAL_NET_SELL_TRADE_VOLUME]) * 100).toFixed(2);
-            } catch (error) {
-                valueChange = 0;
-                percentChange = 0;
-            }
         }
         var priceChange = data[i]["priceChange"];
         var percentPriceChange = data[i]["percentPriceChange"] * 100;
         var price = percentPriceChange > 0 || percentPriceChange < 0 ? (priceChange/data[i]["percentPriceChange"]).toFixed(0) : data[i]["matchPrice"];
-        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
-        // addCell(tr, '<span class="' + (data[i][MATCH_PRICE] === data[i][REFERENCE_PRICE] ? "reference" : data[i][MATCH_PRICE] > data[i][REFERENCE_PRICE]? "up" : "down") + '">' + new Intl.NumberFormat().format(data[i][MATCH_PRICE]) + '</span>');
-        if (typeDefault !== "selfBusiness" || prvItem === null) {
-            addCell(tr, '<span class="reference"> &#8722; </span>');
-        } else {
-            addCell(tr, `<span class=${(volumeValueChange >= 0 ? "up" : "down")}> ${new Intl.NumberFormat().format(volumeValueChange)} ${volumePercentChange === "" ? "" : "(" + volumePercentChange + "%)"}</span>`);
-        }
-        if (prvItem === null) {
-            addCell(tr, '<span class="reference"> &#8722; </span>');
-        } else {
-            addCell(tr, `<span class=${(valueChange >= 0 ? "up" : "down")}> ${new Intl.NumberFormat().format(valueChange)} ${percentChange === "" ? "" : "(" + percentChange + "%)"}</span>`);
-        }
+        var closePrice = data[i]["matchPrice"];
 
+        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
         addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
         addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
-        addCell(tr, '<span class="' + (Number(percentPriceChange) >= 0 ? "up" : "down") + '">' + Number(percentPriceChange).toFixed(2) + '</span>');
+        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat().format(closePrice) + '</span>');
+        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat().format(priceChange) + '</span>');
+        addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
         addCell(tr, new Intl.NumberFormat().format(price));
     }
     table.appendChild(tbody);
