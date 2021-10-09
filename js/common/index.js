@@ -176,10 +176,10 @@ init.onChartReady = function(){
         utils.sendMessage(cfg.cmd.CHANGESYM + newSym);
     });
 
-    _activeChart.createStudy('Bollinger Bands', true, true);
-    _activeChart.createStudy('Relative Strength Index', true, true);
-    _activeChart.createStudy('MACD', true, true);
-    _activeChart.createStudy('Ichimoku Cloud', true, true);
+    _activeChart.createStudy('Bollinger Bands', false, false);
+    _activeChart.createStudy('Relative Strength Index', false, false);
+    _activeChart.createStudy('MACD', false, false);
+    _activeChart.createStudy('Ichimoku Cloud', false, false);
 };
 
 
