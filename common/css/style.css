@@ -1,0 +1,7 @@
+div[class^="group-"] div {
+    cursor: pointer !important;
+}
+
+div[class^='menuBox-'] div[class*="isDisabled-"] {
+    display: none !important;
+}
