@@ -236,7 +236,21 @@ function generateChartIframe(symbol) {
     $(".chartContainer").html(`</br>${getLoadingHTML()}`);
     setTimeout(() => {
         // var charts = `<iframe id="ifrTACharts" src="${CHART_URL_V1}?symbol=${symbol}&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
-        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
+        var candleStickType = $("input[name='btnCandleStickTAOption']:checked").val();
+        var type = "";
+        if (candleStickType === "_15m") {
+            type = "15";
+        }
+        else if (candleStickType === "Hourly") {
+            type = "60";
+        }
+        else if (candleStickType === "Daily") {
+            type = "1D";
+        }
+        else if (candleStickType === "Weekly") {
+            type = "1W";
+        }
+        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=${type}&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
         
         $(".chartContainer").html(charts);
     }, 500);
