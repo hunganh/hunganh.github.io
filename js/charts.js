@@ -236,7 +236,7 @@ function generateChartIframe(symbol) {
     $(".chartContainer").html(`</br>${getLoadingHTML()}`);
     setTimeout(() => {
         // var charts = `<iframe id="ifrTACharts" src="${CHART_URL_V1}?symbol=${symbol}&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
-        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=ACB&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
+        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
         
         $(".chartContainer").html(charts);
     }, 500);
