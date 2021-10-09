@@ -39,6 +39,12 @@ init.fnInitChart = function(){
         symbol: cfg.symChart,
         interval: resolution,
         container_id: "tv_chart_container",
+        studies: [
+            "RSI@tv-basicstudies",
+            "BB@tv-basicstudies",
+            "MACD@tv-basicstudies",
+            "IchimokuCloud@tv-basicstudies"
+        ],
         timezone: 'Asia/Bangkok',
         datafeed: dtfeed,
         library_path: "charting_library/",
@@ -140,8 +146,8 @@ init.fnAddBtn = function(){
         }, { align: 'right' });
     }
 
-    utils.createHeaderButton(cfg.logo ,'VPS SECURITIES', function() {
-        alert('Copyright Â© 2020 VPS, All rights reserved');
+    utils.createHeaderButton(cfg.logo ,'NhaDauTu198x', function() {
+        alert('Copyright © 2021 NhaDauTu198x.com, All rights reserved');
     }, { align: 'right' });
 }
 

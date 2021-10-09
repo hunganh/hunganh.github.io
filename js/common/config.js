@@ -11,7 +11,7 @@ cfg.theme = "Light";
 cfg.isTVFullscreen = false; /* Don't change */
 cfg.charts_storage_api_version = '1.1';
 cfg.client_id = 'VPSWeb';
-cfg.logo = '<img src="../images/logo2.png" style="height: 65px;">';
+// cfg.logo = '<img src="../images/logo2.png" style="height: 65px;">';
 cfg.TVObj = {};
 
 var chartTV;
