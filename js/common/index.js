@@ -39,12 +39,6 @@ init.fnInitChart = function(){
         symbol: cfg.symChart,
         interval: resolution,
         container_id: "tv_chart_container",
-        studies: [
-            "RSI@tv-basicstudies",
-            "BB@tv-basicstudies",
-            "MACD@tv-basicstudies",
-            "IchimokuCloud@tv-basicstudies"
-        ],
         timezone: 'Asia/Bangkok',
         datafeed: dtfeed,
         library_path: "charting_library/",
@@ -181,6 +175,11 @@ init.onChartReady = function(){
 
         utils.sendMessage(cfg.cmd.CHANGESYM + newSym);
     });
+
+    _activeChart.createStudy('Bollinger Bands', false, true);
+    _activeChart.createStudy('Relative Strength Index', false, true);
+    _activeChart.createStudy('MACD', false, true);
+    _activeChart.createStudy('Ichimoku Cloud', false, true);
 };
 
 
