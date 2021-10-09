@@ -25,7 +25,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
-    <!-- <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script> -->
+    <script src="https://chart.vps.com.vn/tv/charting_library/charting_library.min.js"></script>
 </head>
 <body>
     <ul class="nav nav-tabs tabs" id="myTab" role="tablist">
@@ -40,6 +40,9 @@
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false" onclick="filterData()">Lọc Cổ Phiếu</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="charts-tab" data-bs-toggle="tab" data-bs-target="#charts" type="button" role="tab" aria-controls="charts" aria-selected="false">Phân Tích Kỹ Thuật</button>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent" style="overflow-x: hidden;">
@@ -207,17 +210,17 @@
                 <div class="row">
                     <div class="col">
                         <div class="card">
-                            <h6 class="card-header">Tiêu chí lọc (Phương pháp CANSLIM  + TA)</h6>
+                            <h6 class="card-header">Tiêu chí lọc</h6>
                             <ul class="nav nav-tabs tabs sub-tab-color" id="filtersTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="exchanges-tab" data-bs-toggle="tab" data-bs-target="#exchanges" type="button" role="tab" aria-controls="exchanges" aria-selected="true">Sàn CK</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="fundamental-tab" data-bs-toggle="tab" data-bs-target="#fundamental" type="button" role="tab" aria-controls="fundamental" aria-selected="false">PT Cơ Bản</button>
+                                    <button class="nav-link" id="fundamental-tab" data-bs-toggle="tab" data-bs-target="#fundamental" type="button" role="tab" aria-controls="fundamental" aria-selected="false">PT Cơ Bản (CANSLIM)</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
+                                <!-- <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="technical-tab" data-bs-toggle="tab" data-bs-target="#technical" type="button" role="tab" aria-controls="technical" aria-selected="false">PT Kỹ Thuật</button>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="tab-content" id="filtersTabContent">
                                 <div class="tab-pane fade show active" id="exchanges" role="tabpanel" aria-labelledby="exchanges-tab">
@@ -255,7 +258,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng doanh thu quý gần nhất MMQ (%)</span>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -292,7 +295,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC1" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng lợi nhuận quý gần nhất MMQ (%)</span>
                                                                     </div> 
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -329,7 +332,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC2" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng lợi nhuận quý gần nhì MMQ (%)</span>
                                                                     </div> 
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -358,7 +361,6 @@
                                                     </table>    
                                                 </div>
                                                 <div class="accordion-body">
-                                                    <!-- <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span> &nbsp; &nbsp; <input id="filterOptionC3" type="text" class="span2 filter-slider" value="" data-slider-min="-25000" data-slider-max="33600" data-slider-step="5" data-slider-value="[25,30700]"/> -->
                                                     <table class="table-responsive filter-table">
                                                         <tbody>
                                                             <tr>
@@ -367,7 +369,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionC3" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng lợi nhuận 4 quý gần nhất TTM (%)</span>
                                                                     </div> 
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -413,7 +415,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">EPS TTM</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">EPS TTM</span>
                                                                     </div> 
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -451,7 +453,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA1" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">ROE (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">ROE (%)</span>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -478,7 +480,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <!-- <span class="badge bg-primary filter-title">ROE (%):</span> &nbsp; &nbsp; <input id="filterOptionA1" type="text" class="span2 filter-slider" value="" data-slider-min="-600" data-slider-max="1600" data-slider-step="5" data-slider-value="[15,1600]"/> -->
                                                 </div>
                                                 <div class="accordion-body">
                                                     <table class="table-responsive filter-table">
@@ -489,7 +490,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA2" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng doanh thu Bình quân 3 năm (%)</span>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -516,7 +517,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <!-- <span class="badge bg-primary filter-title">Tăng trưởng doanh thu Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA2" type="text" class="span2 filter-slider" value="" data-slider-min="-100" data-slider-max="6800" data-slider-step="5" data-slider-value="[8,6800]"/> -->
                                                 </div>
                                                 <div class="accordion-body">
                                                     <table class="table-responsive filter-table">
@@ -527,7 +527,7 @@
                                                                         <div class="input-group-text">
                                                                           <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionA3" checked>
                                                                         </div>
-                                                                        <span class="input-group-text filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span>
+                                                                        <span class="input-group-text filter-title width-85-percent">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span>
                                                                     </div>
                                                                 </td>
                                                                 <td class="text-left" style="width: 75%">
@@ -554,7 +554,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <!-- <span class="badge bg-primary filter-title">Tăng trưởng lợi nhuận Bình quân 3 năm (%)</span> &nbsp; &nbsp; <input id="filterOptionA3" type="text" class="span2 filter-slider" value="" data-slider-min="-27800" data-slider-max="37000" data-slider-step="5" data-slider-value="[18,10200]"/> -->
                                                 </div>
                                               </div>
                                             </div>
@@ -586,7 +585,7 @@
                                                                             <div class="input-group-text">
                                                                               <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionS" checked>
                                                                             </div>
-                                                                            <span class="input-group-text filter-title">Khối lượng trung bình 3 tháng</span>
+                                                                            <span class="input-group-text filter-title width-85-percent">Khối lượng trung bình 3 tháng</span>
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-left" style="width: 75%">
@@ -613,7 +612,6 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <!-- <span class="badge bg-primary filter-title">Khối lượng trung bình 3 tháng</span> &nbsp; &nbsp; <input id="filterOptionS" type="text" class="span2 filter-slider" value="" data-slider-min="0" data-slider-max="36637567" data-slider-step="5" data-slider-value="[15000,36637567]"/> -->
                                                     </div>
                                                 </div>
                                               </div>
@@ -633,7 +631,7 @@
                                                                             <div class="input-group-text">
                                                                               <input class="form-check-input mt-0 ckFilter" type="checkbox" value="filterOptionL" checked>
                                                                             </div>
-                                                                            <span class="input-group-text filter-title">RS (52 tuần)</span>
+                                                                            <span class="input-group-text filter-title width-85-percent">RS (52 tuần)</span>
                                                                         </div>
                                                                     </td>
                                                                     <td class="text-left" style="width: 75%">
@@ -660,7 +658,6 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <!-- <span class="badge bg-primary filter-title">RS (52 tuần)</span> &nbsp; &nbsp; <input id="filterOptionL" type="text" class="span2 filter-slider" value="" data-slider-min="1" data-slider-max="99" data-slider-step="1" data-slider-value="[70,99]"/> -->
                                                     </div>
                                                 </div>
                                               </div>
@@ -710,7 +707,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="technical" role="tabpanel" aria-labelledby="technical-tab">
+                                <!-- <div class="tab-pane fade" id="technical" role="tabpanel" aria-labelledby="technical-tab">
                                     <div class="card-body filter-group">
                                         <div class="accordion" id="accordionTAFilter">
                                               <div class="accordion-item">
@@ -722,9 +719,9 @@
                                                 <div id="collapseMACD" class="accordion-collapse collapse" aria-labelledby="headingMACD" data-bs-parent="#accordionTAFilter">
                                                   <div class="accordion-body">
                                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDUpOption" autocomplete="off" value="BreakUpperBound_MACDvsSignal_Daily">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDUpOption" autocomplete="off" value="BreakUpperBound_MACDvsSignal_$$">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDUpOption">MACD cắt lên đường tín hiệu</label>             
-                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDDownOption" autocomplete="off" value="BreakLowerBound_MACDvsSignal_Daily">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterMACDDownOption" autocomplete="off" value="BreakLowerBound_MACDvsSignal_$$">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterMACDDownOption">MACD cắt xuống đường tín hiệu</label>                                                              
                                                     </div>
                                                   </div>
@@ -739,9 +736,9 @@
                                                 <div id="collapseRSI" class="accordion-collapse collapse" aria-labelledby="headingRSI" data-bs-parent="#accordionTAFilter">
                                                   <div class="accordion-body">
                                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverBuyOption" autocomplete="off" value="RSI14_Daily_T0_Values_Greater">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverBuyOption" autocomplete="off" value="RSI14_$$_T0_Values_Greater">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverBuyOption">RSI14 quá mua</label>             
-                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverSellOption" autocomplete="off" value="RSI14_Daily_T0_Values_Less">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterRSIOverSellOption" autocomplete="off" value="RSI14_$$_T0_Values_Less">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterRSIOverSellOption">RSI14 quá bán</label>       
                                                     </div>
                                                   </div>
@@ -756,9 +753,9 @@
                                                 <div id="collapseBollingerBand" class="accordion-collapse collapse" aria-labelledby="headingBollingerBand" data-bs-parent="#accordionTAFilter">
                                                   <div class="accordion-body">
                                                     <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerUpperBandOption" autocomplete="off" value="BreakUpperBound_UpperBands_Daily">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerUpperBandOption" autocomplete="off" value="BreakUpperBound_UpperBands_$$">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerUpperBandOption">Giá vượt biên trên</label>             
-                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerLowerBandOption" autocomplete="off" value="BreakLowerBound_LowerBands_Daily">
+                                                        <input type="checkbox" class="btn-check" id="btnFilterBollingerLowerBandOption" autocomplete="off" value="BreakLowerBound_LowerBands_$$">
                                                         <label class="btn btn-outline-primary btn-sm" for="btnFilterBollingerLowerBandOption">Giá thủng biên dưới</label>       
                                                     </div>
                                                   </div>
@@ -781,7 +778,7 @@
                                               </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -799,9 +796,321 @@
             </div>
             <div class="grid-container">
                 <div id='showFiltersData' class="table-responsive">
-                    <!-- <p>
-                        <h6 class="d-flex justify-content-center">Chức năng vẫn đang phát triển!</h6>
-                    </p> -->
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
+            <div class="technical-analysis">
+                <div class="card">
+                    <div class="card-header card-criteria">
+                      <span>Tiêu Chí PT Kỹ Thuật</span>
+                      <button type="button" class="btn btn-success btn-sm" onclick='technicalAnalysics()' style="float: right;">Áp dụng</button>
+                    </div>
+                    <div class="card-body filter-group">
+                        <div class="accordion" id="accordionTAChart">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingCandleStickChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCandleStickChart" aria-expanded="false" aria-controls="collapseCandleStickChart">
+                                      Loại Nến
+                                    </button>
+                                </h2>
+                                <div id="collapseCandleStickChart" class="accordion-collapse collapse" aria-labelledby="headingCandleStickChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter15mOption" name="btnCandleStickTAOption" value="_15m">
+                                                <label class="form-check-label" for="btnFilter15mOption">15 phút</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter15mOption" name="btnCandleStickTAOption" value="Hourly">
+                                                <label class="form-check-label" for="btnFilter1hOption">1 giờ</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter15mOption" name="btnCandleStickTAOption" checked value="Daily">
+                                                <label class="form-check-label" for="btnFilter1dOption">1 ngày</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter15mOption" name="btnCandleStickTAOption" value="Weekly">
+                                                <label class="form-check-label" for="btnFilter1wOption">1 tuần</label>   
+                                            </div>                                                 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSMAChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSMAChart" aria-expanded="false" aria-controls="collapseSMAChart">
+                                    Đường Trung Bình Đơn Giản (SMA)
+                                  </button>
+                                </h2>
+                                <div id="collapseSMAChart" class="accordion-collapse collapse collapse-custom" aria-labelledby="headingSMAChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA20UpChartOption" type="checkbox" value="ClimbUp_SMA20_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên đường SMA20</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA50UpChartOption" type="checkbox" value="ClimbUp_SMA50_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên đường SMA50</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA200UpChartOption" type="checkbox" value="ClimbUp_SMA200_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên đường SMA200</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA20DownChartOption" type="checkbox" value="ClimbDown_SMA20_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống đường SMA20</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA50DownChartOption" type="checkbox" value="ClimbDown_SMA50_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống đường SMA50</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA200DownChartOption" type="checkbox" value="ClimbDown_SMA200_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống đường SMA200</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA20UpSMA50ChartOption" type="checkbox" value="BreakUpperBound_SMA20vsSMA50_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">SMA20 cắt lên trên SMA50</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA50UpSMA200ChartOption" type="checkbox" value="BreakUpperBound_SMA50vsSMA200_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">SMA50 cắt lên trên SMA200</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA20DownSMA50ChartOption" type="checkbox" value="BreakLowerBound_SMA20vsSMA50_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">SMA20 cắt xuống dưới SMA50</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA50DownSMA200ChartOption" type="checkbox" value="BreakLowerBound_SMA50vsSMA200_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">SMA50 cắt xuống dưới SMA200</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA20CompareSMA50ChartOption" type="checkbox" value="SMA20vsSMA50_$$">
+                                        </div>
+                                        <select class="form-select form-select-sm selection-title" id="btnFilterSMA20CompareSMA50ChartSelection">
+                                            <option value=">">SMA20 > SMA50</option>
+                                            <option value="=">SMA20 = SMA50</option>
+                                            <option value="<">SMA20 < SMA50</option>
+                                        </select>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterSMA50CompareSMA200ChartOption" type="checkbox" value="SMA50vsSMA200_$$">
+                                        </div>
+                                        <select class="form-select form-select-sm selection-title" id="btnFilterSMA50CompareSMA200ChartSelection">
+                                            <option value=">">SMA50 > SMA200</option>
+                                            <option value="=">SMA50 = SMA200</option>
+                                            <option value="<">SMA50 < SMA200</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingIchimokuChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseIchimokuChart" aria-expanded="false" aria-controls="collapseIchimokuChart">
+                                    ICHIMOKU
+                                  </button>
+                                </h2>
+                                <div id="collapseIchimokuChart" class="accordion-collapse collapse collapse-custom" aria-labelledby="headingIchimokuChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterTenkanUpChartOption" type="checkbox" value="BreakUpperBound_Tenkan_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên trên Tenkan(9)</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterKijunUpChartOption" type="checkbox" value="BreakUpperBound_Kijun_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên trên Kijun(26)</span>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterCloudUpChartOption" type="checkbox" value="BreakUpperBound_Cloud_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt lên trên Cloud(52)</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterTenkanDownChartOption" type="checkbox" value="BreakLowerBound_Tenkan_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống dưới Tenkan(9)</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterKijunDownChartOption" type="checkbox" value="BreakLowerBound_Kijun_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống dưới Kijun(26)</span>
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterCloudDownChartOption" type="checkbox" value="BreakLowerBound_Cloud_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá cắt xuống dưới Cloud(52)</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingMACDChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMACDChart" aria-expanded="false" aria-controls="collapseMACDChart">
+                                    MACD
+                                  </button>
+                                </h2>
+                                <div id="collapseMACDChart" class="accordion-collapse collapse collapse-custom" aria-labelledby="headingMACDChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterMACDUpChartOption" type="checkbox" value="BreakUpperBound_MACDvsSignal_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">MACD cắt lên đường Tín hiệu</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterMACDDownChartOption" type="checkbox" value="BreakLowerBound_MACDvsSignal_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">MACD cắt xuống đường Tín hiệu</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRSIChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRSIChart" aria-expanded="false" aria-controls="collapseRSIChart">
+                                    RSI14
+                                  </button>
+                                </h2>
+                                <div id="collapseRSIChart" class="accordion-collapse collapse collapse-custom" aria-labelledby="headingRSIChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterRSIOverBuyChartOption" type="checkbox" value="BreakUpperBound_RSI14_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">RSI14 quá mua</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterRSIOverSellChartOption" type="checkbox" value="BreakLowerBound_RSI14_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">RSI14 quá bán</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterRSIRangeValueChartOption" type="checkbox" value="RSI14_$$_T0_Values">
+                                        </div>
+                                        <select class="form-select form-select-sm selection-title" id="btnFilterRSIRangeValueChartOptionSelection">
+                                            <option value="RSI14_$$_T0_Values_Less_30">RSI14 < 30</option>
+                                            <option value="RSI14_$$_T0_Values_Less_40">RSI14 < 40</option>
+                                            <option value="RSI14_$$_T0_Values_Less_60">RSI14 < 60</option>
+                                            <option value="RSI14_$$_T0_Values_Less_70">RSI14 < 70</option>
+                                            <option value="RSI14_$$_T0_Values_Equal_30">RSI14 = 30</option>
+                                            <option value="RSI14_$$_T0_Values_40">RSI14 = 40</option>
+                                            <option value="RSI14_$$_T0_Values_60">RSI14 = 60</option>
+                                            <option value="RSI14_$$_T0_Values_70">RSI14 = 70</option>
+                                            <option value="RSI14_$$_T0_Values_Greater_30">RSI14 > 30</option>
+                                            <option value="RSI14_$$_T0_Values_Greater_40">RSI14 > 40</option>
+                                            <option value="RSI14_$$_T0_Values_Greater_60">RSI14 > 60</option>
+                                            <option value="RSI14_$$_T0_Values_Greater_70">RSI14 > 70</option>
+                                        </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBollingerBandChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBollingerBandChart" aria-expanded="false" aria-controls="collapseBollingerBandChart">
+                                    Bollinger Band (20,2)
+                                  </button>
+                                </h2>
+                                <div id="collapseBollingerBandChart" class="accordion-collapse collapse" aria-labelledby="headingBollingerBandChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterBollingerUpperBandChartOption" type="checkbox" value="BreakUpperBound_UpperBands_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá vượt biên trên</span>
+                                    </div>
+                                    <div class="separation"></div>
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnFilterBollingerLowerBandChartOption" type="checkbox" value="BreakLowerBound_LowerBands_$$">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Giá thủng biên dưới</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNewOptionChart">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewOptionChart" aria-expanded="false" aria-controls="collapseNewOptionChart">
+                                    Thông số khác
+                                  </button>
+                                </h2>
+                                <div id="collapseNewOptionChart" class="accordion-collapse collapse" aria-labelledby="headingNewOptionChart" data-bs-parent="#accordionTAChart">
+                                  <div class="accordion-body">                       
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                          <input class="form-check-input mt-0 ckFilter" id="btnChartOverTop" type="checkbox" value="IsPeakOfTimes">
+                                        </div>
+                                        <span class="input-group-text filter-title-default">Vượt đỉnh mọi thời đại</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        <hr>
+                        <div class="grid-container" style="white-space: inherit !important;">
+                            <div id='showTechnicalAnalysisContent' class="table-responsive">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="chart-content">
+                <div><img class="logo-watermark" src="./images/logo2.png"></div>
+                <div class="grid-container chartContainer" style="transition: opacity 0.5s ease 0s; opacity: 1; position: relative;">
+                    
                 </div>
             </div>
         </div>
@@ -836,6 +1145,7 @@
     <script src="js/summary.js"></script>
     <script src="js/fields.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/charts.js"></script>
     <script src="js/websocket.js"></script>
     <script src="js/boards.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>

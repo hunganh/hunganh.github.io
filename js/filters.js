@@ -288,6 +288,7 @@ function filterData() {
     var rsi14DailyT0ValuesLess = $('#btnFilterRSIOverSellOption:checked').val();
     var breakUpperBoundUpperBandsDaily = $('#btnFilterBollingerUpperBandOption:checked').val();
     var breakLowerBoundLowerBandsDaily = $('#btnFilterBollingerLowerBandOption:checked').val();
+    var breakLowerBoundLowerBandsDaily = $('#btnFilterBollingerLowerBandOption:checked').val();
 
     var taFilter = { filterByKeys:[], filterByKeyAndValues: {}, compareResultOfTwoSMAs: null }
     var filterByKeys = [];
@@ -365,7 +366,7 @@ function filterData() {
                     res += `<tr><td colspan="4" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
                 }
             } else {
-                res += `<tr><td>Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
+                res += `<tr><td colspan="4">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
             }
             res += `</tbody></table>`;
             $("#showFiltersData").html(res);

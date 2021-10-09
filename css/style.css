@@ -784,3 +784,70 @@ body .ico {
   background-color: #19925a !important;
   border-color: #19925a !important;
 }
+
+.chartContainer {
+  height: 100%;
+}
+
+.logo-watermark {
+  height: 44px;
+  width: 58px;
+  position: absolute;
+  top: 37px;
+  right: 14px;
+  z-index: 100;
+}
+
+.technical-analysis {
+  float: left;
+  width: 30%;
+  position: fixed;
+}
+
+.technical-analysis .filter-group {
+  padding: .5rem .5rem !important;
+}
+
+.chart-content {
+  float: right;
+  width: 69%;
+}
+
+.card-criteria {
+  background-color: #856d269e !important;
+}
+
+.separation {
+  height: 5px;
+}
+
+hr {
+  margin: .2rem 0 !important;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: .25;
+}
+
+
+.fixTableHead {
+  overflow-y: auto;
+}
+.fixTableHead thead th {
+  position: sticky;
+  top: 0;
+}
+
+.filter-title-default,.filter-title {
+  cursor: pointer;
+  width: 90%;
+}
+
+.width-85-percent {
+  width: 85% !important;
+}
+
+.selection-title {
+  font-size: 1em !important;
+  font-weight: 600 !important;
+}

@@ -24,8 +24,8 @@ const TOTAL_NET_BUY_TRADE_VOLUME = "totalNetBuyTradeVolume";
 const TOTAL_NET_SELL_TRADE_VOLUME = "totalNetSellTradeVolume";
 const TU_DOANH = "tudoanh";
 const KHOI_NGOAI = "khoingoai";
-const DATA_URL = "http://data-statistics-api.herokuapp.com";
-// const DATA_URL = "http://localhost:3001";
+// const DATA_URL = "http://data-statistics-api.herokuapp.com";
+const DATA_URL = "http://localhost:3001";
 const API_DATA_SERVER_1 = "https://fwtapi1.fialda.com";
 const API_DATA_SERVER_2 = "https://fwtapi2.fialda.com";
 const FILES_DATA_URL = `${DATA_URL}/files`;
@@ -45,11 +45,12 @@ const FIALDA_STOCK_EVENT_PATH = "/Event/GetAll";
 const FIALDA_STOCK_COMPANY_NEWS = "/StockInfo/GetCompanyNews";
 const FIALDA_ANALYSIS_REPORT_URL = "https://cdn.fialda.com/Attachment/AnalysisReport/";
 const IMAGE_NEWS_URL = "https://cdn.fialda.com/Images/News/";
+const CHART_URL_V1 = "https://chart.vps.com.vn/tv/";
+const CHART_URL_V2 = "https://iboard.ssi.com.vn/chart/";
 
-
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -587,3 +588,17 @@ function viewArticleDetail(id) {
     window.open(`news.html?id=${id}`, '_blank');
 }
 
+
+$(".filter-title,.filter-title-default").click(function(){
+    var $input = $(this);
+    var prevElement = $input.prev().find("input");
+    if (prevElement.prop( "checked")) {     
+        prevElement.prop( "checked", false ).change();
+    } else {
+        prevElement.prop( "checked", true ).change();
+    }
+});
+
+function getValueByCandleStickType(value, type) {
+    return value.replaceAll("$$", type);
+}
