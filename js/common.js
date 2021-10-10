@@ -34,6 +34,7 @@ const CORS_PROXY_URL = `${DATA_URL}/fetch`;
 const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
 const STATISTICS_DATA_URL = `${DATA_URL}/statistics`;
 const STOCK_INFOR_DATA_OF_FIELD_URL = `${DATA_URL}/fields/symbols`;
+const STOCK_FILTERS_URL = `${DATA_URL}/filters`;
 const FIALDA_API_V1_URL = `${API_DATA_SERVER_1}/api/services/app`;
 const FIALDA_API_V2_URL = `${API_DATA_SERVER_2}/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";

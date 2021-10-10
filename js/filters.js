@@ -1,13 +1,26 @@
+var sortFiltersDefault = "changePercent1D";
+var sortFiltersType = "desc";
 var filterOptionC, filterOptionC1, filterOptionC2, filterOptionC3, filterOptionA, filterOptionA1, filterOptionA2, filterOptionA3, filterOptionS, filterOptionS;
 var arrFilterIds = ["filterOptionC", "filterOptionC1", "filterOptionC2", "filterOptionC3", "filterOptionA", "filterOptionA1", "filterOptionA2", "filterOptionA3", "filterOptionS", "filterOptionL"]
 var headFiltersData = `<table class="left-position table table-bordered table-striped table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>#</th>    
-                                    <th>Mã CP</th>
-                                    <th>Tên Doanh Nghiệp</th>
-                                    <th>Sàn CK</th>
-                                </tr>          
+                                    <th rowspan="2">#</th>    
+                                    <th rowspan="2">Mã CP</th>
+                                    <th rowspan="2">Tên Doanh Nghiệp</th>
+                                    <th rowspan="2">Sàn CK</th>
+                                    <th colspan="8">% Thay đổi</th>
+                                </tr>
+                                <tr>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent1D', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 ngày">1 ngày <span id="changePercent1D" class="sort desc"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent1W', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tuần">1 tuần <span id="changePercent1W" class="sort"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent1M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 tháng">1 tháng <span id="changePercent1M" class="sort"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent3M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 3 tháng">3 tháng <span id="changePercent3M" class="sort"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent6M', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 6 tháng">6 tháng <span id="changePercent6M" class="sort"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercentYTD', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu từ đầu năm đến nay">YTD <span id="changePercentYTD" class="sort"></span></th>
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent1Y', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 1 năm">1 năm <span id="changePercent1Y" class="sort"></span></th>                                    
+                                    <th class="tr-cursor" onclick="sortFiltersTable('changePercent3Yr', this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sort dữ liệu theo 3 năm">3 năm <span id="changePercent3Yr" class="sort"></span></th>
+                                </tr>       
                             </thead>
                             <tbody>`;
 var filtersDataJson = null;
@@ -334,46 +347,90 @@ function filterData() {
                 };
     $("#showFiltersData").html(`</br>${loadingHTML}`);
     setTimeout(() => {
-        var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_STOCK_FILTERS_PATH}`);
         var res = headFiltersData;
         $.ajax({
-            url: `${CORS_PROXY_URL}/${URL}`,
+            url: `${STOCK_FILTERS_URL}`,
             method: "POST",
             data: JSON.stringify(data),
             headers: {
                 "content-type": "application/json;charset=UTF-8" // Or add this line
             }
         }).done(function (response) {
-            if (response && response.result) {
-                if (response.result.items.length > 0) {
-                    var tickerCodes = getTickerCode(response.result.items);
-                    if (tickerCodes.length > 0) {
-                        var index = 0;
-                        tickerCodes.forEach(item => {
-                            var stockInfo = stockData.find(x => x.symbol === item);
-                            res += `<tr class="tr-cursor" onclick=showTickerInfor("${item}")>
-                                        <td>${index + 1}</td>
-                                        <td class="bold-text">${item}</td>
-                                        <td class="text-left">${stockInfo && stockInfo.name !== undefined ? stockInfo.name : ""}</td>
-                                        <td>${stockInfo && stockInfo.exchange !== undefined ? stockInfo.exchange : ""}</td>
-                                    </tr>`;
-                            index++;
-                        });
-                    } else {
-                        res += `<tr><td colspan="4" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
-                    }
+            if (response && response.length > 0) {
+                var codes = response.map(x => x.symbol);
+                codes = getTickerCode(codes);
+                if (codes.length > 0) {
+                    filtersDataJson = response.filter(x => codes.indexOf(x.symbol) > -1);
                 } else {
-                    res += `<tr><td colspan="4" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
+                    filtersDataJson = response;
                 }
+                res += processFiltersDataInput("changePercent1D", "desc");
             } else {
-                res += `<tr><td colspan="4">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
+                res += `<tr><td colspan="12" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
             }
             res += `</tbody></table>`;
             $("#showFiltersData").html(res);
+            initTooltips();
         }).fail(function (jqXHR, textStatus, error) {
             $("#showFiltersData").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
         });
     }, 100);
+}
+
+function processFiltersDataInput (sortField, sortType) {
+    sortFiltersDefault = sortField;
+    var res = "";
+    filtersDataJson.sort(function (a, b) {
+        var c = a[sortField] !== null ? a[sortField] : 0;
+        var d = b[sortField] !== null ? b[sortField] : 0;
+        if (sortType === "desc") {
+            return d - c;
+        }
+        return c-d;
+    });
+    index = 0;
+    filtersDataJson.forEach(item => {     
+        var day = item.changePercent1D !== -99999999999 ? `${(item.changePercent1D).toFixed(2)}` : "0";
+        var week = item.changePercent1W !== -99999999999 ? (item.changePercent1W).toFixed(2) : "N/A";
+        var month_1 = item.changePercent1M !== -99999999999 ? (item.changePercent1M).toFixed(2) : "N/A";
+        var month_3 = item.changePercent3M !== -99999999999 ? (item.changePercent3M).toFixed(2) : "N/A";
+        var month_6 = item.changePercent6M !== -99999999999 ? (item.changePercent6M).toFixed(2) : "N/A";
+        var ytd = item.changePercentYTD !== -99999999999 ? (item.changePercentYTD).toFixed(2) : "N/A";
+        var year = item.changePercent1Y !== -99999999999 ? (item.changePercent1Y).toFixed(2) : "N/A";
+        var year_3 = item.changePercent3Yr !== -99999999999 ? (item.changePercent3Yr).toFixed(2) : "N/A";
+        res += `<tr class="tr-cursor" onclick=showTickerInfor("${item.symbol}")>
+                    <td>${index + 1}</td>
+                    <td class="bold-text">${item.symbol}</td>
+                    <td class="text-left">${item.name}</td>
+                    <td>${item.exchange}</td>
+                    <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
+                    <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
+                    <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
+                    <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
+                    <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
+                    <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
+                    <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
+                    <td class="${year_3 > 0 ? 'up' : year_3 < 0 ? 'down' : 'reference'} bold">${year_3}%</td>
+                </tr>`;
+        index ++;
+    });
+    return res;
+}
+
+function sortFiltersTable(time, self) {
+    sortFiltersType = "desc";
+    var childSpan = $(self).find("span");
+    if (childSpan.hasClass("desc")) {
+        sortFiltersType = "asc";
+    }
+
+    var res = headFiltersData;
+    res += processFiltersDataInput(time, sortFiltersType);
+    res += `</tbody></table>`;
+    $("#showFiltersData").html(res);
+    initTooltips();
+    removeAllSortClass();
+    $("#" + time).addClass(sortFiltersType);
 }
 
 function getTickerCode(codes) {
