@@ -54,45 +54,49 @@ function loadFieldsData() {
 function processFieldsDataInput (sortField, sortType) {
     sortFieldDefault = sortField;
     var res = "";
-    fieldsDataJson.result.sort(function (a, b) {
-        var c = a[sortField] !== null ? a[sortField] : 0;
-        var d = b[sortField] !== null ? b[sortField] : 0;
-        if (sortType === "desc") {
-            return d - c;
-        }
-        return c-d;
-    });
-    fieldsDataJson.result.forEach(item => {
-        var eps = $.isNumeric(item.eps_TTM) ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(0)) : "N/A";
-        var pe = $.isNumeric(item.pe) ? (item.pe).toFixed(2) : "N/A";
-        var ps = $.isNumeric(item.ps) ? (item.ps).toFixed(2) : "N/A";
-        var pb = $.isNumeric(item.pb) ? (item.pb).toFixed(2) : "N/A";
-        var roa = $.isNumeric(item.mE_ROA) ? `${(item.mE_ROA * 100).toFixed(2)}%` : "N/A";
-        var roe = $.isNumeric(item.mE_ROE) ? `${(item.mE_ROE * 100).toFixed(2)}%` : "N/A";
-        var day = $.isNumeric(item.changePercent1D) ? (item.changePercent1D * 100).toFixed(2) : "0";
-        var week = $.isNumeric(item.changePercent1W) ? (item.changePercent1W * 100).toFixed(2) : "N/A";
-        var month_1 = $.isNumeric(item.changePercent1M) ? (item.changePercent1M * 100).toFixed(2) : "N/A";
-        var month_3 = $.isNumeric(item.changePercent3M) ? (item.changePercent3M * 100).toFixed(2) : "N/A";
-        var month_6 = $.isNumeric(item.changePercent6M) ? (item.changePercent6M * 100).toFixed(2) : "N/A";
-        var year = $.isNumeric(item.changePercent1Y) ? (item.changePercent1Y * 100).toFixed(2) : "N/A";
-        var ytd = $.isNumeric(item.changePercentYTD) ? (item.changePercentYTD * 100).toFixed(2) : "N/A";
-        res += `<tr class="tr-cursor" action="collapsed" onclick="showDetailField('${item.icbName}', '${item.icbCode}', this)">
-                    <td class="text-left filter-sort"><b class="top10">${item.icbName}</b> &nbsp; <span class="sort arrow-right"></span></td>
-                    <td class="top10">${eps}</td>
-                    <td class="top10">${pe}</td>
-                    <td class="top10">${ps}</td>
-                    <td class="top10">${pb}</td>
-                    <td class="top10">${roa}</td>
-                    <td class="top10">${roe}</td>
-                    <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
-                    <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
-                    <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
-                    <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
-                    <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
-                    <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
-                    <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
-                </tr>`;
-    });
+    if (fieldsDataJson) {
+        fieldsDataJson.result.sort(function (a, b) {
+            var c = a[sortField] !== null ? a[sortField] : 0;
+            var d = b[sortField] !== null ? b[sortField] : 0;
+            if (sortType === "desc") {
+                return d - c;
+            }
+            return c-d;
+        });
+        fieldsDataJson.result.forEach(item => {
+            var eps = $.isNumeric(item.eps_TTM) ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(0)) : "N/A";
+            var pe = $.isNumeric(item.pe) ? (item.pe).toFixed(2) : "N/A";
+            var ps = $.isNumeric(item.ps) ? (item.ps).toFixed(2) : "N/A";
+            var pb = $.isNumeric(item.pb) ? (item.pb).toFixed(2) : "N/A";
+            var roa = $.isNumeric(item.mE_ROA) ? `${(item.mE_ROA * 100).toFixed(2)}%` : "N/A";
+            var roe = $.isNumeric(item.mE_ROE) ? `${(item.mE_ROE * 100).toFixed(2)}%` : "N/A";
+            var day = $.isNumeric(item.changePercent1D) ? (item.changePercent1D * 100).toFixed(2) : "0";
+            var week = $.isNumeric(item.changePercent1W) ? (item.changePercent1W * 100).toFixed(2) : "N/A";
+            var month_1 = $.isNumeric(item.changePercent1M) ? (item.changePercent1M * 100).toFixed(2) : "N/A";
+            var month_3 = $.isNumeric(item.changePercent3M) ? (item.changePercent3M * 100).toFixed(2) : "N/A";
+            var month_6 = $.isNumeric(item.changePercent6M) ? (item.changePercent6M * 100).toFixed(2) : "N/A";
+            var year = $.isNumeric(item.changePercent1Y) ? (item.changePercent1Y * 100).toFixed(2) : "N/A";
+            var ytd = $.isNumeric(item.changePercentYTD) ? (item.changePercentYTD * 100).toFixed(2) : "N/A";
+            res += `<tr class="tr-cursor" action="collapsed" onclick="showDetailField('${item.icbName}', '${item.icbCode}', this)">
+                        <td class="text-left filter-sort"><b class="top10">${item.icbName}</b> &nbsp; <span class="sort arrow-right"></span></td>
+                        <td class="top10">${eps}</td>
+                        <td class="top10">${pe}</td>
+                        <td class="top10">${ps}</td>
+                        <td class="top10">${pb}</td>
+                        <td class="top10">${roa}</td>
+                        <td class="top10">${roe}</td>
+                        <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
+                        <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
+                        <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
+                        <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
+                        <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
+                        <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
+                        <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
+                    </tr>`;
+        });
+    } else {
+        res += `<tr><td colspan="12">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
+    }
     return res;
 }
 

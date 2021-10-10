@@ -362,7 +362,7 @@ function filterData() {
                 if (codes.length > 0) {
                     filtersDataJson = response.filter(x => codes.indexOf(x.symbol) > -1);
                 } else {
-                    filtersDataJson = response;
+                    filtersDataJson = [];
                 }
                 res += processFiltersDataInput("changePercent1D", "desc");
             } else {
@@ -380,40 +380,44 @@ function filterData() {
 function processFiltersDataInput (sortField, sortType) {
     sortFiltersDefault = sortField;
     var res = "";
-    filtersDataJson.sort(function (a, b) {
-        var c = a[sortField] !== null ? a[sortField] : 0;
-        var d = b[sortField] !== null ? b[sortField] : 0;
-        if (sortType === "desc") {
-            return d - c;
-        }
-        return c-d;
-    });
-    index = 0;
-    filtersDataJson.forEach(item => {     
-        var day = item.changePercent1D !== -99999999999 ? `${(item.changePercent1D).toFixed(2)}` : "0";
-        var week = item.changePercent1W !== -99999999999 ? (item.changePercent1W).toFixed(2) : "N/A";
-        var month_1 = item.changePercent1M !== -99999999999 ? (item.changePercent1M).toFixed(2) : "N/A";
-        var month_3 = item.changePercent3M !== -99999999999 ? (item.changePercent3M).toFixed(2) : "N/A";
-        var month_6 = item.changePercent6M !== -99999999999 ? (item.changePercent6M).toFixed(2) : "N/A";
-        var ytd = item.changePercentYTD !== -99999999999 ? (item.changePercentYTD).toFixed(2) : "N/A";
-        var year = item.changePercent1Y !== -99999999999 ? (item.changePercent1Y).toFixed(2) : "N/A";
-        var year_3 = item.changePercent3Yr !== -99999999999 ? (item.changePercent3Yr).toFixed(2) : "N/A";
-        res += `<tr class="tr-cursor" onclick=showTickerInfor("${item.symbol}")>
-                    <td>${index + 1}</td>
-                    <td class="bold-text">${item.symbol}</td>
-                    <td class="text-left">${item.name}</td>
-                    <td>${item.exchange}</td>
-                    <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
-                    <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
-                    <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
-                    <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
-                    <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
-                    <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
-                    <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
-                    <td class="${year_3 > 0 ? 'up' : year_3 < 0 ? 'down' : 'reference'} bold">${year_3}%</td>
-                </tr>`;
-        index ++;
-    });
+    if (filtersDataJson && filtersDataJson.length > 0) {
+        filtersDataJson.sort(function (a, b) {
+            var c = a[sortField] !== null ? a[sortField] : 0;
+            var d = b[sortField] !== null ? b[sortField] : 0;
+            if (sortType === "desc") {
+                return d - c;
+            }
+            return c-d;
+        });
+        index = 0;
+        filtersDataJson.forEach(item => {     
+            var day = item.changePercent1D !== -99999999999 ? `${(item.changePercent1D).toFixed(2)}` : "0";
+            var week = item.changePercent1W !== -99999999999 ? (item.changePercent1W).toFixed(2) : "N/A";
+            var month_1 = item.changePercent1M !== -99999999999 ? (item.changePercent1M).toFixed(2) : "N/A";
+            var month_3 = item.changePercent3M !== -99999999999 ? (item.changePercent3M).toFixed(2) : "N/A";
+            var month_6 = item.changePercent6M !== -99999999999 ? (item.changePercent6M).toFixed(2) : "N/A";
+            var ytd = item.changePercentYTD !== -99999999999 ? (item.changePercentYTD).toFixed(2) : "N/A";
+            var year = item.changePercent1Y !== -99999999999 ? (item.changePercent1Y).toFixed(2) : "N/A";
+            var year_3 = item.changePercent3Yr !== -99999999999 ? (item.changePercent3Yr).toFixed(2) : "N/A";
+            res += `<tr class="tr-cursor" onclick=showTickerInfor("${item.symbol}")>
+                        <td>${index + 1}</td>
+                        <td class="bold-text">${item.symbol}</td>
+                        <td class="text-left">${item.name}</td>
+                        <td>${item.exchange}</td>
+                        <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
+                        <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
+                        <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
+                        <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
+                        <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
+                        <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
+                        <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
+                        <td class="${year_3 > 0 ? 'up' : year_3 < 0 ? 'down' : 'reference'} bold">${year_3}%</td>
+                    </tr>`;
+            index ++;
+        });
+    } else {
+        res += `<tr><td colspan="12" class="bold-text">Không có mã nào thỏa mãn tiêu chí.</td></tr>`;
+    }
     return res;
 }
 
