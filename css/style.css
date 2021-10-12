@@ -802,7 +802,7 @@ body .ico {
 .technical-analysis {
   float: left;
   width: 30%;
-  /* position: fixed; */
+  position: fixed;
 }
 
 .technical-analysis .filter-group {
