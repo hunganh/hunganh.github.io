@@ -3,6 +3,7 @@ $(document).ready(function(){
     var chartFielsSelections = getSelectionFieldsHTML("chart-fields-selection-options");
     $("#chart-fields-selection").html(chartFielsSelections);
     $(window).resize(function() {
+        $("#ifrTACharts").css("height", parseInt($(window).height()-50) + "px");
         setTATableHeight();
     });
 });
@@ -241,10 +242,11 @@ $("#accordionTAChart").click(function() {
 
 function setTATableHeight() {
     setTimeout(() => {
-        var height = $(document).height() - $("#accordionTAChart").height() - 100;
+        var height = $(window).height() - $("#accordionTAChart").height() - 100;
         $("#showTechnicalAnalysisContent").css("height", parseInt(height) + "px");
     }, 200);
 }
+
 
 // function showTAChart(symbol) {
 //     var scr = `https://chart.vps.com.vn/tv/?symbol=${symbol.toUpperCase()}&allowFullscreen=true&resolution=1D&lang=vi&u=375126&s=c8935171-138f-42fb-85bf-d8913e722b14&theme=Light&logo=none" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;`;
@@ -270,7 +272,8 @@ function generateChartIframe(symbol) {
         else if (candleStickType === "Weekly") {
             type = "1W";
         }
-        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=${type}&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
+        var height = $(window).height() - 50;
+        var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=${type}&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height:${height}px"></iframe>`;
         
         $(".chartContainer").html(charts);
     }, 500);
