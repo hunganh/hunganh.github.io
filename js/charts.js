@@ -1,13 +1,33 @@
 $(document).ready(function(){
     generateChartIframe("VNINDEX");
+    var chartFielsSelections = getSelectionFieldsHTML("chart-fields-selection-options");
+    $("#chart-fields-selection").html(chartFielsSelections);
+    $(window).resize(function() {
+        setTATableHeight();
+    });
 });
 
 function technicalAnalysics() {
     $("#accordionTAChart").find(".collapse").collapse('hide');
     $("#showTechnicalAnalysisContent").css("height", "200px");
     var loadingHTML = getLoadingHTML();
-    // Basic
-    var exchanges = ["HSX", "HNX", "UPCOM"];
+    // Exchange & Fields
+    var exchanges = [];
+    var hsx = $('#btnFilterHSXChartOption:checked').val();
+    var hnx = $('#btnFilterHNXChartOption:checked').val();
+    var upcom = $('#btnFilterUPCChartOption:checked').val();
+    if (hsx) {
+        exchanges.push(hsx);
+    }
+    if (hnx) {
+        exchanges.push(hnx);
+    }
+    if (upcom) {
+        exchanges.push(upcom);
+    }
+
+    var fielSelection = $('#chart-fields-selection-options').val();
+    var icbCodes = (fielSelection !== "null" ? [fielSelection] : null);
 
     // Candle Stick
     var candleStickType = $("input[name='btnCandleStickTAOption']:checked").val();
@@ -154,7 +174,7 @@ function technicalAnalysics() {
                 pageNumber: 1,
                 pageSize: 10000,
                 exchanges: exchanges,
-                icbCodes: null,
+                icbCodes: icbCodes,
                 sortColumn: "Symbol",
                 isDesc: false,
                 };
