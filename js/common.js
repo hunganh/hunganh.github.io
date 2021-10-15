@@ -35,11 +35,13 @@ const SYNTHESIS_DATA_URL = `${DATA_URL}/synthesis`;
 const STATISTICS_DATA_URL = `${DATA_URL}/statistics`;
 const STOCK_INFOR_DATA_OF_FIELD_URL = `${DATA_URL}/fields/symbols`;
 const STOCK_FILTERS_URL = `${DATA_URL}/filters`;
+const STOCK_LIVE_BOARD_URL = `${DATA_URL}/boards`;
 const FIALDA_API_V1_URL = `${API_DATA_SERVER_1}/api/services/app`;
 const FIALDA_API_V2_URL = `${API_DATA_SERVER_2}/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
 const FIALDA_GET_REPORT_PATH = "/AnalysisReport/GetByFilter";
 const FIALDA_GET_FIELDS_REPORT_PATH = "/Market/GetICBInfos";
+const FIALDA_STOCK_TA_RATINGS_PATH = "/TechnicalAnalysis/GetStockTARatings";
 const FIALDA_STOCK_FILTERS_PATH = "/Stock/GetByFilter";
 const FIALDA_STOCK_DEVIDENT_PATH = "/Stock/GetBonusEvents";
 const FIALDA_STOCK_EVENT_PATH = "/Event/GetAll";
@@ -78,7 +80,7 @@ function fetchContentByUrl(url) {
             }
         ).then((response) => {
             if (response.status === 200) {
-                resolve(response.text());
+                resolve(response.json());
             }
         }, (err) => {
             reject(err);

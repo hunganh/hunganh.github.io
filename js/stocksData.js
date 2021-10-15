@@ -3903,7 +3903,7 @@ var stockData = [
       "symbol": "HDC",
       "symbolID": 532,
       "icbCode": "8600",
-      "name": "Công ty Cổ phần Phát triển nhà Bà Rịa-Vũng Tàu",
+      "name": "Công ty Cổ phần Phát triển nhà Bà Rịa - Vũng Tàu",
       "exchange": "HSX"
     },
     {

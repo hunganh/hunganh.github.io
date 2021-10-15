@@ -34,7 +34,7 @@ function initSummaryData() {
 function setSummaryDataGlobal(values) {
     resetDataSummary();
     if (values && values.length > 0) {
-        summaryDataJson = JSON.parse(values);
+        summaryDataJson = values[0];
         processSummaryDataInput();
     }
 }

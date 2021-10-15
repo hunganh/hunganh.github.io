@@ -227,8 +227,8 @@ function technicalAnalysics() {
             }
             res += `</tbody></table>`;
             $("#showTechnicalAnalysisContent").html(res);
-            var width = (parseInt($("#accordionTAChart").width())) + "px";
-            $("#showTechnicalAnalysisContent").css("width", width);
+            // var width = (parseInt($("#accordionTAChart").width())) + "px";
+            // $("#showTechnicalAnalysisContent").css("width", width);
             setTATableHeight();
         }).fail(function (jqXHR, textStatus, error) {
             $("#showTechnicalAnalysisContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");

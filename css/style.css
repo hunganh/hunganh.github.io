@@ -1,3 +1,7 @@
+@font-face {
+  font-family: digital-7-regular;
+  src: url(/fonts/digital-7.regular.1e670d88.ttf)
+}
 body,
 th,
 td,
@@ -695,7 +699,8 @@ body .ico {
 }
 
 .footer-info {
-  background-color: #335ca899;
+  /* background-color: #335ca899; */
+  background-color: #1d1d1d99;
   color: #f4f4f4;
   padding: 0 10px;
 }
@@ -757,16 +762,14 @@ body .ico {
   border-radius: 3px;
 }
 
-.text-right {
-  text-align: right;
-}
-
 #newsContent {
   white-space: normal !important;
 }
 
 .fixed-bottom { 
-  right: auto !important;
+  /* right: auto !important; */
+  right: 0 !important;
+  left: auto !important;
   border-radius: 0 2px 2px 0 !important;
   padding-bottom: 1px !important;
 }
@@ -859,9 +862,11 @@ hr {
 
 .price-table {
   width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
+  /* border-collapse: collapse; */
+  /* table-layout: fixed;
   z-index: 9999;
+  display: unset !important; */
+  /* padding-right: 10px !important; */
 }
 
 .price-table-fix td.symbol svg,.price-table td.symbol svg {
@@ -891,7 +896,7 @@ hr {
 
 .price-table-fix .price-table-content .price-item,.price-table .price-table-content .price-item {
     width: 100%;
-    color: #fff;
+    color: #dedede;
     font-size: 12px;
     height: 28px
 }
@@ -921,20 +926,23 @@ hr {
 }
 
 .price-table-fix .price-table-content .price-item:nth-child(2n),.price-table .price-table-content .price-item:nth-child(2n) {
-    background:#000;
+    /* background:#000; */
+    background: #353434;
 }
 
 .price-table-fix .price-table-content .price-item:nth-child(2n) .remove-focus,.price-table .price-table-content .price-item:nth-child(2n) .remove-focus {
-    background: #000;
-    transition: all 1s ease-in
+    /* background: #000; */
+    background: #353434;
+    transition: all 1s ease-in;
 }
 
 .price-table-fix .price-table-content .price-item:nth-child(2n) .high-light-cell,.price-table .price-table-content .price-item:nth-child(2n) .high-light-cell {
-    background: #494949
+    background: #494949;
 }
 
 .price-table-fix .price-table-content .price-item:nth-child(odd),.price-table .price-table-content .price-item:nth-child(odd) {
-    background:#161616;
+    /* background:#161616; */
+    background: #232222;
 }
 
 .price-table-fix .price-table-content .price-item:nth-child(odd) .remove-focus,.price-table .price-table-content .price-item:nth-child(odd) .remove-focus {
@@ -976,23 +984,271 @@ hr {
   border-width: thin !important;
 }
 
+.price-width {
+  width: 54.85px !important;
+}
+
+.signal-width {
+  width: 78.89px !important;
+}
+
+.volume-width {
+  width: 64.68px !important;
+}
+
+.percent-width {
+  width: 56.67px !important;
+}
+
 .text-lime {
-  color: #0f0;
+  color: rgb(0, 244, 176);
 }
 
 .text-yellow {
-  color: #ffd900;
+  color: #fbac20;
+}
+
+.text-red {
+  color: rgb(255, 55, 71);
 }
 
 .text-purple {
-  color: #ff25ff;
+  color: #e683ff;
 }
 
 .text-blue {
-  color: #1eeeee;
+  color: #64baff;
 }
 
-.sticky-th1-left {
+.text-gray {
+  color: rgb(211, 211, 211);
+}
+
+.symbol-text {
+  font-weight: 600 !important;
+}
+
+@-o-keyframes highlightYellowBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #fbac20;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@-webkit-keyframes highlightYellowBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #fbac20;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@keyframes highlightYellowBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #fbac20;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@-o-keyframes highlightGreenBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #00836B;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@-webkit-keyframes highlightGreenBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #00836B;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@keyframes highlightGreenBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: #00836B;
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@-o-keyframes highlightRedBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: rgb(255, 55, 71);
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@-webkit-keyframes highlightRedBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: rgb(255, 55, 71);
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+@keyframes highlightRedBg {
+  0% {
+      background: none
+  }
+  50% {
+      background: rgb(255, 55, 71);
+      color: #dedede;
+  }
+  to {
+      background: none
+  }
+}
+
+.highlight-yellow {
+    -webkit-animation: highlightYellowBg 1s linear;
+    -o-animation: highlightYellowBg 1s linear;
+    animation: highlightYellowBg 1s linear;
+    -webkit-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+.highlight-green {
+  -webkit-animation: highlightGreenBg 1s linear;
+  -o-animation: highlightGreenBg 1s linear;
+  animation: highlightGreenBg 1s linear;
+  -webkit-animation-iteration-count: 1;
+  -o-animation-iteration-count: 1;
+  animation-iteration-count: 1
+}
+
+
+.highlight-red {
+  -webkit-animation: highlightRedBg 1s linear;
+  -o-animation: highlightRedBg 1s linear;
+  animation: highlightRedBg 1s linear;
+  -webkit-animation-iteration-count: 1;
+  -o-animation-iteration-count: 1;
+  animation-iteration-count: 1
+}
+
+/* #live-board-table {
+  height: 300px;
+} */
+
+.sticky-th {
+  position: sticky;
+  top: 0;
+}
+
+.sticky-th-2 {
+  position: sticky !important;
+  top: 44px !important;
+}
+
+.table>thead {
+  vertical-align: middle !important;
+}
+
+.date-time {
+  font-family: digital-7-regular;
+  font-weight: 550;
+  font-size: 15px;
+}
+
+#clock-time {
+  color: rgb(14, 203, 129);
+  font-weight: 600 !important;
+}
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+	cursor:pointer
+}
+
+::-webkit-scrollbar
+{
+	width: 9px;
+  height: 9px;
+	background-color: #F5F5F5;
+	cursor:pointer
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: rgb(240, 185, 11);
+  cursor:pointer
+}
+
+.ui-autocomplete {
+  z-index:2147483647;
+}
+
+/* ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: "#7B7B7B";
+}
+
+::-webkit-scrollbar-track {
+  background: "#7B7B7B";
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 3px
+}
+
+::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb:hover {
+  background: "#7B7B7B";
+} */
+
+
+/* .sticky-th1-left {
   position: sticky;
   left: 3px;
   z-index: 2;
@@ -1012,44 +1268,7 @@ hr {
   position: sticky;
   left: 162px;
   z-index: 2;
-}
-
-/* .sticky-colspan-right {
-  position: sticky;
-  right: 0px;
-  z-index: 2;
-}
-
-.sticky-th1-right {
-  position: sticky;
-  right: 341px;
-  z-index: 2;
-}
-.sticky-th2-right {
-  position: sticky;
-  right: 283px;
-  z-index: 2;
-}
-.sticky-th3-right {
-  position: sticky;
-  right: 212px;
-  z-index: 2;
-}
-.sticky-th4-right {
-  position: sticky;
-  right: 142px;
-  z-index: 2;
-}
-.sticky-th5-right {
-  position: sticky;
-  right: 71px;
-  z-index: 2;
-}
-.sticky-th6-right {
-  position: sticky;
-  right: 0px;
-  z-index: 2;
-} */
+} 
 
 .sticky-td1-left {
   position: sticky;
@@ -1071,7 +1290,7 @@ hr {
   position: sticky;
   left: 162px;
   z-index: 2;
-}
+}*/
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
   .example {background: red;}

@@ -3,7 +3,7 @@ realtime.fnInitSocket = function(){
     if(_socket == null || _socket == 'undefined'){
         _socket = io(cfg.socketLink);
         _socket.on("connect", function(dt){
-            console.info("CONNECT", cfg.socketLink);
+            console.info("CONNECTED TRADING VIEW REALTIME");
             realtime.fnChangeSymbol("");
         });
     } else {
