@@ -51,9 +51,9 @@ const IMAGE_NEWS_URL = "https://cdn.fialda.com/Images/News/";
 const CHART_URL_V1 = "https://chart.vps.com.vn/tv/";
 const CHART_URL_V2 = "https://iboard.ssi.com.vn/chart/";
 
-// $(document).on("contextmenu", function (e) {        
-//     e.preventDefault();
-// });
+$(document).on("contextmenu", function (e) {        
+    e.preventDefault();
+});
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -619,6 +619,10 @@ function reconnectWS() {
     global.liveboard.Result = -1;
     initWebsocket();
     StartWS();
+    hideDisconnectionMessageToast();
+}
+
+function hideDisconnectionMessageToast() {
     var disconnectionMessageToast = $("#disconnectionMessageToast");
     disconnectionMessageToast.toast().hide();
 }

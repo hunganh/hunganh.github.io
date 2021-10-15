@@ -51,6 +51,7 @@ function initWebsocket() {
             $("#status-connect").text("Kết nối ổn định").css("color", "rgb(14, 203, 129)");
             socketCurrentUnRegister();
             messageRegister();
+            hideDisconnectionMessageToast();
             n.resolve();
         });
         global.liveboard.Socket.on("disconnect", function () {
