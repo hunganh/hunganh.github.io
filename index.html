@@ -21,14 +21,15 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
+    <link rel="stylesheet" href="css/virtual-select.min.css" />
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.bundle.min.js"></script>
     <script src="js/lib/bootstrap-slider.min.js"></script>
     <script src="js/lib/charting_library.min.js"></script>
     <script src="js/lib/socket.io.js"></script>
     <script src="js/lib/lz-string.min.js"></script>
-    <link rel="stylesheet" href="css/virtual-select.min.css" />
     <script src="js/lib/virtual-select.min.js"></script>
+    <script src="js/lib/jquery.tablednd.js"></script>
 </head>
 <body>
     <ul class="nav nav-tabs tabs" id="myTab" role="tablist">
@@ -1199,7 +1200,7 @@
                   <div style="margin: 0 auto" class="bold-text"> CHỨC NĂNG NÀY VẪN ĐANG ĐƯỢC THỬ NGHIỆM & PHÁT TRIỂN</div>
                 </div>              
                 <div class="table-responsive" id="live-board-table">
-                    <table class="table table-bordered table-striped table-hover price-table fixTableHead">
+                    <table class="table table-bordered table-striped table-hover price-table fixTableHead" id="live-board-price-table">
                         <thead class="table-light" style="word-wrap: break-word !important;">
                             <tr>
                                 <th rowspan="2" class="sticky-th">Mã</th>
@@ -1232,7 +1233,7 @@
                             </tr>
                             <tr>
                                 <th class="sticky-th-2 signal-width">Đường TB</th>
-                                <th class="sticky-th-2 signal-width">Giao Động</th>
+                                <th class="sticky-th-2 signal-width">Động Lượng</th>
                                 <th class="sticky-th-2 signal-width">Xu Hướng</th>
                                 <th class="sticky-th-2 signal-width">Dòng Tiền</th>
                                 <th class="sticky-th-2 signal-width">Tổng Hợp</th>

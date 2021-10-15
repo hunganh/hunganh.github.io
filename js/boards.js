@@ -111,12 +111,20 @@ function getListStockOfLiveBoardData(symbols, isAppend) {
         } else {
             $("#stock-price-table-body").html(res);
         }
+        initTableDnD();
         setLiveBoardTableHeight();
         fetchTechnicalAnalysisSignal(null);
     }).fail(function (jqXHR, textStatus, error) {
         if (!isAppend) {
             $("#stock-price-table-body").html(`<tr><td colspan="31" class="bold-text">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`);
         }
+    });
+}
+
+function initTableDnD() {
+    //$("#live-board-price-table").tableDnD();
+    $("#live-board-price-table").tableDnD({
+        onDragClass: "dragClass"
     });
 }
 
@@ -152,11 +160,11 @@ function fetchTechnicalAnalysisSignal(period) {
                 var recommendationSignalValue = data[symbol].ratingOverviews[`Overview_Tong_${period}`].point_Description;
 
                 // Set Contents & Flash colors
-                var tbValueHtml = `<span class="${getSignalColorClass(tbSignalValue)}">${tbSignalValue}</span>`;
-                var gdValueHtml = `<span class="${getSignalColorClass(gdSignalValue)}">${gdSignalValue}</span>`;
-                var xhValueHtml = `<span class="${getSignalColorClass(xhSignalValue)}">${xhSignalValue}</span>`;
-                var dtValueHtml = `<span class="${getSignalColorClass(dtSignalValue)}">${dtSignalValue}</span>`;
-                var recommendationValueHtml = `<span class="${getSignalColorClass(recommendationSignalValue)}">${recommendationSignalValue}</span>`;
+                var tbValueHtml = `<span class="${getSignalColorClass(tbSignalValue)} disable-select">${tbSignalValue}</span>`;
+                var gdValueHtml = `<span class="${getSignalColorClass(gdSignalValue)} disable-select">${gdSignalValue}</span>`;
+                var xhValueHtml = `<span class="${getSignalColorClass(xhSignalValue)} disable-select">${xhSignalValue}</span>`;
+                var dtValueHtml = `<span class="${getSignalColorClass(dtSignalValue)} disable-select">${dtSignalValue}</span>`;
+                var recommendationValueHtml = `<span class="${getSignalColorClass(recommendationSignalValue)} disable-select">${recommendationSignalValue}</span>`;
                 setFlashHighlightSignal(tbSignal, tbSignalValue);
                 $(tbSignal).html(tbValueHtml);
                 setFlashHighlightSignal(gdSignal, gdSignalValue);
@@ -190,7 +198,7 @@ function processLiveBoardDataInput(response) {
             volAndPrice["p"+index] = values[0];
             volAndPrice["v"+index] = values[1];
         }
-        res += `<tr class="price-item stock tr-cursor" id="${data.sym}_id" data-r=${data.r} data-c=${data.c} data-f=${data.f} onclick="showTickerInfor('${data.sym}')">
+        res += `<tr class="price-item stock tr-drag-cursor" id="${data.sym}_id" data-r=${data.r} data-c=${data.c} data-f=${data.f} onclick="showTickerInfor('${data.sym}')">
                     <td id="${data.sym}_symbol" class="symbol symbol-text text-left sticky-td1-left" ${getColorStyle(data.r, data.c, data.f, data.lastPrice)}>${data.sym}</td>
                     <td id="${data.sym}_r" class="text-yellow high-light-cell text-right sticky-td2-left price-width">${data.r > 0 ? data.r.toFixed(2) : ""}</td>
                     <td id="${data.sym}_c" class="text-purple high-light-cell text-right sticky-td3-left price-width">${data.c > 0 ? data.c.toFixed(2) : ""}</td>
