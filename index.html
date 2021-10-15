@@ -1263,7 +1263,7 @@
             </div>
         </div>
     </div>
-    <div class="fixed-bottom footer-info">WS Status: <span id="status-connect" class="bold"></span> &nbsp;| <span id='clock-date' class="date-time"></span> &nbsp;<span id='clock-time' class="date-time"></span> | Email: <a class="mail-to" href="mailto:nhadautu198x@outlook.com.vn">nhadautu198x@outlook.com.vn</a></div>
+    <div class="fixed-bottom footer-info">WS Status: <span id="status-connect" class="bold"></span> &nbsp;| <span id='clock-date' class="date-time"></span> &nbsp;<span id='clock-time' class="date-time"></span> | Email: <a class="mail-to" href="mailto:nhadautu198x@gmail.com">nhadautu198x@gmail.com</a></div>
     <!-- Modal -->
     <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -1286,6 +1286,22 @@
             </div>
         </div>
         </div>
+    </div>
+    <!-- Toast -->
+    <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" style="z-index: 11">
+      <div id="disconnectionMessageToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Thông Báo</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Mất kết nối đến Server WS. Vui lòng thử nhấn nút [Kết nối lại].
+          <div class="mt-2 pt-2 border-top text-center">
+            <button type="button" class="btn btn-primary btn-sm" onclick="reconnectWS()">Kết nối lại</button>
+            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="toast">Hủy</button>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="js/stocksData.js"></script>
     <script src="js/common.js"></script>

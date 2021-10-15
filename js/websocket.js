@@ -56,17 +56,20 @@ function initWebsocket() {
         global.liveboard.Socket.on("disconnect", function () {
             global.liveboard.Result = -1;
             console.log("disconnect");
-            $("#status-connect").text("Mất kết nối").css("color", "rgb(240, 185, 11)")
+            $("#status-connect").text("Mất kết nối").css("color", "rgb(240, 185, 11)");
+            showDisconnectionMessageToast();
         });
         global.liveboard.Socket.on("connect_error", function () {
             global.liveboard.Result = -2;
             console.log("connect_error");
-            $("#status-connect").text("Mất kết nối").css("color", "rgb(240, 185, 11)")
+            $("#status-connect").text("Lỗi kết nối").css("color", "rgb(240, 185, 11)");
+            showDisconnectionMessageToast();
         });
         global.liveboard.Socket.on("reconnect_error", function () {
             global.liveboard.Result = -3;
             console.log("reconnect_error");
-            $("#status-connect").text("Mất kết nối").css("color", "rgb(240, 185, 11)")
+            $("#status-connect").text("Thử kết nối lại thất bại").css("color", "rgb(240, 185, 11)");
+            showDisconnectionMessageToast();
         })
     }
     return n.promise()

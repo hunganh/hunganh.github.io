@@ -51,9 +51,9 @@ const IMAGE_NEWS_URL = "https://cdn.fialda.com/Images/News/";
 const CHART_URL_V1 = "https://chart.vps.com.vn/tv/";
 const CHART_URL_V2 = "https://iboard.ssi.com.vn/chart/";
 
-$(document).on("contextmenu", function (e) {        
-    e.preventDefault();
-});
+// $(document).on("contextmenu", function (e) {        
+//     e.preventDefault();
+// });
 
 $(document).keydown(function (event) {
     // Prevent F12
@@ -604,4 +604,21 @@ $(".filter-title,.filter-title-default").click(function(){
 
 function getValueByCandleStickType(value, type) {
     return value.replaceAll("$$", type);
+}
+
+function showDisconnectionMessageToast() {
+    var disconnectionMessageToast = $("#disconnectionMessageToast");
+    if (disconnectionMessageToast.css("display") !== "block") {
+        disconnectionMessageToast.toast({
+            autohide: false
+        }).show(); 
+    }
+}
+
+function reconnectWS() {
+    global.liveboard.Result = -1;
+    initWebsocket();
+    StartWS();
+    var disconnectionMessageToast = $("#disconnectionMessageToast");
+    disconnectionMessageToast.toast().hide();
 }
