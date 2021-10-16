@@ -41,7 +41,7 @@ init.fnInitChart = function(){
         container_id: "tv_chart_container",
         timezone: 'Asia/Bangkok',
         datafeed: dtfeed,
-        library_path: "charting_library/",
+        library_path: "/src/charting_library/",
         locale: lang,
         symbol_search_request_delay: 500,
         time_frames: [
