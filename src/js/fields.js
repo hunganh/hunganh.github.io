@@ -238,49 +238,5 @@ function processFielDetailData(icbCode) {
         }
         contents += `<tbody></table>`;
         $("#detailModalContent").html(contents);
-        // var URL = encodeURIComponent(`${FIALDA_API_V1_URL}${FIALDA_GET_STOCK_INFO_PATH}`);
-        // $.ajax({
-        //     url: `${CORS_PROXY_URL}/${URL}`,
-        //     method: "POST",
-        //     data: JSON.stringify([{ symbol: code }]),
-        //     headers: {
-        //         "content-type": "application/json;charset=UTF-8"
-        //     }
-        // }).done(function (response) {
-        //     if (response && response.result) {
-        //         var item = response.result[code] !== null ? response.result[code].RealtimeStatistic : null;
-        //         if (item) {
-        //             var day = $.isNumeric(response.result[code].PriceInfo.priceChangePercent) ? `${(response.result[code].PriceInfo.priceChangePercent * 100).toFixed(2)}` : "0";
-        //             var week = $.isNumeric(item.changePercent1W) ? (item.changePercent1W * 100).toFixed(2) : "N/A";
-        //             var week_2 = $.isNumeric(item.changePercent2W) ? (item.changePercent2W * 100).toFixed(2) : "N/A";
-        //             var month_1 = $.isNumeric(item.changePercent1M) ? (item.changePercent1M * 100).toFixed(2) : "N/A";
-        //             var month_3 = $.isNumeric(item.changePercent3M) ? (item.changePercent3M * 100).toFixed(2) : "N/A";
-        //             var month_6 = $.isNumeric(item.changePercent6M) ? (item.changePercent6M * 100).toFixed(2) : "N/A";
-        //             var ytd = $.isNumeric(item.changePercentYTD) ? (item.changePercentYTD * 100).toFixed(2) : "N/A";
-        //             var year = $.isNumeric(item.changePercent52W) ? (item.changePercent52W * 100).toFixed(2) : "N/A";
-        //             var year_3 = $.isNumeric(item.changePercent3Yr) ? (item.changePercent3Yr * 100).toFixed(2) : "N/A";
-        //             contents += `<tr>
-        //                             <td class="${day > 0 ? 'up' : day < 0 ? 'down' : 'reference'} bold">${day}%</td>
-        //                             <td class="${week > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week}%</td>
-        //                             <td class="${week_2 > 0 ? 'up' : week < 0 ? 'down' : 'reference'} bold">${week_2}%</td>
-        //                             <td class="${month_1 > 0 ? 'up' : month_1 < 0 ? 'down' : 'reference'} bold">${month_1}%</td>
-        //                             <td class="${month_3 > 0 ? 'up' : month_3 < 0 ? 'down' : 'reference'} bold">${month_3}%</td>
-        //                             <td class="${month_6 > 0 ? 'up' : month_6 < 0 ? 'down' : 'reference'} bold">${month_6}%</td>
-        //                             <td class="${ytd > 0 ? 'up' : ytd < 0 ? 'down' : 'reference'} bold">${ytd}%</td>
-        //                             <td class="${year > 0 ? 'up' : year < 0 ? 'down' : 'reference'} bold">${year}%</td>
-        //                             <td class="${year_3 > 0 ? 'up' : year_3 < 0 ? 'down' : 'reference'} bold">${year_3}%</td>
-        //                         </tr>`;
-        //         } else {
-        //             contents += `<tr><td colspan="9">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
-        //         }
-        //     } else {
-        //         contents += `<tr><td colspan="9">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`;
-        //     }
-        //     contents += `<tbody></table>`;
-        //     $("#volatilityContent").html(contents);
-        //     initTooltips();
-        // }).fail(function (jqXHR, textStatus, error) {
-        //     $("#volatilityContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
-        // });
     }, 100);
 }

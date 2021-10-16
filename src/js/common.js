@@ -10,7 +10,6 @@ var currentTicker = "";
 var olderItem = null;
 const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "priceChange", "percentPriceChange"];
 const statisticsHeadTitle = ["#", "Mã CP", "Tổng khối lượng", "Tổng giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
-// const subStatisticsHeadTitle = ["Khối lượng", "Giá trị"];
 const summaryHeadTitle = ["#", "Mã CP", "Tự doanh", "Khối ngoại", "Tổng giá trị"];
 const subSummaryHeadTitle = ["Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn", "Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
 const locale = 'en-GB';
@@ -174,29 +173,14 @@ function getPositionIcon(prvPosition, currentPosition) {
 function getColumnName() {
     if (typeDefault === "selfBusiness") {
         return TOTAL_NET_BUY_TRADE_VALUE;
-        // if (actionDefault === "netBuy") {
-        //     return TOTAL_NET_BUY_TRADE_VALUE;
-        // } else {
-        //     return TOTAL_NET_SELL_TRADE_VALUE;
-        // }
     } else {
         return FOREIGN_NET_BUY_VALUE;
-        // if (actionDefault === "netBuy") {
-        //     return FOREIGN_NET_BUY_VALUE;
-        // } else {
-        //     return FOREIGN_NET_SELL_VALUE;
-        // }
     }
 }
 
 function getVolumeColumnName() {
     if (typeDefault === "selfBusiness") {
         return TOTAL_NET_BUY_TRADE_VOLUME;
-        // if (actionDefault === "netBuy") {
-        //     return TOTAL_NET_BUY_TRADE_VOLUME;
-        // } else {
-        //     return TOTAL_NET_SELL_TRADE_VOLUME;
-        // }
     } else {
         return "";
     }
@@ -277,7 +261,6 @@ function processTickerData(code) {
             }, 50);
         }
     }).then(() => {
-        //console.log('Done fetching content via JavaScript');
     }).catch((err) => {
         console.error(err);
     });

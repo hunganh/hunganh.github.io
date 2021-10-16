@@ -227,8 +227,6 @@ function technicalAnalysics() {
             }
             res += `</tbody></table>`;
             $("#showTechnicalAnalysisContent").html(res);
-            // var width = (parseInt($("#accordionTAChart").width())) + "px";
-            // $("#showTechnicalAnalysisContent").css("width", width);
             setTATableHeight();
         }).fail(function (jqXHR, textStatus, error) {
             $("#showTechnicalAnalysisContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
@@ -248,16 +246,9 @@ function setTATableHeight() {
 }
 
 
-// function showTAChart(symbol) {
-//     var scr = `https://chart.vps.com.vn/tv/?symbol=${symbol.toUpperCase()}&allowFullscreen=true&resolution=1D&lang=vi&u=375126&s=c8935171-138f-42fb-85bf-d8913e722b14&theme=Light&logo=none" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;`;
-//     $('#ifrTACharts').attr('src', scr);
-// }
-
-
 function generateChartIframe(symbol) {
     $(".chartContainer").html(`</br>${getLoadingHTML()}`);
     setTimeout(() => {
-        // var charts = `<iframe id="ifrTACharts" src="${CHART_URL_V1}?symbol=${symbol}&allowFullscreen=true&resolution=1D&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height: 93vh;"></iframe>`;
         var candleStickType = $("input[name='btnCandleStickTAOption']:checked").val();
         var type = "";
         if (candleStickType === "_15m") {

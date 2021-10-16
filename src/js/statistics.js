@@ -148,22 +148,9 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     tr = thead.insertRow(-1);
     for (var i = 0; i < statisticsHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
-        // if (i === 2) {
-        //     th.setAttribute("colspan", 2);
-        // } else {
-        //     th.setAttribute("rowspan", 2);
-        // }
         th.innerHTML = statisticsHeadTitle[i];
         tr.appendChild(th);
     }
-
-    // create span column
-    // tr = thead.insertRow(-1);
-    // for (var k = 0; k < subStatisticsHeadTitle.length; k++) {
-    //     var th = document.createElement("th");
-    //     th.innerHTML = subStatisticsHeadTitle[k];
-    //     tr.appendChild(th);
-    // }
     
     var tbody = document.createElement("tbody");
     // add json data to the table as rows.
