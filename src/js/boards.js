@@ -87,7 +87,7 @@ function getListOfSymbols() {
         } else {
             $("#stock-price-table-body").html(`<tr><td colspan="31" class="bold-text">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`);
         }
-        $("#showLoadingLiveBoard").html("");
+        //$("#showLoadingLiveBoard").html("");
     }).fail(function (jqXHR, textStatus, error) {
         $("#stock-price-table-body").html(`<tr><td colspan="31" class="bold-text">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`);
         $("#showLoadingLiveBoard").html("");
@@ -118,6 +118,7 @@ function getListStockOfLiveBoardData(symbols, isAppend) {
         if (!isAppend) {
             $("#stock-price-table-body").html(`<tr><td colspan="31" class="bold-text">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`);
         }
+        $("#showLoadingLiveBoard").html("");
     });
 }
 
