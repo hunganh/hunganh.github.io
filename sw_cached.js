@@ -144,7 +144,10 @@ self.addEventListener('install', function (event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function (cache) {
-                return cache.addAll(CACHE_ASSETS);
+                cache.addAll(CACHE_ASSETS);
+            })
+            .then(function() {
+                self.skipWaiting();
             })
     );
 });
