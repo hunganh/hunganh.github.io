@@ -1,4 +1,5 @@
 $(function () {
+    initTooltips();
     if (global.liveboard.listStock.length > 0) {
         socketCurrentUnRegister();
     }
