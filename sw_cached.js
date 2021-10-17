@@ -1,10 +1,11 @@
-var CACHE_NAME = 'v1';
+var CACHE_NAME = 'v2';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
     'news.html',
     'tv-chart.html',
     'upload.html',
+    'sitemap.xml',
     '/src/charting_library/vi-tv-chart.2be9706e.html',
     '/src/charting_library/bundles/0.c2df1ae4d38efcd3dc37.js',
     '/src/charting_library/bundles/1.b64c6e462261f7276e08.js',
