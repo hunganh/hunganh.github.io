@@ -82,6 +82,7 @@
                                 <div class="card-body">
                                     <p class="card-text">${response.result.shortContent}</p>
                                     <p class="card-text">${response.result.fullContent}</p>
+                                    ${response.result.attachmentUrl !== null ? getAttachment(response.result.attachmentUrl) : ""} 
                                 </div>
                             </div>`;
 
@@ -95,6 +96,10 @@
                 $("#showContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
             });
         }, 100);
+
+        function getAttachment(attachmentUrl) {
+            return `<p><a class="btn btn-primary" role="button" href="https://cdn.fialda.com/Attachment/News/${attachmentUrl}" target="_blank">Xem nội dung</a></p>`;
+        }
     </script>
 </body>
 
