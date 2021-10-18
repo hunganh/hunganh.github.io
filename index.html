@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.</title>
+    <title>NhaDauTu198x - Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, phân tích kỹ thuật, live board.</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt." />
+    <meta name="description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, định giá cổ phiếu, phân tích kỹ thuật, live board." />
     <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="robots" content="index, follow">
     <meta property="og: type" content="article" />
-    <meta property="og:title" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.">
-    <meta property="og:description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt.">
+    <meta property="og:title" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, định giá cổ phiếu, phân tích kỹ thuật, live board.">
+    <meta property="og:description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, định giá cổ phiếu, phân tích kỹ thuật, live board.">
     <meta property="og:image" content="https://www.nhadautu198x.com/images/bg.PNG">
     <meta property="og:url" content="https://www.nhadautu198x.com/">
-    <meta property="og: site_name" content="https://www.nhadautu198x.com" />
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, phân tích kỹ thuật, live board.">
-    <meta property="twitter:description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, phân tích kỹ thuật, live board.">
+    <meta property="og: site_name" content="nhadautu198x" />
+    <meta name="twitter:card" content="nhadautu198x">
+    <meta property="twitter:title" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, định giá cổ phiếu, phân tích kỹ thuật, live board.">
+    <meta property="twitter:description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt, định giá cổ phiếu, phân tích kỹ thuật, live board.">
     <link rel="icon" href="src/images/logo.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" type="text/css" href="src/css/style.css">
     <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
@@ -1294,6 +1294,19 @@
           Mất kết nối đến Server WS. Vui lòng thử nhấn nút [Kết nối lại].
           <div class="mt-2 pt-2 border-top text-center">
             <button type="button" class="btn btn-primary btn-sm" onclick="reconnectWS()">Kết nối lại</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" style="z-index: 11">
+      <div id="upadateNewVersionMessageToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-white bg-primary">
+          <strong class="me-auto">Thông Báo</strong>
+        </div>
+        <div class="toast-body">
+          Đã có phiên bản cập nhật mới. Vui lòng nhấn nút <b>[Cập nhật]</b>.
+          <div class="mt-2 pt-2 border-top text-center">
+            <button type="button" class="btn btn-primary btn-sm" onclick="updateNewVersionSW()">Cập nhật</button>
           </div>
         </div>
       </div>
