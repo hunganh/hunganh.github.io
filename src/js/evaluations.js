@@ -25,7 +25,11 @@ function processEvaluationDataInput() {
                 evaluationsData = response;
                 calculateEvaluation();
             }
-            $("#showLoadingEvaluation").html("");
+            if ($("#stockEvaluationResult").text().trim().toLowerCase() === "n/a") {
+                $("#showLoadingEvaluation").html(`<span class="font-14 down">Không đủ dữ liệu để định giá cho cổ phiếu</span> <span class="font-weight-bold font-14 dashed-border-bottom">${symbolValue}</span>`);
+            } else {
+                $("#showLoadingEvaluation").html("");
+            }
         }).fail(function (jqXHR, textStatus, error) {
             $("#showLoadingEvaluation").html(`<span class="font-14 down">Không đủ dữ liệu để định giá cho cổ phiếu</span> <span class="font-weight-bold font-14 dashed-border-bottom">${symbolValue}</span>`);
         });
@@ -59,8 +63,13 @@ function showEvaluationResult() {
     } else {
         dcfEvaluationValue = 0;
     }
-    var evaluationValue = (basicEvaluationValue + dcfEvaluationValue)/ getTotalItems(basicEvaluationValue,dcfEvaluationValue);
-    $("#stockEvaluationResult").text(Intl.NumberFormat().format(evaluationValue.toFixed(0)));
+    if (basicEvaluationValue === 0 && dcfEvaluationValue === 0) {
+        $("#stockEvaluationResult").text("N/A");
+    } else {
+        var evaluationValue = (basicEvaluationValue + dcfEvaluationValue)/ getTotalItems(basicEvaluationValue,dcfEvaluationValue);
+        $("#stockEvaluationResult").text(Intl.NumberFormat().format(evaluationValue.toFixed(0)));
+        $("#showLoadingEvaluation").html("");
+    }
 }
 
 function drawBasicEvaluationIndex() {
@@ -77,14 +86,25 @@ function drawBasicEvaluationIndex() {
     var res = "";
     var type = $("input[name='btnEvaluations']:checked").val();
     if (type === "top5") {
-        data[type].forEach(item => {
-            res += `<tr>
-                        <td class="text-left"><span class="font-weight-bold">${item.ticker}</span></td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pe !== null && item.pe > 0 ? Intl.NumberFormat().format(item.pe) : "N/A"}</td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pb !== null && item.pb > 0? Intl.NumberFormat().format(item.pb) : "N/A"}</td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${item.evebitda !== null  && item.evebitda > 0 ? Intl.NumberFormat().format(item.evebitda) : "N/A"}</td>
-                    </tr>`;
-        });
+        if (data[type] !== null) {
+            data[type].forEach(item => {
+                res += `<tr>
+                            <td class="text-left"><span class="font-weight-bold">${item.ticker}</span></td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pe !== null && item.pe > 0 ? Intl.NumberFormat().format(item.pe) : "N/A"}</td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pb !== null && item.pb > 0? Intl.NumberFormat().format(item.pb) : "N/A"}</td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">${item.evebitda !== null  && item.evebitda > 0 ? Intl.NumberFormat().format(item.evebitda) : "N/A"}</td>
+                        </tr>`;
+            });
+        } else {
+            for (let index = 0; index < 5; index++) {
+                res += `<tr>
+                            <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                            <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                        </tr>`;
+            }
+        }
     } else {
         res += `<tr>
                     <td class="text-left"><span class="font-weight-bold">${type === "index" ? "VN-Index" : type === "industry" ? "Ngành" : type}</span></td>
