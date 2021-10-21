@@ -36,6 +36,7 @@ const STATISTICS_DATA_URL = `${DATA_URL}/statistics`;
 const STOCK_INFOR_DATA_OF_FIELD_URL = `${DATA_URL}/fields/symbols`;
 const STOCK_FILTERS_URL = `${DATA_URL}/filters`;
 const STOCK_LIVE_BOARD_URL = `${DATA_URL}/boards`;
+const STOCK_EVALUATIONS_URL = `${DATA_URL}/evaluations`;
 const FIALDA_API_V1_URL = `${API_DATA_SERVER_1}/api/services/app`;
 const FIALDA_API_V2_URL = `${API_DATA_SERVER_2}/api/services/app`;
 const FIALDA_GET_STOCK_INFO_PATH = "/Common/GetStockInfos";
@@ -610,4 +611,49 @@ function reconnectWS() {
 function hideDisconnectionMessageToast() {
     var disconnectionMessageToast = $("#disconnectionMessageToast");
     disconnectionMessageToast.toast().hide();
+}
+
+function initSymbolAutocomple(id) {
+    var data = stockData.map(x => {
+        let obj = {}; 
+        obj["label"] = `${x.symbol} - ${x.name} - ${x.exchange}`; 
+        obj["value"] = x.symbol; 
+        return obj;
+    });
+    VirtualSelect.init({
+        ele: `#${id}`,
+        options: data,
+        multiple: false,
+        search: true,
+        placeholder: 'Nhập mã cổ phiếu...',
+        searchPlaceholderText: 'Tìm kiếm mã cổ phiếu...', 
+        noSearchResultsTex: 'Không tìm thấy Mã',
+        selectAllText: 'Chọn tất cả',
+        optionSelectedText: 'mã được chọn',
+        optionsSelectedText: 'mã được chọn',
+        allOptionsSelectedText: 'Tất cả',
+        disableSelectAll: true,
+        dropboxWidth: "600px",
+        maxValue: 10,
+        optionsCount: 8
+      });
+}
+
+function getSymbolInfor(symbol) {
+    var symbolInfo = {}
+    symbolInfo = stockData.find(x => x.symbol === symbol);
+    symbolInfo.icbName = fieldsDataGlobal.find(x => x.icbCode === symbolInfo.icbCode).icbName;
+    return symbolInfo;
+}
+
+
+const getTotalItems = (val1, val2) => {
+    let total = 0;
+    if (val1 !== null && val1 > 0) {
+        total += 1;
+    }
+    if (val2 !== null && val2 > 0) {
+        total += 1;
+    }
+    return total;
 }

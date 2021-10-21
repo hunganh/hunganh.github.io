@@ -7,7 +7,7 @@ $(function () {
     $(window).resize(function() {
         setLiveBoardTableHeight();
     });
-    initSymbolAutocomple();
+    initSymbolAutocomple("symbol-name-autocomplete");
     $("#btnAddSymbolLiveBoard").click(function(){
         var value = $('#symbol-name-autocomplete').val();
         if (value !== "") {
@@ -19,36 +19,6 @@ $(function () {
         }
     });
 });
-
-function initSymbolAutocomple() {
-    var data = stockData.map(x => {
-        let obj = {}; 
-        obj["label"] = `${x.symbol} - ${x.name} - ${x.exchange}`; 
-        obj["value"] = x.symbol; 
-        return obj;
-    });
-    VirtualSelect.init({
-        ele: '#symbol-name-autocomplete',
-        options: data,
-        multiple: false,
-        search: true,
-        placeholder: 'Nhập mã cổ phiếu...',
-        searchPlaceholderText: 'Tìm kiếm mã cổ phiếu...', 
-        noSearchResultsTex: 'Không tìm thấy Mã',
-        selectAllText: 'Chọn tất cả',
-        optionSelectedText: 'mã được chọn',
-        optionsSelectedText: 'mã được chọn',
-        allOptionsSelectedText: 'Tất cả',
-        // showValueAsTags: true,
-        disableSelectAll: true,
-        dropboxWidth: "600px",
-        maxValue: 10,
-        optionsCount: 8
-        // labelRenderer: function(res){
-        //     console.log("====> value", res.value);
-        // }
-      });
-}
 
 function loadLiveBoardData() {
     var loading = getLoadingHTML();
@@ -112,9 +82,11 @@ function getListStockOfLiveBoardData(symbols, isAppend) {
         } else {
             $("#stock-price-table-body").html(res);
         }
-        initTableDnD();
         setLiveBoardTableHeight();
         fetchTechnicalAnalysisSignal(null);
+        setTimeout(() => {
+            initTableDnD();
+        }, 200);
     }).fail(function (jqXHR, textStatus, error) {
         if (!isAppend) {
             $("#stock-price-table-body").html(`<tr><td colspan="31" class="bold-text">Không có dữ liệu. Vui lòng thử lại sau!</td></tr>`);
@@ -238,7 +210,7 @@ function processLiveBoardDataInput(response) {
 }
 
 function decodeBoardBaseStock(type, data) {
-    try {     
+    try {
         var symbol = data.hasOwnProperty('sym') ? data.sym : data.symbol;
         var rootId = `#${symbol}_id`;
         var symbolName = `#${symbol}_symbol`;
@@ -270,79 +242,65 @@ function decodeBoardBaseStock(type, data) {
         var fBVol = `#${symbol}_fBVol`;
         var fSVol = `#${symbol}_fSVol`;
 
-        if (type === "stock") {   
-            setLiveBoardCommonValueData(data, symbolName, lastPrice, lastVol, change, changePc, highPriceId, avePriceId, lowPriceId, totalVol, rootId);
-            if (data.hasOwnProperty('fBVol')) {
-                setFlashHighlightBuySell(fBVol, data.fBVol);
-                $(fBVol).text(convertToVolFormat(Number(data.fBVol)));
+        setLiveBoardCommonValueData(data, symbolName, lastPrice, lastVol, change, changePc, highPriceId, avePriceId, lowPriceId, totalVol, rootId);
+        if (data.hasOwnProperty('side') && data.side === "B") {
+            var g1 = data.g1.split("|");
+            if (g1 && g1.length > 0) {
+                setFlashHighlightBuySell(price_1, g1[0]);
+                $(price_1).text(Number(g1[0]) > 0 ? g1[0] : "");
+                setFlashHighlightBuySell(vol_1, convertToVolFormat(g1[1]));
+                $(vol_1).text(convertToVolFormat(g1[1]));
+                setColorOfElements(rootId, [price_1, vol_1], Number(g1[0]));
             }
-            if (data.hasOwnProperty('fSVolume')) {
-                setFlashHighlightBuySell(fSVol, data.fSVolume);
-                $(fSVol).text(convertToVolFormat(Number(data.fSVolume)));
+            var g2 = data.g2.split("|");
+            if (g2 && g2.length > 0) {
+                setFlashHighlightBuySell(price_2, g2[0]);
+                $(price_2).text(Number(g2[0]) > 0 ? g2[0] : "");
+                setFlashHighlightBuySell(vol_2, convertToVolFormat(g2[1]));
+                $(vol_2).text(convertToVolFormat(g2[1]));
+                setColorOfElements(rootId, [price_2, vol_2], Number(g2[0]));
             }
-        } else if (type === "board") {
-            if (data.hasOwnProperty('lastPrice')) {
-                setLiveBoardCommonValueData(data, symbolName, lastPrice, lastVol, change, changePc, highPriceId, avePriceId, lowPriceId, totalVol, rootId);        
+            var g3 = data.g3.split("|");
+            if (g3 && g3.length > 0) {
+                setFlashHighlightBuySell(price_3, g3[0]);
+                $(price_3).text(Number(g3[0]) > 0 ? g3[0] : "");
+                setFlashHighlightBuySell(vol_3, convertToVolFormat(g3[1]));
+                $(vol_3).text(convertToVolFormat(g3[1]));
+                setColorOfElements(rootId, [price_3, vol_3], Number(g3[0]));
             }
-            if (data.hasOwnProperty('side') && data.side === "B") {
-                var g1 = data.g1.split("|");
-                if (g1 && g1.length > 0) {
-                    setFlashHighlightBuySell(price_1, g1[0]);
-                    $(price_1).text(g1[0]);
-                    setFlashHighlightBuySell(vol_1, convertToVolFormat(g1[1]));
-                    $(vol_1).text(convertToVolFormat(g1[1]));
-                    setColorOfElements(rootId, [price_1, vol_1], Number(g1[0]));
-                }
-                var g2 = data.g2.split("|");
-                if (g2 && g2.length > 0) {
-                    setFlashHighlightBuySell(price_2, g2[0]);
-                    $(price_2).text(g2[0]);
-                    setFlashHighlightBuySell(vol_2, convertToVolFormat(g2[1]));
-                    $(vol_2).text(convertToVolFormat(g2[1]));
-                    setColorOfElements(rootId, [price_2, vol_2], Number(g2[0]));
-                }
-                var g3 = data.g3.split("|");
-                if (g3 && g3.length > 0) {
-                    setFlashHighlightBuySell(price_3, g3[0]);
-                    $(price_3).text(g3[0]);
-                    setFlashHighlightBuySell(vol_3, convertToVolFormat(g3[1]));
-                    $(vol_3).text(convertToVolFormat(g3[1]));
-                    setColorOfElements(rootId, [price_3, vol_3], Number(g3[0]));
-                }
-            } else if (data.hasOwnProperty('side') && data.side === "S") {
-                var g1 = data.g1.split("|");
-                if (g1 && g1.length > 0) {
-                    setFlashHighlightBuySell(price_4, g1[0]);
-                    $(price_4).text(g1[0]);
-                    setFlashHighlightBuySell(vol_4, convertToVolFormat(g1[1]));
-                    $(vol_4).text(convertToVolFormat(g1[1]));
-                    setColorOfElements(rootId, [price_4, vol_4], Number(g4[0]));
-                }
-                var g2 = data.g2.split("|");
-                if (g2 && g2.length > 0) {
-                    setFlashHighlightBuySell(price_5, g2[0]);
-                    $(price_5).text(g2[0]);
-                    setFlashHighlightBuySell(vol_5, convertToVolFormat(g2[1]));
-                    $(vol_5).text(convertToVolFormat(g2[1]));                 
-                    setColorOfElements(rootId, [price_5, vol_5], Number(g5[0]));
-                }
-                var g3 = data.g3.split("|");
-                if (g3 && g3.length > 0) {
-                    setFlashHighlightBuySell(price_6, g3[0]);
-                    $(price_6).text(g3[0]);
-                    setFlashHighlightBuySell(vol_6, convertToVolFormat(g3[1]));
-                    $(vol_6).text(convertToVolFormat(g3[1]));                 
-                    setColorOfElements(rootId, [price_6, vol_6], Number(g6[0]));
-                }
+        } else if (data.hasOwnProperty('side') && data.side === "S") {
+            var g1 = data.g1.split("|");
+            if (g1 && g1.length > 0) {
+                setFlashHighlightBuySell(price_4, g1[0]);
+                $(price_4).text(Number(g1[0]) > 0 ? g1[0] : "");
+                setFlashHighlightBuySell(vol_4, convertToVolFormat(g1[1]));
+                $(vol_4).text(convertToVolFormat(g1[1]));
+                setColorOfElements(rootId, [price_4, vol_4], Number(g1[0]));
             }
-            if (data.hasOwnProperty('fBVol')) {
-                setFlashHighlightBuySell(fBVol, data.fBVol);
-                $(fBVol).text(convertToVolFormat(Number(data.fBVol)));
+            var g2 = data.g2.split("|");
+            if (g2 && g2.length > 0) {
+                setFlashHighlightBuySell(price_5, g2[0]);
+                $(price_5).text(Number(g2[0]) > 0 ? g2[0] : "");
+                setFlashHighlightBuySell(vol_5, convertToVolFormat(g2[1]));
+                $(vol_5).text(convertToVolFormat(g2[1]));
+                setColorOfElements(rootId, [price_5, vol_5], Number(g2[0]));
             }
-            if (data.hasOwnProperty('fSVolume')) {
-                setFlashHighlightBuySell(fSVol, data.fSVolume);
-                $(fSVol).text(convertToVolFormat(Number(data.fSVolume)));
+            var g3 = data.g3.split("|");
+            if (g3 && g3.length > 0) {
+                setFlashHighlightBuySell(price_6, g3[0]);
+                $(price_6).text(Number(g3[0]) > 0 ? g3[0] : "");
+                setFlashHighlightBuySell(vol_6, convertToVolFormat(g3[1]));
+                $(vol_6).text(convertToVolFormat(g3[1]));
+                setColorOfElements(rootId, [price_6, vol_6], Number(g3[0]));
             }
+        }
+        if (data.hasOwnProperty('fBVol')) {
+            setFlashHighlightBuySell(fBVol, data.fBVol);
+            $(fBVol).text(convertToVolFormat(Number(data.fBVol)));
+        }
+        if (data.hasOwnProperty('fSVolume')) {
+            setFlashHighlightBuySell(fSVol, data.fSVolume);
+            $(fSVol).text(convertToVolFormat(Number(data.fSVolume)));
         }
     } catch (e) {
         //console.log(e);
@@ -350,31 +308,38 @@ function decodeBoardBaseStock(type, data) {
 }
 
 function setLiveBoardCommonValueData(data, symbolName, lastPrice, lastVol, change, changePc, highPriceId, avePriceId, lowPriceId, totalVol, rootId) {
-    setFlashHighlight(lastPrice, data.lastPrice.toFixed(2).toString());
-    $(lastPrice).text(data.lastPrice.toFixed(2).toString());
-    setFlashHighlight(lastVol, convertToVolFormat(data.lastVol));
-    $(lastVol).text(convertToVolFormat(data.lastVol));
-    var rValue = $(`${rootId}`).data("r");
-    var changeValue = `${data.lastPrice < rValue ? "-" + data.change.toString() : data.change.toString()}`;
-    var changeValuePercent = `${data.lastPrice < rValue ? "-" + data.changePc.toString() : data.changePc.toString()}`;
-    setFlashHighlight(change, changeValue);
-    $(change).text(`${changeValue}`);
-    $(changePc).text(`${changeValuePercent}%`);
-    setColorOfElements(rootId, [symbolName, lastPrice, lastVol, change, changePc], data.lastPrice);
+    if (data.hasOwnProperty('lastPrice')) {
+        setFlashHighlight(lastPrice, data.lastPrice.toFixed(2).toString());
+        $(lastPrice).text(data.lastPrice > 0 ? data.lastPrice.toFixed(2).toString() : "");
+        setFlashHighlight(lastVol, convertToVolFormat(data.lastVol));
+        $(lastVol).text(convertToVolFormat(data.lastVol));
 
-    setFlashHighlight(highPriceId, data.hp.toString());
-    $(highPriceId).text(data.hp.toString());
-    setColorOfElements(rootId, [highPriceId], data.hp);
-
-    setFlashHighlight(avePriceId, data.ap.toString());
-    $(avePriceId).text(data.ap.toString());
-    setColorOfElements(rootId, [avePriceId], data.ap);
-
-    setFlashHighlight(lowPriceId, data.lp.toString());
-    $(lowPriceId).text(data.lp.toString());
-    setColorOfElements(rootId, [lowPriceId], data.lp);
-
-    $(totalVol).text(convertToVolFormat(data.totalVol));
+        var rValue = $(`${rootId}`).data("r");
+        var changeValue = `${data.lastPrice < rValue ? "-" + data.change.toString() : data.change.toString()}`;
+        var changeValuePercent = `${data.lastPrice < rValue ? "-" + data.changePc.toString() : data.changePc.toString()}`;
+        setFlashHighlight(change, changeValue);
+        $(change).text(`${changeValue}`);
+        $(changePc).text(`${changeValuePercent}%`);
+        setColorOfElements(rootId, [symbolName, lastPrice, lastVol, change, changePc], data.lastPrice);
+    }
+    if (data.hasOwnProperty('hp')) {
+        setFlashHighlight(highPriceId, data.hp.toString());
+        $(highPriceId).text(data.hp > 0 ? data.hp.toString() : "");
+        setColorOfElements(rootId, [highPriceId], data.hp);
+    }
+    if (data.hasOwnProperty('ap')) {
+        setFlashHighlight(avePriceId, data.ap.toString());
+        $(avePriceId).text(data.ap > 0 ? data.ap.toString() : "");
+        setColorOfElements(rootId, [avePriceId], data.ap);
+    }
+    if (data.hasOwnProperty('lp')) {
+        setFlashHighlight(lowPriceId, data.lp.toString());
+        $(lowPriceId).text(data.lp > 0 ? data.lp.toString() : "");
+        setColorOfElements(rootId, [lowPriceId], data.lp);
+    }
+    if (data.hasOwnProperty('totalVol')) {
+        $(totalVol).text(convertToVolFormat(data.totalVol));
+    }
 }
 
 function setFlashHighlight(id, value) {
@@ -500,6 +465,7 @@ function processSetColorByCss(ids, color) {
 }
 
 function convertToVolFormat(value) {
+    if (value == 0) return "";
     var valueString = new Intl.NumberFormat().format(value*10);
     return valueString.slice(0, valueString.length -1);
 }
