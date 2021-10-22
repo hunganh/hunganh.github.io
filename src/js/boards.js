@@ -247,7 +247,7 @@ function decodeBoardBaseStock(type, data) {
             var g1 = data.g1.split("|");
             if (g1 && g1.length > 0) {
                 setFlashHighlightBuySell(price_1, g1[0]);
-                $(price_1).text(Number(g1[0]) > 0 ? g1[0] : "");
+                $(price_1).text(Number(g1[0]) > 0 || checkAtoOrAtcSession(g1[0]) ? g1[0] : "");
                 setFlashHighlightBuySell(vol_1, convertToVolFormat(g1[1]));
                 $(vol_1).text(convertToVolFormat(g1[1]));
                 setColorOfElements(rootId, [price_1, vol_1], Number(g1[0]));
@@ -255,7 +255,7 @@ function decodeBoardBaseStock(type, data) {
             var g2 = data.g2.split("|");
             if (g2 && g2.length > 0) {
                 setFlashHighlightBuySell(price_2, g2[0]);
-                $(price_2).text(Number(g2[0]) > 0 ? g2[0] : "");
+                $(price_2).text(Number(g2[0]) > 0 || checkAtoOrAtcSession(g2[0]) ? g2[0] : "");
                 setFlashHighlightBuySell(vol_2, convertToVolFormat(g2[1]));
                 $(vol_2).text(convertToVolFormat(g2[1]));
                 setColorOfElements(rootId, [price_2, vol_2], Number(g2[0]));
@@ -263,7 +263,7 @@ function decodeBoardBaseStock(type, data) {
             var g3 = data.g3.split("|");
             if (g3 && g3.length > 0) {
                 setFlashHighlightBuySell(price_3, g3[0]);
-                $(price_3).text(Number(g3[0]) > 0 ? g3[0] : "");
+                $(price_3).text(Number(g3[0]) > 0 || checkAtoOrAtcSession(g3[0]) ? g3[0] : "");
                 setFlashHighlightBuySell(vol_3, convertToVolFormat(g3[1]));
                 $(vol_3).text(convertToVolFormat(g3[1]));
                 setColorOfElements(rootId, [price_3, vol_3], Number(g3[0]));
@@ -272,7 +272,7 @@ function decodeBoardBaseStock(type, data) {
             var g1 = data.g1.split("|");
             if (g1 && g1.length > 0) {
                 setFlashHighlightBuySell(price_4, g1[0]);
-                $(price_4).text(Number(g1[0]) > 0 ? g1[0] : "");
+                $(price_4).text(Number(g1[0]) > 0 || checkAtoOrAtcSession(g1[0]) ? g1[0] : "");
                 setFlashHighlightBuySell(vol_4, convertToVolFormat(g1[1]));
                 $(vol_4).text(convertToVolFormat(g1[1]));
                 setColorOfElements(rootId, [price_4, vol_4], Number(g1[0]));
@@ -280,7 +280,7 @@ function decodeBoardBaseStock(type, data) {
             var g2 = data.g2.split("|");
             if (g2 && g2.length > 0) {
                 setFlashHighlightBuySell(price_5, g2[0]);
-                $(price_5).text(Number(g2[0]) > 0 ? g2[0] : "");
+                $(price_5).text(Number(g2[0]) > 0 || checkAtoOrAtcSession(g2[0]) ? g2[0] : "");
                 setFlashHighlightBuySell(vol_5, convertToVolFormat(g2[1]));
                 $(vol_5).text(convertToVolFormat(g2[1]));
                 setColorOfElements(rootId, [price_5, vol_5], Number(g2[0]));
@@ -288,7 +288,7 @@ function decodeBoardBaseStock(type, data) {
             var g3 = data.g3.split("|");
             if (g3 && g3.length > 0) {
                 setFlashHighlightBuySell(price_6, g3[0]);
-                $(price_6).text(Number(g3[0]) > 0 ? g3[0] : "");
+                $(price_6).text(Number(g3[0]) > 0 || checkAtoOrAtcSession(g3[0]) ? g3[0] : "");
                 setFlashHighlightBuySell(vol_6, convertToVolFormat(g3[1]));
                 $(vol_6).text(convertToVolFormat(g3[1]));
                 setColorOfElements(rootId, [price_6, vol_6], Number(g3[0]));
@@ -468,4 +468,8 @@ function convertToVolFormat(value) {
     if (value == 0) return "";
     var valueString = new Intl.NumberFormat().format(value*10);
     return valueString.slice(0, valueString.length -1);
+}
+
+function checkAtoOrAtcSession(value) {
+    return (value.toString().toLowerCase() === "atc" || value.toString().toLowerCase() === "ato");
 }
