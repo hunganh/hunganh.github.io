@@ -129,18 +129,18 @@ function createSummaryReport(data) {
             //var avgPrice = (selfBusinessPrice + foreignPriceChange)/2;
             addCell(tr, Number(i + 1));
             addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
-            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat().format(data[i]["totalNetBuyTradeValue"])}</span>`);
-            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat().format(selfBusinessClosePrice)}</span>`);
-            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat().format(selfBusinessPriceChange)}</span>`);
+            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["totalNetBuyTradeValue"])}</span>`);
+            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessClosePrice)}</span>`);
+            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessPriceChange)}</span>`);
             addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}%</span>`);
-            addCell(tr, new Intl.NumberFormat().format(selfBusinessPrice.toFixed(0)));
+            addCell(tr, new Intl.NumberFormat(numberLocale).format(selfBusinessPrice.toFixed(0)));
 
-            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat().format(data[i]["foreignNetBuyValue"])}</span>`);
-            addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat().format(foreignClosePrice)}</span>`);
-            addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat().format(foreignPriceChange)}</span>`);
+            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["foreignNetBuyValue"])}</span>`);
+            addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(foreignClosePrice)}</span>`);
+            addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(foreignPriceChange)}</span>`);
             addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange.toFixed(2)}%</span>`);
-            addCell(tr, new Intl.NumberFormat().format(foreignPrice.toFixed(0)));
-            addCell(tr, `<span class='bold text-right top10'>${new Intl.NumberFormat().format(data[i]["sumValue"])}</span>`);
+            addCell(tr, new Intl.NumberFormat(numberLocale).format(foreignPrice.toFixed(0)));
+            addCell(tr, `<span class='bold text-right top10'>${new Intl.NumberFormat(numberLocale).format(data[i]["sumValue"])}</span>`);
         }
     } else {
         tr = tbody.insertRow(-1);

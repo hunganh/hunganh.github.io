@@ -134,7 +134,7 @@ function processStatisticsData(period) {
 function createStatisticsReport(period, dataJsonInput, dataIndex) {
     var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
     var netTradeValueColumn = getNetTradeValueColumn();
-    var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng Giá Trị ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat().format(dataJsonInput[period][netTradeValueColumn]) + " đ";
+    var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng Giá Trị ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat(numberLocale).format(dataJsonInput[period][netTradeValueColumn]) + " đ";
     var table = document.createElement("table");
     table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
     var thead = document.createElement("thead");
@@ -177,12 +177,12 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         var closePrice = data[i]["matchPrice"];
 
         addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
-        addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat().format(data[i][volumeColumnName]) : "&#8722;");
-        addCell(tr, new Intl.NumberFormat().format(data[i][columnName]));
-        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat().format(closePrice) + '</span>');
-        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat().format(priceChange) + '</span>');
+        addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat(numberLocale).format(data[i][volumeColumnName]) : "&#8722;");
+        addCell(tr, new Intl.NumberFormat(numberLocale).format(data[i][columnName]));
+        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(numberLocale).format(closePrice) + '</span>');
+        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(numberLocale).format(priceChange) + '</span>');
         addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
-        addCell(tr, new Intl.NumberFormat().format(price));
+        addCell(tr, new Intl.NumberFormat(numberLocale).format(price));
     }
     table.appendChild(tbody);
     // Now, add the newly created table with json data, to a container.

@@ -13,6 +13,7 @@ const statisticsHeadTitle = ["#", "Mã CP", "Tổng khối lượng", "Tổng gi
 const summaryHeadTitle = ["#", "Mã CP", "Tự doanh", "Khối ngoại", "Tổng giá trị"];
 const subSummaryHeadTitle = ["Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn", "Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
 const locale = 'en-GB';
+const numberLocale = 'en-US';
 const FOREIGN_NET_BUY_VALUE = "foreignNetBuyValue";
 const FOREIGN_NET_SELL_VALUE = "foreignNetSellValue";
 const TOTAL_NET_BUY_TRADE_VALUE = "totalNetBuyTradeValue";
@@ -191,9 +192,9 @@ function getVolumeColumnName() {
 
 function getVolatilityValue(data) {
     if (typeDefault === "selfBusiness") {
-        return Intl.NumberFormat().format(data["totalBuyTradeValue"] - data["totalSellTradeValue"]);
+        return Intl.NumberFormat(numberLocale).format(data["totalBuyTradeValue"] - data["totalSellTradeValue"]);
     } else {
-        return Intl.NumberFormat().format(data["foreignBuyValue"] - data["foreignSellValue"]);
+        return Intl.NumberFormat(numberLocale).format(data["foreignBuyValue"] - data["foreignSellValue"]);
     }
 }
 
@@ -287,7 +288,7 @@ function drawRecommendationsDataToHTML(data, code) {
                         <div class="row g-0">
                         <div class="col-md-3 text-center">
                             <div class="card-body ${tickerObject.PriceInfo.openPrice === null ? "bg-reference" : tickerObject.PriceInfo.priceChange > 0 ? "bg-up" : tickerObject.PriceInfo.priceChange < 0 ? "bg-down" : "bg-reference"}">
-                                <h5 class="card-title">${new Intl.NumberFormat().format(lastPrice)} ${valuePercentChange}</h5>
+                                <h5 class="card-title">${new Intl.NumberFormat(numberLocale).format(lastPrice)} ${valuePercentChange}</h5>
                                 <h6>Sàn: ${tickerObject.BasicInfo.exchange}</h6>
                             </div>               
                         </div>
@@ -296,8 +297,8 @@ function drawRecommendationsDataToHTML(data, code) {
                                 <table class="table table-responsive" style="border: none">
                                     <tbody>
                                         <tr>
-                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${$.isNumeric(tickerObject.PriceInfo.marketCap) ? new Intl.NumberFormat().format(tickerObject.PriceInfo.marketCap) : "N/A"}</td>    
-                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${$.isNumeric(tickerObject.BasicInfo.eps_TTM) ? new Intl.NumberFormat().format(tickerObject.BasicInfo.eps_TTM.toFixed(0)) : "N/A"}</td>
+                                            <td><span class="font-weight-bold">Vốn hóa:</span> ${$.isNumeric(tickerObject.PriceInfo.marketCap) ? new Intl.NumberFormat(numberLocale).format(tickerObject.PriceInfo.marketCap) : "N/A"}</td>    
+                                            <td><span class="font-weight-bold">EPS(TTM):</span> ${$.isNumeric(tickerObject.BasicInfo.eps_TTM) ? new Intl.NumberFormat(numberLocale).format(tickerObject.BasicInfo.eps_TTM.toFixed(0)) : "N/A"}</td>
                                             <td><span class="font-weight-bold">P/E:</span> ${pe}</td>
                                             <td><span class="font-weight-bold">P/S:</span> ${ps}</td>
                                             <td><span class="font-weight-bold">P/B:</span> ${pb} </td>
@@ -453,7 +454,7 @@ function loadDividendNews(code) {
             if (dividendEventData2 && dividendEventData2.result && dividendEventData2.result.items.length > 0) {
                 var j = 0;
                 dividendEventData2.result.items.forEach(item => {
-                    contents += `<tr><td>${j + 1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td>${new Intl.NumberFormat().format(item.eventValue)}</td><td class="text-left">${item.eventName}</td></tr>`;
+                    contents += `<tr><td>${j + 1}</td><td>${new Date(item.exrightDate).toLocaleDateString(locale)}</td><td>${new Date(item.recordDate).toLocaleDateString(locale)}</td><td>${item.eventRatioStr}</td><td>${new Intl.NumberFormat(numberLocale).format(item.eventValue)}</td><td class="text-left">${item.eventName}</td></tr>`;
                     j++;
                 });
             } else {

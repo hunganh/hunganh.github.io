@@ -466,7 +466,7 @@ function processSetColorByCss(ids, color) {
 
 function convertToVolFormat(value) {
     if (value == 0) return "";
-    var valueString = new Intl.NumberFormat().format(value*10);
+    var valueString = new Intl.NumberFormat(numberLocale).format(value*10);
     return valueString.slice(0, valueString.length -1);
 }
 

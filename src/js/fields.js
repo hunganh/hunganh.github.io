@@ -64,7 +64,7 @@ function processFieldsDataInput (sortField, sortType) {
             return c-d;
         });
         fieldsDataJson.result.forEach(item => {
-            var eps = $.isNumeric(item.eps_TTM) ? new Intl.NumberFormat().format((item.eps_TTM).toFixed(0)) : "N/A";
+            var eps = $.isNumeric(item.eps_TTM) ? new Intl.NumberFormat(numberLocale).format((item.eps_TTM).toFixed(0)) : "N/A";
             var pe = $.isNumeric(item.pe) ? (item.pe).toFixed(2) : "N/A";
             var ps = $.isNumeric(item.ps) ? (item.ps).toFixed(2) : "N/A";
             var pb = $.isNumeric(item.pb) ? (item.pb).toFixed(2) : "N/A";
