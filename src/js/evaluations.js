@@ -150,27 +150,27 @@ function drawCashFlowDCF() {
                 </div>
                 <table style="border: none;">
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị doanh nghiệp EV (tỷ): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị doanh nghiệp EV: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${evaluationsData.cashFlow[0].freeCashFlow !== null ? Intl.NumberFormat().format(enterpriseValue.toFixed(0)) : "N/A"}</span</td>
                 </tr>
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Tiền & tương đương tiền (tỷ): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Tiền & tương đương tiền: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${Intl.NumberFormat().format(evaluationsData.cash)}</span</td>
                 </tr>
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Nợ (tỷ): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Nợ: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${Intl.NumberFormat().format(evaluationsData.shortTermDebt + evaluationsData.longTermDebt)}</span</td>
                 </tr>
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Lợi ích CĐ thiểu số (tỷ): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Lợi ích CĐ thiểu số: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${Intl.NumberFormat().format(evaluationsData.minorityInterest)}</span</td>
                 </tr>
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị vốn hóa DN (tỷ): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị vốn hóa DN: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${evaluationsData.cashFlow[0].freeCashFlow !== null && capitalizationValue > 0 ? Intl.NumberFormat().format(capitalizationValue.toFixed(0)) : "N/A"}</span</td>
                 </tr>
                 <tr>
-                    <td class="text-left pd-evaluation"><span class="font-weight-bold">SL cổ phiếu lưu hành (triệu): </span></td>
+                    <td class="text-left pd-evaluation"><span class="font-weight-bold">SL cổ phiếu lưu hành: </span></td>
                     <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">${Intl.NumberFormat().format(evaluationsData.shareOutstanding)}</span</td>
                 </tr>
                   </table>`;
