@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v1.6';
+var CACHE_NAME = 'v1.8';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
@@ -112,6 +112,7 @@ var CACHE_ASSETS = [
     '/src/images/coin_filters.PNG',
     '/src/images/logo.svg',
     '/src/images/logo2.png',
+    '/src/images/filter.png',
     '/src/js/charting_library/charting_library.min.js',
     '/src/js/common/config.js',
     '/src/js/common/extend.js',

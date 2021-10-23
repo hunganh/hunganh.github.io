@@ -86,7 +86,7 @@ function createSummaryReport(data) {
     var thead = document.createElement("thead");
     var tr = thead.insertRow(-1);                    // table row.
     var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 13);
+    thTime.setAttribute("colspan", 14);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
     thead.appendChild(tr);
@@ -94,7 +94,7 @@ function createSummaryReport(data) {
     tr = thead.insertRow(-1);
     for (var i = 0; i < summaryHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
-        if (i > 1 && i < summaryHeadTitle.length -1) {
+        if (i > 2 && i < summaryHeadTitle.length -1) {
             th.setAttribute("colspan", 5);
         } else {
             th.setAttribute("rowspan", 5);
@@ -112,6 +112,7 @@ function createSummaryReport(data) {
     }
 
     var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","table-summary-popover");
     if (data.length > 0) {
         // add json data to the table as rows.
         for (var i = 0; i < data.length; i++) {
@@ -129,6 +130,7 @@ function createSummaryReport(data) {
             //var avgPrice = (selfBusinessPrice + foreignPriceChange)/2;
             addCell(tr, Number(i + 1));
             addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
+            addCell(tr, '<div class="text-left">' + getIcbNameBySymbol(data[i]["ticker"]) + '</div>');
             addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["totalNetBuyTradeValue"])}</span>`);
             addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessClosePrice)}</span>`);
             addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessPriceChange)}</span>`);
@@ -188,4 +190,7 @@ function setSummaryTitle() {
         divSummaryTitle.classList.add("bg-out-of-date");
     }
     divSummaryTitle.innerHTML = `Mã CP Được Tự Doanh & Khối Ngoại ${actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
+    // Init Industries Filter Popover
+    closePopover();
+    initIndustriesSelectionPopover('summary-popover');
 }

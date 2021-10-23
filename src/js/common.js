@@ -9,8 +9,8 @@ var mappingDataJson = null;
 var currentTicker = "";
 var olderItem = null;
 const statisticsCols = ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "priceChange", "percentPriceChange"];
-const statisticsHeadTitle = ["#", "Mã CP", "Tổng khối lượng", "Tổng giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
-const summaryHeadTitle = ["#", "Mã CP", "Tự doanh", "Khối ngoại", "Tổng giá trị"];
+const statisticsHeadTitle = ["#", "Mã CP", "Ngành <image class='tr-cursor filter-popover float-right' src='src/images/filter.png' data-bs-toggle='popover' id='statistics-popover'/>", "Tổng khối lượng", "Tổng giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
+const summaryHeadTitle = ["#", "Mã CP", "Ngành <image class='tr-cursor filter-popover float-right' src='src/images/filter.png' data-bs-toggle='popover' id='summary-popover'/>", "Tự doanh", "Khối ngoại", "Tổng giá trị"];
 const subSummaryHeadTitle = ["Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn", "Giá trị", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn"];
 const locale = 'en-GB';
 const numberLocale = 'en-US';
@@ -640,6 +640,38 @@ function initSymbolAutocomple(id) {
       });
 }
 
+function initIndustriesAutocomple(id, dataSource, actionFunction) {
+    var data = dataSource.map(x => {
+        let obj = {}; 
+        obj["label"] = `${x}`; 
+        obj["value"] = x.toLocaleLowerCase(); 
+        return obj;
+    });
+    VirtualSelect.init({
+        ele: `#${id}`,
+        options: data,
+        multiple: true,
+        search: true,
+        selectedValue: data.map(x => x.value),
+        placeholder: 'Chọn ngành cần lọc...',
+        searchPlaceholderText: 'Tìm kiếm ngành cần lọc...', 
+        noSearchResultsTex: 'Không tìm thấy Ngành',
+        selectAllText: 'Chọn tất cả',
+        optionSelectedText: 'ngành được chọn',
+        optionsSelectedText: 'ngành được chọn',
+        allOptionsSelectedText: 'Tất cả',
+        disableSelectAll: false,
+        dropboxWidth: "400px",
+        maxValue: 19,
+        optionsCount: 8
+    });
+    if (actionFunction) {
+        $(`#${id}`).change(function() {
+            actionFunction(this.value)
+        });
+    }
+}
+
 function getSymbolInfor(symbol) {
     var symbolInfo = {}
     symbolInfo = stockData.find(x => x.symbol === symbol);
@@ -657,4 +689,51 @@ const getTotalItems = (val1, val2) => {
         total += 1;
     }
     return total;
+}
+
+function getIcbNameBySymbol(symbol) {
+    var symbolInfo = stockData.find(x => x.symbol.toLowerCase() === symbol.toLowerCase());
+    if (symbolInfo) {
+        var icbInfo = fieldsDataGlobal.find(x => x.icbCode === symbolInfo.icbCode)
+        if (icbInfo && icbInfo.hasOwnProperty('icbName')) {
+            return fieldsDataGlobal.find(x => x.icbCode === symbolInfo.icbCode).icbName;
+        }
+    }
+    return "N/A";
+}
+
+function initIndustriesSelectionPopover(id) {
+    $(`#${id}`).popover({
+        html: true,
+        placement: 'top',
+        title : '<span class="font-weight-bold">Lọc theo ngành</span> <a href="javascript:void(0)" class="close popover-close-btn" data-dismiss="alert" type="button"><i class="vscomp-clear-icon"></i></a>',
+        content: function() {
+            return `<div id="symbol-name-${id}-autocomplete"></div>`;
+        }
+    });
+    $(`#${id}`).on("click", () => {
+        var checkExist = $(`#symbol-name-${id}-autocomplete`);
+        if (checkExist != null && typeof(checkExist) !== undefined && checkExist.val() !== "") {
+            return;
+        }
+        var industriesData = $(`#table-${id} tr`).map(function() { return $(this).find("td:eq(2)").text()});
+        const dataSource = Array.from(new Set(industriesData));
+        initIndustriesAutocomple(`symbol-name-${id}-autocomplete`, dataSource, (values) => {
+            $(`#table-${id} tr`).filter(function() {
+                $(this).toggle(values.indexOf($(this).find("td:eq(2)").text().toLowerCase()) > -1)
+            });
+        });
+    })
+}
+
+$(document).on("click", ".popover .close" , function(){
+    $(this).parents(".popover").popover('hide');
+});
+
+$(document).on("click", ".nav-link" , function(){
+    $('.popover').popover('hide');
+});
+
+function closePopover() {
+    $('.popover').popover('hide');
 }

@@ -1339,6 +1339,16 @@ input.money-flow {
   border-bottom-color: rgb(173, 173, 173) !important;
 }
 
+.popover {
+  width: 275px !important;
+}
+
+.popover-close-btn {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
 /* ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

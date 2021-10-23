@@ -83,6 +83,7 @@ function processDataInput(values) {
 }
 
 function resetStatisticsData() {
+    closePopover();
     dataJson = null;
     mappingDataJson = null;
     divStatisticsShowData.innerHTML = "";
@@ -114,6 +115,7 @@ function changeStatisticsType(type) {
 }
 
 function changeStatisticsAction(action) {
+    closePopover();
     showLoading("showStatisticsLoading");
     actionDefault = action;
     processStatisticsData(currentPeriod);
@@ -153,6 +155,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
     }
     
     var tbody = document.createElement("tbody");
+    tbody.setAttribute("id","table-statistics-popover");
     // add json data to the table as rows.
     for (var i = 0; i < data.length; i++) {
         tr = tbody.insertRow(-1);
@@ -177,6 +180,7 @@ function createStatisticsReport(period, dataJsonInput, dataIndex) {
         var closePrice = data[i]["matchPrice"];
 
         addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
+        addCell(tr, '<div class="text-left">' + getIcbNameBySymbol(data[i]["ticker"]) + '</div>');
         addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat(numberLocale).format(data[i][volumeColumnName]) : "&#8722;");
         addCell(tr, new Intl.NumberFormat(numberLocale).format(data[i][columnName]));
         addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(numberLocale).format(closePrice) + '</span>');
@@ -201,4 +205,7 @@ function setStatisticsTitle() {
         divStatisticsTitle.classList.add("bg-out-of-date");
     }
     divStatisticsTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
+    // Init Industries Filter Popover
+    closePopover();
+    initIndustriesSelectionPopover('statistics-popover');
 }
