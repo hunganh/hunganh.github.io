@@ -86,7 +86,7 @@ function createSummaryReport(data) {
     var thead = document.createElement("thead");
     var tr = thead.insertRow(-1);                    // table row.
     var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 14);
+    thTime.setAttribute("colspan", 10);
     thTime.innerHTML = title;
     tr.appendChild(thTime);
     thead.appendChild(tr);
@@ -94,10 +94,10 @@ function createSummaryReport(data) {
     tr = thead.insertRow(-1);
     for (var i = 0; i < summaryHeadTitle.length; i++) {
         var th = document.createElement("th");      // table header.
-        if (i > 2 && i < summaryHeadTitle.length -1) {
-            th.setAttribute("colspan", 5);
+        if (i == summaryHeadTitle.length - 2) {
+            th.setAttribute("colspan", 2);
         } else {
-            th.setAttribute("rowspan", 5);
+            th.setAttribute("rowspan", 2);
         }
         th.innerHTML = summaryHeadTitle[i];
         tr.appendChild(th);
@@ -119,10 +119,10 @@ function createSummaryReport(data) {
             tr = tbody.insertRow(-1);
             tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
             tr.classList.add("tr-cursor");
-            var selfBusinessClosePrice = data[i]["selfBusinessMatchPrice"];
-            var selfBusinessPriceChange = data[i]["selfBusinessPriceChange"];
-            var selfBusinessPercentChange = data[i]["selfBusinessPercentPriceChange"] * 100;
-            var selfBusinessPrice = selfBusinessPercentChange > 0 || selfBusinessPercentChange < 0 ? (selfBusinessPriceChange/data[i]["selfBusinessPercentPriceChange"]) : data[i]["selfBusinessMatchPrice"];
+            //var selfBusinessClosePrice = data[i]["selfBusinessMatchPrice"];
+            //var selfBusinessPriceChange = data[i]["selfBusinessPriceChange"];
+            //var selfBusinessPercentChange = data[i]["selfBusinessPercentPriceChange"] * 100;
+            //var selfBusinessPrice = selfBusinessPercentChange > 0 || selfBusinessPercentChange < 0 ? (selfBusinessPriceChange/data[i]["selfBusinessPercentPriceChange"]) : data[i]["selfBusinessMatchPrice"];
             var foreignClosePrice = data[i]["foreignMatchPrice"];
             var foreignPriceChange = data[i]["foreignPriceChange"];
             var foreignPercentChange = data[i]["foreignPercentPriceChange"] * 100;
@@ -131,17 +131,17 @@ function createSummaryReport(data) {
             addCell(tr, Number(i + 1));
             addCell(tr, `<b class="top10">${data[i]["ticker"]}</span>`);
             addCell(tr, '<div class="text-left">' + getIcbNameBySymbol(data[i]["ticker"]) + '</div>');
-            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["totalNetBuyTradeValue"])}</span>`);
-            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessClosePrice)}</span>`);
-            addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessPriceChange)}</span>`);
-            addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}%</span>`);
-            addCell(tr, new Intl.NumberFormat(numberLocale).format(selfBusinessPrice.toFixed(0)));
-
-            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["foreignNetBuyValue"])}</span>`);
+            // addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["totalNetBuyTradeValue"])}</span>`);
+            // addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessClosePrice)}</span>`);
+            // addCell(tr, `<span class='${getClassByValue(selfBusinessPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(selfBusinessPriceChange)}</span>`);
+            // addCell(tr, `<span class='${getClassByValue(selfBusinessPercentChange)}'>${selfBusinessPercentChange.toFixed(2)}%</span>`);
+            
             addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(foreignClosePrice)}</span>`);
             addCell(tr, `<span class='${getClassByValue(foreignPriceChange)}'>${new Intl.NumberFormat(numberLocale).format(foreignPriceChange)}</span>`);
             addCell(tr, `<span class='${getClassByValue(foreignPercentChange)}'>${foreignPercentChange.toFixed(2)}%</span>`);
             addCell(tr, new Intl.NumberFormat(numberLocale).format(foreignPrice.toFixed(0)));
+            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["totalNetBuyTradeValue"])}</span>`);
+            addCell(tr, `<span class='text-right'>${new Intl.NumberFormat(numberLocale).format(data[i]["foreignNetBuyValue"])}</span>`);
             addCell(tr, `<span class='bold text-right top10'>${new Intl.NumberFormat(numberLocale).format(data[i]["sumValue"])}</span>`);
         }
     } else {
