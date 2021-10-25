@@ -6,10 +6,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Công cụ thống kê tự doanh, khối ngoại, xu hướng dòng tiền, lọc cổ phiếu tốt." />
-    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset = utf-8" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="icon" href="src/images/logo.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
     <script src="src/js/lib/jquery.min.js"></script>
     <script src="src/js/lib/bootstrap.bundle.min.js"></script>
 </head>
@@ -22,10 +23,10 @@
                 <input type="file" class="custom-file-input" id="fileData" accept=".json">
             </div>
             </br>
-            <input type="radio" class="form-check-input" id="foreign" name="uploadFile" value="khoingoai">
+            <input type="radio" class="form-check-input" id="foreign" name="uploadFile" value="khoingoai" onchange="getFileContentType(this)">
             <label class="form-check-label" for="foreign">Khối ngoại</label>
             &nbsp;
-            <input type="radio" class="form-check-input" id="selfBusiness" name="uploadFile" value="tudoanh" checked>
+            <input type="radio" class="form-check-input" id="selfBusiness" name="uploadFile" value="tudoanh" checked onchange="getFileContentType(this)">
             <label class="form-check-label" for="selfBusiness">Tự doanh</label>
         </div>
         <div class="card-footer">

@@ -343,7 +343,7 @@ function setLiveBoardCommonValueData(data, symbolName, lastPrice, lastVol, chang
 }
 
 function setFlashHighlight(id, value) {
-    if (value === null || value === "") return;
+    if (value === null || value === "" || Number(value) === 0) return;
     var orgValue = Number($(id).text());
     var newValue = Number(value);
     $(id).removeClass('highlight-yellow highlight-green highlight-red');
