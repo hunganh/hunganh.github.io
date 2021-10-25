@@ -148,7 +148,7 @@ function createSummaryReport(data) {
         tr = tbody.insertRow(-1);
         var tabCell = tr.insertCell(-1);
         tabCell.innerHTML = "Không có dữ liệu.";
-        cell.colSpan = 13;
+        cell.colSpan = 10;
     }
 
     table.appendChild(tbody);
