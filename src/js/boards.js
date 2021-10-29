@@ -25,7 +25,7 @@ window.boardsJS = {
                     window.boardsJS.getListStockOfLiveBoardData(symbols.toString(), false);
                     if (window.webSocketConfigs.liveboard.Result !== 1) {
                         setTimeout(() => {
-                            webSocketApp.initWebsocket();
+                            window.webSocketApp.initWebsocket();
                         }, 30);
                     } else {
                         if (window.webSocketConfigs.liveboard.Socket) {
