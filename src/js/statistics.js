@@ -1,7 +1,191 @@
-var divStatisticsShowData = document.getElementById('showStatisticsData');
-var divStatisticsTitle = document.getElementById('showStatisticsTitle');
-$(document).ready(function () {
-    initStatisticsData();
+window.variablesJS.divStatisticsShowData = document.getElementById('showStatisticsData');
+window.variablesJS.divStatisticsTitle = document.getElementById('showStatisticsTitle');
+
+window.statisticsJS = {
+    initStatisticsData : function () {
+        window.commonJS.showLoading("showStatisticsLoading");
+        setTimeout(() => {
+            var nodeName = window.variablesJS.typeDefault === "selfBusiness" ? variablesJS.TU_DOANH : variablesJS.KHOI_NGOAI;
+            $.ajax({
+                url: `${window.apiUrlDefined.STATISTICS_DATA_URL}/${nodeName}`,
+                async: false,
+                dataType: "json"
+            }).done(function (result) {
+                if (result) {
+                    var dataInput = [];
+                    var keys = Object.keys(result);
+                    if (keys && keys.length > 0) {
+                        keys.forEach(key => {
+                            if (key === "olderItem") {
+                                variablesJS.olderItem = result[key];
+                            } else {
+                                dataInput.push(result[key]);
+                            }
+                        });
+                        window.statisticsJS.processDataInput(dataInput);
+                    }
+                    window.commonJS.hideLoading("showStatisticsLoading");
+                }
+            });
+        }, 100);
+    },
+    
+    processDataInput : function (values) {
+        window.variablesJS.divStatisticsShowData.innerHTML = "";
+        if (values && values.length > 0) {
+            values.forEach((content) => {
+                if (!window.variablesJS.dataJson) {
+                    window.variablesJS.dataJson = content;
+                    window.variablesJS.dataJson.totalCount = values.length;
+                } else {
+                    window.variablesJS.dataJson.items.push(content.items[0]);
+                }
+            });
+            // Sort data
+            window.variablesJS.dataJson.items.sort(function (a, b) {
+                var c = new Date(a.today.toDate);
+                var d = new Date(b.today.toDate);
+                return d - c;
+            });
+            for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
+                window.statisticsJS.createStatisticsReport(variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], index);
+            }
+            window.statisticsJS.setStatisticsTitle();
+        }
+        window.commonJS.hideLoading("showStatisticsLoading");
+    },
+    
+    resetStatisticsData : function () {
+        window.commonJS.closePopover();
+        window.variablesJS.dataJson = null;
+        variablesJS.mappingDataJson = null;
+        window.variablesJS.divStatisticsShowData.innerHTML = "";
+        document.getElementById("fileInput").value = null;
+    },
+    
+    refreshStatisticsData : function () {
+        window.statisticsJS.resetStatisticsData();
+        window.statisticsJS.initStatisticsData();
+    },
+    
+    readFileAsText : function (file) {
+        return new Promise(function (resolve, reject) {
+            let fr = new FileReader();
+            fr.onload = function () {
+                resolve(fr.result);
+            };
+            fr.onerror = function () {
+                reject(fr);
+            };
+            fr.readAsText(file);
+        });
+    },
+    
+    changeStatisticsType : function (type) {
+        window.statisticsJS.resetStatisticsData();
+        window.variablesJS.typeDefault = type;
+        window.statisticsJS.initStatisticsData();
+    },
+    
+    changeStatisticsAction : function (action) {
+        window.commonJS.closePopover();
+        window.commonJS.showLoading("showStatisticsLoading");
+        window.variablesJS.actionDefault = action;
+        window.statisticsJS.processStatisticsData(variablesJS.currentPeriod);
+        window.commonJS.hideLoading("showStatisticsLoading");
+    },
+    
+    processStatisticsData : function (period) {
+        variablesJS.currentPeriod = period;
+        if (window.variablesJS.dataJson && window.variablesJS.dataJson.items && window.variablesJS.dataJson.items.length > 0) {
+            window.variablesJS.divStatisticsShowData.innerHTML = "";
+            for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
+                window.statisticsJS.createStatisticsReport(period, window.variablesJS.dataJson.items[index], index);
+            }
+        }
+        window.statisticsJS.setStatisticsTitle();
+    },
+    
+    createStatisticsReport : function (period, dataJsonInput, dataIndex) {
+        var data = window.variablesJS.actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
+        var netTradeValueColumn = window.commonJS.getNetTradeValueColumn();
+        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(window.variablesJS.defaultLocale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(window.variablesJS.defaultLocale) + ") - " + `Tổng Giá Trị ${window.variablesJS.actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat(window.variablesJS.numberLocale).format(dataJsonInput[period][netTradeValueColumn]) + " đ";
+        var table = document.createElement("table");
+        table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
+        var thead = document.createElement("thead");
+        var tr = thead.insertRow(-1);                   // table row.
+        var thTime = document.createElement("th");
+        thTime.setAttribute("colspan", 9);
+        thTime.innerHTML = title;
+        tr.appendChild(thTime);
+        thead.appendChild(tr);
+        table.appendChild(thead);
+        tr = thead.insertRow(-1);
+        for (var i = 0; i < variablesJS.statisticsHeadTitle.length; i++) {
+            var th = document.createElement("th");      // table header.
+            th.innerHTML = variablesJS.statisticsHeadTitle[i];
+            tr.appendChild(th);
+        }
+        
+        var tbody = document.createElement("tbody");
+        tbody.setAttribute("id","table-statistics-popover");
+        // add json data to the table as rows.
+        for (var i = 0; i < data.length; i++) {
+            tr = tbody.insertRow(-1);
+            tr.setAttribute("onClick", `window.commonJS.showTickerInfor("${data[i]["ticker"]}")`);
+            tr.classList.add("tr-cursor");
+            var prvItem = dataIndex === 0 && window.variablesJS.dataJson.items.length > 1 ? window.variablesJS.dataJson.items[dataIndex + 1] : variablesJS.olderItem; //window.commonJS.getFirstItemData(dataJsonInput[period].toDate);
+            var columnName = window.commonJS.getColumnName();
+            var volumeColumnName = window.commonJS.getVolumeColumnName();
+            if (!prvItem) {
+                window.commonJS.addCell(tr, Number(i + 1));
+            } else {
+                var prvPosition = window.variablesJS.actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][variablesJS.statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][variablesJS.statisticsCols[1]]));
+                if (prvPosition > -1) {
+                    window.commonJS.addCell(tr, Number(i + 1) + window.commonJS.getPositionIcon(prvPosition, i));
+                } else {
+                    window.commonJS.addCell(tr, Number(i + 1));
+                }
+            }
+            var priceChange = data[i]["priceChange"];
+            var percentPriceChange = data[i]["percentPriceChange"] * 100;
+            var price = percentPriceChange > 0 || percentPriceChange < 0 ? (priceChange/data[i]["percentPriceChange"]).toFixed(0) : data[i]["matchPrice"];
+            var closePrice = data[i]["matchPrice"];
+    
+            window.commonJS.addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
+            window.commonJS.addCell(tr, '<div class="text-left">' + window.commonJS.getIcbNameBySymbol(data[i]["ticker"]) + '</div>');
+            window.commonJS.addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat(window.variablesJS.numberLocale).format(data[i][volumeColumnName]) : "&#8722;");
+            window.commonJS.addCell(tr, new Intl.NumberFormat(window.variablesJS.numberLocale).format(data[i][columnName]));
+            window.commonJS.addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(window.variablesJS.numberLocale).format(closePrice) + '</span>');
+            window.commonJS.addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(window.variablesJS.numberLocale).format(priceChange) + '</span>');
+            window.commonJS.addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
+            window.commonJS.addCell(tr, new Intl.NumberFormat(window.variablesJS.numberLocale).format(price));
+        }
+        table.appendChild(tbody);
+        // Now, add the newly created table with json data, to a container.
+        window.variablesJS.divStatisticsShowData.appendChild(table);
+    },
+    
+    setStatisticsTitle : function () {
+        var today = new Date().toLocaleDateString(window.variablesJS.defaultLocale);
+        var updateDate = new Date(window.variablesJS.dataJson.items[0]["today"].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
+        var updateDateStr = ` ${window.variablesJS.dataJson && window.variablesJS.dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
+        if (updateDate === today) {
+            window.variablesJS.divStatisticsTitle.classList.remove("bg-out-of-date");
+            window.variablesJS.divStatisticsTitle.classList.add("bg-latest");
+        } else {
+            window.variablesJS.divStatisticsTitle.classList.remove("bg-latest");
+            window.variablesJS.divStatisticsTitle.classList.add("bg-out-of-date");
+        }
+        window.variablesJS.divStatisticsTitle.innerHTML = "Thống Kê ".concat(window.variablesJS.typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", window.variablesJS.actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
+        // Init Industries Filter Popover
+        window.commonJS.closePopover();
+        window.commonJS.initIndustriesSelectionPopover('statistics-popover');
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(e) {
+    window.statisticsJS.initStatisticsData();
 });
 
 window.addEventListener('load', function () {
@@ -11,201 +195,20 @@ window.addEventListener('load', function () {
         upload.addEventListener('change', function () {
             // Make sure a file was selected
             if (upload.files.length > 0) {
-                dataJson = null;
-                divStatisticsShowData.innerHTML = "";
-                showLoading("showStatisticsLoading");
+                window.variablesJS.dataJson = null;
+                window.variablesJS.divStatisticsShowData.innerHTML = "";
+                window.commonJS.showLoading("showStatisticsLoading");
                 let readers = [];
                 for (let index = 0; index <= upload.files.length - 1; index++) {
-                    readers.push(readFileAsText(upload.files[index]));
+                    readers.push(processDataInput.readFileAsText(upload.files[index]));
                 }
                 // Trigger Promises
                 Promise.all(readers).then((values) => {
                     var data = values.map(x => JSON.parse(x));
-                    olderItem = null;
-                    processDataInput(data);
+                    variablesJS.olderItem = null;
+                    window.statisticsJS.processDataInput(data);
                 });
             }
         }, false);
     }
 });
-
-function initStatisticsData() {
-    showLoading("showStatisticsLoading");
-    setTimeout(() => {
-        var nodeName = typeDefault === "selfBusiness" ? TU_DOANH : KHOI_NGOAI;
-        $.ajax({
-            url: `${STATISTICS_DATA_URL}/${nodeName}`,
-            async: false,
-            dataType: "json"
-        }).done(function (result) {
-            if (result) {
-                var dataInput = [];
-                var keys = Object.keys(result);
-                if (keys && keys.length > 0) {
-                    keys.forEach(key => {
-                        if (key === "olderItem") {
-                            olderItem = result[key];
-                        } else {
-                            dataInput.push(result[key]);
-                        }
-                    });
-                    processDataInput(dataInput);
-                }
-                hideLoading("showStatisticsLoading");
-            }
-        });
-    }, 100);
-}
-
-function processDataInput(values) {
-    divStatisticsShowData.innerHTML = "";
-    if (values && values.length > 0) {
-        values.forEach((content) => {
-            if (!dataJson) {
-                dataJson = content;
-                dataJson.totalCount = values.length;
-            } else {
-                dataJson.items.push(content.items[0]);
-            }
-        });
-        // Sort data
-        dataJson.items.sort(function (a, b) {
-            var c = new Date(a.today.toDate);
-            var d = new Date(b.today.toDate);
-            return d - c;
-        });
-        for (let index = 0; index < dataJson.items.length; index++) {
-            createStatisticsReport(currentPeriod, dataJson.items[index], index);
-        }
-        setStatisticsTitle();
-    }
-    hideLoading("showStatisticsLoading");
-}
-
-function resetStatisticsData() {
-    closePopover();
-    dataJson = null;
-    mappingDataJson = null;
-    divStatisticsShowData.innerHTML = "";
-    document.getElementById("fileInput").value = null;
-}
-
-function refreshStatisticsData() {
-    resetStatisticsData();
-    initStatisticsData();
-}
-
-function readFileAsText(file) {
-    return new Promise(function (resolve, reject) {
-        let fr = new FileReader();
-        fr.onload = function () {
-            resolve(fr.result);
-        };
-        fr.onerror = function () {
-            reject(fr);
-        };
-        fr.readAsText(file);
-    });
-}
-
-function changeStatisticsType(type) {
-    resetStatisticsData();
-    typeDefault = type;
-    initStatisticsData();
-}
-
-function changeStatisticsAction(action) {
-    closePopover();
-    showLoading("showStatisticsLoading");
-    actionDefault = action;
-    processStatisticsData(currentPeriod);
-    hideLoading("showStatisticsLoading");
-}
-
-function processStatisticsData(period) {
-    currentPeriod = period;
-    if (dataJson && dataJson.items && dataJson.items.length > 0) {
-        divStatisticsShowData.innerHTML = "";
-        for (let index = 0; index < dataJson.items.length; index++) {
-            createStatisticsReport(period, dataJson.items[index], index);
-        }
-    }
-    setStatisticsTitle();
-}
-
-function createStatisticsReport(period, dataJsonInput, dataIndex) {
-    var data = actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
-    var netTradeValueColumn = getNetTradeValueColumn();
-    var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(locale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(locale) + ") - " + `Tổng Giá Trị ${actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat(numberLocale).format(dataJsonInput[period][netTradeValueColumn]) + " đ";
-    var table = document.createElement("table");
-    table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
-    var thead = document.createElement("thead");
-    var tr = thead.insertRow(-1);                   // table row.
-    var thTime = document.createElement("th");
-    thTime.setAttribute("colspan", 9);
-    thTime.innerHTML = title;
-    tr.appendChild(thTime);
-    thead.appendChild(tr);
-    table.appendChild(thead);
-    tr = thead.insertRow(-1);
-    for (var i = 0; i < statisticsHeadTitle.length; i++) {
-        var th = document.createElement("th");      // table header.
-        th.innerHTML = statisticsHeadTitle[i];
-        tr.appendChild(th);
-    }
-    
-    var tbody = document.createElement("tbody");
-    tbody.setAttribute("id","table-statistics-popover");
-    // add json data to the table as rows.
-    for (var i = 0; i < data.length; i++) {
-        tr = tbody.insertRow(-1);
-        tr.setAttribute("onClick", `showTickerInfor("${data[i]["ticker"]}")`);
-        tr.classList.add("tr-cursor");
-        var prvItem = dataIndex === 0 && dataJson.items.length > 1 ? dataJson.items[dataIndex + 1] : olderItem; //getFirstItemData(dataJsonInput[period].toDate);
-        var columnName = getColumnName();
-        var volumeColumnName = getVolumeColumnName();
-        if (!prvItem) {
-            addCell(tr, Number(i + 1));
-        } else {
-            var prvPosition = actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][statisticsCols[1]]));
-            if (prvPosition > -1) {
-                addCell(tr, Number(i + 1) + getPositionIcon(prvPosition, i));
-            } else {
-                addCell(tr, Number(i + 1));
-            }
-        }
-        var priceChange = data[i]["priceChange"];
-        var percentPriceChange = data[i]["percentPriceChange"] * 100;
-        var price = percentPriceChange > 0 || percentPriceChange < 0 ? (priceChange/data[i]["percentPriceChange"]).toFixed(0) : data[i]["matchPrice"];
-        var closePrice = data[i]["matchPrice"];
-
-        addCell(tr, Number(i + 1) <= 10 ? '<b class="top10">' + data[i]["ticker"] + '</b>' : data[i]["ticker"]);
-        addCell(tr, '<div class="text-left">' + getIcbNameBySymbol(data[i]["ticker"]) + '</div>');
-        addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat(numberLocale).format(data[i][volumeColumnName]) : "&#8722;");
-        addCell(tr, new Intl.NumberFormat(numberLocale).format(data[i][columnName]));
-        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(numberLocale).format(closePrice) + '</span>');
-        addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(numberLocale).format(priceChange) + '</span>');
-        addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
-        addCell(tr, new Intl.NumberFormat(numberLocale).format(price));
-    }
-    table.appendChild(tbody);
-    // Now, add the newly created table with json data, to a container.
-    divStatisticsShowData.appendChild(table);
-}
-
-function setStatisticsTitle() {
-    var today = new Date().toLocaleDateString(locale);
-    var updateDate = new Date(dataJson.items[0]["today"].toDate).toLocaleDateString(locale);
-    var updateDateStr = ` ${dataJson && dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
-    if (updateDate === today) {
-        divStatisticsTitle.classList.remove("bg-out-of-date");
-        divStatisticsTitle.classList.add("bg-latest");
-    } else {
-        divStatisticsTitle.classList.remove("bg-latest");
-        divStatisticsTitle.classList.add("bg-out-of-date");
-    }
-    divStatisticsTitle.innerHTML = "Thống Kê ".concat(typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
-    // Init Industries Filter Popover
-    closePopover();
-    initIndustriesSelectionPopover('statistics-popover');
-}

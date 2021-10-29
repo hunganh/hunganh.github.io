@@ -23,19 +23,20 @@
                 <input type="file" class="custom-file-input" id="fileData" accept=".json">
             </div>
             </br>
-            <input type="radio" class="form-check-input" id="foreign" name="uploadFile" value="khoingoai" onchange="getFileContentType(this)">
+            <input type="radio" class="form-check-input" id="foreign" name="uploadFile" value="khoingoai" onchange="window.uploadJS.getFileContentType(this)">
             <label class="form-check-label" for="foreign">Khối ngoại</label>
             &nbsp;
-            <input type="radio" class="form-check-input" id="selfBusiness" name="uploadFile" value="tudoanh" checked onchange="getFileContentType(this)">
+            <input type="radio" class="form-check-input" id="selfBusiness" name="uploadFile" value="tudoanh" checked onchange="window.uploadJS.getFileContentType(this)">
             <label class="form-check-label" for="selfBusiness">Tự doanh</label>
         </div>
         <div class="card-footer">
             <button type="button" class="btn btn-primary btn-sm" id="uploadJsonFile">Upload</button>
-            &nbsp; <button type="button" class="btn btn-primary btn-success" onclick="refreshFileData()">Tải dữ liệu mới</button>
+            &nbsp; <button type="button" class="btn btn-primary btn-success" onclick="window.uploadJS.refreshFileData()">Tải dữ liệu mới</button>
         </div>
     </div>
     <div id='showFilesData' class="table-responsive"></div>
-    <script src="src/js/common.js"></script>
-    <script src="src/js/upload.js"></script>
+    <script src="src/js/bundles/variables.bundle.js"></script>
+    <script src="src/js/bundles/common.bundle.js"></script>
+    <script src="src/js/bundles/upload.bundle.js"></script>
 </body>
 </html>

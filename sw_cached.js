@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v2.2';
+var CACHE_NAME = 'v2.3';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
@@ -129,17 +129,21 @@ var CACHE_ASSETS = [
     '/src/js/lib/lz-string.min.js',
     '/src/js/lib/socket.io.js',
     '/src/js/lib/virtual-select.min.js',
-    '/src/js/boards.js',
-    '/src/js/charts.js',
-    '/src/js/common.js',
-    '/src/js/fields.js',
-    '/src/js/filters.js',
-    '/src/js/statistics.js',
-    '/src/js/stocksData.js',
-    '/src/js/sw.js',
-    '/src/js/timeServer.js',
-    '/src/js/upload.js',
-    '/src/js/websocket.js'
+    '/src/js/bundles/boards.bundle.js',
+    '/src/js/bundles/charts.bundle.js',
+    '/src/js/bundles/common.bundle.js',
+    '/src/js/bundles/evaluations.bundle.js',
+    '/src/js/bundles/fields.bundle.js',
+    '/src/js/bundles/filters.bundle.js',
+    '/src/js/bundles/mobile.bundle.js',
+    '/src/js/bundles/statistics.bundle.js',
+    '/src/js/bundles/stocksData.bundle.js',
+    '/src/js/bundles/summary.bundle.js',
+    '/src/js/bundles/timeServer.bundle.js',
+    '/src/js/bundles/upload.bundle.js',
+    '/src/js/bundles/variables.bundle.js',
+    '/src/js/bundles/websocket.bundle.js',
+    '/src/js/bundles/sw.js'
 ];
 
 self.addEventListener('install', function (event) {

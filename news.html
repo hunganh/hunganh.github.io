@@ -51,7 +51,7 @@
                 return false;
             }
         });
-        function getLoadingHTML() {
+        function getLoadingHTMLForNewsPage() {
             return `<div class="d-flex justify-content-center">
                         <div class="spinner-border text-success" role="status">
                             <span class="visually-hidden">Loading...</span>
@@ -59,7 +59,7 @@
                         <span class="loadingTitle">Đang tải dữ liệu...</span>
                     </div>`;
         }
-        var loadingHTML = getLoadingHTML();
+        var loadingHTML = getLoadingHTMLForNewsPage();
         $("#showContent").html(`</br>${loadingHTML}`);
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);

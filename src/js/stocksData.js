@@ -1,4 +1,4 @@
-const fieldsDataGlobal = [
+window.fieldsDataGlobal = [
     {
         "icbCode": "5300",
         "icbName": "Bán lẻ"
@@ -76,7 +76,7 @@ const fieldsDataGlobal = [
         "icbName": "Y tế"
     },
 ];
-var stockData = [
+window.stockData = [
   {
     "symbol": "A32",
     "symbolID": 54,

@@ -1,6 +1,6 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function(e) {
     var type = $("input[name='uploadFile']:checked").val();
-    loadAllFile(type);
+    window.uploadJS.loadAllFile(type);
     $("#uploadJsonFile").click(function () {
         type = $("input[name='uploadFile']:checked").val();
         if (type) {
@@ -13,16 +13,16 @@ $(document).ready(function () {
                     return;
                 }
                 fd.append('file', files);
-                var loadingHTML = getLoadingHTML();
+                var loadingHTML = window.commonJS.getLoadingHTML();
                 $("#showFilesData").prepend(loadingHTML);
                 $.ajax({
-                    url: `${UPLOAD_DATA_URL}/${password}/${type}/`,
+                    url: `${window.apiUrlDefined.UPLOAD_DATA_URL}/${password}/${type}/`,
                     type: 'post',
                     data: fd,
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        loadAllFile(type);
+                        window.uploadJS.loadAllFile(type);
                         alert(response.message);
                     },
                 });
@@ -33,42 +33,44 @@ $(document).ready(function () {
     });
 });
 
-function refreshFileData() {
-    var type = $("input[name='uploadFile']:checked").val();
-    loadAllFile(type);
-}
-
-function loadAllFile(type) {
-    var loadingHTML = getLoadingHTML();
-    $("#showFilesData").html(loadingHTML);
-    setTimeout(() => {
-        $.ajax({
-            url: `${FILES_DATA_URL}/${type}/`,
-            async: false,
-            dataType: "json"
-        }).done(function (result) {
-            var res = `<div class="card-body">
-                            <table class="table table-bordered table-responsive">
-                                <thead class="table-light">
-                                    <th>File Name</th><th>URL</th>
-                                </thead><tbody>`;
-            if (result && result.length > 0) {
-                result.forEach(element => {
-                    res += ` <tr>
-                                <td>${element.name}</td>
-                                <td><a href="${element.url}" target="_blank">${element.url}</a></td>
-                            </tr>`;
-                });
-            }
-            res += `</tbody></table></div>`;
-            $("#showFilesData").html(res);
-        }).fail(function (jqXHR, textStatus, error) {
-            $("#showFilesData").html("");
-            alert("Upload data fail!");
-        });
-    }, 200);
-}
-
-function getFileContentType(type) {
-    loadAllFile(type.value);
+window.uploadJS = {
+    refreshFileData : function () {
+        var type = $("input[name='uploadFile']:checked").val();
+        window.uploadJS.loadAllFile(type);
+    },
+    
+    loadAllFile : function (type) {
+        var loadingHTML = window.commonJS.getLoadingHTML();
+        $("#showFilesData").html(loadingHTML);
+        setTimeout(() => {
+            $.ajax({
+                url: `${window.apiUrlDefined.FILES_DATA_URL}/${type}/`,
+                async: false,
+                dataType: "json"
+            }).done(function (result) {
+                var res = `<div class="card-body">
+                                <table class="table table-bordered table-responsive">
+                                    <thead class="table-light">
+                                        <th>File Name</th><th>URL</th>
+                                    </thead><tbody>`;
+                if (result && result.length > 0) {
+                    result.forEach(element => {
+                        res += ` <tr>
+                                    <td>${element.name}</td>
+                                    <td><a href="${element.url}" target="_blank">${element.url}</a></td>
+                                </tr>`;
+                    });
+                }
+                res += `</tbody></table></div>`;
+                $("#showFilesData").html(res);
+            }).fail(function (jqXHR, textStatus, error) {
+                $("#showFilesData").html("");
+                alert("Upload data fail!");
+            });
+        }, 200);
+    },
+    
+    getFileContentType : function (type) {
+        window.uploadJS.loadAllFile(type.value);
+    }
 }
