@@ -19,7 +19,7 @@ window.boardsJS = {
                 var symbols = response[symbolSelectionType][periodType];
                 if (symbols && symbols.length > 0) {
                     if (symbolSelectionType !== "bothNetBuy") {
-                        symbols = symbols.slice(0, 10);
+                        symbols = symbols.slice(0, 20);
                     }
                     window.webSocketConfigs.liveboard.listStock = symbols;
                     window.boardsJS.getListStockOfLiveBoardData(symbols.toString(), false);
@@ -228,7 +228,7 @@ window.boardsJS = {
                     window.boardsJS.setFlashHighlightBuySell(price_1, g1[0]);
                     $(price_1).text(Number(g1[0]) > 0 || window.boardsJS.checkAtoOrAtcSession(g1[0]) ? g1[0] : "");
                     window.boardsJS.setFlashHighlightBuySell(vol_1, window.boardsJS.convertToVolFormat(g1[1]));
-                    $(vol_1).text(convertToVolFormat(g1[1]));
+                    $(vol_1).text(window.boardsJS.convertToVolFormat(g1[1]));
                     window.boardsJS.setColorOfElements(rootId, [price_1, vol_1], Number(g1[0]));
                 }
                 var g2 = data.g2.split("|");
@@ -236,8 +236,8 @@ window.boardsJS = {
                     window.boardsJS.setFlashHighlightBuySell(price_2, g2[0]);
                     $(price_2).text(Number(g2[0]) > 0 || window.boardsJS.checkAtoOrAtcSession(g2[0]) ? g2[0] : "");
                     window.boardsJS.setFlashHighlightBuySell(vol_2, window.boardsJS.convertToVolFormat(g2[1]));
-                    $(vol_2).text(convertToVolFormat(g2[1]));
-                    window.boardsJS. setColorOfElements(rootId, [price_2, vol_2], Number(g2[0]));
+                    $(vol_2).text(window.boardsJS.convertToVolFormat(g2[1]));
+                    window.boardsJS.setColorOfElements(rootId, [price_2, vol_2], Number(g2[0]));
                 }
                 var g3 = data.g3.split("|");
                 if (g3 && g3.length > 0) {

@@ -11,7 +11,7 @@ window.webSocketApp = {
             window.webSocketConfigs.liveboard.Socket.on("connect", function () {
                 console.log("CONNECT Websocket");
                 window.webSocketConfigs.liveboard.Result = 1;
-                $("#status-connect").text("Kết nối ổn định").css("color", "rgb(14, 203, 129)");
+                $("#status-connect").text("Kết nối ổn định").css("color", "#0ecb81");
                 window.webSocketActions.socketCurrentUnRegister();
                 window.webSocketActions.messageRegister();
                 window.commonJS.hideDisconnectionMessageToast();
@@ -20,19 +20,19 @@ window.webSocketApp = {
             window.webSocketConfigs.liveboard.Socket.on("disconnect", function () {
                 window.webSocketConfigs.liveboard.Result = -1;
                 console.log("disconnect");
-                $("#status-connect").text("Mất kết nối").css("color", "rgb(240, 185, 11)");
+                $("#status-connect").text("Mất kết nối").css("color", "#f0b90b");
                 window.commonJS.showDisconnectionMessageToast();
             });
             window.webSocketConfigs.liveboard.Socket.on("connect_error", function () {
                 window.webSocketConfigs.liveboard.Result = -2;
                 console.log("connect_error");
-                $("#status-connect").text("Lỗi kết nối").css("color", "rgb(240, 185, 11)");
+                $("#status-connect").text("Lỗi kết nối").css("color", "#f0b90b");
                 window.commonJS.showDisconnectionMessageToast();
             });
             window.webSocketConfigs.liveboard.Socket.on("reconnect_error", function () {
                 window.webSocketConfigs.liveboard.Result = -3;
                 console.log("reconnect_error");
-                $("#status-connect").text("Thử kết nối lại thất bại").css("color", "rgb(240, 185, 11)");
+                $("#status-connect").text("Thử kết nối lại thất bại").css("color", "#f0b90b");
                 window.commonJS.showDisconnectionMessageToast();
             })
         }
