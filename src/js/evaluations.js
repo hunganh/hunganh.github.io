@@ -34,12 +34,17 @@ window.evaluationsJS = {
         window.evaluationsJS.drawCashFlowDCF();
         window.evaluationsJS.showEvaluationResult();
         window.commonJS.initTooltips();
+        window.evaluationsJS.getDataCompanysecuritiesRecommendation();
     },
     
     resetEvaluation : function () {
         $("#basic-index-evaluation-value").text("N/A");
         $("#dcf-evaluation-value").text("N/A");
         $("#stockEvaluationResult").text("N/A");
+        $("#company-securities-table-body").html("");
+        $("#sellSecuritiesCompany").text("N/A");
+        $("#holdSecuritiesCompany").text("N/A");
+        $("#buySecuritiesCompany").text("N/A");
     },
     
     showEvaluationResult : function () {
@@ -228,6 +233,80 @@ window.evaluationsJS = {
         
     },
     
+    getDataCompanysecuritiesRecommendation: function () {
+        var res = "";
+        if (window.variablesJS.evaluationsData && window.variablesJS.evaluationsData.securities_company && window.variablesJS.evaluationsData.securities_company.length > 0) {
+            var index = 1;
+            var firms = [...new Set(window.variablesJS.evaluationsData.securities_company.map(item => item.firm))];
+            var data = [];
+            if (firms && firms.length > 0) {
+                firms.forEach(firm => {
+                    var item = window.variablesJS.evaluationsData.securities_company.find(x => x.firm === firm);
+                    if (item) {
+                        data.push(item);
+                    }
+                });
+            }
+            else {
+                return;
+            }
+            if (data.length === 0) return;
+            data = data.filter(d => 
+                {   
+                    var time = new Date(d.reportDate).getTime();
+                    var sixMonthsAgo = new Date(); 
+                    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+                    sixMonthsAgo.setDate(1);
+                    return (time >= sixMonthsAgo);
+                });
+            if (data != null && data.length > 0) {
+                data.forEach(item => {
+                    res += `<tr>
+                                <td class="text-center"><span>${index++}</span></td>
+                                <td class="text-center"><span>${new Date(item.reportDate).toLocaleDateString(window.variablesJS.defaultLocale)}</span></td>
+                                <td class="text-center"><span class="font-weight-bold">${item.firm}</span></td>
+                                <td class="text-center"><span class="${item.type === 'BUY' ? 'up' : item.type === 'SELL' ? 'down' : item.type === 'HOLD' ? 'reference' : item.type === ''} dashed-border-bottom">${item.type === 'BUY' ? 'Mua' : item.type === 'SELL' ? 'Bán' : item.type === 'HOLD' ? 'Giữ' : item.type === 'N/A'}</td>
+                                <td class="text-right"><span class="bold-text dashed-border-bottom">${item.reportPrice === 0 || item.reportPrice === undefined ? "N/A" : new Intl.NumberFormat(window.variablesJS.numberLocale).format(item.reportPrice * 1000)}</td>
+                                <td class="text-right"><span class="badge bg-primary font-weight-bold font-12 dashed-border-bottom">${item.targetPrice === 0 || item.targetPrice === undefined ? "N/A" : new Intl.NumberFormat(window.variablesJS.numberLocale).format(item.targetPrice * 1000)}</td>
+                                <td class="text-left"><span class="bold-text dashed-border-bottom">${item.analyst}</td>
+                            </tr>`;
+                });
+                var lstCompany = [...new Set(data.map(item => item.firm))];
+                var sell = 0;
+                var hold = 0;
+                var buy = 0;
+                var sum = 0;
+                var total = 0;
+                if (lstCompany && lstCompany.length > 0) {
+                    data.forEach(item => {
+                        if (item) {
+                            if (item.type === "BUY") {
+                                buy++;
+                            }
+                            else if (item.type === "HOLD") {
+                                hold++;
+                            }
+                            else if (item.type === "SELL") {
+                                sell++;
+                            }
+                            if (item.targetPrice !== null && item.targetPrice !== "N/A" && item.targetPrice !== undefined && item.targetPrice > 0) {
+                                sum += item.targetPrice;
+                                total++;
+                            }
+                        }
+                    });
+                }
+                $("#avgPriceTargetSecuritiesCompany").text(`${sum > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format((sum/total * 1000).toFixed(0)) : "N/A"}`);
+                $("#sellSecuritiesCompany").text(sell);
+                $("#holdSecuritiesCompany").text(hold);
+                $("#buySecuritiesCompany").text(buy);
+            }
+        } else {
+            res += "<tr><td colspan='7'>Chưa có dữ liệu</td></tr>";
+        }
+        $("#company-securities-table-body").html(res);
+    },
+
     getAssumptionEV: function (cashFlow) {
         var times = "";
         var values = "";

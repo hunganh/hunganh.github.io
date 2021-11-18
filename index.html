@@ -1188,171 +1188,225 @@
                 </div>
               </div>
             </div>
+            <ul class="nav nav-tabs tabs" id="myEvaluationTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="formula-tab" data-bs-toggle="tab" data-bs-target="#formula" type="button" role="tab" aria-controls="formula" aria-selected="true"><h7>Theo công thức</h7></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="securities-tab" data-bs-toggle="tab" data-bs-target="#securities" type="button" role="tab" aria-controls="securities" aria-selected="false"><h7>Khuyến nghị từ CTCK</h7></button>
+                </li>
+            </ul>
             <div id="showLoadingEvaluation"></div>
-            <div class="card-group">
-              <div class="card">
-                <div class="card-header text-white card-header-evaluation-bg">PP1. Định giá theo Chỉ số cơ bản
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Dựa trên ý tưởng rằng những công ty tương đồng về lĩnh vực kinh doanh và quy mô hoạt động sẽ có mức định giá tương đương nhau, phương pháp hệ số giúp xác định giá trị định giá bằng cách nhân trung bình các hệ số định giá của các công ty tương đồng với chỉ tiêu tài chính tương ứng của công ty đang được định giá. Các hệ số định giá phổ biến nhất là Giá thị trường/lợi nhuận một cổ phiếu (P/E), Giá thị trường/Giá trị sổ sách (P/B) và Giá trị doanh nghiệp/Lợi nhuận hoạt động trước lãi vay, khấu hao và thuế (EV/EBITDA).</p></div>">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </svg>
-                </div>
-                <div class="card-body" id="basic-index-evaluation" style="margin-top: 8px;">
-                  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="btnEvaluationVnindex" name="btnEvaluations" value="index">
-                        <label class="form-check-label" for="btnEvaluationVnindex"><span class="bold-text">VN-Index</span></label>
+            <div class="tab-content" id="evaluationsTabContent">
+              <div class="tab-pane fade show active" id="formula" role="tabpanel" aria-labelledby="formula-tab">
+                  <div class="card-group">
+                    <div class="card">
+                      <div class="card-header text-white card-header-evaluation-bg">PP1. Định giá theo Chỉ số cơ bản
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Dựa trên ý tưởng rằng những công ty tương đồng về lĩnh vực kinh doanh và quy mô hoạt động sẽ có mức định giá tương đương nhau, phương pháp hệ số giúp xác định giá trị định giá bằng cách nhân trung bình các hệ số định giá của các công ty tương đồng với chỉ tiêu tài chính tương ứng của công ty đang được định giá. Các hệ số định giá phổ biến nhất là Giá thị trường/lợi nhuận một cổ phiếu (P/E), Giá thị trường/Giá trị sổ sách (P/B) và Giá trị doanh nghiệp/Lợi nhuận hoạt động trước lãi vay, khấu hao và thuế (EV/EBITDA).</p></div>">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                        </svg>
+                      </div>
+                      <div class="card-body" id="basic-index-evaluation" style="margin-top: 8px;">
+                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                          <div class="form-check form-check-inline">
+                              <input type="radio" class="form-check-input" id="btnEvaluationVnindex" name="btnEvaluations" value="index">
+                              <label class="form-check-label" for="btnEvaluationVnindex"><span class="bold-text">VN-Index</span></label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input type="radio" class="form-check-input" id="btnEvaluationFields" name="btnEvaluations" value="industry" checked>
+                              <label class="form-check-label" for="btnEvaluationFields"><span class="bold-text">Ngành</span></label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input type="radio" class="form-check-input" id="btnEvaluationTop5" name="btnEvaluations" value="top5" >
+                              <label class="form-check-label" for="btnEvaluationTop5"><span class="bold-text">Top 5 CP đầu ngành</span></label>
+                          </div>                                               
+                        </div>
+                        <div class="table-responsive" style="padding-top: 9px;">
+                          <table class="table table-bordered">
+                              <thead class="table-light" style="word-wrap: break-word !important;">
+                                  <tr>
+                                    <th>VN-Index/Ngành/Top 5</th>
+                                    <th>P/E</th>
+                                    <th>P/B</th>
+                                    <th>EV/EBITDA</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="stock-evaluation-table-body" class="price-table-content ui-sortable">
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">N/A</span></td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr class="avg-value-area">
+                                    <td class="text-left"><span class="font-weight-bold text-white">Hệ số trung bình</span></td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                  </tr>
+                                  <tr class="sum-value-area">
+                                    <td class="text-left"><span class="font-weight-bold text-white">Giá trị CP theo từng hệ số</span></td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <span class="font-weight-bold">Giá trị cổ phiếu (P/E, P/B, EV/EBITDA) </span>
+                        <span class="badge bg-primary font-weight-bold font-14 dashed-border-bottom" id="basic-index-evaluation-value"> N/A</span>
+                      </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="btnEvaluationFields" name="btnEvaluations" value="industry" select>
-                        <label class="form-check-label" for="btnEvaluationFields"><span class="bold-text">Ngành</span></label>
+                    <div class="card">
+                      <div class="card-header text-white card-header-evaluation-bg">PP2. Định giá theo Chiết khấu dòng tiền (DCF)
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Dựa trên ý tưởng rằng giá trị của một doanh nghiệp là giá trị hiện tại của các dòng tiền mà công ty đó có thể tạo ra trong tương lai, phương pháp chiết khấu dòng tiền giúp xác định giá trị doanh nghiệp bằng cách chiết khấu dự phóng dòng tiền trong 5 năm tiếp theo về giá trị hiện tại với một lãi suất phù hợp và điều chỉnh cho giá trị các khoản nợ vay, lợi ích cổ đông thiểu số và tiền của doanh nghiệp.</p></div>">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                        </svg>
+                      </div>
+                      <div class="card-body" id="dcf-evaluation">
+                        <p class="font-weight-bold" style="margin-bottom: 10px !important;">Với giả định như sau: Tăng trưởng 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Giả định này thể hiện tốc độ tăng trưởng trung bình hàng năm khi doanh nghiệp đã đi vào hoạt động ổn định sau kỳ dự báo (hay còn gọi là [Tỉ lệ tăng trưởng trong vô hạn] hay Terminal Growth Rate). Thông thường trong giai đoạn này, công suất sản xuất đã đạt mức tối đa, tăng trưởng của doanh nghiệp chủ yếu đến từ tăng giá bán. Do đó, giả định này thường có giá trị tương đương với lạm phát (khoảng 3%-5%).</p></div>">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                          </svg>
+                          <input type="number" class="percent" value="">% và WACC 
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>WACC (Weighted Average Cost of Capital) là chi phí sử dụng vốn trung bình của doanh nghiệp, cho biết một doanh nghiệp sẽ phải tốn bao nhiêu chi phí cho mỗi đồng tiền được tài trợ (từ vốn CSH và/hay vay mượn). WACC được tính bằng trung bình của tỷ suất sinh lời cổ phiếu và lãi suất doanh nghiệp đang đi vay.</p></div>">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
+                          </svg>
+                          <input type="number" value="" class="percent">% </p> 
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                              <thead class="table-light" style="word-wrap: break-word !important;">
+                                  <tr>
+                                    <th>Năm</th>
+                                    <th>N/A</th>
+                                    <th>N/A</th>
+                                    <th>N/A</th>
+                                    <th>N/A</th>
+                                    <th>N/A</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="stock-evaluation-table-body" class="price-table-content ui-sortable">
+                                  <tr>
+                                    <td class="text-left"><span class="font-weight-bold">Dòng tiền (tỷ)</span></td>
+                                    <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
+                                    <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
+                                    <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
+                                    <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
+                                    <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                        </div>
+                        <table style="border: none;">
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị doanh nghiệp EV: </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">Tiền & tương đương tiền: </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">Nợ (3): </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">Lợi ích CĐ thiểu số: </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị vốn hóa DN: </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                          <tr>
+                            <td class="text-left pd-evaluation"><span class="font-weight-bold">SL cổ phiếu lưu hành: </span></td>
+                            <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="card-footer">
+                        <span class="font-weight-bold">Giá trị cổ phiếu theo DCF</span>
+                        <span class="badge bg-primary font-weight-bold font-14 dashed-border-bottom" id="dcf-evaluation-value"> N/A</span>
+                      </div>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="btnEvaluationTop5" name="btnEvaluations" checked value="top5" >
-                        <label class="form-check-label" for="btnEvaluationTop5"><span class="bold-text">Top 5 CP đầu ngành</span></label>
-                    </div>                                               
                   </div>
-                  <div class="table-responsive" style="padding-top: 9px;">
-                    <table class="table table-bordered">
-                        <thead class="table-light" style="word-wrap: break-word !important;">
-                            <tr>
-                              <th>VN-Index/Ngành/Top 5</th>
-                              <th>P/E</th>
-                              <th>P/B</th>
-                              <th>EV/EBITDA</th>
-                            </tr>
-                        </thead>
-                        <tbody id="stock-evaluation-table-body" class="price-table-content ui-sortable">
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">N/A</span></td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">N/A</span></td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">N/A</span></td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">N/A</span></td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">N/A</span></td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr class="avg-value-area">
-                              <td class="text-left"><span class="font-weight-bold text-white">Hệ số trung bình</span></td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                            </tr>
-                            <tr class="sum-value-area">
-                              <td class="text-left"><span class="font-weight-bold text-white">Giá trị CP theo từng hệ số</span></td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                              <td class="text-right"><span class="bold-text text-white dashed-border-bottom">N/A</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-                <div class="card-footer">
-                  <span class="font-weight-bold">Giá trị cổ phiếu (P/E, P/B, EV/EBITDA) </span>
-                  <span class="badge bg-primary font-weight-bold font-14 dashed-border-bottom" id="basic-index-evaluation-value"> N/A</span>
-                </div>
+                  <div class="card card-evaluation">
+                    <div class="evaluation-result">              
+                      <div class="font-weight-bold">Kết quả định giá cho cổ phiếu <span class="font-weight-bold font-14 dashed-border-bottom" id="symbol-evalutions">N/A</span> là: <span class="badge sum-value-area font-weight-bold font-14 dashed-border-bottom" id="stockEvaluationResult"> N/A</span></div>
+                    </div>
+                  </div>
               </div>
-              <div class="card">
-                <div class="card-header text-white card-header-evaluation-bg">PP2. Định giá theo Chiết khấu dòng tiền (DCF)
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Dựa trên ý tưởng rằng giá trị của một doanh nghiệp là giá trị hiện tại của các dòng tiền mà công ty đó có thể tạo ra trong tương lai, phương pháp chiết khấu dòng tiền giúp xác định giá trị doanh nghiệp bằng cách chiết khấu dự phóng dòng tiền trong 5 năm tiếp theo về giá trị hiện tại với một lãi suất phù hợp và điều chỉnh cho giá trị các khoản nợ vay, lợi ích cổ đông thiểu số và tiền của doanh nghiệp.</p></div>">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                  </svg>
-                </div>
-                <div class="card-body" id="dcf-evaluation">
-                  <p class="font-weight-bold" style="margin-bottom: 10px !important;">Với giả định như sau: Tăng trưởng 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>Giả định này thể hiện tốc độ tăng trưởng trung bình hàng năm khi doanh nghiệp đã đi vào hoạt động ổn định sau kỳ dự báo (hay còn gọi là [Tỉ lệ tăng trưởng trong vô hạn] hay Terminal Growth Rate). Thông thường trong giai đoạn này, công suất sản xuất đã đạt mức tối đa, tăng trưởng của doanh nghiệp chủ yếu đến từ tăng giá bán. Do đó, giả định này thường có giá trị tương đương với lạm phát (khoảng 3%-5%).</p></div>">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                    </svg>
-                    <input type="number" class="percent" value="">% và WACC 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fff" style="background: #0d6efd; border-radius: 50%; cursor: pointer;" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" title="" data-bs-original-title="<div class='text-left'><p>WACC (Weighted Average Cost of Capital) là chi phí sử dụng vốn trung bình của doanh nghiệp, cho biết một doanh nghiệp sẽ phải tốn bao nhiêu chi phí cho mỗi đồng tiền được tài trợ (từ vốn CSH và/hay vay mượn). WACC được tính bằng trung bình của tỷ suất sinh lời cổ phiếu và lãi suất doanh nghiệp đang đi vay.</p></div>">
-                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
-                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"></path>
-                    </svg>
-                    <input type="number" value="" class="percent">% </p> 
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="table-light" style="word-wrap: break-word !important;">
-                            <tr>
-                              <th>Năm</th>
-                              <th>N/A</th>
-                              <th>N/A</th>
-                              <th>N/A</th>
-                              <th>N/A</th>
-                              <th>N/A</th>
-                            </tr>
-                        </thead>
-                        <tbody id="stock-evaluation-table-body" class="price-table-content ui-sortable">
-                            <tr>
-                              <td class="text-left"><span class="font-weight-bold">Dòng tiền (tỷ)</span></td>
-                              <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
-                              <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
-                              <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
-                              <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
-                              <td class="text-center"><span class="bold-text"><input type="number" class="money-flow" value=""></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                  </div>
-                  <table style="border: none;">
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị doanh nghiệp EV: </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">Tiền & tương đương tiền: </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">Nợ (3): </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">Lợi ích CĐ thiểu số: </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">Giá trị vốn hóa DN: </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left pd-evaluation"><span class="font-weight-bold">SL cổ phiếu lưu hành: </span></td>
-                      <td class="text-right pd-evaluation-value"><span class="bold-text dashed-border-bottom">N/A</span</td>
-                    </tr>
+              <div class="tab-pane fade" id="securities" role="tabpanel" aria-labelledby="securities-tab">
+                <div><span class="text-red bold">(*) </span><span>Dữ liệu được thống kê trong 6 tháng gần nhất.</span></div>
+                <div class="table-responsive" style="padding-top: 9px; height: 100vh;">
+                  <table class="left-position table table-bordered table-striped table-hover" style="width: auto !important;">
+                      <thead class="table-light" style="word-wrap: break-word !important;">
+                          <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Công ty chứng khoán</th>
+                            <th>Khuyến nghị</th>
+                            <th>Giá khi phân tích</th>
+                            <th>Giá mục tiêu</th>
+                            <th>NV phân tích</th>
+                          </tr>
+                      </thead>
+                      <tbody id="company-securities-table-body" class="price-table-content ui-sortable">
+                        <tr><td colspan='7'>Chưa có dữ liệu</td></tr>
+                      </tbody>
+                  </table>
+                  <table class="left-position table table-bordered table-striped table-hover" style="width: auto !important;">
+                    <thead class="table-light" style="word-wrap: break-word !important;">
+                        <tr>
+                          <th rowspan="2">Giá mục tiêu bình quân</th>
+                          <th colspan="3">Khuyến nghị</th>
+                        </tr>
+                        <tr>
+                          <th>Bán</th>
+                          <th>Giữ</th>
+                          <th>Mua</th>
+                        </tr>
+                    </thead>
+                    <tbody id="company-securities-summary-table-body">
+                        <tr>
+                          <td class="text-center"><span class="badge sum-value-area font-weight-bold font-13 dashed-border-bottom" id="avgPriceTargetSecuritiesCompany">N/A</td>
+                          <td class="text-center"><span class="down dashed-border-bottom font-weight-bold font-13" id="sellSecuritiesCompany">N/A</td>
+                          <td class="text-center"><span class="reference dashed-border-bottom font-weight-bold font-13" id="holdSecuritiesCompany">N/A</td>
+                          <td class="text-center"><span class="up dashed-border-bottom font-weight-bold font-13" id="buySecuritiesCompany">N/A</td>
+                        </tr>
+                    </tbody>
                   </table>
                 </div>
-                <div class="card-footer">
-                  <span class="font-weight-bold">Giá trị cổ phiếu theo DCF</span>
-                  <span class="badge bg-primary font-weight-bold font-14 dashed-border-bottom" id="dcf-evaluation-value"> N/A</span>
-                </div>
-              </div>
-            </div>
-            <div class="card card-evaluation">
-              <div class="evaluation-result">              
-                <div class="font-weight-bold">Kết quả định giá cho cổ phiếu <span class="font-weight-bold font-14 dashed-border-bottom" id="symbol-evalutions">N/A</span> là: <span class="badge sum-value-area font-weight-bold font-14 dashed-border-bottom" id="stockEvaluationResult"> N/A</span></div>
               </div>
             </div>
           </div>

@@ -782,6 +782,10 @@ body .ico {
   font-size: 13px !important;
 }
 
+.font-12 {
+  font-size: 12px !important;
+}
+
 #accordionFilter .accordion-body {
   padding: .75em 1.25rem !important;
 }
