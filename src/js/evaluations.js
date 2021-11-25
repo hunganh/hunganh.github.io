@@ -42,6 +42,7 @@ window.evaluationsJS = {
         $("#dcf-evaluation-value").text("N/A");
         $("#stockEvaluationResult").text("N/A");
         $("#company-securities-table-body").html("");
+        $("#avgPriceTargetSecuritiesCompany").text("N/A");
         $("#sellSecuritiesCompany").text("N/A");
         $("#holdSecuritiesCompany").text("N/A");
         $("#buySecuritiesCompany").text("N/A");

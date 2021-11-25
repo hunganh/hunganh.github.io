@@ -565,7 +565,7 @@ window.commonJS = {
     },
     
     reconnectWS :  function () {
-        liveboard.Result = -1;
+        window.webSocketConfigs.liveboard.Result = -1;
         window.webSocketApp.initWebsocket();
         window.timeServerJS.StartWS();
         window.commonJS.hideDisconnectionMessageToast();
