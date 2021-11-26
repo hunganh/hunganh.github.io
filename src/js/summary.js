@@ -146,7 +146,7 @@ window.summaryJS = {
             tr = tbody.insertRow(-1);
             var tabCell = tr.insertCell(-1);
             tabCell.innerHTML = "Không có dữ liệu.";
-            cell.colSpan = 10;
+            tabCell.colSpan = 10;
         }
     
         table.appendChild(tbody);
