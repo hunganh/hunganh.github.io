@@ -151,13 +151,13 @@ window.commonJS = {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             return window.variablesJS.TOTAL_NET_BUY_TRADE_VALUE;
         } else {
-            return variablesJS.FOREIGN_NET_BUY_VALUE;
+            return window.variablesJS.FOREIGN_NET_BUY_VALUE;
         }
     },
     
     getVolumeColumnName :  function () {
         if (window.variablesJS.typeDefault === "selfBusiness") {
-            return variablesJS.TOTAL_NET_BUY_TRADE_VOLUME;
+            return window.variablesJS.TOTAL_NET_BUY_TRADE_VOLUME;
         } else {
             return "";
         }
@@ -180,18 +180,18 @@ window.commonJS = {
             }
         } else {
             if (window.variablesJS.actionDefault === "netBuy") {
-                return variablesJS.FOREIGN_NET_BUY_VALUE;
+                return window.variablesJS.FOREIGN_NET_BUY_VALUE;
             } else {
-                return variablesJS.FOREIGN_NET_SELL_VALUE;
+                return window.variablesJS.FOREIGN_NET_SELL_VALUE;
             }
         }
     },
     
     getUrlPreviousElementByDate :  function (date) {
         var fileName = `${window.commonJS.getDateInput(date)}.json`;
-        var index = mappingDataJson.findIndex(x => x.name === fileName);
+        var index = window.variablesJS.mappingDataJson.findIndex(x => x.name === fileName);
         if (index <= 0) return "";
-        return mappingDataJson[index + 1].url;
+        return window.variablesJS.mappingDataJson[index + 1].url;
     },
     
     showLoading : function (elementId) {

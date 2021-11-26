@@ -5,7 +5,7 @@ window.statisticsJS = {
     initStatisticsData : function () {
         window.commonJS.showLoading("showStatisticsLoading");
         setTimeout(() => {
-            var nodeName = window.variablesJS.typeDefault === "selfBusiness" ? variablesJS.TU_DOANH : variablesJS.KHOI_NGOAI;
+            var nodeName = window.variablesJS.typeDefault === "selfBusiness" ? window.variablesJS.TU_DOANH : window.variablesJS.KHOI_NGOAI;
             $.ajax({
                 url: `${window.apiUrlDefined.STATISTICS_DATA_URL}/${nodeName}`,
                 async: false,
@@ -48,7 +48,7 @@ window.statisticsJS = {
                 return d - c;
             });
             for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
-                window.statisticsJS.createStatisticsReport(variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], index);
+                window.statisticsJS.createStatisticsReport(window.variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], index);
             }
             window.statisticsJS.setStatisticsTitle();
         }
@@ -58,7 +58,7 @@ window.statisticsJS = {
     resetStatisticsData : function () {
         window.commonJS.closePopover();
         window.variablesJS.dataJson = null;
-        variablesJS.mappingDataJson = null;
+        window.variablesJS.mappingDataJson = null;
         window.variablesJS.divStatisticsShowData.innerHTML = "";
         document.getElementById("fileInput").value = null;
     },
@@ -96,7 +96,7 @@ window.statisticsJS = {
     },
     
     processStatisticsData : function (period) {
-        variablesJS.currentPeriod = period;
+        window.variablesJS.currentPeriod = period;
         if (window.variablesJS.dataJson && window.variablesJS.dataJson.items && window.variablesJS.dataJson.items.length > 0) {
             window.variablesJS.divStatisticsShowData.innerHTML = "";
             for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
@@ -121,9 +121,9 @@ window.statisticsJS = {
         thead.appendChild(tr);
         table.appendChild(thead);
         tr = thead.insertRow(-1);
-        for (var i = 0; i < variablesJS.statisticsHeadTitle.length; i++) {
+        for (var i = 0; i < window.variablesJS.statisticsHeadTitle.length; i++) {
             var th = document.createElement("th");      // table header.
-            th.innerHTML = variablesJS.statisticsHeadTitle[i];
+            th.innerHTML = window.variablesJS.statisticsHeadTitle[i];
             tr.appendChild(th);
         }
         
@@ -134,13 +134,13 @@ window.statisticsJS = {
             tr = tbody.insertRow(-1);
             tr.setAttribute("onClick", `window.commonJS.showTickerInfor("${data[i]["ticker"]}")`);
             tr.classList.add("tr-cursor");
-            var prvItem = dataIndex === 0 && window.variablesJS.dataJson.items.length > 1 ? window.variablesJS.dataJson.items[dataIndex + 1] : variablesJS.olderItem; //window.commonJS.getFirstItemData(dataJsonInput[period].toDate);
+            var prvItem = dataIndex === 0 && window.variablesJS.dataJson.items.length > 1 ? window.variablesJS.dataJson.items[dataIndex + 1] : window.variablesJS.olderItem; //window.commonJS.getFirstItemData(dataJsonInput[period].toDate);
             var columnName = window.commonJS.getColumnName();
             var volumeColumnName = window.commonJS.getVolumeColumnName();
             if (!prvItem) {
                 window.commonJS.addCell(tr, Number(i + 1));
             } else {
-                var prvPosition = window.variablesJS.actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][variablesJS.statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][variablesJS.statisticsCols[1]]));
+                var prvPosition = window.variablesJS.actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]]));
                 if (prvPosition > -1) {
                     window.commonJS.addCell(tr, Number(i + 1) + window.commonJS.getPositionIcon(prvPosition, i));
                 } else {
@@ -200,12 +200,12 @@ window.addEventListener('load', function () {
                 window.commonJS.showLoading("showStatisticsLoading");
                 let readers = [];
                 for (let index = 0; index <= upload.files.length - 1; index++) {
-                    readers.push(processDataInput.readFileAsText(upload.files[index]));
+                    readers.push(window.statisticsJS.readFileAsText(upload.files[index]));
                 }
                 // Trigger Promises
                 Promise.all(readers).then((values) => {
                     var data = values.map(x => JSON.parse(x));
-                    variablesJS.olderItem = null;
+                    window.variablesJS.olderItem = null;
                     window.statisticsJS.processDataInput(data);
                 });
             }
