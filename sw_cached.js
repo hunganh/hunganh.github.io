@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v2.9';
+var CACHE_NAME = 'v3.0';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
@@ -20,7 +20,7 @@ var CACHE_ASSETS = [
     '/src/charting_library/bundles/8.64feb472d73c26e9bc6b.js',
     '/src/charting_library/bundles/9.b007f594eb5810aedb57.js',
     '/src/charting_library/bundles/10.7d7478963adcbd9a35fb.js',
-    '/src/charting_library/bundles/11.4402ebd4632713d705d4.css',
+    '/src/charting_libary/bundles/11.4402ebd4632713d705d4.css',
     '/src/charting_library/bundles/12.7ec666bbb2e51247fe2e.js',
     '/src/charting_library/bundles/13.50b1b6fbd8839e93053f.js',
     '/src/charting_library/bundles/14.209e3b38b8b016091a8e.css',

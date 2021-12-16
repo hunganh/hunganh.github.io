@@ -89,7 +89,7 @@ window.evaluationsJS = {
                     res += `<tr>
                                 <td class="text-left"><span class="font-weight-bold">${item.ticker}</span></td>
                                 <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pe !== null && item.pe > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(item.pe) : "N/A"}</td>
-                                <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pb !== null && item.pb > 0? Intl.NumberFormat(window.variablesJS.numberLocale).format(item.pb) : "N/A"}</td>
+                                <td class="text-right"><span class="bold-text dashed-border-bottom">${item.pb !== null && item.pb > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(item.pb) : "N/A"}</td>
                                 <td class="text-right"><span class="bold-text dashed-border-bottom">${item.evebitda !== null  && item.evebitda > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(item.evebitda) : "N/A"}</td>
                             </tr>`;
                 });
@@ -106,24 +106,24 @@ window.evaluationsJS = {
         } else {
             res += `<tr>
                         <td class="text-left"><span class="font-weight-bold">${type === "index" ? "VN-Index" : type === "industry" ? "Ngành" : type}</span></td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data[type].pe !== null && data[type].pe > 0? data[type].pe : "N/A"}</td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data[type].pb !== null && data[type].pb > 0? data[type].pb : "N/A"}</td>
-                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data[type].evebitda !== null && data[type].evebitda > 0 ? data[type].evebitda : "N/A"}</td>
+                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data && data[type] && data[type].pe !== null && data[type].pe > 0 ? data[type].pe : "N/A"}</td>
+                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data && data[type] && data[type].pb !== null && data[type].pb > 0 ? data[type].pb : "N/A"}</td>
+                        <td class="text-right"><span class="bold-text dashed-border-bottom">${data && data[type] && data[type].evebitda !== null && data[type].evebitda > 0 ? data[type].evebitda : "N/A"}</td>
                     </tr>`;
         }
         res += `<tr class="avg-value-area">
                     <td class="text-left"><span class="font-weight-bold text-white">Hệ số trung bình</span></td>
-                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data.avg[type].pe !== null && data.avg[type].pe > 0 ? data.avg[type].pe.toFixed(1) : "N/A"}</td>
-                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data.avg[type].pb !== null && data.avg[type].pb > 0 ? (data.avg[type].pb).toFixed(1) : "N/A"}</td>
-                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data.avg[type].evebitda !== null && data.avg[type].evebitda > 0 ? data.avg[type].evebitda.toFixed(1) : "N/A"}</td>
+                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data && data.avg && data.avg[type].pe !== null && data.avg[type].pe > 0 ? data.avg[type].pe.toFixed(1) : "N/A"}</td>
+                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data && data.avg && data.avg[type].pb !== null && data.avg[type].pb > 0 ? (data.avg[type].pb).toFixed(1) : "N/A"}</td>
+                    <td class="text-right"><span class="bold-text text-white dashed-border-bottom">${data && data.avg && data.avg[type].evebitda !== null && data.avg[type].evebitda > 0 ? data.avg[type].evebitda.toFixed(1) : "N/A"}</td>
                 </tr>`;
         res += ` <tr class="sum-value-area">
                     <td class="text-left"><span class="font-weight-bold text-white">Giá trị CP theo từng hệ số</span></td>
-                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${data.coefficient[type].pe !== null && data.coefficient[type].pe > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].pe.toFixed(0)) : "N/A"}</td>
-                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${data.coefficient[type].pb !== null && data.coefficient[type].pb  > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].pb.toFixed(0)) : "N/A"}</td>
-                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${data.coefficient[type].evebitda !== null && data.coefficient[type].evebitda > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].evebitda.toFixed(0)) : "N/A"}</td> 
+                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${data && data.coefficient && data.coefficient[type].pe !== null && data.coefficient[type].pe > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].pe.toFixed(0)) : "N/A"}</td>
+                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${data && data.coefficient && data.coefficient[type].pb !== null && data.coefficient[type].pb  > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].pb.toFixed(0)) : "N/A"}</td>
+                    <td class="text-right"><span class="bold-text dashed-border-bottom text-white">${ data && data.coefficient && data.coefficient[type].evebitda !== null && data.coefficient[type].evebitda > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.coefficient[type].evebitda.toFixed(0)) : "N/A"}</td> 
                 </tr>`;
-        $("#basic-index-evaluation-value").text(`${data.evaluation[type] !== null && data.evaluation[type] > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.evaluation[type].toFixed(0)) : "N/A"}`);
+        $("#basic-index-evaluation-value").text(`${data && data.evaluation && data.evaluation[type] !== null && data.evaluation[type] > 0 ? Intl.NumberFormat(window.variablesJS.numberLocale).format(data.evaluation[type].toFixed(0)) : "N/A"}`);
         $("#stock-evaluation-table-body").html(res);
     },
     

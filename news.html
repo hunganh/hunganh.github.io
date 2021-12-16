@@ -11,7 +11,8 @@
     <style>
         html,
         body {
-            font-family: "Verdana", sans-serif
+            font-family: "Verdana", sans-serif;
+            font-size: small !important;
         }
         h1,
         h2,
@@ -68,7 +69,7 @@
             var URL = encodeURIComponent(`${newURL}`);
             var res = "";
             $.ajax({
-                url: `http://data-statistics-api.herokuapp.com/fetch/${URL}`,
+                url: `https://data-statistics-api.herokuapp.com/fetch/${URL}`,
                 // async: false,
                 dataType: "json"
             }).done(function (response) {

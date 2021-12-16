@@ -129,9 +129,9 @@
                             <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22" id='showStatisticsTitle'>Thống Kê Tự Doanh Mua Ròng</div>
                         </div>
                         <div class="col margin-5">
-                            <button type="button" class="btn btn-danger btn-sm" onclick='window.statisticsJS.resetStatisticsData()'>Reset</button>
+                            <button type="button" class="btn btn-danger btn-sm bold" onclick='window.statisticsJS.resetStatisticsData()'>Reset</button>
                             &nbsp;
-                            <button type="button" class="btn btn-success btn-sm" onclick='window.statisticsJS.refreshStatisticsData()'>Tải dữ liệu mới</button>
+                            <button type="button" class="btn btn-success btn-sm bold" onclick='window.statisticsJS.refreshStatisticsData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                             <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22" id='showSummaryTitle'>Tổng Hợp Tự Doanh & Khối Ngoại Mua Ròng</div>
                         </div>
                         <div class="col margin-5">
-                            <button type="button" class="btn btn-success btn-sm" onclick='window.summaryJS.refreshSummaryData()'>Tải dữ liệu mới</button>
+                            <button type="button" class="btn btn-success btn-sm bold" onclick='window.summaryJS.refreshSummaryData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                             <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22" id='showFieldsTitle'>Thống Kê Biến Động Giao Dịch Ngành</div>
                         </div>
                         <div class="col margin-5">
-                            <button type="button" class="btn btn-success btn-sm" onclick='window.fieldsJS.refreshFieldsData()'>Tải dữ liệu mới</button>
+                            <button type="button" class="btn btn-success btn-sm bold" onclick='window.fieldsJS.refreshFieldsData()'>Tải dữ liệu mới</button>
                         </div>
                     </div>
                 </div>
@@ -821,7 +821,7 @@
                 <div class="card">
                     <div class="card-header card-criteria">
                       <span>Tiêu Chí PT Kỹ Thuật</span>
-                      <button type="button" class="btn btn-success btn-sm" onclick='window.chartsJS.technicalAnalysics()' style="float: right;">Áp dụng</button>
+                      <button type="button" class="btn btn-success btn-sm bold" onclick='window.chartsJS.technicalAnalysics()' style="float: right;">Áp Dụng</button>
                     </div>
                     <div class="card-body filter-group">
                         <div class="accordion" id="accordionTAChart">
@@ -1173,7 +1173,7 @@
                           <td class="border-bottom-width">
                             <div class="input-group input-group-sm mb-2">
                               <div id="symbol-name-evaluation-autocomplete"></div>
-                              <button class="btn btn-success bold" type="button" onclick="window.evaluationsJS.processEvaluationDataInput()">Áp dụng</button>
+                              <button class="btn btn-success bold" type="button" onclick="window.evaluationsJS.processEvaluationDataInput()">Áp Dụng</button>
                             </div>
                           </td> 
                           <td class="text-left middle-vertical-position border-bottom-width"><span class="text-left middle-vertical-position font-weight-bold">Mã CP: </span><span class="font-weight-bold text-white badge sum-value-area font-14 dashed-border-bottom" id="evaluation-symbol"> N/A </span> - <span class="font-weight-bold">Sàn:</span> <span class="dashed-border-bottom" id="evaluation-exchange">N/A</span> - <span class="font-weight-bold">Ngành:</span> <span class="dashed-border-bottom" id="evaluation-industry">N/A</span></td> 
@@ -1455,7 +1455,7 @@
                           <div class="badge bg-latest card-header margin-5 breadcrumb-title pading-left-22">Bảng giá điện tử (Giá: x1000 | Khối lượng: x10)</div>
                       </div>
                       <div class="col margin-5">
-                          <button type="button" class="btn btn-success btn-sm" onclick='window.boardsJS.loadLiveBoardData()'>Áp dụng</button>
+                          <button type="button" class="btn btn-success btn-sm bold" onclick='window.boardsJS.loadLiveBoardData()'>Áp Dụng</button>
                       </div>
                   </div>
               </div>
@@ -1535,7 +1535,7 @@
             </div>
         </div>
     </div>
-    <div class="fixed-bottom footer-info">WS Status: <span id="status-connect" class="bold"></span> &nbsp;| <span id='clock-date' class="date-time"></span> &nbsp;<span id='clock-time' class="date-time"></span> | Email: <a class="mail-to" href="mailto:nhadautu198x@gmail.com">nhadautu198x@gmail.com</a></div>
+    <div class="fixed-bottom footer-info">WS Status: <span id="status-connect" class="bold"></span> &nbsp;| <span id='clock-date' class="date-time"></span> &nbsp;<span id='clock-time' class="date-time"></span> | Email: <a class="mail-to bold" href="mailto:nhadautu198x@gmail.com">nhadautu198x@gmail.com</a></div>
     <!-- Modal -->
     <div class="modal fade" id="detailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -1553,7 +1553,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-success btn-sm" id="btn-modal-action" onclick='window.commonJS.refreshTickerDetailData()'>Tải dữ liệu mới</button>
+            <button type="button" class="btn btn-success btn-sm bold" id="btn-modal-action" onclick='window.commonJS.refreshTickerDetailData()'>Tải dữ liệu mới</button>
             <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Đóng</button>
             </div>
         </div>

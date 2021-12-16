@@ -10,7 +10,8 @@ h3,
 input,
 .btn-sm,
 button {
-  font: small "Segoe UI" !important;
+  font: smaller "Segoe UI" !important;
+  font-size: smaller !important;
 }
 
 h5,h6 {
@@ -89,11 +90,16 @@ th {
   font-weight: 600;
 }
 
+.target {
+  color: #ec5ad4;
+  font-weight: 600;
+}
+
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   background-color: transparent !important;
-  font: small "Segoe UI" !important;
+  font: smaller "Segoe UI" !important;
   font-weight: bold !important;
 }
 
@@ -103,6 +109,7 @@ th {
 
 .headerFixed > .row > .col > .card > .card-body {
   height: 50px !important;
+  font-size: small !important;
 }
 
 .headerFixed > .row > .col > .card > .filter-group {
@@ -235,17 +242,17 @@ ul > li > button {
 }
 
 .bg-up {
-    background-color: #35b640d4;
+    background-color: #35b640d4 !important;
     color: #fcf8f8;
   }
   
 .bg-down {
-    background-color: #e73e3e;
+    background-color: #e73e3e !important;
     color: #fcf8f8;
   }
   
 .bg-reference {
-    background-color: #e7c83e;
+    background-color: #e7c83e !important;
     color: #fcf8f8;
 }
 
@@ -302,7 +309,7 @@ ul > li > button {
 
 .accordion-button {
   padding: 0.5rem 1.25rem !important;
-  font: small "Segoe UI" !important;
+  font: smaller "Segoe UI" !important;
   color: #f8f8f8 !important;
   text-align: left !important;
   background-color: #454545 !important;
@@ -703,6 +710,7 @@ body .ico {
   background-color: #1d1d1d99;
   color: #f4f4f4;
   padding: 0 10px;
+  font-size: smaller !important;
 }
 
 .mail-to {
@@ -760,6 +768,7 @@ body .ico {
   /* width: 75px; */
   border-color: lightgray;
   border-radius: 3px;
+  font-size: small !important;
 }
 
 #newsContent {
@@ -775,15 +784,15 @@ body .ico {
 }
 
 .font-14 {
-  font-size: 14px !important;
+  font-size: small !important;
 }
 
 .font-13 {
-  font-size: 13px !important;
+  font-size: small !important;
 }
 
 .font-12 {
-  font-size: 12px !important;
+  font-size: smaller !important;
 }
 
 #accordionFilter .accordion-body {
@@ -866,6 +875,11 @@ hr {
 
 .form-check-label {
   cursor: pointer;
+  font-size: small !important;
+}
+
+.card-footer {
+  font-size: smaller !important;
 }
 
 .price-table {
@@ -1193,7 +1207,7 @@ hr {
 
 .sticky-th-2 {
   position: sticky !important;
-  top: 44px !important;
+  top: 39px !important;
 }
 
 .table>thead {
@@ -1314,7 +1328,7 @@ input.money-flow {
   /* margin: auto; */
   padding: 5px 15px;
   color: #ffffff;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .card-evaluation {
   background-color: #1D5B98 !important;
@@ -1351,6 +1365,11 @@ input.money-flow {
   position: absolute;
   right: 20px;
   cursor: pointer;
+}
+
+.accordion-header {
+  margin-bottom: 0;
+  font-size: 1rem !important;
 }
 
 /* ::-webkit-scrollbar {
@@ -1415,7 +1434,7 @@ input.money-flow {
   left: 162px;
   z-index: 2;
 }*/
-/* Extra small devices (phones, 600px and down) */
+/* Extra smaller devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
   .example {background: red;}
 } */
