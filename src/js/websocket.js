@@ -21,19 +21,19 @@ window.webSocketApp = {
                 window.webSocketConfigs.liveboard.Result = -1;
                 console.log("disconnect");
                 $("#status-connect").text("Mất kết nối").css("color", "#f0b90b");
-                window.commonJS.showDisconnectionMessageToast();
+                //window.commonJS.showDisconnectionMessageToast();
             });
             window.webSocketConfigs.liveboard.Socket.on("connect_error", function () {
                 window.webSocketConfigs.liveboard.Result = -2;
                 console.log("connect_error");
                 $("#status-connect").text("Lỗi kết nối").css("color", "#f0b90b");
-                window.commonJS.showDisconnectionMessageToast();
+                //window.commonJS.showDisconnectionMessageToast();
             });
             window.webSocketConfigs.liveboard.Socket.on("reconnect_error", function () {
                 window.webSocketConfigs.liveboard.Result = -3;
                 console.log("reconnect_error");
                 $("#status-connect").text("Thử kết nối lại thất bại").css("color", "#f0b90b");
-                window.commonJS.showDisconnectionMessageToast();
+                //window.commonJS.showDisconnectionMessageToast();
             })
         }
         return n.promise()

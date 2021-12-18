@@ -2,26 +2,26 @@
 <html lang="vi">
 
 <head>
-    <title>.::NhaDauTu198x::. - Tín hiệu giao dịch tiền điện tử</title>
+    <title>.::NhaDauTu198x::. - Tín hiệu giao dịch cổ phiếu</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="NhaDauTu198x - Tín hiệu giao dịch tiền điện tử." />
+    <meta name="description" content="NhaDauTu198x - Tín hiệu giao dịch cổ phiếu." />
     <meta name="keywords"
         content="NhaDauTu198x, NhaDauTu198x.com, NhaDauTu, Nhà đầu tư, Nhà đầu tư 198x, 198x, Tự Doanh, Khối Ngoại, Thống kê Tự Doanh, Thống kê Khối Ngoại, Xu hướng dòng tiền, Lọc cổ phiếu, Phân tích kỹ thuật, Định giá cổ phiếu, Bảng điện tử, Live Board, Chứng khoán, Thị trường chứng khoán, Đầu tư, Cổ phiếu, Cổ phiếu tốt, Xu hướng thị trường, F0">
     <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="robots" content="index, follow">
     <meta property="og: type" content="article" />
-    <meta property="og:title" content="NhaDauTu198x - Tín hiệu giao dịch tiền điện tử.">
+    <meta property="og:title" content="NhaDauTu198x - Tín hiệu giao dịch cổ phiếu.">
     <meta property="og:description"
-        content="Cập nhật các tín hiệu giao dịch tiền điện tử, điểm Entry, Take-profit, Stop-loss theo thời gian thực.">
+        content="Cập nhật các tín hiệu giao dịch cổ phiếu, điểm Entry, Take-profit, Stop-loss theo thời gian thực.">
     <meta property="og:image" content="https://www.nhadautu198x.com/src/images/bg.PNG">
     <meta property="og:url" content="https://www.nhadautu198x.com/">
     <meta property="og: site_name" content="nhadautu198x.comx" />
     <meta name="twitter:card" content="nhadautu198x.com">
-    <meta property="twitter:title" content="NhaDauTu198x - Tín hiệu giao dịch tiền điện tử.">
+    <meta property="twitter:title" content="NhaDauTu198x - Tín hiệu giao dịch cổ phiếu.">
     <meta property="twitter:description"
-        content="Cập nhật các tín hiệu giao dịch tiền điện tử, điểm Entry, Take-profit, Stop-loss theo thời gian thực.">
+        content="Cập nhật các tín hiệu giao dịch cổ phiếu, điểm Entry, Take-profit, Stop-loss theo thời gian thực.">
     <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
     <link rel="icon" href="src/images/logo.svg" sizes="any" type="image/svg+xml">
     <link rel="stylesheet" type="text/css" href="src/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
             <thead class="table-light" style="word-wrap: break-word !important;">
                 <tr class="text-center">
                   <th>#</th>
-                  <th>Ticker</th>
+                  <th>Mã CP</th>
                   <th>Thời gian</th>
                   <th>Khuyến nghị</th>
                   <th>Giá vào lệnh</th>
@@ -84,7 +84,7 @@
         var URL = encodeURIComponent('https://finashark.vn/ajax/data.php');
         var body = {
             "act": "tin-hieu-truc-tiep",
-            "user_key": 4,
+            "user_key": 2,
             "all": 0,
             "source": "noidung",
             "customer": ""
@@ -102,12 +102,12 @@
         .then(data => {
             console.log(data);
             if (data && data.list.length > 0) {
-                // data = data.list.filter(x => x.code.length === 3);
-                for (let index = 0; index < data.list.length; index++) {
-                    const element = data.list[index];
-                    var entry = typeof element.price === 'number' ? new Intl.NumberFormat('en-US').format(element.price) : "-";
-                    var target = typeof element.target === 'number' ? new Intl.NumberFormat('en-US').format(element.target) : "-";
-                    var cutloss = typeof element.diem_cat_lo === 'number' ? new Intl.NumberFormat('en-US').format(element.diem_cat_lo) : "-";
+                data = data.list.filter(x => x.code.length === 3);
+                for (let index = 0; index < data.length; index++) {
+                    const element = data[index];
+                    var entry = typeof element.price === 'number' ? new Intl.NumberFormat('en-US').format(element.price.toFixed(0)) : "-";
+                    var target = typeof element.target === 'number' ? new Intl.NumberFormat('en-US').format(element.target.toFixed(0)) : "-";
+                    var cutloss = typeof element.diem_cat_lo === 'number' ? new Intl.NumberFormat('en-US').format(element.diem_cat_lo.toFixed(0)) : "-";
                     res += `<tr><td class="text-center">${index+1}</td><td class="text-center bold">${element.code}</td><td class="text-center">${element.updated_at}</td><td class="text-left ${element.tinhieu == 1 ? "bg-up" : element.tinhieu == 2 ? "bg-down" : "bg-reference"}">${element.tinhieu == 0 ? "Theo dõi" : element.tinhieu == 1 ? "Mua" : element.tinhieu == 2 ? "Bán" : "-"}</td><td class="text-right up bold">${entry}</td><td class="text-right target bold">${target}</td><td class="text-right down bold">${cutloss}</td><td class="text-left">${element.square}</td><td class="text-center">${element.tile}</td></tr>`
                 }
                 $("#showContent").html(`${res}`);
