@@ -51,26 +51,26 @@
         </table>
     </div>
     <script>
-        // $(document).on("contextmenu", function (e) {
-        //     e.preventDefault();
-        // });
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+        });
 
-        // $(document).keydown(function (event) {
-        //     // Prevent F12
-        //     if (event.keyCode == 123) {
-        //         return false;
-        //     }
-        //     else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
-        //     // Prevent Ctrl+Shift+I
-        //     {
-        //         return false;
-        //     }
-        //     else if (event.ctrlKey && event.keyCode == 83)
-        //     // Prevent Ctrl+S
-        //     {
-        //         return false;
-        //     }
-        // });
+        $(document).keydown(function (event) {
+            // Prevent F12
+            if (event.keyCode == 123) {
+                return false;
+            }
+            else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
+            // Prevent Ctrl+Shift+I
+            {
+                return false;
+            }
+            else if (event.ctrlKey && event.keyCode == 83)
+            // Prevent Ctrl+S
+            {
+                return false;
+            }
+        });
         function getLoadingHTMLContext() {
             return `<div class="d-flex justify-content-center">
                         <div class="spinner-border text-success" role="status">
@@ -90,7 +90,7 @@
             "customer": ""
         };
         var res = "";
-        fetch(`http://localhost:3001/fetch/${URL}`, {
+        fetch(`https://data-statistics-api.herokuapp.com/fetch/${URL}`, {
             method: 'POST',
             headers: {
                 'Accept' : 'application/json, text/plain, */*',
