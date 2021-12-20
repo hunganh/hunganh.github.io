@@ -3,6 +3,7 @@ window.webSocketApp = {
         var n = $.Deferred();
         if (window.webSocketConfigs.liveboard.Result == -1) {
             window.webSocketConfigs.liveboard.Socket = io(window.webSocketConfigs.liveboard.LinkSocket, {
+                transports:['websocket', 'polling'],
                 forceNew: !0,
                 reconnection: !0,
                 reconnectionDelay: 1e3,
