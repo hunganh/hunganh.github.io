@@ -93,7 +93,7 @@ window.variablesJS = {
 
 window.apiConfigs = {
     API_CRAWL_SERVER : "https://data-statistics-api.herokuapp.com",
-    // DATA_URL : "http://localhost:3001",
+    // API_CRAWL_SERVER : "http://localhost:3001",
     API_DATA_SERVER_1 : "https://fwtapi1.fialda.com",
     API_DATA_SERVER_2 : "https://fwtapi2.fialda.com",
     ATTACHMENT_URL : "https://cdn.fialda.com/Attachment",
