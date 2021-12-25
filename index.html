@@ -26,7 +26,6 @@
     <link rel="stylesheet" type="text/css" href="src/css/bootstrap-slider.css">
     <link rel="stylesheet" href="src/css/virtual-select.min.css" />
 </head>
-<body>
     <ul class="nav nav-tabs tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true"><h7>Thống Kê Tổ Chức</h7></button>
@@ -50,21 +49,37 @@
             <button class="nav-link" id="boards-tab" data-bs-toggle="tab" data-bs-target="#boards" type="button" role="tab" aria-controls="boards" aria-selected="false" onclick="window.boardsJS.setLiveBoardTableHeight()"><h7>Live Board</h7></button>
         </li>
     </ul>
-    <!-- <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="window.mobileJS.closeNav()">&times;</a>
-      <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true"><h7>Thống Kê Tổ Chức</h7></button>
-      <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="window.commonJS.loadSynthesisData()"><h7>Tổng Hợp</h7></button>
-      <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="window.fieldsJS.loadFieldsData()"><h7>Thống Kê Theo Ngành</h7></button>
-      <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false" onclick="window.filtersJS.filterData()"><h7>Lọc Cổ Phiếu</h7></button>
-      <button class="nav-link" id="charts-tab" data-bs-toggle="tab" data-bs-target="#charts" type="button" role="tab" aria-controls="charts" aria-selected="false"><h7>Phân Tích Kỹ Thuật</h7></button>
-      <button class="nav-link" id="evaluations-tab" data-bs-toggle="tab" data-bs-target="#evaluations" type="button" role="tab" aria-controls="evaluations" aria-selected="false"><h7>Định Giá Cổ Phiếu</h7></button>
-      <button class="nav-link" id="boards-tab" data-bs-toggle="tab" data-bs-target="#boards" type="button" role="tab" aria-controls="boards" aria-selected="false" onclick="window.boardsJS.setLiveBoardTableHeight()"><h7>Live Board</h7></button>
+    <div id="mySidenav" class="sidenav">
+      <img class="logo" src="src/images/logo.svg"><a href="javascript:void(0)" class="closebtn" onclick="window.mobileJS.closeNav()">&times;</a>
+      <ul class="nav nav-tabs tabs" role="tablist" style="display: inline !important;">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true"><h7>Thống Kê Tổ Chức</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="window.commonJS.loadSynthesisData()"><h7>Tổng Hợp</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="window.fieldsJS.loadFieldsData()"><h7>Thống Kê Theo Ngành</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="filters-tab" data-bs-toggle="tab" data-bs-target="#filters" type="button" role="tab" aria-controls="filters" aria-selected="false" onclick="window.filtersJS.filterData()"><h7>Lọc Cổ Phiếu</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="charts-tab" data-bs-toggle="tab" data-bs-target="#charts" type="button" role="tab" aria-controls="charts" aria-selected="false"><h7>Phân Tích Kỹ Thuật</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="evaluations-tab" data-bs-toggle="tab" data-bs-target="#evaluations" type="button" role="tab" aria-controls="evaluations" aria-selected="false"><h7>Định Giá Cổ Phiếu</h7></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="boards-tab" data-bs-toggle="tab" data-bs-target="#boards" type="button" role="tab" aria-controls="boards" aria-selected="false" onclick="window.boardsJS.setLiveBoardTableHeight()"><h7>Live Board</h7></button>
+        </li>
+    </ul>
     </div>     
-    <span style="font-size:30px;cursor:pointer" onclick="window.mobileJS.openNav()">&#9776; open</span>-->
+    <span id="btnNavigation" style="font-size:27px;cursor:pointer;padding-left:3px;background: #41413f;color: white;" onclick="window.mobileJS.openNav()">&#9776;</span>
     <div class="tab-content" id="myTabContent" style="overflow-x: hidden;">
         <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
             <div class="headerFixed">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 pading-5">
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-3 pading-5">
                     <div class="col">
                         <div class="card">
                             <h6 class="card-header">Bước 1: Chọn tổ chức</h6>
@@ -113,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="card">
                             <h6 class="card-header">Chọn files (.json) - Xem dữ liệu trong quá khứ</h6>
                             <div class="card-body">
@@ -121,7 +136,7 @@
                                 <input type="file" id="fileInput" multiple accept=".json">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="title">
                     <div class="row">

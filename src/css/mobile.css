@@ -2,17 +2,44 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   top: 0;
   left: 0;
-  background-color: #41413f;
+  background-color: #4b4b4beb;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 35px;
+}
+
+.sidenav .logo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 50%;
+}
+
+.sidenav .nav-tabs {
+  border-bottom: unset !important;
+}
+
+.sidenav .nav-tabs .nav-link {
+  margin-bottom: -1px;
+  background: 0 0;
+  border-radius: unset !important;
+  transition: 0.3s;
+  border: dotted 0.5px #787575;
+}
+
+.sidenav .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  background-color: #e1e1e1 !important;
+  color: #495057 !important;
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  /* padding: 8px 8px 8px 32px; */
   text-decoration: none;
   color: #818181;
   display: block;
@@ -26,7 +53,7 @@
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 10px;
   font-size: 36px;
   margin-left: 50px;
 }
@@ -34,13 +61,12 @@
 .sidenav button {
   width: 100%;
   text-align: left;
-  background-color: #505050;
+  background-color: #50505094;
   font-weight: bold !important;
-  background-color: #373737;
   padding: 0.75rem 1rem !important;
-  border-color: #4e4c4c9c;
   display: block;
   transition: 0.3s;
+  border: dotted 0.5px #787575;
 }
 
 .sidenav button:hover {
@@ -48,39 +74,66 @@
     color: #f1f1f1;
 }
 
-@media screen and (max-height: 450px) {
+@media screen and (max-width: 600px) {
   .sidenav {
-    padding-top: 15px;
+    display: block !important;
   }
-  /* .sidenav a {
-    font-size: 18px;
-  } */
+  #btnNavigation {
+    display: block !important;
+  }
+  #myTab {
+    display: none !important;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .example {
-    background: green;
+  .sidenav {
+    display: block !important;
+  }
+  #btnNavigation {
+    display: block !important;
+  }
+  #myTab {
+    display: none !important;
   }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .example {
-    background: blue;
+  .sidenav {
+    display: block !important;
+  }
+  #btnNavigation {
+    display: block !important;
+  }
+  #myTab {
+    display: none !important;
   }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .example {
-    background: orange;
+  .sidenav {
+    display: none !important;
+  }
+  #btnNavigation {
+    display: none !important;
+  }
+  #myTab {
+    display: flex !important;
   }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  .example {
-    background: pink;
+  .sidenav {
+    display: none !important;
+  }
+  #btnNavigation {
+    display: none !important;
+  }
+  #myTab {
+    display: flex !important;
   }
 }

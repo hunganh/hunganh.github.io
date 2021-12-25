@@ -60,7 +60,7 @@ window.statisticsJS = {
         window.variablesJS.dataJson = null;
         window.variablesJS.mappingDataJson = null;
         window.variablesJS.divStatisticsShowData.innerHTML = "";
-        document.getElementById("fileInput").value = null;
+        // document.getElementById("fileInput").value = null;
     },
     
     refreshStatisticsData : function () {
