@@ -267,7 +267,6 @@ window.evaluationsJS = {
                                 <td class="text-center"><span>${new Date(item.reportDate).toLocaleDateString(window.variablesJS.defaultLocale)}</span></td>
                                 <td class="text-center"><span class="font-weight-bold">${item.firm}</span></td>
                                 <td class="text-center"><span class="${item.type === 'BUY' ? 'up' : item.type === 'SELL' ? 'down' : item.type === 'HOLD' ? 'reference' : item.type === ''} dashed-border-bottom">${item.type === 'BUY' ? 'Mua' : item.type === 'SELL' ? 'Bán' : item.type === 'HOLD' ? 'Giữ' : item.type === 'N/A'}</td>
-                                <td class="text-right"><span class="bold-text dashed-border-bottom">${item.reportPrice === 0 || item.reportPrice === undefined ? "N/A" : new Intl.NumberFormat(window.variablesJS.numberLocale).format(item.reportPrice * 1000)}</td>
                                 <td class="text-right"><span class="badge bg-primary font-weight-bold font-12 dashed-border-bottom">${item.targetPrice === 0 || item.targetPrice === undefined ? "N/A" : new Intl.NumberFormat(window.variablesJS.numberLocale).format(item.targetPrice * 1000)}</td>
                                 <td class="text-left"><span class="bold-text dashed-border-bottom">${item.analyst}</td>
                             </tr>`;
