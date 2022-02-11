@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>.::NhaDauTu198x::. - Công cụ tra cứu thông tin địa chính tại Đà Nẵng.</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng." />
+    <meta name="keywords"
+        content="NhaDauTu198x, NhaDauTu198x.com, NhaDauTu, Nhà đầu tư, Nhà đầu tư 198x, 198x, tra cứu thông tin địa chính, loại hình đất, vị trí lô đất, Đà Nẵng.">
+    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow">
+    <meta property="og: type" content="article" />
+    <meta property="og:title"
+        content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng..">
+    <meta property="og:description"
+        content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng..">
+    <meta property="og:image" content="https://www.nhadautu198x.com/src/images/bg.PNG">
+    <meta property="og:url" content="https://www.nhadautu198x.com/">
+    <meta property="og: site_name" content="nhadautu198x.comx" />
+    <meta name="twitter:card" content="nhadautu198x.com">
+    <meta property="twitter:title"
+        content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng..">
+    <meta property="twitter:description"
+        content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng..">
+    <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
+    <link rel="icon" href="src/images/logo.svg" sizes="any" type="image/svg+xml">
+</head>
+
+<head>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #container {
+            background-color: #E7E9EB;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            bottom: 0;
+            height: auto;
+        }
+
+        #iframecontainer {
+            height: 100%;
+            width: 100%;
+        }
+
+        #iframe {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        #iframewrapper {
+            width: 100%;
+            height: 100%;
+            -webkit-overflow-scrolling: touch;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+        }
+
+        #iframeResult,
+        #iframeSource {
+            background-color: #ffffff;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="iframecontainer" style="width: 100%;">
+            <div id="iframe">
+                <div id="iframewrapper">
+                    <iframe frameborder="0" id="iframeResult" name="iframeResult" allowfullscreen="true"
+                        src="https://ttdd.tnmt.danang.gov.vn/">
+
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).on("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        $(document).keydown(function (event) {
+            // Prevent F12
+            if (event.keyCode == 123) {
+                return false;
+            }
+            else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
+            // Prevent Ctrl+Shift+I
+            {
+                return false;
+            }
+            else if (event.ctrlKey && event.keyCode == 83)
+            // Prevent Ctrl+S
+            {
+                return false;
+            }
+        });
+    </script>
+</body>
+
+</html>
