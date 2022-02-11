@@ -26,6 +26,7 @@
         content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất tại thành phố Đà Nẵng.">
     <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
     <link rel="icon" href="src/images/logo.svg" sizes="any" type="image/svg+xml">
+    <script src="src/js/lib/jquery.min.js"></script>
 </head>
 
 <head>
@@ -87,28 +88,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).on("contextmenu", function (e) {
-            e.preventDefault();
-        });
-
-        $(document).keydown(function (event) {
-            // Prevent F12
-            if (event.keyCode == 123) {
-                return false;
-            }
-            else if (event.ctrlKey && event.shiftKey && event.keyCode == 73)
-            // Prevent Ctrl+Shift+I
-            {
-                return false;
-            }
-            else if (event.ctrlKey && event.keyCode == 83)
-            // Prevent Ctrl+S
-            {
-                return false;
-            }
-        });
-    </script>
 </body>
 
 </html>
