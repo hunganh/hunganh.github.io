@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>.::NhaDauTu198x::. - Công cụ tra cứu thông tin địa chính tại Đà Nẵng.</title>
     <meta charset="utf-8" />
@@ -16,7 +17,8 @@
         content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất, quỹ đất tại thành phố Đà Nẵng.">
     <meta property="og:description"
         content="NhaDauTu198x - Công cụ tra cứu thông tin địa chính, loại hình đất, vị trí lô đất, quỹ đất tại thành phố Đà Nẵng.">
-    <meta property="og:image" content="https://www.nhadautu198x.com/src/images/nhadautu198x_tra_cuu_thong_tin_dia_chinh_Da_Nang.PNG">
+    <meta property="og:image"
+        content="https://www.nhadautu198x.com/src/images/nhadautu198x_tra_cuu_thong_tin_dia_chinh_Da_Nang.PNG">
     <meta property="og:url" content="https://www.nhadautu198x.com/tra-cuu-thong-tin-dia-chinh-da-nang.html">
     <meta property="og: site_name" content="nhadautu198x.comx" />
     <meta name="twitter:card" content="nhadautu198x.com">
@@ -39,57 +41,59 @@
         body {
             padding: 0;
             margin: 0;
-        }
-
-        #container {
-            background-color: #E7E9EB;
-            width: 100%;
             overflow: hidden;
-            position: absolute;
-            top: 0px;
-            bottom: 0;
-            height: auto;
-        }
-
-        #iframecontainer {
             height: 100%;
             width: 100%;
         }
 
-        #iframe {
-            height: 100%;
-            width: 100%;
-            padding: 0;
+        .loader {
             margin: 0 auto;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            border-right: 16px solid green;
+            border-bottom: 16px solid red;
+            border-left: 16px solid pink;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
         }
 
-        #iframewrapper {
-            width: 100%;
-            height: 100%;
-            -webkit-overflow-scrolling: touch;
-            background-color: #ffffff;
-            box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
         }
 
-        #iframeResult,
-        #iframeSource {
-            background-color: #ffffff;
-            height: 100%;
-            width: 100%;
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <div id="iframecontainer" style="width: 100%;">
-            <div id="iframe">
-                <div id="iframewrapper">
-                    <iframe frameborder="0" id="iframeResult" name="iframeResult" allowfullscreen="true" target="_parent" allow = "geolocation" src="https://gisportal.danang.gov.vn/portal/apps/webappviewer/index.html?id=b900291da77a4f5da5a045fd72804d2b" frameborder="0" style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" ></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
+    <iframe target="_parent" allow="geolocation"
+        src="https://gisportal.danang.gov.vn/portal/apps/webappviewer/index.html?id=b900291da77a4f5da5a045fd72804d2b"
+        frameborder="0"
+        style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px"></iframe>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TG8J409TWG');
+    </script>
 </body>
 
 </html>
