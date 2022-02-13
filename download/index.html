@@ -7,260 +7,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<br>
     <h4>CREATE DATABASE</h4>
-    <p>
-        -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
--- --------------------------------------------------
--- Date Created: 02/13/2022 21:54:45
--- Generated from EDMX file:
-C:\Users\DELL\Downloads\BusinessSupport\BusinessSupport\Model\Context\BusinessSupportDbContext.edmx
--- --------------------------------------------------
+-- -------------------------------------------------- <br>
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure <br>
+-- -------------------------------------------------- <br>
+-- Date Created: 02/13/2022 21:54:45 <br>
+-- Generated from EDMX file: <br>
+C:\Users\DELL\Downloads\BusinessSupport\BusinessSupport\Model\Context\BusinessSupportDbContext.edmx <br>
+-- -------------------------------------------------- <br>
+<br>
+SET QUOTED_IDENTIFIER OFF; <br>
+GO <br>
+USE [business_support]; <br>
+GO <br>
+IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]'); <br>
+GO <br>
+<br>
+-- -------------------------------------------------- <br>
+-- Dropping existing FOREIGN KEY constraints <br>
+-- -------------------------------------------------- <br>
+<br>
+-- -------------------------------------------------- <br>
+-- Dropping existing tables <br>
+-- -------------------------------------------------- <br>
+<br>
+IF OBJECT_ID(N'[dbo].[ACCOUNT]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[ACCOUNT]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[COMPANY]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[COMPANY]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[CONFIGURE_SYSTEM]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[CONFIGURE_SYSTEM]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[FILE]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[FILE]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[PRODUCT]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[PRODUCT]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[QUOTATION]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[QUOTATION]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[QUOTATION_DETAIL]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[QUOTATION_DETAIL]; <br>
+GO <br>
+IF OBJECT_ID(N'[dbo].[SAVE_FILE]', 'U') IS NOT NULL <br>
+DROP TABLE [dbo].[SAVE_FILE]; <br>
+GO <br>
+-- -------------------------------------------------- <br>
+-- Creating all tables <br>
+-- -------------------------------------------------- <br>
 
-SET QUOTED_IDENTIFIER OFF;
-GO
-USE [business_support];
-GO
-IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
-GO
+-- Creating table 'CONFIGURE_SYSTEM' <br>
+CREATE TABLE [dbo].[CONFIGURE_SYSTEM] ( <br>
+[CONFIGURE_SYSTEM_ID] tinyint IDENTITY(1,1) NOT NULL, <br>
+[CONFIGURE_CODE] varchar(50) NULL, <br>
+[IS_ACTIVE] tinyint NULL <br>
+); <br>
+GO <br>
+<br>
+-- Creating table 'ACCOUNTs' <br>
+CREATE TABLE [dbo].[ACCOUNTs] ( <br>
+[ID] int IDENTITY(1,1) NOT NULL, <br>
+[USER_NAME] nvarchar(100) NULL, <br>
+[PASSWORD] nvarchar(100) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[LOCK] tinyint NULL, <br>
+[ACCESS_TIME] datetime NULL, <br>
+[SESSION_EXPIRATION_TIME] datetime NULL, <br>
+[MAC_ADDRESS] varchar(500) NULL, <br>
+[TOKEN] varchar(1000) NULL, <br>
+[EXPIRATION_DATE] datetime NULL, <br>
+[FULLNAME] nvarchar(100) NULL <br>
+); <br>
+GO <br>
+-- Creating table 'COMPANies' <br>
+CREATE TABLE [dbo].[COMPANies] ( <br>
+[COMPANY_ID] int IDENTITY(1,1) NOT NULL, <br>
+[COMPANY_NAME] nvarchar(500) NULL, <br>
+[IS_ACTIVE] tinyint NULL <br>
+); <br>
+GO <br>
 
--- --------------------------------------------------
--- Dropping existing FOREIGN KEY constraints
--- --------------------------------------------------
+-- Creating table 'PRODUCTs' <br>
+CREATE TABLE [dbo].[PRODUCTs] ( <br>
+[PRODUCT_ID] int IDENTITY(1,1) NOT NULL, <br>
+[PRODUCT_NAME] nvarchar(4000) NULL, <br>
+[BRAND] nvarchar(4000) NULL, <br>
+[MODEL] nvarchar(4000) NULL, <br>
+[W] nvarchar(1000) NULL, <br>
+[D] nvarchar(1000) NULL, <br>
+[H] nvarchar(1000) NULL, <br>
+[H1] nvarchar(1000) NULL, <br>
+[PRICE] decimal(18,0) NULL, <br>
+[TOTAL] decimal(18,0) NULL, <br>
+[REMARK] nvarchar(4000) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[COMPANY_ID] int NULL, <br>
+[CREATE_USER] nvarchar(100) NULL, <br>
+[CREATE_DATE] datetime NULL, <br>
+[QUANTITY] decimal(18,0) NULL, <br>
+[MADE_IN] nvarchar(4000) NULL, <br>
+[PRODUCT_TYPE] tinyint NULL <br>
+); <br>
+GO <br>
 
+-- Creating table 'QUOTATION_DETAIL' <br>
+CREATE TABLE [dbo].[QUOTATION_DETAIL] ( <br>
+[QUOTATION_DETAIL_ID] int IDENTITY(1,1) NOT NULL, <br>
+[PRODUCT_NAME] nvarchar(1000) NULL, <br>
+[BRAND] nvarchar(1000) NULL, <br>
+[MODEL] nvarchar(1000) NULL, <br>
+[W] nvarchar(1000) NULL, <br>
+[D] nvarchar(1000) NULL, <br>
+[H] nvarchar(1000) NULL, <br>
+[H1] nvarchar(1000) NULL, <br>
+[PRICE] decimal(18,2) NULL, <br>
+[TOTAL] decimal(18,2) NULL, <br>
+[REMARK] nvarchar(4000) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[COMPANY_ID] int NULL, <br>
+[CREATE_USER] nvarchar(500) NULL, <br>
+[CREATE_DATE] datetime NULL, <br>
+[QUANTITY] decimal(18,0) NULL, <br>
+[MADE_IN] nvarchar(4000) NULL, <br>
+[QUOTATION_ID] int NULL, <br>
+[MODIFY_USER] nvarchar(500) NULL, <br>
+[MODIFY_DATE] datetime NULL, <br>
+[PRODUCT_TYPE] tinyint NULL <br>
+); <br>
+GO <br>
 
--- --------------------------------------------------
--- Dropping existing tables
--- --------------------------------------------------
+-- Creating table 'QUOTATIONs' <br>
+CREATE TABLE [dbo].[QUOTATIONs] ( <br>
+[QUOTATION_ID] int IDENTITY(1,1) NOT NULL, <br>
+[CREATE_DATE] datetime NOT NULL, <br>
+[CREATE_USER] nvarchar(1000) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[PROJECT_NAME] nvarchar(4000) NULL, <br>
+[TO_] nvarchar(4000) NULL, <br>
+[ADDRESS] nvarchar(4000) NULL, <br>
+[TF] nvarchar(4000) NULL, <br>
+[ATTN] nvarchar(4000) NULL, <br>
+[M] nvarchar(4000) NULL, <br>
+[YOUR_REF] nvarchar(4000) NULL, <br>
+[OUR_REF] nvarchar(4000) NULL, <br>
+[DATE] nvarchar(4000) NULL, <br>
+[COMPANY_ID] int NULL, <br>
+[USD_PRICE] decimal(18,2) NULL <br>
+); <br>
+GO <br>
 
-IF OBJECT_ID(N'[dbo].[ACCOUNT]', 'U') IS NOT NULL
-DROP TABLE [dbo].[ACCOUNT];
-GO
-IF OBJECT_ID(N'[dbo].[COMPANY]', 'U') IS NOT NULL
-DROP TABLE [dbo].[COMPANY];
-GO
-IF OBJECT_ID(N'[dbo].[CONFIGURE_SYSTEM]', 'U') IS NOT NULL
-DROP TABLE [dbo].[CONFIGURE_SYSTEM];
-GO
-IF OBJECT_ID(N'[dbo].[FILE]', 'U') IS NOT NULL
-DROP TABLE [dbo].[FILE];
-GO
-IF OBJECT_ID(N'[dbo].[PRODUCT]', 'U') IS NOT NULL
-DROP TABLE [dbo].[PRODUCT];
-GO
-IF OBJECT_ID(N'[dbo].[QUOTATION]', 'U') IS NOT NULL
-DROP TABLE [dbo].[QUOTATION];
-GO
-IF OBJECT_ID(N'[dbo].[QUOTATION_DETAIL]', 'U') IS NOT NULL
-DROP TABLE [dbo].[QUOTATION_DETAIL];
-GO
-IF OBJECT_ID(N'[dbo].[SAVE_FILE]', 'U') IS NOT NULL
-DROP TABLE [dbo].[SAVE_FILE];
-GO
+-- Creating table 'SAVE_FILE' <br>
+CREATE TABLE [dbo].[SAVE_FILE] ( <br>
+[SAVE_FILE_ID] int IDENTITY(1,1) NOT NULL, <br>
+[FILE_ID] int NULL, <br>
+[PRODUCT_NAME] nvarchar(1000) NULL, <br>
+[BRAND] nvarchar(1000) NULL, <br>
+[MODEL] nvarchar(1000) NULL, <br>
+[W] nvarchar(1000) NULL, <br>
+[D] nvarchar(1000) NULL, <br>
+[H] nvarchar(1000) NULL, <br>
+[H1] nvarchar(1000) NULL, <br>
+[PRICE] decimal(18,2) NULL, <br>
+[TOTAL] decimal(18,2) NULL, <br>
+[REMARK] nvarchar(4000) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[COMPANY_ID] int NULL, <br>
+[CREATE_USER] nvarchar(500) NULL, <br>
+[CREATE_DATE] datetime NULL, <br>
+[QUANTITY] decimal(18,0) NULL, <br>
+[MADE_IN] nvarchar(4000) NULL, <br>
+[QUOTATION_ID] int NULL, <br>
+[MODIFY_USER] nvarchar(500) NULL, <br>
+[MODIFY_DATE] datetime NULL, <br>
+[PRODUCT_TYPE] tinyint NULL <br>
+); <br>
+GO <br>
 
--- --------------------------------------------------
--- Creating all tables
--- --------------------------------------------------
+-- Creating table 'FILEs' <br>
+CREATE TABLE [dbo].[FILEs] ( <br>
+[FILE_ID] int IDENTITY(1,1) NOT NULL, <br>
+[CREATE_DATE] datetime NOT NULL, <br>
+[CREATE_USER] nvarchar(1000) NULL, <br>
+[IS_ACTIVE] tinyint NULL, <br>
+[USD_PRICE] decimal(18,2) NULL, <br>
+[COMPANY_ID] int NULL <br>
+); <br>
+GO <br>
 
--- Creating table 'CONFIGURE_SYSTEM'
-CREATE TABLE [dbo].[CONFIGURE_SYSTEM] (
-[CONFIGURE_SYSTEM_ID] tinyint IDENTITY(1,1) NOT NULL,
-[CONFIGURE_CODE] varchar(50) NULL,
-[IS_ACTIVE] tinyint NULL
-);
-GO
+-- -------------------------------------------------- <br>
+-- Creating all PRIMARY KEY constraints <br>
+-- -------------------------------------------------- <br>
+<br>
+-- Creating primary key on [CONFIGURE_SYSTEM_ID] in table 'CONFIGURE_SYSTEM' <br>
+ALTER TABLE [dbo].[CONFIGURE_SYSTEM] <br>
+ADD CONSTRAINT [PK_CONFIGURE_SYSTEM] <br>
+PRIMARY KEY CLUSTERED ([CONFIGURE_SYSTEM_ID] ASC); <br>
+GO <br>
 
--- Creating table 'ACCOUNTs'
-CREATE TABLE [dbo].[ACCOUNTs] (
-[ID] int IDENTITY(1,1) NOT NULL,
-[USER_NAME] nvarchar(100) NULL,
-[PASSWORD] nvarchar(100) NULL,
-[IS_ACTIVE] tinyint NULL,
-[LOCK] tinyint NULL,
-[ACCESS_TIME] datetime NULL,
-[SESSION_EXPIRATION_TIME] datetime NULL,
-[MAC_ADDRESS] varchar(500) NULL,
-[TOKEN] varchar(1000) NULL,
-[EXPIRATION_DATE] datetime NULL,
-[FULLNAME] nvarchar(100) NULL
-);
-GO
+-- Creating primary key on [ID] in table 'ACCOUNTs' <br>
+ALTER TABLE [dbo].[ACCOUNTs] <br>
+ADD CONSTRAINT [PK_ACCOUNTs] <br>
+PRIMARY KEY CLUSTERED ([ID] ASC); <br>
+GO <br>
 
--- Creating table 'COMPANies'
-CREATE TABLE [dbo].[COMPANies] (
-[COMPANY_ID] int IDENTITY(1,1) NOT NULL,
-[COMPANY_NAME] nvarchar(500) NULL,
-[IS_ACTIVE] tinyint NULL
-);
-GO
+-- Creating primary key on [COMPANY_ID] in table 'COMPANies' <br>
+ALTER TABLE [dbo].[COMPANies] <br>
+ADD CONSTRAINT [PK_COMPANies] <br>
+PRIMARY KEY CLUSTERED ([COMPANY_ID] ASC); <br>
+GO <br>
 
--- Creating table 'PRODUCTs'
-CREATE TABLE [dbo].[PRODUCTs] (
-[PRODUCT_ID] int IDENTITY(1,1) NOT NULL,
-[PRODUCT_NAME] nvarchar(4000) NULL,
-[BRAND] nvarchar(4000) NULL,
-[MODEL] nvarchar(4000) NULL,
-[W] nvarchar(1000) NULL,
-[D] nvarchar(1000) NULL,
-[H] nvarchar(1000) NULL,
-[H1] nvarchar(1000) NULL,
-[PRICE] decimal(18,0) NULL,
-[TOTAL] decimal(18,0) NULL,
-[REMARK] nvarchar(4000) NULL,
-[IS_ACTIVE] tinyint NULL,
-[COMPANY_ID] int NULL,
-[CREATE_USER] nvarchar(100) NULL,
-[CREATE_DATE] datetime NULL,
-[QUANTITY] decimal(18,0) NULL,
-[MADE_IN] nvarchar(4000) NULL,
-[PRODUCT_TYPE] tinyint NULL
-);
-GO
+-- Creating primary key on [PRODUCT_ID] in table 'PRODUCTs' <br>
+ALTER TABLE [dbo].[PRODUCTs] <br>
+ADD CONSTRAINT [PK_PRODUCTs] <br>
+PRIMARY KEY CLUSTERED ([PRODUCT_ID] ASC); <br>
+GO <br>
 
--- Creating table 'QUOTATION_DETAIL'
-CREATE TABLE [dbo].[QUOTATION_DETAIL] (
-[QUOTATION_DETAIL_ID] int IDENTITY(1,1) NOT NULL,
-[PRODUCT_NAME] nvarchar(1000) NULL,
-[BRAND] nvarchar(1000) NULL,
-[MODEL] nvarchar(1000) NULL,
-[W] nvarchar(1000) NULL,
-[D] nvarchar(1000) NULL,
-[H] nvarchar(1000) NULL,
-[H1] nvarchar(1000) NULL,
-[PRICE] decimal(18,2) NULL,
-[TOTAL] decimal(18,2) NULL,
-[REMARK] nvarchar(4000) NULL,
-[IS_ACTIVE] tinyint NULL,
-[COMPANY_ID] int NULL,
-[CREATE_USER] nvarchar(500) NULL,
-[CREATE_DATE] datetime NULL,
-[QUANTITY] decimal(18,0) NULL,
-[MADE_IN] nvarchar(4000) NULL,
-[QUOTATION_ID] int NULL,
-[MODIFY_USER] nvarchar(500) NULL,
-[MODIFY_DATE] datetime NULL,
-[PRODUCT_TYPE] tinyint NULL
-);
-GO
+-- Creating primary key on [QUOTATION_DETAIL_ID] in table 'QUOTATION_DETAIL' <br>
+ALTER TABLE [dbo].[QUOTATION_DETAIL] <br>
+ADD CONSTRAINT [PK_QUOTATION_DETAIL] <br>
+PRIMARY KEY CLUSTERED ([QUOTATION_DETAIL_ID] ASC); <br>
+GO <br>
 
--- Creating table 'QUOTATIONs'
-CREATE TABLE [dbo].[QUOTATIONs] (
-[QUOTATION_ID] int IDENTITY(1,1) NOT NULL,
-[CREATE_DATE] datetime NOT NULL,
-[CREATE_USER] nvarchar(1000) NULL,
-[IS_ACTIVE] tinyint NULL,
-[PROJECT_NAME] nvarchar(4000) NULL,
-[TO_] nvarchar(4000) NULL,
-[ADDRESS] nvarchar(4000) NULL,
-[TF] nvarchar(4000) NULL,
-[ATTN] nvarchar(4000) NULL,
-[M] nvarchar(4000) NULL,
-[YOUR_REF] nvarchar(4000) NULL,
-[OUR_REF] nvarchar(4000) NULL,
-[DATE] nvarchar(4000) NULL,
-[COMPANY_ID] int NULL,
-[USD_PRICE] decimal(18,2) NULL
-);
-GO
+-- Creating primary key on [QUOTATION_ID] in table 'QUOTATIONs' <br>
+ALTER TABLE [dbo].[QUOTATIONs] <br>
+ADD CONSTRAINT [PK_QUOTATIONs] <br>
+PRIMARY KEY CLUSTERED ([QUOTATION_ID] ASC); <br>
+GO <br>
 
--- Creating table 'SAVE_FILE'
-CREATE TABLE [dbo].[SAVE_FILE] (
-[SAVE_FILE_ID] int IDENTITY(1,1) NOT NULL,
-[FILE_ID] int NULL,
-[PRODUCT_NAME] nvarchar(1000) NULL,
-[BRAND] nvarchar(1000) NULL,
-[MODEL] nvarchar(1000) NULL,
-[W] nvarchar(1000) NULL,
-[D] nvarchar(1000) NULL,
-[H] nvarchar(1000) NULL,
-[H1] nvarchar(1000) NULL,
-[PRICE] decimal(18,2) NULL,
-[TOTAL] decimal(18,2) NULL,
-[REMARK] nvarchar(4000) NULL,
-[IS_ACTIVE] tinyint NULL,
-[COMPANY_ID] int NULL,
-[CREATE_USER] nvarchar(500) NULL,
-[CREATE_DATE] datetime NULL,
-[QUANTITY] decimal(18,0) NULL,
-[MADE_IN] nvarchar(4000) NULL,
-[QUOTATION_ID] int NULL,
-[MODIFY_USER] nvarchar(500) NULL,
-[MODIFY_DATE] datetime NULL,
-[PRODUCT_TYPE] tinyint NULL
-);
-GO
+-- Creating primary key on [SAVE_FILE_ID] in table 'SAVE_FILE' <br>
+ALTER TABLE [dbo].[SAVE_FILE] <br>
+ADD CONSTRAINT [PK_SAVE_FILE] <br>
+PRIMARY KEY CLUSTERED ([SAVE_FILE_ID] ASC); <br>
+GO <br>
 
--- Creating table 'FILEs'
-CREATE TABLE [dbo].[FILEs] (
-[FILE_ID] int IDENTITY(1,1) NOT NULL,
-[CREATE_DATE] datetime NOT NULL,
-[CREATE_USER] nvarchar(1000) NULL,
-[IS_ACTIVE] tinyint NULL,
-[USD_PRICE] decimal(18,2) NULL,
-[COMPANY_ID] int NULL
-);
-GO
+-- Creating primary key on [FILE_ID] in table 'FILEs' <br>
+ALTER TABLE [dbo].[FILEs] <br>
+ADD CONSTRAINT [PK_FILEs] <br>
+PRIMARY KEY CLUSTERED ([FILE_ID] ASC); <br>
+GO <br>
 
--- --------------------------------------------------
--- Creating all PRIMARY KEY constraints
--- --------------------------------------------------
+-- -------------------------------------------------- <br>
+-- Creating all FOREIGN KEY constraints <br>
+-- -------------------------------------------------- <br>
 
--- Creating primary key on [CONFIGURE_SYSTEM_ID] in table 'CONFIGURE_SYSTEM'
-ALTER TABLE [dbo].[CONFIGURE_SYSTEM]
-ADD CONSTRAINT [PK_CONFIGURE_SYSTEM]
-PRIMARY KEY CLUSTERED ([CONFIGURE_SYSTEM_ID] ASC);
-GO
-
--- Creating primary key on [ID] in table 'ACCOUNTs'
-ALTER TABLE [dbo].[ACCOUNTs]
-ADD CONSTRAINT [PK_ACCOUNTs]
-PRIMARY KEY CLUSTERED ([ID] ASC);
-GO
-
--- Creating primary key on [COMPANY_ID] in table 'COMPANies'
-ALTER TABLE [dbo].[COMPANies]
-ADD CONSTRAINT [PK_COMPANies]
-PRIMARY KEY CLUSTERED ([COMPANY_ID] ASC);
-GO
-
--- Creating primary key on [PRODUCT_ID] in table 'PRODUCTs'
-ALTER TABLE [dbo].[PRODUCTs]
-ADD CONSTRAINT [PK_PRODUCTs]
-PRIMARY KEY CLUSTERED ([PRODUCT_ID] ASC);
-GO
-
--- Creating primary key on [QUOTATION_DETAIL_ID] in table 'QUOTATION_DETAIL'
-ALTER TABLE [dbo].[QUOTATION_DETAIL]
-ADD CONSTRAINT [PK_QUOTATION_DETAIL]
-PRIMARY KEY CLUSTERED ([QUOTATION_DETAIL_ID] ASC);
-GO
-
--- Creating primary key on [QUOTATION_ID] in table 'QUOTATIONs'
-ALTER TABLE [dbo].[QUOTATIONs]
-ADD CONSTRAINT [PK_QUOTATIONs]
-PRIMARY KEY CLUSTERED ([QUOTATION_ID] ASC);
-GO
-
--- Creating primary key on [SAVE_FILE_ID] in table 'SAVE_FILE'
-ALTER TABLE [dbo].[SAVE_FILE]
-ADD CONSTRAINT [PK_SAVE_FILE]
-PRIMARY KEY CLUSTERED ([SAVE_FILE_ID] ASC);
-GO
-
--- Creating primary key on [FILE_ID] in table 'FILEs'
-ALTER TABLE [dbo].[FILEs]
-ADD CONSTRAINT [PK_FILEs]
-PRIMARY KEY CLUSTERED ([FILE_ID] ASC);
-GO
-
--- --------------------------------------------------
--- Creating all FOREIGN KEY constraints
--- --------------------------------------------------
-
--- --------------------------------------------------
--- Script has ended
--- --------------------------------------------------
+-- -------------------------------------------------- <br>
+-- Script has ended <br>
+-- -------------------------------------------------- <br>
     </p>
 </body>
 
