@@ -6,16 +6,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
-<br>
-    <h4>CREATE DATABASE</h4>
--- -------------------------------------------------- <br>
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure <br>
--- -------------------------------------------------- <br>
--- Date Created: 02/13/2022 21:54:45 <br>
--- Generated from EDMX file: <br>
-C:\Users\DELL\Downloads\BusinessSupport\BusinessSupport\Model\Context\BusinessSupportDbContext.edmx <br>
--- -------------------------------------------------- <br>
 <br>
 SET QUOTED_IDENTIFIER OFF; <br>
 GO <br>
@@ -68,8 +58,8 @@ CREATE TABLE [dbo].[CONFIGURE_SYSTEM] ( <br>
 ); <br>
 GO <br>
 <br>
--- Creating table 'ACCOUNTs' <br>
-CREATE TABLE [dbo].[ACCOUNTs] ( <br>
+-- Creating table 'ACCOUNT' <br>
+CREATE TABLE [dbo].[ACCOUNT] ( <br>
 [ID] int IDENTITY(1,1) NOT NULL, <br>
 [USER_NAME] nvarchar(100) NULL, <br>
 [PASSWORD] nvarchar(100) NULL, <br>
@@ -83,16 +73,16 @@ CREATE TABLE [dbo].[ACCOUNTs] ( <br>
 [FULLNAME] nvarchar(100) NULL <br>
 ); <br>
 GO <br>
--- Creating table 'COMPANies' <br>
-CREATE TABLE [dbo].[COMPANies] ( <br>
+-- Creating table 'COMPANY' <br>
+CREATE TABLE [dbo].[COMPANY] ( <br>
 [COMPANY_ID] int IDENTITY(1,1) NOT NULL, <br>
 [COMPANY_NAME] nvarchar(500) NULL, <br>
 [IS_ACTIVE] tinyint NULL <br>
 ); <br>
 GO <br>
 
--- Creating table 'PRODUCTs' <br>
-CREATE TABLE [dbo].[PRODUCTs] ( <br>
+-- Creating table 'PRODUCT' <br>
+CREATE TABLE [dbo].[PRODUCT] ( <br>
 [PRODUCT_ID] int IDENTITY(1,1) NOT NULL, <br>
 [PRODUCT_NAME] nvarchar(4000) NULL, <br>
 [BRAND] nvarchar(4000) NULL, <br>
@@ -140,8 +130,8 @@ CREATE TABLE [dbo].[QUOTATION_DETAIL] ( <br>
 ); <br>
 GO <br>
 
--- Creating table 'QUOTATIONs' <br>
-CREATE TABLE [dbo].[QUOTATIONs] ( <br>
+-- Creating table 'QUOTATION' <br>
+CREATE TABLE [dbo].[QUOTATION] ( <br>
 [QUOTATION_ID] int IDENTITY(1,1) NOT NULL, <br>
 [CREATE_DATE] datetime NOT NULL, <br>
 [CREATE_USER] nvarchar(1000) NULL, <br>
@@ -187,7 +177,7 @@ CREATE TABLE [dbo].[SAVE_FILE] ( <br>
 ); <br>
 GO <br>
 
--- Creating table 'FILEs' <br>
+-- Creating table 'FILE' <br>
 CREATE TABLE [dbo].[FILEs] ( <br>
 [FILE_ID] int IDENTITY(1,1) NOT NULL, <br>
 [CREATE_DATE] datetime NOT NULL, <br>
@@ -208,21 +198,21 @@ ADD CONSTRAINT [PK_CONFIGURE_SYSTEM] <br>
 PRIMARY KEY CLUSTERED ([CONFIGURE_SYSTEM_ID] ASC); <br>
 GO <br>
 
--- Creating primary key on [ID] in table 'ACCOUNTs' <br>
-ALTER TABLE [dbo].[ACCOUNTs] <br>
-ADD CONSTRAINT [PK_ACCOUNTs] <br>
+-- Creating primary key on [ID] in table 'ACCOUNT' <br>
+ALTER TABLE [dbo].[ACCOUNT] <br>
+ADD CONSTRAINT [PK_ACCOUNT] <br>
 PRIMARY KEY CLUSTERED ([ID] ASC); <br>
 GO <br>
 
--- Creating primary key on [COMPANY_ID] in table 'COMPANies' <br>
-ALTER TABLE [dbo].[COMPANies] <br>
-ADD CONSTRAINT [PK_COMPANies] <br>
+-- Creating primary key on [COMPANY_ID] in table 'COMPANY' <br>
+ALTER TABLE [dbo].[COMPANY] <br>
+ADD CONSTRAINT [PK_COMPANY] <br>
 PRIMARY KEY CLUSTERED ([COMPANY_ID] ASC); <br>
 GO <br>
 
--- Creating primary key on [PRODUCT_ID] in table 'PRODUCTs' <br>
-ALTER TABLE [dbo].[PRODUCTs] <br>
-ADD CONSTRAINT [PK_PRODUCTs] <br>
+-- Creating primary key on [PRODUCT_ID] in table 'PRODUCT' <br>
+ALTER TABLE [dbo].[PRODUCT] <br>
+ADD CONSTRAINT [PK_PRODUCT] <br>
 PRIMARY KEY CLUSTERED ([PRODUCT_ID] ASC); <br>
 GO <br>
 
@@ -232,9 +222,9 @@ ADD CONSTRAINT [PK_QUOTATION_DETAIL] <br>
 PRIMARY KEY CLUSTERED ([QUOTATION_DETAIL_ID] ASC); <br>
 GO <br>
 
--- Creating primary key on [QUOTATION_ID] in table 'QUOTATIONs' <br>
-ALTER TABLE [dbo].[QUOTATIONs] <br>
-ADD CONSTRAINT [PK_QUOTATIONs] <br>
+-- Creating primary key on [QUOTATION_ID] in table 'QUOTATION' <br>
+ALTER TABLE [dbo].[QUOTATION] <br>
+ADD CONSTRAINT [PK_QUOTATION] <br>
 PRIMARY KEY CLUSTERED ([QUOTATION_ID] ASC); <br>
 GO <br>
 
@@ -244,9 +234,9 @@ ADD CONSTRAINT [PK_SAVE_FILE] <br>
 PRIMARY KEY CLUSTERED ([SAVE_FILE_ID] ASC); <br>
 GO <br>
 
--- Creating primary key on [FILE_ID] in table 'FILEs' <br>
-ALTER TABLE [dbo].[FILEs] <br>
-ADD CONSTRAINT [PK_FILEs] <br>
+-- Creating primary key on [FILE_ID] in table 'FILE' <br>
+ALTER TABLE [dbo].[FILE] <br>
+ADD CONSTRAINT [PK_FILE] <br>
 PRIMARY KEY CLUSTERED ([FILE_ID] ASC); <br>
 GO <br>
 
