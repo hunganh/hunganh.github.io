@@ -98,7 +98,14 @@
         }, 100);
 
         function getAttachment(attachmentUrl) {
-            return `<p><a class="btn btn-primary" role="button" href="https://cdn.fialda.com/Attachment/News/${attachmentUrl}" target="_blank">Xem nội dung</a></p>`;
+            var content = "";
+            var lstAttachment =  attachmentUrl.split(",");
+            if (lstAttachment != null && lstAttachment.length > 0) {
+                lstAttachment.forEach(url => {
+                    content += `<p><a class="btn btn-primary" role="button" href="https://cdn.fialda.com/Attachment/News/${url}" target="_blank">Xem nội dung</a></p>`;
+                });
+            }
+            return content;
         }
     </script>
 </body>
