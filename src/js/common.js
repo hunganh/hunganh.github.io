@@ -186,7 +186,23 @@ window.commonJS = {
             }
         }
     },
-    
+
+    getNetTradeValueColumnByActionValue :  function (action) {
+        if (window.variablesJS.typeDefault === "selfBusiness") {
+            if (action === "netBuy") {
+                return window.variablesJS.TOTAL_NET_BUY_TRADE_VALUE;
+            } else {
+                return window.variablesJS.TOTAL_NET_SELL_TRADE_VALUE;
+            }
+        } else {
+            if (action === "netBuy") {
+                return window.variablesJS.FOREIGN_NET_BUY_VALUE;
+            } else {
+                return window.variablesJS.FOREIGN_NET_SELL_VALUE;
+            }
+        }
+    },
+
     getUrlPreviousElementByDate :  function (date) {
         var fileName = `${window.commonJS.getDateInput(date)}.json`;
         var index = window.variablesJS.mappingDataJson.findIndex(x => x.name === fileName);

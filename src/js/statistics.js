@@ -48,7 +48,10 @@ window.statisticsJS = {
                 return d - c;
             });
             for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
-                window.statisticsJS.createStatisticsReport(window.variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], index);
+                //window.statisticsJS.createStatisticsReport(window.variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], index);
+                for (let i = 0; i < window.variablesJS.actions.length; i++) {
+                    window.statisticsJS.createStatisticsReport(window.variablesJS.currentPeriod, window.variablesJS.dataJson.items[index], window.variablesJS.actions[i], index);
+                }
             }
             window.statisticsJS.setStatisticsTitle();
         }
@@ -100,16 +103,19 @@ window.statisticsJS = {
         if (window.variablesJS.dataJson && window.variablesJS.dataJson.items && window.variablesJS.dataJson.items.length > 0) {
             window.variablesJS.divStatisticsShowData.innerHTML = "";
             for (let index = 0; index < window.variablesJS.dataJson.items.length; index++) {
-                window.statisticsJS.createStatisticsReport(period, window.variablesJS.dataJson.items[index], index);
+                //window.statisticsJS.createStatisticsReport(period, window.variablesJS.dataJson.items[index], index);
+                for (let i = 0; i < window.variablesJS.actions.length; i++) {
+                    window.statisticsJS.createStatisticsReport(period, window.variablesJS.dataJson.items[index], window.variablesJS.actions[i], index);
+                }
             }
         }
         window.statisticsJS.setStatisticsTitle();
     },
     
-    createStatisticsReport : function (period, dataJsonInput, dataIndex) {
-        var data = window.variablesJS.actionDefault === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
-        var netTradeValueColumn = window.commonJS.getNetTradeValueColumn();
-        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(window.variablesJS.defaultLocale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(window.variablesJS.defaultLocale) + ") - " + `Tổng Giá Trị ${window.variablesJS.actionDefault === "netBuy" ? "Mua Ròng: " : "Bán Ròng: "}` + new Intl.NumberFormat(window.variablesJS.numberLocale).format(dataJsonInput[period][netTradeValueColumn]) + " đ";
+    createStatisticsReport : function (period, dataJsonInput, action, dataIndex) {
+        var data = action === "netBuy" ? dataJsonInput[period].netBuy : dataJsonInput[period].netSell;
+        var netTradeValueColumn = window.commonJS.getNetTradeValueColumnByActionValue(action);
+        var title = " (" + new Date(dataJsonInput[period].fromDate).toLocaleDateString(window.variablesJS.defaultLocale) + " - " + new Date(dataJsonInput[period].toDate).toLocaleDateString(window.variablesJS.defaultLocale) + ") - " + `Tổng Giá Trị ${action === "netBuy" ? "Mua Ròng: <span class='badge sum-value-area font-weight-bold font-14 dashed-border-bottom'>" : "Bán Ròng: <span class='badge bg-danger font-weight-bold font-14 dashed-border-bottom'>"}` + new Intl.NumberFormat(window.variablesJS.numberLocale).format(dataJsonInput[period][netTradeValueColumn]) + " đ </span>";
         var table = document.createElement("table");
         table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
         var thead = document.createElement("thead");
@@ -123,12 +129,12 @@ window.statisticsJS = {
         tr = thead.insertRow(-1);
         for (var i = 0; i < window.variablesJS.statisticsHeadTitle.length; i++) {
             var th = document.createElement("th");      // table header.
-            th.innerHTML = window.variablesJS.statisticsHeadTitle[i];
+            th.innerHTML = window.variablesJS.statisticsHeadTitle[i].indexOf("statistics-popover") > -1 ? window.variablesJS.statisticsHeadTitle[i].replace("statistics-popover", "statistics-popover-" + action) : window.variablesJS.statisticsHeadTitle[i];
             tr.appendChild(th);
         }
         
         var tbody = document.createElement("tbody");
-        tbody.setAttribute("id","table-statistics-popover");
+        tbody.setAttribute("id","table-statistics-popover-" + action);
         // add json data to the table as rows.
         for (var i = 0; i < data.length; i++) {
             tr = tbody.insertRow(-1);
@@ -140,7 +146,7 @@ window.statisticsJS = {
             if (!prvItem) {
                 window.commonJS.addCell(tr, Number(i + 1));
             } else {
-                var prvPosition = window.variablesJS.actionDefault === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]]));
+                var prvPosition = action === "netBuy" ? prvItem[period].netBuy.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]])) : prvItem[period].netSell.findIndex(x => x.ticker === (data[i][window.variablesJS.statisticsCols[1]]));
                 if (prvPosition > -1) {
                     window.commonJS.addCell(tr, Number(i + 1) + window.commonJS.getPositionIcon(prvPosition, i));
                 } else {
@@ -157,8 +163,8 @@ window.statisticsJS = {
             window.commonJS.addCell(tr, volumeColumnName !== "" ? new Intl.NumberFormat(window.variablesJS.numberLocale).format(data[i][volumeColumnName]) : "&#8722;");
             window.commonJS.addCell(tr, new Intl.NumberFormat(window.variablesJS.numberLocale).format(data[i][columnName]));
             window.commonJS.addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(window.variablesJS.numberLocale).format(closePrice) + '</span>');
-            window.commonJS.addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(window.variablesJS.numberLocale).format(priceChange) + '</span>');
-            window.commonJS.addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
+            window.commonJS.addCell(tr, '<span class="' + (Number(priceChange) > 0 ? "up" : Number(priceChange) < 0 ? "down" : "reference") + '">' + new Intl.NumberFormat(window.variablesJS.numberLocale).format(priceChange) + ' ('+ Number(percentPriceChange).toFixed(2) + "%" + ')</span>');
+            // window.commonJS.addCell(tr, '<span class="' + (Number(percentPriceChange) > 0 ? "up" : Number(percentPriceChange) < 0 ? "down" : "reference") + '">' + Number(percentPriceChange).toFixed(2) + "%" + '</span>');
             window.commonJS.addCell(tr, new Intl.NumberFormat(window.variablesJS.numberLocale).format(price));
         }
         table.appendChild(tbody);
@@ -166,7 +172,7 @@ window.statisticsJS = {
         window.variablesJS.divStatisticsShowData.appendChild(table);
     },
     
-    setStatisticsTitle : function () {
+    setStatisticsTitle : function (action) {
         var today = new Date().toLocaleDateString(window.variablesJS.defaultLocale);
         var updateDate = new Date(window.variablesJS.dataJson.items[0]["today"].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
         var updateDateStr = ` ${window.variablesJS.dataJson && window.variablesJS.dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
@@ -177,10 +183,12 @@ window.statisticsJS = {
             window.variablesJS.divStatisticsTitle.classList.remove("bg-latest");
             window.variablesJS.divStatisticsTitle.classList.add("bg-out-of-date");
         }
-        window.variablesJS.divStatisticsTitle.innerHTML = "Thống Kê ".concat(window.variablesJS.typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", window.variablesJS.actionDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng") + updateDateStr;
+        window.variablesJS.divStatisticsTitle.innerHTML = "Thống Kê ".concat(window.variablesJS.typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", "Mua/Bán Ròng") + updateDateStr;
         // Init Industries Filter Popover
         window.commonJS.closePopover();
-        window.commonJS.initIndustriesSelectionPopover('statistics-popover');
+        for (let i = 0; i < window.variablesJS.actions.length; i++) {
+            window.commonJS.initIndustriesSelectionPopover('statistics-popover-' + window.variablesJS.actions[i]);
+        }
     }
 }
 
