@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v5.8';
+var CACHE_NAME = 'v5.9';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
