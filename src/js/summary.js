@@ -4,7 +4,7 @@ window.variablesJS.divSummaryTitle = document.getElementById('showSummaryTitle')
 window.summaryJS = {
     resetDataSummary : function () {
         window.variablesJS.summaryDataJson = null;
-        window.variablesJS.divSummaryShowData.innerHTML = "";
+        // window.variablesJS.divSummaryShowData.innerHTML = "";
     },
     
     refreshSummaryData : function () {
@@ -14,14 +14,14 @@ window.summaryJS = {
     
     initSummaryData : function () {
         window.summaryJS.resetDataSummary();
-        window.commonJS.showLoading("showSummaryLoading");
+        // window.commonJS.showLoading("showSummaryLoading");
         Promise.all([
             window.commonJS.fetchContentByUrl(window.apiUrlDefined.SYNTHESIS_DATA_URL)
         ]).then((values) => {
             if (values && values.length > 0) {
                 window.summaryJS.setSummaryDataGlobal(values);
             }
-            window.commonJS.hideLoading("showSummaryLoading");
+            // window.commonJS.hideLoading("showSummaryLoading");
         }).then(() => {
             //console.log('Done fetching content via JavaScript');
         }).catch((err) => {
@@ -33,7 +33,7 @@ window.summaryJS = {
         window.summaryJS.resetDataSummary();
         if (values && values.length > 0) {
             window.variablesJS.summaryDataJson = values[0];
-            window.summaryJS.processSummaryDataInput();
+            //window.summaryJS.processSummaryDataInput();
         }
     },
     
