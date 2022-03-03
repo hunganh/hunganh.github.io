@@ -1,5 +1,5 @@
 window.variablesJS = {
-    typeDefault : "selfBusiness",
+    typeDefault : "foreign",
     actionDefault : "netBuy",
     actions : ["netBuy", "netSell"],
     actionSummaryDefault : "netBuy",

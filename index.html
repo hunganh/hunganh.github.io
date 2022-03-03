@@ -30,9 +30,9 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true"><h7>Thống Kê Tổ Chức</h7></button>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="window.commonJS.loadSynthesisData()"><h7>Tổng Hợp</h7></button>
-        </li>
+        </li> -->
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="window.fieldsJS.loadFieldsData()"><h7>Thống Kê Theo Ngành</h7></button>
         </li>
@@ -55,9 +55,9 @@
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="organization-tab" data-bs-toggle="tab" data-bs-target="#organization" type="button" role="tab" aria-controls="organization" aria-selected="true"><h7>Thống Kê Tổ Chức</h7></button>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="false" onclick="window.commonJS.loadSynthesisData()"><h7>Tổng Hợp</h7></button>
-        </li>
+        </li> -->
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="field-tab" data-bs-toggle="tab" data-bs-target="#field" type="button" role="tab" aria-controls="field" aria-selected="false" onclick="window.fieldsJS.loadFieldsData()"><h7>Thống Kê Theo Ngành</h7></button>
         </li>
@@ -84,12 +84,12 @@
                         <div class="card">
                             <h6 class="card-header">Chọn tổ chức</h6>
                             <div class="card-body">
-                                <input type="radio" class="form-check-input" id="foreignStatistics" name="statisticsType" value="foreign"
+                                <input type="radio" class="form-check-input" id="foreignStatistics" name="statisticsType" value="foreign" checked
                                     onclick='window.statisticsJS.changeStatisticsType(this.value)'>
                                 <label class="form-check-label" for="foreignStatistics">Khối ngoại</label>
                                 &nbsp;
                                 <input type="radio" class="form-check-input" id="selfBusinessStatistics" name="statisticsType" value="selfBusiness"
-                                    checked onclick='window.statisticsJS.changeStatisticsType(this.value)'>
+                                    onclick='window.statisticsJS.changeStatisticsType(this.value)'>
                                 <label class="form-check-label" for="selfBusinessStatistics">Tự doanh</label>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                 <div id='showStatisticsData' class="table-responsive"></div>
             </div>
         </div>
-        <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+        <!-- <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
             <div class="headerFixed">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 pading-5">
                     <div class="col">
@@ -219,7 +219,7 @@
                 </div>
                 <div id='showSummaryData' class="table-responsive"></div>
             </div>
-        </div>
+        </div> -->
         <div class="tab-pane fade" id="field" role="tabpanel" aria-labelledby="field-tab">
             <div class="headerFixed">
                 <div class="title">
