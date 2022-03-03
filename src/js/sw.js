@@ -23,5 +23,5 @@ function showUpdateNewVersionPopup() {
 }
 
 function updateNewVersionSW() {
-  window.location.reload();
+  window.location.reload(true);
 }

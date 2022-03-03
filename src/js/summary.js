@@ -187,7 +187,7 @@ window.summaryJS = {
             window.variablesJS.divSummaryTitle.classList.remove("bg-latest");
             window.variablesJS.divSummaryTitle.classList.add("bg-out-of-date");
         }
-        window.variablesJS.divSummaryTitle.innerHTML = `Mã CP Được Tự Doanh & Khối Ngoại ${variablesJS.actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
+        window.variablesJS.divSummaryTitle.innerHTML = `Mã CP Được Tổ chức trong nước & Khối Ngoại ${variablesJS.actionSummaryDefault === "netBuy" ? "Mua Ròng" : "Bán Ròng"}${updateDateStr}`;
         // Init Industries Filter Popover
         window.commonJS.closePopover();
         window.commonJS.initIndustriesSelectionPopover('summary-popover');
