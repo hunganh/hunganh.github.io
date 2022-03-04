@@ -77,8 +77,14 @@
     </div>     
     <span id="btnNavigation" style="font-size:27px;cursor:pointer;padding-left:3px;background: #41413f;color: white;" onclick="window.mobileJS.openNav()">&#9776;</span>
     <div class="tab-content" id="myTabContent" style="overflow-x: hidden;">
-        <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-            <div class="headerFixed">
+        <div class="tab-pane fade show active" id="organization" role="tabpanel" aria-labelledby="organization-tab"> 
+          <div class="headerFixed">
+            <div style="position: relative; padding-bottom: 2px; background:#B1a276 !important; color: snow; font: smaller 'Segoe UI' !important; font-size: smaller !important;">
+               <div>
+                  <span style="background-color: #ee4a5a; padding: 0px 10px 2px 5px; border: 1px dotted; font-weight: bold; max-width: 100px;">Thông Báo:</span>
+                  <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();" style="max-width: 90%; position: absolute; font-weight: 600">Từ ngày 1/3/2022, dữ liệu Tự doanh được thay thế bằng dữ liệu Tổ chức trong nước (đã bao gồm dữ liệu Tự doanh)</marquee>
+                </div> 
+            </div>
                 <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2 pading-5">
                     <div class="col">
                         <div class="card">
@@ -90,11 +96,7 @@
                                 &nbsp;
                                 <input type="radio" class="form-check-input" id="selfBusinessStatistics" name="statisticsType" value="selfBusiness"
                                     checked onclick='window.statisticsJS.changeStatisticsType(this.value)'>
-                                <label class="form-check-label" for="selfBusinessStatistics">Tổ chức trong nước (đã bao gồm dữ liệu Tự doanh)</label>
-                                <p style="background:#b1a276 !important; color: snow; font-weight: 600 !important; height: 100%;">
-                                  <span style="background-color: #ee4a5a; float: left; padding: 0px 10px 2px 5px; border: 1px dotted; ">Thông Báo:</span> 
-                                  <marquee direction="left" style="max-width: 88%; border: 1px dotted; padding: 1px;">Từ ngày 1/3/2022, dữ liệu Tự doanh được thay thế bằng dữ liệu Tổ chức trong nước</marquee>
-                                </p>
+                                <label class="form-check-label" for="selfBusinessStatistics">Tổ chức trong nước</label>
                             </div>
                         </div>
                     </div>
