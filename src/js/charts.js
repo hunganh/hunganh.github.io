@@ -31,7 +31,7 @@ window.chartsJS = {
         var compareResultOfTwoSMAs = {};
         var booleanFilter = { 
             AvailableForFASearching: true,
-            Has5ConsecutiveTradingDays: true,
+            //Has5ConsecutiveTradingDays: true,
             Has10ConsecutiveTradingDays: true 
         };
         // SMA
