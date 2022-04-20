@@ -5,7 +5,8 @@ window.statisticsJS = {
     initStatisticsData : function () {
         window.commonJS.showLoading("showStatisticsLoading");
         setTimeout(() => {
-            var nodeName = window.variablesJS.typeDefault === "selfBusiness" ? window.variablesJS.TU_DOANH : window.variablesJS.KHOI_NGOAI;
+            var nodeName = document.getElementById("selfBusinessStatistics").checked === true ? window.variablesJS.TU_DOANH : window.variablesJS.KHOI_NGOAI;
+            //var nodeName = window.variablesJS.typeDefault === "selfBusiness" ? window.variablesJS.TU_DOANH : window.variablesJS.KHOI_NGOAI;
             $.ajax({
                 url: `${window.apiUrlDefined.STATISTICS_DATA_URL}/${nodeName}`,
                 async: false,

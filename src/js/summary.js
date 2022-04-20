@@ -39,8 +39,8 @@ window.summaryJS = {
     
     processSummaryDataInput : function () {
         var data = [];
-        var selfBusinessData = window.variablesJS.summaryDataJson.selfBusiness[variablesJS.currentSummaryPeriod][variablesJS.actionSummaryDefault];
-        var foreignData = window.variablesJS.summaryDataJson.foreign[variablesJS.currentSummaryPeriod][variablesJS.actionSummaryDefault];
+        var selfBusinessData = window.variablesJS.summaryDataJson.selfBusiness[window.variablesJS.currentSummaryPeriod][window.variablesJS.actionSummaryDefault];
+        var foreignData = window.variablesJS.summaryDataJson.foreign[window.variablesJS.currentSummaryPeriod][window.variablesJS.actionSummaryDefault];
         var selfBusinessCodes = selfBusinessData.map(x => x.ticker);
         var foreignCodes = foreignData.map(x => x.ticker);
         var codes = selfBusinessCodes.filter(x => foreignCodes.indexOf(x) !== -1);
@@ -78,7 +78,7 @@ window.summaryJS = {
     },
     
     createSummaryReport : function (data) {
-        var title = "Thống Kê Từ " + new Date(window.variablesJS.summaryDataJson["foreign"][variablesJS.currentSummaryPeriod].fromDate).toLocaleDateString(window.variablesJS.defaultLocale) + " - " + new Date(window.variablesJS.summaryDataJson["foreign"][variablesJS.currentSummaryPeriod].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
+        var title = "Thống Kê Từ " + new Date(window.variablesJS.summaryDataJson["foreign"][window.variablesJS.currentSummaryPeriod].fromDate).toLocaleDateString(window.variablesJS.defaultLocale) + " - " + new Date(window.variablesJS.summaryDataJson["foreign"][window.variablesJS.currentSummaryPeriod].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
         var table = document.createElement("table");
         table.classList.add("left-position", "table", "table-bordered", "table-striped", "table-hover");
         var thead = document.createElement("thead");
@@ -155,7 +155,7 @@ window.summaryJS = {
     },
     
     changePeriodAction : function (period) {
-        variablesJS.currentSummaryPeriod = period;
+        window.variablesJS.currentSummaryPeriod = period;
         if (window.variablesJS.summaryDataJson !== null) {
             window.variablesJS.divSummaryShowData.innerHTML = "";
             window.commonJS.showLoading("showSummaryLoading");
@@ -178,7 +178,7 @@ window.summaryJS = {
     
     setSummaryTitle : function () {
         var today = new Date().toLocaleDateString(window.variablesJS.defaultLocale);
-        var updateDate = new Date(window.variablesJS.summaryDataJson["foreign"][variablesJS.currentSummaryPeriod].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
+        var updateDate = new Date(window.variablesJS.summaryDataJson["foreign"][window.variablesJS.currentSummaryPeriod].toDate).toLocaleDateString(window.variablesJS.defaultLocale);
         var updateDateStr = ` ${window.variablesJS.dataJson && window.variablesJS.dataJson.items.length > 0 ? "- Dữ liệu ngày " + updateDate : ""} `;
         if (updateDate === today) {
             window.variablesJS.divSummaryTitle.classList.remove("bg-out-of-date");

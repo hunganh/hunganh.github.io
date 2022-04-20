@@ -182,7 +182,7 @@ window.chartsJS = {
                     <tbody>`;
         $("#showTechnicalAnalysisContent").html(`</br>${loadingHTML}`);
         setTimeout(() => {
-            var URL = encodeURIComponent(`${window.apiUrlDefined.FIALDA_API_V1_URL}${window.apiUrlDefined.FIALDA_STOCK_FILTERS_PATH}`);
+            var URL = encodeURIComponent(`${window.apiUrlDefined.FIALDA_API_V2_URL}${window.apiUrlDefined.FIALDA_STOCK_FILTERS_PATH}`);
             var res = headTAData;
             $.ajax({
                 url: `${window.apiUrlDefined.CORS_PROXY_URL}/${URL}`,
