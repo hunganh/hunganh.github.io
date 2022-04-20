@@ -124,7 +124,7 @@ window.filtersJS = {
         var booleanFilter = { 
             AvailableForFASearching: true,
             Has5ConsecutiveTradingDays: true,
-            Has10ConsecutiveTradingDays: true 
+            //Has10ConsecutiveTradingDays: true 
         }
         var btnFilterOverTop = $('#btnFilterOverTop:checked').val();
         if (btnFilterOverTop) {
