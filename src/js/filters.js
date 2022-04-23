@@ -238,17 +238,36 @@ window.filtersJS = {
         var foreignChecked = $('#btnFilterForeignOption:checked').val();
         var periodType = $("input[name='btnFiltersPeriodRadio']:checked").val();
         if (!selfBusinessChecked && !foreignChecked) return codes;
+        var selfBusinessCodesArr = [];
+        var foreignCodesArr = [];
         if (selfBusinessChecked) {
             var selfBusinessData = window.variablesJS.summaryDataJson.selfBusiness[periodType][variablesJS.actionSummaryDefault];
             var selfBusinessCodes = selfBusinessData.map(x => x.ticker);
-            codes = codes.filter(x => selfBusinessCodes.indexOf(x) !== -1);
+            selfBusinessCodesArr = codes.filter(x => selfBusinessCodes.indexOf(x) !== -1);
         }
         if (foreignChecked) {
             var foreignData = window.variablesJS.summaryDataJson.foreign[periodType][variablesJS.actionSummaryDefault];
             var foreignCodes = foreignData.map(x => x.ticker);
-            codes = codes.filter(x => foreignCodes.indexOf(x) !== -1);
+            foreignCodesArr = codes.filter(x => foreignCodes.indexOf(x) !== -1);
         }
-        return codes;
+        return Array.from(new Set(selfBusinessCodesArr.concat(foreignCodesArr)));
+    },
+
+    initSummaryData : function () {
+        $("#showFiltersData").html(`</br>${window.commonJS.getLoadingHTML()}`);
+        Promise.all([
+            window.commonJS.fetchContentByUrl(window.apiUrlDefined.SYNTHESIS_DATA_URL)
+        ]).then((values) => {
+            if (values && values.length > 0) {
+                window.variablesJS.summaryDataJson = values[0];
+            }
+        }).then(() => {
+            //console.log('Done fetching content via JavaScript');
+            window.filtersJS.filterData();
+        }).catch((err) => {
+            console.error(err);
+            $("#showFiltersData").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
+        });
     }
 }
 
@@ -430,6 +449,7 @@ document.addEventListener("DOMContentLoaded", function(e) {
         window.filtersJS.setValueSlider($(this));
         window.filtersJS.clearTimers();
     });
+    window.filtersJS.initSummaryData();
 });
 
 

@@ -166,7 +166,7 @@ window.summaryJS = {
     },
     
     changeSummaryAction : function (action) {
-        variablesJS.actionSummaryDefault = action;
+        window.variablesJS.actionSummaryDefault = action;
         if (window.variablesJS.summaryDataJson !== null) {
             window.variablesJS.divSummaryShowData.innerHTML = "";
             window.commonJS.showLoading("showSummaryLoading");

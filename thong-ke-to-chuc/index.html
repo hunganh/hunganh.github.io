@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>.::NhaDauTu198x::. - Thống kê tổ chức.</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NhaDauTu198x - Thống kê tổ chức." />
+    <meta name="keywords" content="Thống kê tổ chức">
+    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow">
+    <meta property="og: type" content="article" />
+    <meta property="og:title" content="NhaDauTu198x - Thống kê tổ chức.">
+    <meta property="og:description" content="NhaDauTu198x - Thống kê tổ chức.">
+    <meta property="og:image" content="https://www.nhadautu198x.com/src/images/thong-ke-to-chuc.PNG">
+    <meta property="og:url" content="https://www.nhadautu198x.com/thong-ke-to-chuc">
+    <meta property="og: site_name" content="nhadautu198x.com" />
+    <meta name="twitter:card" content="nhadautu198x.com/thong-ke-to-chuc">
+    <meta property="twitter:title" content="NhaDauTu198x - Thống kê tổ chức.">
+    <meta property="twitter:description" content="NhaDauTu198x - Thống kê tổ chức.">
+    <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
+    <link rel="icon" href="../src/images/logo.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="../src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="../src/css/virtual-select.min.css" />
+    <script src="../src/js/header.js" type="text/javascript" defer></script>
+    <script src="../src/js/footer.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+    <header-component></header-component>
+    <main>
+        <div class="tab-content" style="overflow-x: hidden;">
+            <div class="headerFixed">
+                <div
+                    style="position: relative; padding-bottom: 2px; background:#B1a276 !important; color: snow; font: smaller 'Segoe UI' !important; font-size: smaller !important;">
+                    <div>
+                        <span
+                            style="background-color: #ee4a5a; padding: 0px 10px 2px 5px; border: 1px dotted; font-weight: bold; max-width: 100px;">Thông
+                            Báo:</span>
+                        <marquee behavior="scroll" direction="left" onmouseover="this.stop();"
+                            onmouseout="this.start();" style="max-width: 90%; position: absolute; font-weight: 600">Từ
+                            ngày 1/3/2022, dữ liệu Tự doanh
+                            được thay thế bằng dữ liệu Tổ chức trong nước (đã bao gồm dữ liệu Tự doanh)</marquee>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2 pading-5">
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Chọn tổ chức</h6>
+                            <div class="card-body">
+                                <input type="radio" class="form-check-input" id="foreignStatistics"
+                                    name="statisticsType" value="foreign"
+                                    onclick='window.statisticsJS.changeStatisticsType(this.value)'>
+                                <label class="form-check-label" for="foreignStatistics">Khối ngoại</label>
+                                &nbsp;
+                                <input type="radio" class="form-check-input" id="selfBusinessStatistics"
+                                    name="statisticsType" value="selfBusiness" checked
+                                    onclick='window.statisticsJS.changeStatisticsType(this.value)'>
+                                <label class="form-check-label" for="selfBusinessStatistics">Tổ chức trong nước</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Bước 2: Chọn loại thống kê</h6>
+                            <div class="card-body">
+                                <input type="radio" class="form-check-input" id="netBuyStatistics" name="netStatistics" value="netBuy" checked
+                                    onclick='window.statisticsJS.changeStatisticsAction(this.value)'>
+                                <label class="form-check-label" for="netBuyStatistics">Mua Ròng</label>
+                                &nbsp;
+                                <input type="radio" class="form-check-input" id="netSellStatistics" name="netStatistics" value="netSell"
+                                    onclick='window.statisticsJS.changeStatisticsAction(this.value)'>
+                                <label class="form-check-label" for="netSellStatistics">Bán Ròng</label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Chọn thời điểm thống kê</h6>
+                            <div class="card-body">
+                                <div class="btn-group btn-group-sm" role="group"
+                                    aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio"
+                                        id="btnStatisticsPeriodToday" autocomplete="off" checked
+                                        onclick='window.statisticsJS.processStatisticsData("today")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodToday">1 Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio"
+                                        id="btnStatisticsPeriodOneWeek" autocomplete="off"
+                                        onclick='window.statisticsJS.processStatisticsData("oneWeek")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneWeek">5
+                                        Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio"
+                                        id="btnStatisticsPeriodOneMonth" autocomplete="off"
+                                        onclick='window.statisticsJS.processStatisticsData("oneMonth")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneMonth">20
+                                        Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnStatisticsPeriodRadio"
+                                        id="btnStatisticsPeriodOneYearToDate" autocomplete="off"
+                                        onclick='window.statisticsJS.processStatisticsData("yearToDate")'>
+                                    <label class="btn btn-primary btn-sm" for="btnStatisticsPeriodOneYearToDate">Đến
+                                        Hiện
+                                        Tại</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Chọn files (.json) - Xem dữ liệu trong quá khứ</h6>
+                            <div class="card-body">
+                                <label for="fileInput" style="color: transparent;">.</label>
+                                <input type="file" id="fileInput" multiple accept=".json">
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22"
+                                id='showStatisticsTitle'>Thống Kê Tổ Chức Trong Nước Mua Ròng</div>
+                        </div>
+                        <div class="col margin-5">
+                            <!-- <button type="button" class="btn btn-danger btn-sm bold" onclick='window.statisticsJS.resetStatisticsData()'>Reset</button>
+                            &nbsp; -->
+                            <button type="button" class="btn btn-success btn-sm bold"
+                                onclick='window.statisticsJS.refreshStatisticsData()'>Tải dữ liệu mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div id='showStatisticsLoading' class="d-flex justify-content-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="loadingTitle">Đang tải dữ liệu...</span>
+                </div>
+                <div id='showStatisticsData' class="table-responsive"></div>
+            </div>
+        </div>
+    </main>
+    <footer-component></footer-component>
+    <script src="../src/js/sw.js"></script>
+    <script src="../src/js/lib/jquery.min.js"></script>
+    <script src="../src/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/lib/bootstrap-slider.min.js"></script>
+    <script src="../src/js/lib/charting_library.min.js"></script>
+    <script src="../src/js/lib/socket.io.js"></script>
+    <script src="../src/js/lib/lz-string.min.js"></script>
+    <script src="../src/js/lib/virtual-select.min.js"></script>
+    <script src="../src/js/lib/jquery.tablednd.js"></script>
+    <script src="../src/js/bundles/stocksData.bundle.js"></script>
+    <script src="../src/js/bundles/variables.bundle.js"></script>
+    <script src="../src/js/bundles/common.bundle.js"></script>
+    <script src="../src/js/bundles/mobile.bundle.js"></script>
+    <script src="../src/js/bundles/statistics.bundle.js"></script>
+    <script src="../src/js/bundles/websocket.bundle.js"></script>
+    <script src="../src/js/bundles/timeServer.bundle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TG8J409TWG');
+    </script>
+</body>
+</html>

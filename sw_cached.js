@@ -1,4 +1,4 @@
-var CACHE_NAME = 'v6.7';
+var CACHE_NAME = 'v9.1';
 var CACHE_ASSETS = [
     'index.html',
     'crypto.html',
@@ -6,6 +6,13 @@ var CACHE_ASSETS = [
     'tv-chart.html',
     'upload.html',
     'sitemap.xml',
+    '/bang-gia-co-phieu/index.html',
+    '/dinh-gia-co-phieu/index.html',
+    '/loc-co-phieu/index.html',
+    '/phan-tich-ky-thuat-co-phieu/index.html',
+    '/thong-ke-theo-nganh/index.html',
+    '/thong-ke-to-chuc/index.html',
+    '/thong-ke-tong-hop/index.html',
     '/src/charting_library/vi-tv-chart.2be9706e.html',
     '/src/charting_library/bundles/0.c2df1ae4d38efcd3dc37.js',
     '/src/charting_library/bundles/1.b64c6e462261f7276e08.js',
@@ -113,6 +120,13 @@ var CACHE_ASSETS = [
     '/src/images/logo.svg',
     '/src/images/logo2.png',
     '/src/images/filter.png',
+    '/src/images/bang-gia-co-phieu.PNG',
+    '/src/images/dinh-gia-co-phieu.PNG',
+    '/src/images/loc-co-phieu.PNG',
+    '/src/images/phan-tich-ky-thuat-co-phieu.PNG',
+    '/src/images/thong-ke-theo-nganh.PNG',
+    '/src/images/thong-ke-to-chuc.PNG',
+    '/src/images/thong-ke-tong-hop.PNG',
     '/src/js/charting_library/charting_library.min.js',
     '/src/js/common/config.js',
     '/src/js/common/extend.js',

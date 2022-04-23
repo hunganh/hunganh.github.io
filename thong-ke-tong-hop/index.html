@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>.::NhaDauTu198x::. - Thống kê tổng hợp.</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NhaDauTu198x - Thống kê tổng hợp." />
+    <meta name="keywords" content="Thống kê tổng hợp">
+    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow">
+    <meta property="og: type" content="article" />
+    <meta property="og:title" content="NhaDauTu198x - Thống kê tổng hợp.">
+    <meta property="og:description" content="NhaDauTu198x - Thống kê tổng hợp.">
+    <meta property="og:image" content="https://www.nhadautu198x.com/src/images/thong-ke-tong-hop.PNG">
+    <meta property="og:url" content="https://www.nhadautu198x.com/thong-ke-tong-hop">
+    <meta property="og: site_name" content="nhadautu198x.com" />
+    <meta name="twitter:card" content="nhadautu198x.com/thong-ke-tong-hop">
+    <meta property="twitter:title" content="NhaDauTu198x - Thống kê tổng hợp.">
+    <meta property="twitter:description" content="NhaDauTu198x - Thống kê tổng hợp.">
+    <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
+    <link rel="icon" href="../src/images/logo.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="../src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="../src/css/virtual-select.min.css" />
+    <script src="../src/js/header.js" type="text/javascript" defer></script>
+    <script src="../src/js/footer.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+    <header-component></header-component>
+    <main>
+        <div class="tab-content" style="overflow-x: hidden;">
+            <div class="headerFixed">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-4 pading-5">
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Chọn loại thống kê</h6>
+                            <div class="card-body">
+                                <input type="radio" class="form-check-input" id="netBuySummary" name="netSummary"
+                                    value="netBuy" checked onclick='window.summaryJS.changeSummaryAction(this.value)'>
+                                <label class="form-check-label" for="netBuySummary">Mua Ròng</label>
+                                &nbsp;
+                                <input type="radio" class="form-check-input" id="netSellSummary" name="netSummary"
+                                    value="netSell" onclick='window.summaryJS.changeSummaryAction(this.value)'>
+                                <label class="form-check-label" for="netSellSummary">Bán Ròng</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h6 class="card-header">Chọn thời điểm thống kê</h6>
+                            <div class="card-body">
+                                <div class="btn-group btn-group-sm" role="group"
+                                    aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio"
+                                        id="btnSummaryPeriodToday" autocomplete="off" checked
+                                        onclick='window.summaryJS.changePeriodAction("today")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodToday">1 Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio"
+                                        id="btnSummaryPeriodOneWeek" autocomplete="off"
+                                        onclick='window.summaryJS.changePeriodAction("oneWeek")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneWeek">5 Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio"
+                                        id="btnSummaryPeriodOneMonth" autocomplete="off"
+                                        onclick='window.summaryJS.changePeriodAction("oneMonth")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneMonth">20 Ngày</label>
+
+                                    <input type="radio" class="btn-check" name="btnSummaryPeriodRadio"
+                                        id="btnSummaryPeriodOneYearToDate" autocomplete="off"
+                                        onclick='window.summaryJS.changePeriodAction("yearToDate")'>
+                                    <label class="btn btn-primary btn-sm" for="btnSummaryPeriodOneYearToDate">Đến Hiện
+                                        Tại</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <div class="badge bg-out-of-date card-header margin-5 breadcrumb-title pading-left-22"
+                                id='showSummaryTitle'>Tổng Hợp Tổ Chức Trong Nước & Khối Ngoại Mua Ròng</div>
+                        </div>
+                        <div class="col margin-5">
+                            <button type="button" class="btn btn-success btn-sm bold"
+                                onclick='window.summaryJS.refreshSummaryData()'>Tải dữ liệu mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div id='showSummaryLoading' class="d-flex justify-content-center" style="display: none !important;">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="loadingTitle">Đang tải dữ liệu...</span>
+                </div>
+                <div id='showSummaryData' class="table-responsive"></div>
+            </div>
+        </div>
+    </main>
+    <footer-component></footer-component>
+    <script src="../src/js/sw.js"></script>
+    <script src="../src/js/lib/jquery.min.js"></script>
+    <script src="../src/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/lib/bootstrap-slider.min.js"></script>
+    <script src="../src/js/lib/charting_library.min.js"></script>
+    <script src="../src/js/lib/socket.io.js"></script>
+    <script src="../src/js/lib/lz-string.min.js"></script>
+    <script src="../src/js/lib/virtual-select.min.js"></script>
+    <script src="../src/js/lib/jquery.tablednd.js"></script>
+    <script src="../src/js/bundles/stocksData.bundle.js"></script>
+    <script src="../src/js/bundles/variables.bundle.js"></script>
+    <script src="../src/js/bundles/common.bundle.js"></script>
+    <script src="../src/js/bundles/mobile.bundle.js"></script>
+    <script src="../src/js/bundles/summary.bundle.js"></script>
+    <script src="../src/js/bundles/websocket.bundle.js"></script>
+    <script src="../src/js/bundles/timeServer.bundle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TG8J409TWG');
+    </script>
+</body>
+
+</html>

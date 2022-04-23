@@ -1,4 +1,4 @@
-$(document).on("contextmenu", function (e) {        
+$(document).on("contextmenu", function (e) {
     e.preventDefault();
 });
 
@@ -19,7 +19,7 @@ $(document).keydown(function (event) {
     }
 });
 
-document.addEventListener("DOMContentLoaded", function(e) { 
+document.addEventListener("DOMContentLoaded", function (e) {
     $(".filter-title,.filter-title-default").click(function () {
         var $input = $(this);
         var prevElement = $input.prev().find("input");
@@ -45,10 +45,31 @@ document.addEventListener("DOMContentLoaded", function(e) {
     $(document).on("click", ".nav-link", function () {
         $('.popover').popover('hide');
     });
+    for (const element of document.getElementsByClassName("menu-item-custom")){
+        element.classList.remove("active");
+    }
+    var url = window.location.href;
+    let itemName = "thong-ke-to-chuc";
+    if (url.indexOf("thong-ke-tong-hop") > -1) {
+        itemName = "thong-ke-tong-hop";
+    } else if (url.indexOf("thong-ke-theo-nganh") > -1) {
+        itemName = "thong-ke-theo-nganh";
+    } else if (url.indexOf("loc-co-phieu") > -1) {
+        itemName = "loc-co-phieu";
+    } else if (url.indexOf("phan-tich-ky-thuat-co-phieu") > -1) {
+        itemName = "phan-tich-ky-thuat-co-phieu";
+    } else if (url.indexOf("dinh-gia-co-phieu") > -1) {
+        itemName = "dinh-gia-co-phieu";
+    } else if (url.indexOf("bang-gia-co-phieu") > -1) {
+        itemName = "bang-gia-co-phieu";
+    }
+    for (const item of document.getElementsByClassName(itemName)){
+        item.classList.add("active");
+    }
 });
 
 window.commonJS = {
-    fetchContentByUrl :  function (url) {
+    fetchContentByUrl: function (url) {
         return new Promise((resolve, reject) => {
             window.fetch(url,
                 {
@@ -65,8 +86,8 @@ window.commonJS = {
             });
         });
     },
-    
-    fetchContentByUrlWithCORSProxy :  function (url, method, body) {
+
+    fetchContentByUrlWithCORSProxy: function (url, method, body) {
         return new Promise((resolve, reject) => {
             if (method === "GET") {
                 fetch(`${window.apiUrlDefined.CORS_PROXY_URL}/${url}`)
@@ -81,7 +102,7 @@ window.commonJS = {
                     });
             } else {
                 fetch(`${window.apiUrlDefined.CORS_PROXY_URL}/${url}`, {
-                    method: 'POST', 
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -99,14 +120,14 @@ window.commonJS = {
             }
         });
     },
-    
-    getDateInput :  function (date) {
+
+    getDateInput: function (date) {
         const dateInput = new Date(date);
         var dateInputStr = `${dateInput.getFullYear()}_${("0" + (dateInput.getMonth() + 1)).slice(-2)}_${("0" + dateInput.getDate()).slice(-2)}`;
         return dateInputStr;
     },
-    
-    checkUrlExists :  function (fileName) {
+
+    checkUrlExists: function (fileName) {
         var http = new XMLHttpRequest();
         http.open('HEAD', getRequestUrl(fileName), false);
         http.send();
@@ -115,8 +136,8 @@ window.commonJS = {
         else
             return false;
     },
-    
-    getFirstItemData :  function (date) {
+
+    getFirstItemData: function (date) {
         var res = null;
         var url = window.commonJS.getUrlPreviousElementByDate(date);
         if (url === "") return res;
@@ -131,13 +152,13 @@ window.commonJS = {
         });
         return res;
     },
-    
-    addCell :  function (tr, cellData) {
+
+    addCell: function (tr, cellData) {
         var tabCell = tr.insertCell(-1);
         tabCell.innerHTML = cellData;
     },
-    
-    getPositionIcon :  function (prvPosition, currentPosition) {
+
+    getPositionIcon: function (prvPosition, currentPosition) {
         var iconString = "<span class='reference'> &#8722;</span>";
         if (currentPosition < prvPosition) {
             iconString = "<span class='up'> &#8593;(" + Number(prvPosition + 1) + ")</span>";
@@ -146,32 +167,32 @@ window.commonJS = {
         }
         return iconString;
     },
-    
-    getColumnName :  function () {
+
+    getColumnName: function () {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             return window.variablesJS.TOTAL_NET_BUY_TRADE_VALUE;
         } else {
             return window.variablesJS.FOREIGN_NET_BUY_VALUE;
         }
     },
-    
-    getVolumeColumnName :  function () {
+
+    getVolumeColumnName: function () {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             return window.variablesJS.TOTAL_NET_BUY_TRADE_VOLUME;
         } else {
             return "";
         }
     },
-    
-    getVolatilityValue :  function (data) {
+
+    getVolatilityValue: function (data) {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             return Intl.NumberFormat(window.variablesJS.numberLocale).format(data["totalBuyTradeValue"] - data["totalSellTradeValue"]);
         } else {
             return Intl.NumberFormat(window.variablesJS.numberLocale).format(data["foreignBuyValue"] - data["foreignSellValue"]);
         }
     },
-    
-    getNetTradeValueColumn :  function () {
+
+    getNetTradeValueColumn: function () {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             if (window.variablesJS.actionDefault === "netBuy") {
                 return window.variablesJS.TOTAL_NET_BUY_TRADE_VALUE;
@@ -187,7 +208,7 @@ window.commonJS = {
         }
     },
 
-    getNetTradeValueColumnByActionValue :  function (action) {
+    getNetTradeValueColumnByActionValue: function (action) {
         if (window.variablesJS.typeDefault === "selfBusiness") {
             if (action === "netBuy") {
                 return window.variablesJS.TOTAL_NET_BUY_TRADE_VALUE;
@@ -203,44 +224,44 @@ window.commonJS = {
         }
     },
 
-    getUrlPreviousElementByDate :  function (date) {
+    getUrlPreviousElementByDate: function (date) {
         var fileName = `${window.commonJS.getDateInput(date)}.json`;
         var index = window.variablesJS.mappingDataJson.findIndex(x => x.name === fileName);
         if (index <= 0) return "";
         return window.variablesJS.mappingDataJson[index + 1].url;
     },
-    
-    showLoading : function (elementId) {
+
+    showLoading: function (elementId) {
         var loadingElement = document.getElementById(elementId);
         loadingElement.style.display = "block";
     },
-    
-    hideLoading :  function (elementId) {
+
+    hideLoading: function (elementId) {
         var loadingElement = document.getElementById(elementId);
         loadingElement.style.setProperty("display", "none", "important");
     },
-    
-    getClassByValue :  function (value) {
+
+    getClassByValue: function (value) {
         return value > 0 ? "up" : value < 0 ? "down" : "reference";
     },
-    
-    showTickerInfor :  function (code) {
+
+    showTickerInfor: function (code) {
         window.variablesJS.currentTicker = code;
         var loadingHTML = window.commonJS.getLoadingHTML();
-        $("#btn-modal-action").attr("onclick","window.commonJS.refreshTickerDetailData()");
+        $("#btn-modal-action").attr("onclick", "window.commonJS.refreshTickerDetailData()");
         $("#detailModalLabel").html(code);
         $("#detailModalContent").html(loadingHTML);
         window.commonJS.processTickerData(code);
         $("#detailModal").modal('show');
     },
-    
-    processTickerData :  function (code) {
+
+    processTickerData: function (code) {
         var currentDate = new Date();
         var prvDate = new Date();
         prvDate.setMonth(prvDate.getMonth() - 3);
         var toDate = `${currentDate.getFullYear()}-${("0" + (currentDate.getMonth() + 1)).slice(-2)}-${("0" + currentDate.getDate()).slice(-2)}`;
         var fromDate = `${prvDate.getFullYear()}-${("0" + (prvDate.getMonth() + 1)).slice(-2)}-${("0" + prvDate.getDate()).slice(-2)}`;
-    
+
         var RECOMMENDATIONS_URL = encodeURIComponent(`${window.apiUrlDefined.FIALDA_API_V2_URL}${window.apiUrlDefined.FIALDA_GET_REPORT_PATH}?fromDate=${fromDate}&toDate=${toDate}&symbols=${code}`);
         var STOCK_INFO_URL = encodeURIComponent(`${window.apiUrlDefined.FIALDA_API_V1_URL}${window.apiUrlDefined.FIALDA_GET_STOCK_INFO_PATH}`);
         Promise.all([
@@ -258,8 +279,8 @@ window.commonJS = {
             console.error(err);
         });
     },
-    
-    drawRecommendationsDataToHTML :  function (data, code) {
+
+    drawRecommendationsDataToHTML: function (data, code) {
         var res = "";
         var recommendationsData = data[0];
         var tickerData = data[1];
@@ -360,8 +381,8 @@ window.commonJS = {
                 </div>`;
         return res;
     },
-    
-    getLoadingHTML :  function () {
+
+    getLoadingHTML: function () {
         return `<div class="d-flex justify-content-center">
                     <div class="spinner-border text-success" role="status">
                         <span class="visually-hidden">Loading...</span>
@@ -369,8 +390,8 @@ window.commonJS = {
                     <span class="loadingTitle">Đang tải dữ liệu...</span>
                 </div>`;
     },
-    
-    getSelectionFieldsHTML :  function (id) {
+
+    getSelectionFieldsHTML: function (id) {
         var res = `<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="${id}">
                         <option value="null" selected>Tất cả ngành</option>`;
         window.fieldsDataGlobal.forEach(field => {
@@ -379,18 +400,18 @@ window.commonJS = {
         res += "</select>";
         return res;
     },
-    
-    refreshTickerDetailData :  function () {
+
+    refreshTickerDetailData: function () {
         var loadingHTML = window.commonJS.getLoadingHTML();
         $("#detailModalContent").html(loadingHTML);
         window.commonJS.processTickerData(window.variablesJS.currentTicker);
     },
-    
-    loadSynthesisData :  function () {
+
+    loadSynthesisData: function () {
         window.summaryJS.initSummaryData();
     },
-    
-    initTooltips :  function () {
+
+    initTooltips: function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -405,8 +426,8 @@ window.commonJS = {
             $('.tooltip').not(this).remove();
         });
     },
-    
-    loadDividendNews :  function (code) {
+
+    loadDividendNews: function (code) {
         $("#dividendContent").html(`</br>${window.commonJS.getLoadingHTML()}`);
         var contents = "";
         var FIALDA_STOCK_CASH_DIVIDEND_EVENT_URL = encodeURIComponent(`${window.apiUrlDefined.FIALDA_API_V2_URL}${window.apiUrlDefined.FIALDA_STOCK_EVENT_PATH}?typeId=13&symbol=${code}&pageNumber=1&pageSize=1000&sortColumn=exrightDate&isDesc=true`);
@@ -460,8 +481,8 @@ window.commonJS = {
             $("#dividendContent").html("Có lỗi khi tải dữ liệu. Vui lòng thử lại sau!");
         });
     },
-    
-    loadVolatilityData :  function (code) {
+
+    loadVolatilityData: function (code) {
         $("#volatilityContent").html(`</br>${window.commonJS.getLoadingHTML()}`);
         var contents = `<table class="table table-bordered table-responsive">
                                 <thead class="table-light">
@@ -516,8 +537,8 @@ window.commonJS = {
             });
         }, 100);
     },
-    
-    loadNews :  function (code) {
+
+    loadNews: function (code) {
         var loadingHTML = window.commonJS.getLoadingHTML();
         $("#newsContent").html(`</br>${loadingHTML}`);
         setTimeout(() => {
@@ -562,41 +583,41 @@ window.commonJS = {
             });
         }, 100);
     },
-    
-    viewArticleDetail :  function (id) {
+
+    viewArticleDetail: function (id) {
         window.open(`news.html?id=${id}`, '_blank');
     },
-    
-    getValueByCandleStickType : function (value, type) {
+
+    getValueByCandleStickType: function (value, type) {
         return value.replaceAll("$$", type);
     },
-    
-    showDisconnectionMessageToast : function () {
+
+    showDisconnectionMessageToast: function () {
         var disconnectionMessageToast = $("#disconnectionMessageToast");
         if (disconnectionMessageToast.css("display") !== "block") {
             disconnectionMessageToast.toast({
                 autohide: false
-            }).show(); 
+            }).show();
         }
     },
-    
-    reconnectWS :  function () {
+
+    reconnectWS: function () {
         window.webSocketConfigs.liveboard.Result = -1;
         window.webSocketApp.initWebsocket();
         window.timeServerJS.StartWS();
         window.commonJS.hideDisconnectionMessageToast();
     },
-    
-    hideDisconnectionMessageToast :  function () {
+
+    hideDisconnectionMessageToast: function () {
         var disconnectionMessageToast = $("#disconnectionMessageToast");
         disconnectionMessageToast.toast().hide();
     },
-    
-    initSymbolAutocomple :  function (id) {
+
+    initSymbolAutocomple: function (id) {
         var data = window.stockData.map(x => {
-            let obj = {}; 
-            obj["label"] = `${x.symbol} - ${x.name} - ${x.exchange}`; 
-            obj["value"] = x.symbol; 
+            let obj = {};
+            obj["label"] = `${x.symbol} - ${x.name} - ${x.exchange}`;
+            obj["value"] = x.symbol;
             return obj;
         });
         VirtualSelect.init({
@@ -605,7 +626,7 @@ window.commonJS = {
             multiple: false,
             search: true,
             placeholder: 'Nhập mã cổ phiếu...',
-            searchPlaceholderText: 'Tìm kiếm mã cổ phiếu...', 
+            searchPlaceholderText: 'Tìm kiếm mã cổ phiếu...',
             noSearchResultsTex: 'Không tìm thấy Mã',
             selectAllText: 'Chọn tất cả',
             optionSelectedText: 'mã được chọn',
@@ -615,14 +636,14 @@ window.commonJS = {
             dropboxWidth: "600px",
             maxValue: 10,
             optionsCount: 8
-          });
+        });
     },
-    
-    initIndustriesAutocomple : function (id, dataSource, actionFunction) {
+
+    initIndustriesAutocomple: function (id, dataSource, actionFunction) {
         var data = dataSource.map(x => {
-            let obj = {}; 
-            obj["label"] = `${x}`; 
-            obj["value"] = x.toLocaleLowerCase(); 
+            let obj = {};
+            obj["label"] = `${x}`;
+            obj["value"] = x.toLocaleLowerCase();
             return obj;
         });
         VirtualSelect.init({
@@ -632,7 +653,7 @@ window.commonJS = {
             search: true,
             selectedValue: data.map(x => x.value),
             placeholder: 'Chọn ngành cần lọc...',
-            searchPlaceholderText: 'Tìm kiếm ngành cần lọc...', 
+            searchPlaceholderText: 'Tìm kiếm ngành cần lọc...',
             noSearchResultsTex: 'Không tìm thấy Ngành',
             selectAllText: 'Chọn tất cả',
             optionSelectedText: 'ngành được chọn',
@@ -644,21 +665,21 @@ window.commonJS = {
             optionsCount: 8
         });
         if (actionFunction) {
-            $(`#${id}`).change(function() {
+            $(`#${id}`).change(function () {
                 actionFunction(this.value)
             });
         }
     },
-    
-    getSymbolInfor : function (symbol) {
+
+    getSymbolInfor: function (symbol) {
         var symbolInfo = {}
         symbolInfo = window.stockData.find(x => x.symbol === symbol);
         symbolInfo.icbName = window.fieldsDataGlobal.find(x => x.icbCode === symbolInfo.icbCode).icbName;
         return symbolInfo;
     },
-    
-    
-    getTotalItems : function (val1, val2) {
+
+
+    getTotalItems: function (val1, val2) {
         let total = 0;
         if (val1 !== null && val1 > 0) {
             total += 1;
@@ -668,8 +689,8 @@ window.commonJS = {
         }
         return total;
     },
-    
-    getIcbNameBySymbol : function (symbol) {
+
+    getIcbNameBySymbol: function (symbol) {
         var symbolInfo = window.stockData.find(x => x.symbol.toLowerCase() === symbol.toLowerCase());
         if (symbolInfo) {
             var icbInfo = window.fieldsDataGlobal.find(x => x.icbCode === symbolInfo.icbCode)
@@ -679,32 +700,32 @@ window.commonJS = {
         }
         return "N/A";
     },
-    
-    initIndustriesSelectionPopover : function (id) {
+
+    initIndustriesSelectionPopover: function (id) {
         $(`#${id}`).popover({
             html: true,
             placement: 'top',
-            title : '<span class="font-weight-bold">Lọc theo ngành</span> <a href="javascript:void(0)" class="close popover-close-btn" data-dismiss="alert" type="button"><i class="vscomp-clear-icon"></i></a>',
-            content: function() {
+            title: '<span class="font-weight-bold">Lọc theo ngành</span> <a href="javascript:void(0)" class="close popover-close-btn" data-dismiss="alert" type="button"><i class="vscomp-clear-icon"></i></a>',
+            content: function () {
                 return `<div id="symbol-name-${id}-autocomplete"></div>`;
             }
         });
         $(`#${id}`).on("click", () => {
             var checkExist = $(`#symbol-name-${id}-autocomplete`);
-            if (checkExist != null && typeof(checkExist) !== undefined && checkExist.val() !== "") {
+            if (checkExist != null && typeof (checkExist) !== undefined && checkExist.val() !== "") {
                 return;
             }
-            var industriesData = $(`#table-${id} tr`).map(function() { return $(this).find("td:eq(2)").text()});
+            var industriesData = $(`#table-${id} tr`).map(function () { return $(this).find("td:eq(2)").text() });
             const dataSource = Array.from(new Set(industriesData));
             window.commonJS.initIndustriesAutocomple(`symbol-name-${id}-autocomplete`, dataSource, (values) => {
-                $(`#table-${id} tr`).filter(function() {
+                $(`#table-${id} tr`).filter(function () {
                     $(this).toggle(values.indexOf($(this).find("td:eq(2)").text().toLowerCase()) > -1)
                 });
             });
         })
     },
 
-    closePopover : function () {
+    closePopover: function () {
         $('.popover').popover('hide');
     }
 }

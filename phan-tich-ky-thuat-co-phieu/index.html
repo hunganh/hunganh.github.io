@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <title>.::NhaDauTu198x::. - Phân tích kỹ thuật cổ phiếu.</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="NhaDauTu198x - Phân tích kỹ thuật cổ phiếu." />
+    <meta name="keywords" content="Phân tích kỹ thuật, Phân tích kỹ thuật cổ phiếu">
+    <meta http-equiv="Content-Type" content="text / html; charset = utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow">
+    <meta property="og: type" content="article" />
+    <meta property="og:title" content="NhaDauTu198x - Phân tích kỹ thuật cổ phiếu.">
+    <meta property="og:description" content="NhaDauTu198x - Phân tích kỹ thuật cổ phiếu.">
+    <meta property="og:image" content="https://www.nhadautu198x.com/src/images/phan-tich-ky-thuat-co-phieu.PNG">
+    <meta property="og:url" content="https://www.nhadautu198x.com/phan-tich-ky-thuat-co-phieu">
+    <meta property="og: site_name" content="nhadautu198x.com" />
+    <meta name="twitter:card" content="nhadautu198x.com/phan-tich-ky-thuat-co-phieu">
+    <meta property="twitter:title" content="NhaDauTu198x - Phân tích kỹ thuật cổ phiếu.">
+    <meta property="twitter:description" content="NhaDauTu198x - Phân tích kỹ thuật cổ phiếu.">
+    <meta name="google-site-verification" content="jGEL6codV2Z_FYcz8o1CpVpjFZtoKbvdUe_RFVAT5qs" />
+    <link rel="icon" href="../src/images/logo.svg" sizes="any" type="image/svg+xml">
+    <link rel="stylesheet" type="text/css" href="../src/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/mobile.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../src/css/bootstrap-slider.css">
+    <link rel="stylesheet" href="../src/css/virtual-select.min.css" />
+    <script src="../src/js/header.js" type="text/javascript" defer></script>
+    <script src="../src/js/footer.js" type="text/javascript" defer></script>
+</head>
+
+<body>
+    <header-component></header-component>
+    <main>
+        <div class="tab-content" style="overflow-x: hidden;">
+            <div class="technical-analysis">
+                <div class="card">
+                    <div class="card-header card-criteria">
+                        <span>Tiêu Chí PT Kỹ Thuật</span>
+                        <button type="button" class="btn btn-success btn-sm bold"
+                            onclick='window.chartsJS.technicalAnalysics()' style="float: right;">ÁP DỤNG</button>
+                    </div>
+                    <div class="card-body filter-group">
+                        <div class="accordion" id="accordionTAChart">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingExchangeChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExchangeChart" aria-expanded="false"
+                                        aria-controls="collapseExchangeChart">
+                                        Sàn CK + Ngành
+                                    </button>
+                                </h2>
+                                <div id="collapseExchangeChart" class="accordion-collapse collapse"
+                                    aria-labelledby="headingExchangeChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="btn-group" role="group"
+                                            aria-label="Basic checkbox toggle button group">
+                                            <input type="checkbox" class="btn-check" id="btnFilterHSXChartOption"
+                                                autocomplete="off" checked value="HSX">
+                                            <label class="btn btn-outline-primary btn-sm"
+                                                for="btnFilterHSXChartOption">HSX</label>
+                                            <input type="checkbox" class="btn-check" id="btnFilterHNXChartOption"
+                                                autocomplete="off" checked value="HNX">
+                                            <label class="btn btn-outline-primary btn-sm"
+                                                for="btnFilterHNXChartOption">HNX</label>
+                                            <input type="checkbox" class="btn-check" id="btnFilterUPCChartOption"
+                                                autocomplete="off" checked value="UPCOM">
+                                            <label class="btn btn-outline-primary btn-sm"
+                                                for="btnFilterUPCChartOption">UPCOM</label>
+                                        </div>
+                                        <p></p>
+                                        <div id="chart-fields-selection">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingCandleStickChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseCandleStickChart" aria-expanded="false"
+                                        aria-controls="collapseCandleStickChart">
+                                        Loại Nến
+                                    </button>
+                                </h2>
+                                <div id="collapseCandleStickChart" class="accordion-collapse collapse"
+                                    aria-labelledby="headingCandleStickChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="btn-group" role="group"
+                                            aria-label="Basic checkbox toggle button group">
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter15mOption"
+                                                    name="btnCandleStickTAOption" value="_15m">
+                                                <label class="form-check-label" for="btnFilter15mOption">15 phút</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter1hOption"
+                                                    name="btnCandleStickTAOption" value="Hourly">
+                                                <label class="form-check-label" for="btnFilter1hOption">1 giờ</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter1dOption"
+                                                    name="btnCandleStickTAOption" checked value="Daily">
+                                                <label class="form-check-label" for="btnFilter1dOption">1 ngày</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="radio" class="form-check-input" id="btnFilter1wOption"
+                                                    name="btnCandleStickTAOption" value="Weekly">
+                                                <label class="form-check-label" for="btnFilter1wOption">1 tuần</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSMAChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseSMAChart" aria-expanded="false"
+                                        aria-controls="collapseSMAChart">
+                                        Đường Trung Bình Đơn Giản (SMA)
+                                    </button>
+                                </h2>
+                                <div id="collapseSMAChart" class="accordion-collapse collapse collapse-custom"
+                                    aria-labelledby="headingSMAChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA20UpChartOption" type="checkbox"
+                                                    value="ClimbUp_SMA20_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên đường
+                                                SMA20</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA50UpChartOption" type="checkbox"
+                                                    value="ClimbUp_SMA50_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên đường
+                                                SMA50</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA200UpChartOption" type="checkbox"
+                                                    value="ClimbUp_SMA200_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên đường
+                                                SMA200</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA20DownChartOption" type="checkbox"
+                                                    value="ClimbDown_SMA20_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống đường
+                                                SMA20</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA50DownChartOption" type="checkbox"
+                                                    value="ClimbDown_SMA50_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống đường
+                                                SMA50</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA200DownChartOption" type="checkbox"
+                                                    value="ClimbDown_SMA200_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống đường
+                                                SMA200</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA20UpSMA50ChartOption" type="checkbox"
+                                                    value="BreakUpperBound_SMA20vsSMA50_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">SMA20 cắt lên trên
+                                                SMA50</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA50UpSMA200ChartOption" type="checkbox"
+                                                    value="BreakUpperBound_SMA50vsSMA200_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">SMA50 cắt lên trên
+                                                SMA200</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA20DownSMA50ChartOption" type="checkbox"
+                                                    value="BreakLowerBound_SMA20vsSMA50_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">SMA20 cắt xuống dưới
+                                                SMA50</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA50DownSMA200ChartOption" type="checkbox"
+                                                    value="BreakLowerBound_SMA50vsSMA200_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">SMA50 cắt xuống dưới
+                                                SMA200</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA20CompareSMA50ChartOption" type="checkbox"
+                                                    value="SMA20vsSMA50_$$">
+                                            </div>
+                                            <select class="form-select form-select-sm selection-title"
+                                                id="btnFilterSMA20CompareSMA50ChartSelection">
+                                                <option value=">">SMA20 > SMA50</option>
+                                                <option value="=">SMA20 = SMA50</option>
+                                                <option value="<">SMA20 < SMA50</option>
+                                            </select>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterSMA50CompareSMA200ChartOption" type="checkbox"
+                                                    value="SMA50vsSMA200_$$">
+                                            </div>
+                                            <select class="form-select form-select-sm selection-title"
+                                                id="btnFilterSMA50CompareSMA200ChartSelection">
+                                                <option value=">">SMA50 > SMA200</option>
+                                                <option value="=">SMA50 = SMA200</option>
+                                                <option value="<">SMA50 < SMA200</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingIchimokuChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseIchimokuChart" aria-expanded="false"
+                                        aria-controls="collapseIchimokuChart">
+                                        ICHIMOKU
+                                    </button>
+                                </h2>
+                                <div id="collapseIchimokuChart" class="accordion-collapse collapse collapse-custom"
+                                    aria-labelledby="headingIchimokuChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterTenkanUpChartOption" type="checkbox"
+                                                    value="BreakUpperBound_Tenkan_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên trên
+                                                Tenkan(9)</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterKijunUpChartOption" type="checkbox"
+                                                    value="BreakUpperBound_Kijun_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên trên
+                                                Kijun(26)</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterCloudUpChartOption" type="checkbox"
+                                                    value="BreakUpperBound_Cloud_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt lên trên
+                                                Cloud(52)</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterTenkanDownChartOption" type="checkbox"
+                                                    value="BreakLowerBound_Tenkan_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống dưới
+                                                Tenkan(9)</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterKijunDownChartOption" type="checkbox"
+                                                    value="BreakLowerBound_Kijun_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống dưới
+                                                Kijun(26)</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterCloudDownChartOption" type="checkbox"
+                                                    value="BreakLowerBound_Cloud_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá cắt xuống dưới
+                                                Cloud(52)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingMACDChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseMACDChart" aria-expanded="false"
+                                        aria-controls="collapseMACDChart">
+                                        MACD
+                                    </button>
+                                </h2>
+                                <div id="collapseMACDChart" class="accordion-collapse collapse collapse-custom"
+                                    aria-labelledby="headingMACDChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterMACDUpChartOption" type="checkbox"
+                                                    value="BreakUpperBound_MACDvsSignal_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">MACD cắt lên đường Tín
+                                                hiệu</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterMACDDownChartOption" type="checkbox"
+                                                    value="BreakLowerBound_MACDvsSignal_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">MACD cắt xuống đường Tín
+                                                hiệu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRSIChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseRSIChart" aria-expanded="false"
+                                        aria-controls="collapseRSIChart">
+                                        RSI14
+                                    </button>
+                                </h2>
+                                <div id="collapseRSIChart" class="accordion-collapse collapse collapse-custom"
+                                    aria-labelledby="headingRSIChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterRSIOverBuyChartOption" type="checkbox"
+                                                    value="BreakUpperBound_RSI14_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">RSI14 quá mua</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterRSIOverSellChartOption" type="checkbox"
+                                                    value="BreakLowerBound_RSI14_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">RSI14 quá bán</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group mb-3" style="margin-bottom: unset !important;">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterRSIRangeValueChartOption" type="checkbox"
+                                                    value="RSI14_$$_T0_Values">
+                                            </div>
+                                            <select class="form-select form-select-sm selection-title"
+                                                id="btnFilterRSIRangeValueChartOptionSelection">
+                                                <option value="RSI14_$$_T0_Values_Less_30">RSI14 < 30</option>
+                                                <option value="RSI14_$$_T0_Values_Less_40">RSI14 < 40</option>
+                                                <option value="RSI14_$$_T0_Values_Less_60">RSI14 < 60</option>
+                                                <option value="RSI14_$$_T0_Values_Less_70">RSI14 < 70</option>
+                                                <option value="RSI14_$$_T0_Values_Equal_30">RSI14 = 30</option>
+                                                <option value="RSI14_$$_T0_Values_40">RSI14 = 40</option>
+                                                <option value="RSI14_$$_T0_Values_60">RSI14 = 60</option>
+                                                <option value="RSI14_$$_T0_Values_70">RSI14 = 70</option>
+                                                <option value="RSI14_$$_T0_Values_Greater_30">RSI14 > 30</option>
+                                                <option value="RSI14_$$_T0_Values_Greater_40">RSI14 > 40</option>
+                                                <option value="RSI14_$$_T0_Values_Greater_60">RSI14 > 60</option>
+                                                <option value="RSI14_$$_T0_Values_Greater_70">RSI14 > 70</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingBollingerBandChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseBollingerBandChart" aria-expanded="false"
+                                        aria-controls="collapseBollingerBandChart">
+                                        Bollinger Band (20,2)
+                                    </button>
+                                </h2>
+                                <div id="collapseBollingerBandChart" class="accordion-collapse collapse"
+                                    aria-labelledby="headingBollingerBandChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterBollingerUpperBandChartOption" type="checkbox"
+                                                    value="BreakUpperBound_UpperBands_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá vượt biên
+                                                trên</span>
+                                        </div>
+                                        <div class="separation"></div>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter"
+                                                    id="btnFilterBollingerLowerBandChartOption" type="checkbox"
+                                                    value="BreakLowerBound_LowerBands_$$">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Giá thủng biên
+                                                dưới</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNewOptionChart">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseNewOptionChart" aria-expanded="false"
+                                        aria-controls="collapseNewOptionChart">
+                                        Thông số khác
+                                    </button>
+                                </h2>
+                                <div id="collapseNewOptionChart" class="accordion-collapse collapse"
+                                    aria-labelledby="headingNewOptionChart" data-bs-parent="#accordionTAChart">
+                                    <div class="accordion-body">
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0 ckFilter" id="btnChartOverTop"
+                                                    type="checkbox" value="IsPeakOfTimes">
+                                            </div>
+                                            <span class="input-group-text filter-title-default">Vượt đỉnh mọi thời
+                                                đại</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="grid-container" style="white-space: inherit !important;">
+                            <div id='showTechnicalAnalysisContent' class="table-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-content">
+                <div class="grid-container chartContainer"
+                    style="transition: opacity 0.5s ease 0s; opacity: 1; position: relative;">
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer-component></footer-component>
+    <script src="../src/js/sw.js"></script>
+    <script src="../src/js/lib/jquery.min.js"></script>
+    <script src="../src/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/lib/bootstrap-slider.min.js"></script>
+    <script src="../src/js/lib/charting_library.min.js"></script>
+    <script src="../src/js/lib/socket.io.js"></script>
+    <script src="../src/js/lib/lz-string.min.js"></script>
+    <script src="../src/js/lib/virtual-select.min.js"></script>
+    <script src="../src/js/lib/jquery.tablednd.js"></script>
+    <script src="../src/js/bundles/stocksData.bundle.js"></script>
+    <script src="../src/js/bundles/variables.bundle.js"></script>
+    <script src="../src/js/bundles/common.bundle.js"></script>
+    <script src="../src/js/bundles/mobile.bundle.js"></script>
+    <script src="../src/js/bundles/charts.bundle.js"></script>
+    <script src="../src/js/bundles/websocket.bundle.js"></script>
+    <script src="../src/js/bundles/timeServer.bundle.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TG8J409TWG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-TG8J409TWG');
+    </script>
+</body>
+
+</html>

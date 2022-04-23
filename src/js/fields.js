@@ -213,3 +213,7 @@ window.fieldsJS = {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function(e) { 
+    window.fieldsJS.refreshFieldsData();
+});
+

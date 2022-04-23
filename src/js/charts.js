@@ -250,7 +250,9 @@ window.chartsJS = {
                 type = "1W";
             }
             var height = $(window).height() - 50;
-            var charts = `<iframe id="ifrTACharts" src="tv-chart.html?symbol=${symbol}&allowFullscreen=true&resolution=${type}&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height:${height}px"></iframe>`;
+            var url = window.location.href;
+            var iframePage = url.indexOf("phan-tich-ky-thuat-co-phieu") > -1 ? "../tv-chart.html" : "tv-chart.html";
+            var charts = `<iframe id="ifrTACharts" src="${iframePage}?symbol=${symbol}&allowFullscreen=true&resolution=${type}&lang=vi" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen="" style="display: block; width: 100%; height:${height}px"></iframe>`;
             
             $(".chartContainer").html(charts);
         }, 500);
@@ -268,4 +270,6 @@ document.addEventListener("DOMContentLoaded", function(e) {
     $("#accordionTAChart").click(function() {
         window.chartsJS.setTATableHeight();
     });
+    window.chartsJS.technicalAnalysics();
 });
+
