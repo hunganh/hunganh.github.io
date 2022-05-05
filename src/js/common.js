@@ -585,7 +585,7 @@ window.commonJS = {
     },
 
     viewArticleDetail: function (id) {
-        window.open(`news.html?id=${id}`, '_blank');
+        window.open(`/news.html?id=${id}`, '_blank');
     },
 
     getValueByCandleStickType: function (value, type) {
