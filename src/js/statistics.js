@@ -184,7 +184,7 @@ window.statisticsJS = {
             window.variablesJS.divStatisticsTitle.classList.remove("bg-latest");
             window.variablesJS.divStatisticsTitle.classList.add("bg-out-of-date");
         }
-        window.variablesJS.divStatisticsTitle.innerHTML = "Thống Kê ".concat(window.variablesJS.typeDefault === "selfBusiness" ? "Tổ Chức Trong Nước " : "Khối Ngoại ", "Mua/Bán Ròng") + updateDateStr;
+        window.variablesJS.divStatisticsTitle.innerHTML = "Thống Kê ".concat(window.variablesJS.typeDefault === "selfBusiness" ? "Tự Doanh " : "Khối Ngoại ", "Mua/Bán Ròng") + updateDateStr;
         // Init Industries Filter Popover
         window.commonJS.closePopover();
         for (let i = 0; i < window.variablesJS.actions.length; i++) {
