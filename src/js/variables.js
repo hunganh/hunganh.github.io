@@ -13,7 +13,7 @@ window.variablesJS = {
     statisticsCols : ["order", "ticker", "valueChange", "totalNetBuyTradeValue", "priceChange", "percentPriceChange"],
     statisticsHeadTitle : ["#", "Mã CP", "Ngành <image class='tr-cursor filter-popover float-right' src='../src/images/filter.png' data-bs-toggle='popover' id='statistics-popover' alt='Ngành cần lọc'/>", "Tổng khối lượng", "Tổng giá trị", "Giá đóng cửa", "Thay đổi giá", "Giá vốn"],
     summaryHeadTitle : ["#", "Mã CP", "Ngành <image class='tr-cursor filter-popover float-right' src='../src/images/filter.png' data-bs-toggle='popover' id='summary-popover' alt='Ngành cần lọc'/>", "Giá đóng cửa", "Thay đổi giá", "% Thay đổi giá", "Giá vốn", "Giá trị", "Tổng giá trị"],
-    subSummaryHeadTitle : ["Tổ chức trong nước", "Khối ngoại"],
+    subSummaryHeadTitle : ["Tự doanh", "Khối ngoại"],
     defaultLocale : 'en-GB',
     numberLocale : 'en-US',
     FOREIGN_NET_BUY_VALUE : "foreignNetBuyValue",
