@@ -803,6 +803,7 @@ body .ico {
   left: auto !important;
   border-radius: 0 2px 2px 0 !important;
   padding-bottom: 1px !important;
+  bottom: 5px !important;
 }
 
 .font-14 {
